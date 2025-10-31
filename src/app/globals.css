@@ -156,74 +156,15 @@
     --sidebar-ring: oklch(0.439 0 0);
 }
 
-@layer components {
-    .auth-field-group {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3);
-    }
-
-    .auth-label {
-        display: block;
-        font-size: var(--text-sm);
-        font-weight: 500;
-        color: var(--color-auth-text-primary);
-        font-family: var(--font-manrope);
-        margin-bottom: var(--space-4);
-    }
-
-    .auth-input {
-        display: block;
-        width: 100%;
-        background-color: var(--color-auth-input-bg);
-        border: 1px solid var(--color-auth-input-border);
-        color: var(--color-auth-text-primary);
-        font-family: var(--font-rubik);
-        font-size: var(--text-md);
-        padding: var(--space-3) var(--space-4);
-        border-radius: var(--radius-lg);
-        transition: all var(--transition-base);
-    }
-
-    .auth-input::placeholder {
-        color: var(--color-auth-input-placeholder);
-    }
-
-    .auth-input:focus {
-        outline: none;
-        border-color: var(--color-auth-button-brand);
-        background-color: var(--color-auth-input-focus);
-    }
-
-    .auth-button {
-        display: block;
-        width: 100%;
-        background-color: var(--color-auth-button-brand);
-        color: var(--color-auth-text-primary);
-        font-weight: 600;
-        font-family: var(--font-manrope);
-        font-size: var(--text-lg);
-        padding: var(--space-4) var(--space-5);
-        border-radius: var(--radius-lg);
-        border: none;
-        cursor: pointer;
-        margin-top: var(--space-8);
-        transition: background-color var(--transition-base);
-    }
-
-    .auth-button:hover {
-        background-color: var(--color-auth-button-brand-hover);
-    }
-
-    .auth-button:active {
-        background-color: var(--color-auth-button-brand-active);
-    }
-}
 
 @layer utilities {
     /* Define reusable font family utility classes */
+    .font-brand {
+        font-family: var(--font-montserrat), sans-serif;
+    }
+
     .font-heading {
-        font-family: var(--font-montserrat), var(--font-raleway), sans-serif;
+        font-family: var(--font-raleway), sans-serif;
     }
 
     .font-body {
@@ -240,7 +181,7 @@
 
     /* Heading styles with appropriate fonts */
     .text-h1 {
-        font-family: var(--font-montserrat);
+        font-family: var(--font-raleway);
         font-size: 48px;
         font-weight: 700;
         line-height: 1.2;
@@ -280,6 +221,94 @@
         font-size: 12px;
         font-weight: 400;
         line-height: 1.4;
+    }
+
+    /* Auth theme utility classes - Policy Compliant */
+    .auth-bg-form {
+        background-color: var(--color-auth-bg-form);
+    }
+
+    .auth-bg-testimonial {
+        background-color: var(--color-auth-bg-testimonial);
+    }
+
+    .auth-bg-hover {
+        background-color: var(--color-auth-bg-hover);
+    }
+
+    .auth-text-primary {
+        color: var(--color-auth-text-primary);
+    }
+
+    .auth-text-secondary {
+        color: var(--color-auth-text-secondary);
+    }
+
+    .auth-text-muted {
+        color: var(--color-auth-text-muted);
+    }
+
+    .auth-text-error {
+        color: var(--color-auth-text-error);
+    }
+
+    .auth-input-bg {
+        background-color: var(--color-auth-input-bg);
+    }
+
+    .auth-input-border {
+        border-color: var(--color-auth-input-border);
+    }
+
+    .auth-input-focus {
+        border-color: var(--color-auth-button-brand);
+        background-color: var(--color-auth-input-focus);
+    }
+
+    .auth-input-placeholder {
+        color: var(--color-auth-input-placeholder);
+    }
+
+    .auth-button-brand {
+        background-color: var(--color-auth-button-brand);
+        color: var(--color-auth-text-primary);
+    }
+
+    .auth-button-brand-hover {
+        background-color: var(--color-auth-button-brand-hover);
+    }
+
+    .auth-button-brand-active {
+        background-color: var(--color-auth-button-brand-active);
+    }
+
+    .auth-button-secondary {
+        background-color: var(--color-auth-button-secondary);
+        color: var(--color-auth-text-primary);
+    }
+
+    .auth-button-secondary-hover {
+        background-color: var(--color-auth-button-secondary-hover);
+    }
+
+    .auth-border {
+        border-color: var(--color-auth-border);
+    }
+
+    .auth-border-light {
+        border-color: var(--color-auth-border-light);
+    }
+
+    .auth-success {
+        color: var(--color-auth-success);
+    }
+
+    .auth-warning {
+        color: var(--color-auth-warning);
+    }
+
+    .auth-info {
+        color: var(--color-auth-info);
     }
 }
 

@@ -1,52 +1,61 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { ThemeProvider } from '../../components/theme-provider'
+import type React from "react"
+import type { Metadata } from "next"
+import { Montserrat, Raleway, Rubik, Manrope, JetBrains_Mono, Montagu_Slab } from "next/font/google"
+import "./globals.css"
 
-const inter = Inter({ subsets: ['latin'] })
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-montserrat",
+})
+
+const raleway = Raleway({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-raleway",
+})
+
+const rubik = Rubik({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-rubik",
+})
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-manrope",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-jetbrains-mono",
+})
+
+const montaguSlab = Montagu_Slab({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-montagu-slab",
+})
 
 export const metadata: Metadata = {
-  title: 'JETT - AI Event Management Assistant',
-  description: 'AI-powered event management assistant for JUARA',
-}
-
-export const viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#242424' }
-  ],
+  title: "Jett - Auth",
+  description: "Jett Authentication",
+  generator: "v0.app",
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
-    <html lang="id" suppressHydrationWarning>
-      <head>
-        <script
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var theme = localStorage.getItem('jett-theme') || 'dark';
-                document.documentElement.classList.toggle('dark', theme === 'dark');
-              })();
-            `,
-          }}
-        />
-      </head>
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          storageKey="jett-theme"
-        >
-          {children}
-        </ThemeProvider>
-      </body>
+    <html
+      lang="en"
+      className={`${montserrat.variable} ${raleway.variable} ${rubik.variable} ${manrope.variable} ${jetbrainsMono.variable} ${montaguSlab.variable}`}
+    >
+      <body className={`font-rubik antialiased bg-[#0a0a0a]`}>{children}</body>
     </html>
   )
 }

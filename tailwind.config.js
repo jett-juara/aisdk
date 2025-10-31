@@ -130,7 +130,8 @@ module.exports = {
         sans: ["var(--font-rubik)", "var(--font-manrope)", "sans-serif"],
         serif: ["var(--font-montagu-slab)", "serif"],
         mono: ["var(--font-jetbrains-mono)", "monospace"],
-        heading: ["var(--font-montserrat)", "var(--font-raleway)", "sans-serif"],
+        brand: ["var(--font-montserrat)", "sans-serif"],
+        heading: ["var(--font-raleway)", "sans-serif"],
         body: ["var(--font-rubik)", "var(--font-manrope)", "sans-serif"],
       },
       transitionDuration: {

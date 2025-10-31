@@ -1,107 +1,132 @@
-"use client"
+import LoginForm from "@/components/auth/login-form";
+import TestimonialLogin from "@/components/auth/testimonial-login";
+import { Button } from "@/components/ui/button";
 
-import { useTheme } from 'next-themes'
-import { useState, useEffect } from 'react'
-
-export default function Home() {
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
+export default function AuthPage() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-background text-foreground">
-      <div className="max-w-2xl w-full space-y-8">
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold font-heading">
-            JETT - AI Event Management Assistant
-          </h1>
-          <p className="text-xl text-body">
-            Theme system test page
+    <div className="min-h-screen bg-auth-bg-form flex">
+      {/* Left Section - Form */}
+      <div
+        className="w-full md:w-2/5 flex flex-col justify-between px-8 md:px-16 py-12 md:py-16 bg-auth-bg-form"
+        style={{
+          paddingLeft: "64px",
+          paddingRight: "64px",
+          paddingTop: "16px",
+          paddingBottom: "48px",
+        }}
+      >
+        {/* Logo */}
+        <div className="flex items-center gap-2" style={{ gap: "8px" }}>
+          <div
+            className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+            style={{
+              borderRadius: "12px",
+              backgroundColor: "var(--color-auth-button-brand)"
+            }}
+          >
+            <svg
+              className="w-6 h-6"
+              style={{ color: "var(--color-auth-text-primary)" }}
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M11.3 1.046A1 1 0 0010 2v5H4a1 1 0 00-.82 1.573l7 10A1 1 0 0011 18v-5h6a1 1 0 00.82-1.573l-7-10a1 1 0 00-.68-.381z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+          <span
+            className="text-2xl font-brand font-bold"
+            style={{
+              fontSize: "22px",
+              color: "var(--color-auth-text-primary)"
+            }}
+          >
+            Jett
+          </span>
+        </div>
+
+        {/* Form Section */}
+        <div className="flex-1 flex flex-col justify-center">
+          <div className="mb-12" style={{ marginBottom: "48px" }}>
+            <h1
+              className="text-5xl font-bold mb-3 font-heading"
+              style={{
+                fontSize: "56px",
+                lineHeight: "1.2",
+                marginBottom: "16px",
+                color: "var(--color-auth-text-primary)"
+              }}
+            >
+              Selamat Datang
+            </h1>
+            <p
+              className="text-base font-body"
+              style={{
+                fontSize: "16px",
+                color: "var(--color-auth-text-muted)",
+              }}
+            >
+              Silakan masuk ke akun
+            </p>
+          </div>
+
+          <LoginForm />
+        </div>
+
+        {/* Footer */}
+        <div
+          className="text-center text-xs space-y-1 font-body"
+          style={{
+            fontSize: "12px",
+            color: "var(--color-auth-text-muted)"
+          }}
+        >
+          <p>
+            Dengan melanjutkan, Anda setuju dengan seluruh{" "}
+            <a
+              href="#"
+              className="text-[var(--color-auth-text-secondary)] hover:text-[var(--color-auth-text-primary)] underline transition-colors"
+            >
+              kebijakan layanan & privasi
+            </a>{" "}
+            dari JETT, serta menerima email pembaharuan berkala
           </p>
         </div>
+      </div>
 
-        <div className="auth-field-group max-w-md mx-auto">
-          <h2 className="text-h2 text-center mb-8">Authentication Theme Test</h2>
-
-          <div className="space-y-6">
-            <div>
-              <label className="auth-label">Email Address</label>
-              <input
-                type="email"
-                className="auth-input"
-                placeholder="Enter your email"
-              />
-            </div>
-
-            <div>
-              <label className="auth-label">Password</label>
-              <input
-                type="password"
-                className="auth-input"
-                placeholder="Enter your password"
-              />
-            </div>
-
-            <button className="auth-button">
-              Sign In
-            </button>
-          </div>
+      {/* Right Section - Testimonial */}
+      <div
+        className="hidden md:flex w-3/5 flex-col px-12 py-16 bg-auth-bg-testimonial"
+        style={{
+          paddingLeft: "48px",
+          paddingRight: "48px",
+          paddingTop: "16px",
+        }}
+      >
+        <div
+          className="flex justify-end"
+          style={{ marginBottom: "16px" }}
+        >
+          <Button
+            variant="outline"
+            className="gap-2 flex items-center font-body border-[var(--color-auth-border)] text-[var(--color-auth-text-secondary)] hover:text-[var(--color-auth-text-primary)] hover:border-[var(--color-auth-button-brand)] hover:bg-[var(--color-auth-button-secondary)] bg-transparent"
+            style={{ gap: "8px" }}
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm2 1a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V7zm8-1a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1V7zM5 13a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zm8-1a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1v-2z" />
+            </svg>
+            Company Profile
+          </Button>
         </div>
 
-        <div className="bg-card border border-border rounded-lg p-6 space-y-4">
-          <h3 className="text-lg font-semibold">Theme Information</h3>
-          <p>Current Theme: <span className="font-mono bg-muted px-2 py-1 rounded">{mounted ? theme : 'dark'}</span></p>
-          {mounted && (
-            <div className="flex gap-2 flex-wrap">
-              <button
-                onClick={() => setTheme('dark')}
-                className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
-              >
-                Dark Mode
-              </button>
-              <button
-                onClick={() => setTheme('light')}
-                className="px-4 py-2 bg-secondary text-secondary-foreground rounded hover:bg-secondary/90 transition-colors"
-              >
-                Light Mode
-              </button>
-            </div>
-          )}
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-muted p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">Dark Mode Colors</h4>
-            <div className="space-y-2 text-sm">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded" style={{backgroundColor: 'var(--color-auth-bg-form)'}}></div>
-                <span>Auth Background</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded" style={{backgroundColor: 'var(--color-auth-button-brand)'}}></div>
-                <span>Auth Button</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded bg-sidebar"></div>
-                <span>Sidebar</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-muted p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">Typography Test</h4>
-            <div className="space-y-1 text-sm">
-              <p className="font-heading">Heading Font</p>
-              <p className="font-body">Body Font</p>
-              <p className="font-mono">Monospace Font</p>
-              <p className="font-serif">Serif Font</p>
-            </div>
-          </div>
+        {/* Testimonial content centered */}
+        <div className="flex-1 flex items-center justify-center">
+          <TestimonialLogin />
         </div>
       </div>
     </div>
-  )
+  );
 }
