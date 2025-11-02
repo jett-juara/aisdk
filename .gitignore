@@ -123,3 +123,4 @@ agent-os/
 .mcp.json
 AGENTS.md
 CLAUDE.md
+import.env
