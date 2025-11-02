@@ -42,7 +42,7 @@ type SidebarProps = {
   user: SidebarUser
 }
 
-const ICON_MAP: Record<DashboardIconKey, ComponentType<{ className?: string; 'aria-hidden'?: boolean }>> = {
+const ICON_MAP: Record<DashboardIconKey, ComponentType<any>> = {
   'layout-dashboard': LayoutDashboard,
   settings: Settings2,
   users: Users,
@@ -50,6 +50,9 @@ const ICON_MAP: Record<DashboardIconKey, ComponentType<{ className?: string; 'ar
   invitations: Settings2,
   analytics: BarChart3,
 }
+
+// Fallback icon untuk handle missing icon cases
+const FALLBACK_ICON = Settings2
 
 export function DashboardSidebar({ sections, user }: SidebarProps) {
   const pathname = usePathname()
@@ -89,7 +92,7 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
     } finally {
       setLoggingOut(false)
     }
-  }, [loggingOut, router, toast])
+  }, [loggingOut, router])
 
   const navContent = useMemo(
     () => (
@@ -121,7 +124,7 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
                 {section.items.map((item) => {
                   const isActive =
                     pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(`${item.href}/`))
-                  const Icon = ICON_MAP[item.icon]
+                  const Icon = ICON_MAP[item.icon] ?? FALLBACK_ICON
 
                   return (
                     <Link
@@ -141,7 +144,7 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
                           'mt-px h-5 w-5 flex-shrink-0 transition-colors duration-fast',
                           isActive ? 'text-auth-text-primary' : 'text-auth-text-muted'
                         )}
-                        aria-hidden="true"
+                        aria-hidden={true}
                       />
                       <div className="flex flex-col">
                         <span className="font-medium leading-tight">{item.title}</span>
@@ -185,7 +188,6 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
           >
             <DropdownMenuItem
               className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm text-auth-text-primary focus:text-auth-text-primary hover:!bg-[#5b5b5b] focus:!bg-[#5b5b5b] data-[highlighted]:!bg-[#5b5b5b]"
-              data-state={loggingOut ? 'loading' : undefined}
               disabled={loggingOut}
               onSelect={(event) => {
                 event.preventDefault()
@@ -199,8 +201,7 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
         </DropdownMenu>
       </div>
     ),
-    [sections, pathname, user, loggingOut, menuOpen, handleLogout]
-  )
+    [sections, pathname, user, loggingOut, menuOpen])
 
   return (
     <>
