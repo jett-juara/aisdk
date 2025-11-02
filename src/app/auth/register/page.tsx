@@ -1,3 +1,4 @@
+import Link from "next/link"
 import RegisterForm from "@/components/auth/register-form"
 import TestimonialRegister from "@/components/auth/testimonial-register"
 import { Button } from "@/components/ui/button"
@@ -16,7 +17,7 @@ export default function RegisterPage() {
         }}
       >
         {/* Logo */}
-        <div className="flex items-center gap-2" style={{ gap: "8px" }}>
+        <Link href="/" className="flex items-center gap-2" style={{ gap: "8px" }}>
           <div
             className="w-10 h-10 bg-auth-button-brand rounded-lg flex items-center justify-center flex-shrink-0"
             style={{ borderRadius: "12px" }}
@@ -32,7 +33,7 @@ export default function RegisterPage() {
           <span className="text-auth-text-primary text-2xl font-brand font-bold" style={{ fontSize: "22px" }}>
             Jett
           </span>
-        </div>
+        </Link>
 
         {/* Form Section */}
         <div className="flex-1 flex flex-col justify-center">

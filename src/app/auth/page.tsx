@@ -3,7 +3,7 @@ import LoginForm from "@/components/auth/login-form";
 import TestimonialLogin from "@/components/auth/testimonial-login";
 import { Button } from "@/components/ui/button";
 
-export default function loginPage() {
+export default function AuthPage() {
   return (
     <div className="min-h-screen bg-auth-bg-form flex">
       {/* Left Section - Form */}
@@ -61,7 +61,7 @@ export default function loginPage() {
                 color: "var(--color-auth-text-primary)"
               }}
             >
-              Masuk Akun
+              Selamat Datang
             </h1>
             <p
               className="text-base font-body"
@@ -70,7 +70,7 @@ export default function loginPage() {
                 color: "var(--color-auth-text-muted)",
               }}
             >
-              Untuk mengakses dashboard, Anda harus login
+              Silakan masuk ke akun
             </p>
           </div>
 
