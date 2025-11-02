@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "rm -rf .next && next build",
     "start": "next start",
     "lint": "eslint src --ext ts,tsx --max-warnings 600",
     "type-check": "tsc --noEmit",
