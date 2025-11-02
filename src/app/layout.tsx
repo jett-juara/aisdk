@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Montserrat, Raleway, Rubik, Manrope, JetBrains_Mono, Montagu_Slab } from "next/font/google"
+import { Toaster } from "@/components/ui/toaster"
 import "./globals.css"
 
 const montserrat = Montserrat({
@@ -55,7 +56,10 @@ export default function RootLayout({
       lang="en"
       className={`${montserrat.variable} ${raleway.variable} ${rubik.variable} ${manrope.variable} ${jetbrainsMono.variable} ${montaguSlab.variable}`}
     >
-      <body className={`font-rubik antialiased bg-[#0a0a0a]`}>{children}</body>
+      <body className="bg-[#0a0a0a] font-rubik antialiased">
+        {children}
+        <Toaster />
+      </body>
     </html>
   )
 }

@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Terlalu banyak permintaan. Coba lagi nanti.' }, { status: 429 })
   }
 
-  const server = createSupabaseServerClient()
+  const server = await createSupabaseServerClient()
   const redirectTo = `${process.env.NEXT_PUBLIC_APP_URL}/auth/reset`
   const { error } = await resetPassword(server, email, redirectTo)
   if (error) {

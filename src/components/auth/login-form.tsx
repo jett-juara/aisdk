@@ -1,7 +1,9 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useCallback, useState } from "react"
+import { useRouter } from "next/navigation"
+import { useToast } from "@/components/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -12,22 +14,73 @@ export default function LoginForm() {
   const [password, setPassword] = useState("")
   const [errorEmail, setErrorEmail] = useState<string | null>(null)
   const [errorPassword, setErrorPassword] = useState<string | null>(null)
+  const [generalError, setGeneralError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const router = useRouter()
+  const { toast } = useToast()
+
+  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setErrorEmail(null)
     setErrorPassword(null)
+    setGeneralError(null)
+
     const emailValid = /.+@.+\..+/.test(email)
     if (!emailValid) {
-      setErrorEmail('Email tidak valid')
+      setErrorEmail("Email tidak valid")
       return
     }
     if (password.length < 1) {
-      setErrorPassword('Password wajib diisi')
+      setErrorPassword("Password wajib diisi")
       return
     }
-    // TODO: Implement actual login logic
-  }
+
+    setIsLoading(true)
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      })
+
+      const payload = await response.json().catch(() => null)
+      if (!response.ok) {
+        const message =
+          (payload && typeof payload.error === "string" && payload.error.trim().length > 0
+            ? payload.error.trim()
+            : "Login gagal. Coba lagi ya.")
+
+        setGeneralError(message)
+        toast({
+          title: "Login gagal",
+          description: message,
+        })
+        return
+      }
+
+      toast({
+        title: "Login sukses",
+        description: "Langsung gue arahkan ke dashboard lo.",
+      })
+
+      router.replace("/dashboard")
+      router.refresh()
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Terjadi kendala saat login. Coba lagi bentar ya."
+      setGeneralError(message)
+      toast({
+        title: "Login gagal",
+        description: message,
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }, [email, password, router, toast])
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -65,6 +118,7 @@ export default function LoginForm() {
             id="password"
             type={showPassword ? "text" : "password"}
             placeholder="••••••••"
+            autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="bg-[var(--color-auth-input-bg)] border-[var(--color-auth-input-border)] text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)] pr-10"
@@ -113,10 +167,15 @@ export default function LoginForm() {
       {/* Login Button */}
       <Button
         type="submit"
+        disabled={isLoading}
         className="w-full bg-[var(--color-auth-button-brand)] text-[var(--color-auth-text-primary)] hover:bg-[var(--color-auth-button-brand-hover)] focus-visible:ring-[var(--color-auth-button-brand)]/20 font-manrope font-semibold"
       >
-        Masuk
+        {isLoading ? "Memproses..." : "Masuk"}
       </Button>
+
+      {generalError ? (
+        <p className="text-center text-sm text-auth-text-error">{generalError}</p>
+      ) : null}
 
       {/* Register Link */}
       <p className="text-center text-body text-auth-text-muted">

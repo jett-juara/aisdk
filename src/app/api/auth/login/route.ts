@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Akun kamu terkunci sementara. Coba lagi beberapa menit.' }, { status: 423 })
   }
 
-  const server = createSupabaseServerClient()
+  const server = await createSupabaseServerClient()
   const { session, error } = await signIn(server, email, password)
   if (error) {
     // Increment gagal

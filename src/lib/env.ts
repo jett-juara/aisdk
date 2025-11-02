@@ -49,11 +49,9 @@ export function validateServerEnv() {
   const missing = required.filter(key => !process.env[key]);
 
   if (missing.length > 0) {
-    console.error('❌ Missing required environment variables:', missing);
     return false;
   }
 
-  console.log('✅ Server environment variables validated');
   return true;
 }
 
@@ -67,11 +65,9 @@ export function validateClientEnv() {
   const missing = required.filter(key => !process.env[key]);
 
   if (missing.length > 0) {
-    console.error('❌ Missing required client environment variables:', missing);
     return false;
   }
 
-  console.log('✅ Client environment variables validated');
   return true;
 }
 

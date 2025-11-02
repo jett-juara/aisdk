@@ -32,9 +32,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: pwCheck.message }, { status: 400 })
   }
 
-  const server = createSupabaseServerClient()
+  const server = await createSupabaseServerClient()
   const admin = createSupabaseAdminClient()
-  const redirectTo = `${process.env.NEXT_PUBLIC_APP_URL}/auth/verify`
+  const redirectTo = `${process.env.NEXT_PUBLIC_APP_URL}/auth/confirm`
   const { userId, error } = await signUp(server, admin, { email, password, firstName, lastName, redirectTo })
   if (error) {
     return NextResponse.json({ error: toIndonesianError(error.message) }, { status: 400 })
