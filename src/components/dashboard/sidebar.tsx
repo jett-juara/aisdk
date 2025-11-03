@@ -13,6 +13,7 @@ import {
   ChevronDown,
   Settings2,
   Users,
+  Zap,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type {
@@ -98,21 +99,19 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
     () => (
       <div className="flex h-full flex-col gap-6 dashboard-bg-sidebar text-auth-text-secondary">
         <div className="flex flex-col gap-2 border-b border-auth-border px-6 pb-4 pt-6">
-          <div className="flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ backgroundColor: 'var(--color-auth-button-brand)' }}>
-              <svg className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor" style={{ color: 'var(--color-auth-text-primary)' }}>
-                <path
-                  fillRule="evenodd"
-                  d="M11.3 1.046A1 1 0 0010 2v5H4a1 1 0 00-.82 1.573l7 10A1 1 0 0011 18v-5h6a1 1 0 00.82-1.573l-7-10a1 1 0 00-.68-.381z"
-                  clipRule="evenodd"
-                />
-              </svg>
+          <Link
+            href="/"
+            className="flex items-center gap-2 transition-opacity duration-fast hover:opacity-90"
+            title="Kembali ke Homepage"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-auth-button-brand)]">
+              <Zap className="h-6 w-6 text-[var(--color-auth-text-primary)]" aria-hidden="true" />
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-brand uppercase tracking-wide text-auth-text-muted">JETT</span>
               <h2 className="text-xl font-heading text-auth-text-primary">Dashboard</h2>
             </div>
-          </div>
+          </Link>
         </div>
         <div className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-8">
           {sections.map((section) => (
@@ -163,8 +162,7 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
           <DropdownMenuTrigger asChild>
             <button
               type="button"
-              className="mx-4 mb-6 w-[calc(100%-2rem)] rounded-xl border border-auth-border px-4 py-3 text-left text-auth-text-primary transition-opacity focus:outline-none focus:ring-2 focus:ring-auth-button-brand hover:opacity-90"
-              style={{ backgroundColor: 'var(--color-auth-button-brand)' }}
+              className="mx-4 mb-6 w-[calc(100%-2rem)] rounded-xl border border-auth-border px-4 py-3 text-left text-auth-text-primary transition-opacity focus:outline-none focus:ring-2 focus:ring-auth-button-brand hover:opacity-90 bg-[var(--color-auth-button-brand)]"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex flex-col">
@@ -187,7 +185,7 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
             style={{ width: 'var(--radix-dropdown-menu-trigger-width)' }}
           >
             <DropdownMenuItem
-              className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm text-auth-text-primary focus:text-auth-text-primary hover:!bg-[#5b5b5b] focus:!bg-[#5b5b5b] data-[highlighted]:!bg-[#5b5b5b]"
+              className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm text-auth-text-primary focus:text-auth-text-primary hover:bg-auth-bg-hover data-[highlighted]:bg-auth-bg-hover"
               disabled={loggingOut}
               onSelect={(event) => {
                 event.preventDefault()

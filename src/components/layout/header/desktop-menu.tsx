@@ -37,7 +37,7 @@ interface DesktopMenuProps {
 }
 
 const baseLinkClass =
-  "font-body text-sm uppercase tracking-[0.12em] text-auth-text-primary transition-colors duration-200 hover:text-[color:var(--color-auth-button-brand)]";
+  "font-body text-sm uppercase tracking-[0.12em] text-header-nav-text transition-colors duration-200 hover:text-header-nav-text-hover focus-visible:text-header-nav-text-hover hover:underline hover:decoration-dotted hover:underline-offset-4 hover:decoration-1";
 
 export const DesktopMenu = ({ items }: DesktopMenuProps) => {
   const [mounted, setMounted] = React.useState(false);
@@ -57,7 +57,7 @@ export const DesktopMenu = ({ items }: DesktopMenuProps) => {
                   type="button"
                   className={cn(
                     baseLinkClass,
-                    "flex items-center gap-1 focus-visible:outline-none focus-visible:text-[color:var(--color-auth-button-brand)]"
+                    "flex items-center gap-1 focus-visible:outline-none focus-visible:text-header-nav-text-hover"
                   )}
                 >
                   <span>{item.label}</span>
@@ -67,18 +67,18 @@ export const DesktopMenu = ({ items }: DesktopMenuProps) => {
               <DropdownMenuContent
                 align="start"
                 sideOffset={12}
-                className="min-w-[14rem] space-y-1 border-auth-border bg-background/95 p-2 backdrop-blur"
+                className="min-w-[14rem] space-y-1 border-header-dropdown-border bg-header-dropdown-bg p-2"
               >
                 {item.children.map((child) => (
                   <DropdownMenuItem
                     key={child.label}
                     asChild
-                    className="cursor-pointer rounded-md px-3 py-2 focus:bg-[color:var(--color-auth-surface-elevated)] focus:text-auth-text-primary"
+                    className="cursor-pointer rounded-md px-3 py-2 focus:bg-header-dropdown-item-hover focus:text-header-nav-text"
                   >
                     <Link href={child.href} className="flex flex-col gap-1 text-left">
-                      <span className="font-heading text-sm text-auth-text-primary">{child.label}</span>
+                      <span className="font-heading text-sm text-header-nav-text">{child.label}</span>
                       {child.description ? (
-                        <span className="text-xs font-body uppercase tracking-[0.08em] text-auth-text-muted">
+                        <span className="text-xs font-body uppercase tracking-[0.08em] text-header-nav-text-muted">
                           {child.description}
                         </span>
                       ) : null}

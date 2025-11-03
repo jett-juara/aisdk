@@ -47,6 +47,44 @@
     --color-dashboard-bg-main: #171717;
     --color-auth-bg-overlay: rgba(25, 25, 25, 0.4);
     --color-auth-bg-hover: #1f1f1f;
+    /* Elevated surface untuk hover/containers di header/dropdown */
+    --color-auth-surface-elevated: #242424;
+
+    /* HEADER THEME TOKENS */
+    /* Mengacu ke sistem auth agar konsisten; mudah diubah terpusat */
+    --color-header-bg: var(--color-auth-bg-form);
+    --color-header-border: var(--color-auth-border);
+
+    --color-header-nav-text: var(--color-auth-text-primary);
+    --color-header-nav-text-hover: var(--color-auth-text-secondary);
+    --color-header-nav-text-muted: var(--color-auth-text-muted);
+
+    --color-header-button-primary: var(--color-auth-button-brand);
+    --color-header-button-primary-hover: var(--color-auth-button-brand-hover);
+    --color-header-button-primary-active: var(--color-auth-button-brand-active);
+    --color-header-button-primary-text: var(--color-auth-text-primary);
+
+    --color-header-button-secondary: var(--color-auth-button-secondary);
+    --color-header-button-secondary-hover: var(--color-auth-surface-elevated);
+    --color-header-button-secondary-text: var(--color-auth-text-primary);
+
+    --color-header-surface: var(--color-auth-surface-elevated);
+    --color-header-dropdown-bg: var(--color-auth-bg-form);
+    --color-header-dropdown-border: var(--color-auth-border);
+    --color-header-dropdown-item-hover: var(--color-auth-surface-elevated);
+    --color-header-avatar-bg: var(--color-auth-button-brand);
+
+    /* FOOTER THEME TOKENS */
+    --color-footer-bg: var(--color-auth-bg-testimonial);
+    --color-footer-border: var(--color-auth-border);
+    --color-footer-text-primary: var(--color-auth-text-primary);
+    --color-footer-text-secondary: var(--color-auth-text-secondary);
+    --color-footer-text-muted: var(--color-auth-text-muted);
+    --color-footer-button-surface: var(--color-auth-surface-elevated);
+    --color-footer-button-hover: var(--color-auth-button-secondary-hover);
+    --color-footer-button-text: var(--color-auth-text-secondary);
+    --color-footer-button-text-hover: var(--color-auth-text-primary);
+    --color-footer-ring: #ececec;
 
     /* Text Colors */
     --color-auth-text-primary: #fafafa;
@@ -121,6 +159,36 @@
     --font-manrope: "Manrope", sans-serif;
     --font-jetbrains-mono: "JetBrains Mono", monospace;
     --font-montagu-slab: "Montagu Slab", serif;
+
+    /* MAIN MENU TOKENS */
+    /* Typography */
+    --main-menu-font-family: var(--font-body);
+    --main-menu-font-size: 14px;
+    --main-menu-font-weight: 400;
+    --main-menu-letter-spacing: 0.12em;
+    --main-menu-text-transform: uppercase;
+
+    /* Colors */
+    --main-menu-color-idle: #fafafa;
+    --main-menu-color-hover: #ececec;
+    --main-menu-color-active: #ececec;
+    --main-menu-color-disabled: #969696;
+
+    /* Child Menu Items */
+    --main-menu-child-color-idle: #969696;
+    --main-menu-child-color-hover: #fafafa;
+
+    /* Spacing & Layout */
+    --main-menu-padding-x: 0;
+    --main-menu-padding-y: 0;
+    --main-menu-gap: 24px;
+
+    /* Transitions */
+    --main-menu-transition: color 200ms ease;
+
+    /* Background (if needed for active states) */
+    --main-menu-bg-hover: transparent;
+    --main-menu-bg-active: transparent;
 }
 
 .dark {
@@ -332,6 +400,38 @@
     .dashboard-active-logout,
     .dashboard-active-logout[data-highlighted] {
         background-color: #5b5b5b;
+    }
+
+    /* Main Menu Utility Classes */
+    .main-menu-base {
+        font-family: var(--main-menu-font-family);
+        font-size: var(--main-menu-font-size);
+        font-weight: var(--main-menu-font-weight);
+        letter-spacing: var(--main-menu-letter-spacing);
+        text-transform: var(--main-menu-text-transform);
+        color: var(--main-menu-color-idle);
+        transition: var(--main-menu-transition);
+    }
+
+    .main-menu-base:hover {
+        color: var(--main-menu-color-hover);
+        text-decoration: underline dotted;
+        text-underline-offset: 0.25em;
+        text-decoration-thickness: 1px;
+    }
+
+    .main-menu-child {
+        font-family: var(--main-menu-font-family);
+        font-size: var(--main-menu-font-size);
+        color: var(--main-menu-child-color-idle);
+        transition: var(--main-menu-transition);
+    }
+
+    .main-menu-child:hover {
+        color: var(--main-menu-child-color-hover);
+        text-decoration: underline dotted;
+        text-underline-offset: 0.25em;
+        text-decoration-thickness: 1px;
     }
 }
 

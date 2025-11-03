@@ -23,7 +23,7 @@ const HomepageSection = () => {
             objectFit: 'cover'
           }}
         />
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
       {/* Main Content */}
@@ -46,7 +46,7 @@ const HomepageSection = () => {
                 size="lg"
                 className="bg-white text-black hover:bg-white/90 focus:bg-white/90 font-heading text-lg font-semibold tracking-wide transition-all"
               >
-                Get Started
+                Getting Started
               </Button>
             </Link>
           </div>

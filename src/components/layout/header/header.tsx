@@ -11,13 +11,12 @@ import { HeaderLogo } from "./logo";
 import { DesktopMenu } from "./desktop-menu";
 import { HEADER_MENU_ITEMS } from "./config";
 import { HeaderAuthActions, type HeaderUserProfile } from "./auth-actions";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 // Dynamic import MobileMenu dengan ssr: false untuk menghindari hydration mismatch
 const MobileMenu = dynamic(() => import("./mobile-menu").then(mod => ({ default: mod.MobileMenu })), {
   ssr: false,
   loading: () => (
-    <div className="md:hidden h-11 w-11 animate-pulse rounded-lg bg-auth-text-primary/10" />
+    <div className="md:hidden h-11 w-11 animate-pulse rounded-lg bg-header-nav-text/10" />
   ),
 });
 
@@ -145,14 +144,13 @@ export const Header = () => {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        isScrolled ? "border-b border-border/40 bg-background/90 backdrop-blur" : "bg-transparent"
+        isScrolled ? "border-b border-header-border/60 bg-header-bg" : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <HeaderLogo />
         <DesktopMenu items={HEADER_MENU_ITEMS} />
-        <div className="hidden md:flex items-center gap-2">
-          <ThemeToggle />
+        <div className="hidden md:flex items-center gap-4">
           <HeaderAuthActions
             profile={profile}
             loggingOut={isLoggingOut}

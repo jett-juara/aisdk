@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, Loader2 } from "lucide-react";
+import { LogOut, Loader2, LayoutDashboard, ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -34,10 +34,10 @@ interface HeaderAuthActionsProps {
 }
 
 const loginButtonClasses =
-  "rounded-lg bg-[color:var(--color-auth-button-brand)] px-4 py-2 font-heading text-sm font-semibold text-auth-text-primary transition-colors duration-200 hover:bg-[color:var(--color-auth-button-brand-hover)] min-h-[44px]";
+  "rounded-lg bg-header-button-primary px-4 py-2 font-heading text-sm font-semibold text-header-button-primary-text transition-colors duration-200 hover:bg-header-button-primary-hover active:bg-header-button-primary-active min-h-[44px]";
 
 const mobileLoginClasses =
-  "w-full rounded-lg bg-[color:var(--color-auth-button-brand)] px-4 py-3 font-heading text-base font-semibold text-auth-text-primary transition-colors duration-200 hover:bg-[color:var(--color-auth-button-brand-hover)] min-h-[44px]";
+  "w-full rounded-lg bg-header-button-primary px-4 py-3 font-heading text-base font-semibold text-header-button-primary-text transition-colors duration-200 hover:bg-header-button-primary-hover active:bg-header-button-primary-active min-h-[44px]";
 
 const buildInitials = (firstName?: string, lastName?: string) => {
   const initials = `${firstName?.[0] ?? ""}${lastName?.[0] ?? ""}`.trim();
@@ -63,13 +63,13 @@ export const HeaderAuthActions = ({
     return (
       <div
         className={cn(
-          "flex items-center gap-3 rounded-lg border border-border/50 px-3 py-2",
+          "flex items-center gap-3 rounded-lg border border-header-border/50 px-3 py-2",
           layout === "mobile" ? "mt-6" : "",
           className
         )}
       >
-        <div className="h-8 w-8 animate-pulse rounded-full bg-[color:var(--color-auth-surface-elevated)]" />
-        <div className="h-3 w-24 animate-pulse rounded bg-[color:var(--color-auth-surface-elevated)]" />
+        <div className="h-8 w-8 animate-pulse rounded-full bg-header-surface" />
+        <div className="h-3 w-24 animate-pulse rounded bg-header-surface" />
       </div>
     );
   }
@@ -99,22 +99,19 @@ export const HeaderAuthActions = ({
   if (layout === "mobile") {
     return (
       <div className={cn("mt-6 flex flex-col gap-3", className)}>
-        <div className="flex items-center gap-3 rounded-xl border border-border/60 bg-background/80 px-3 py-3">
-          <Avatar className="h-10 w-10 border border-border/40 bg-[color:var(--color-auth-surface-elevated)]">
-            <AvatarFallback className="bg-[color:var(--color-auth-button-brand)] text-sm font-heading text-auth-text-primary">
+        <div className="flex items-center gap-3 rounded-xl border border-header-border/60 bg-header-button-secondary px-3 py-3">
+          <Avatar className="h-9 w-9 border border-header-border/40 bg-header-surface">
+            <AvatarFallback className="bg-header-avatar-bg text-sm font-heading text-header-button-primary-text">
               {initials}
             </AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <span className="font-heading text-sm text-auth-text-primary">{displayName}</span>
-            <span className="text-xs font-body uppercase tracking-[0.1em] text-auth-text-muted">
-              {roleLabel ?? profile.email}
-            </span>
+          <div className="flex flex-col justify-center">
+            <span className="font-heading text-sm text-header-nav-text">{displayName}</span>
           </div>
         </div>
         <Button
           variant="ghost"
-          className="w-full justify-center gap-2 rounded-lg border border-border/50 px-4 py-3 font-heading text-sm text-auth-text-primary hover:bg-[color:var(--color-auth-surface-elevated)] min-h-[44px]"
+          className="w-full justify-center gap-2 rounded-lg border border-header-border/50 px-4 py-3 font-heading text-sm text-header-button-secondary-text hover:bg-header-surface min-h-[44px]"
           onClick={async () => {
             if (loggingOut) return;
             await onLogout?.();
@@ -129,55 +126,53 @@ export const HeaderAuthActions = ({
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button
-          type="button"
-          className={cn(
-            "flex min-h-[44px] items-center gap-3 rounded-lg border border-border/40 bg-background/80 px-3 py-2 transition-colors duration-200 hover:border-[color:var(--color-auth-button-brand)] focus-visible:outline-none",
-            className
-          )}
-        >
-          <Avatar className="h-9 w-9 border border-border/40 bg-[color:var(--color-auth-surface-elevated)]">
-            <AvatarFallback className="bg-[color:var(--color-auth-button-brand)] text-sm font-heading text-auth-text-primary">
-              {initials}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col items-start">
-            <span className="font-heading text-sm text-auth-text-primary">{displayName}</span>
-            <span className="text-xs font-body uppercase tracking-[0.12em] text-auth-text-muted">
-              {roleLabel ?? profile.email}
-            </span>
-          </div>
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-60 border-auth-border bg-background/95 p-2 backdrop-blur">
-        <DropdownMenuLabel>
-          <div className="flex flex-col gap-1">
-            <span className="font-heading text-sm text-auth-text-primary">{displayName}</span>
-            <span className="text-xs font-body uppercase tracking-[0.08em] text-auth-text-muted">
-              {profile.email}
-            </span>
-            {roleLabel ? (
-              <span className="text-[10px] font-body uppercase tracking-[0.2em] text-auth-text-muted/80">
-                {roleLabel}
-              </span>
-            ) : null}
-          </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator className="bg-border" />
-        <DropdownMenuItem
-          className="flex cursor-pointer items-center gap-2 text-auth-text-primary focus:bg-[color:var(--color-auth-surface-elevated)]"
-          onSelect={async (event) => {
-            event.preventDefault();
-            if (loggingOut) return;
-            await onLogout?.();
-          }}
-        >
-          {loggingOut ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
-          <span>{loggingOut ? "Keluar..." : "Logout"}</span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="flex items-center gap-3">
+      {/* Dashboard Button - Only visible when user is logged in */}
+      <Button
+        asChild
+        className="hidden min-h-[48px] items-center gap-3 rounded-lg border border-transparent bg-header-button-primary px-3 py-2 text-sm font-heading text-header-button-primary-text transition-colors duration-200 hover:bg-header-button-primary-hover active:bg-header-button-primary-active md:flex w-auto lg:w-40"
+      >
+        <Link href="/dashboard" className="flex items-center gap-3 w-full justify-center">
+          <LayoutDashboard className="h-4 w-4 flex-shrink-0" />
+          <span className="hidden lg:inline whitespace-nowrap">Dashboard</span>
+        </Link>
+      </Button>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            className={cn(
+              "flex min-h-[48px] items-center gap-3 rounded-lg border border-header-border bg-header-button-secondary px-3 py-2 transition-colors duration-200 hover:border-header-button-primary hover:bg-header-button-secondary-hover focus-visible:outline-none w-auto lg:w-40 justify-between font-heading text-header-button-secondary-text",
+              className
+            )}
+          >
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              <Avatar className="h-8 w-8 border border-header-border/40 bg-header-surface flex-shrink-0">
+                <AvatarFallback className="bg-header-avatar-bg text-xs font-heading text-header-button-primary-text">
+                  {initials}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col items-start justify-center min-w-0">
+                <span className="font-heading text-sm text-header-nav-text truncate">{displayName}</span>
+              </div>
+            </div>
+            <ChevronDown className="h-4 w-4 text-header-button-secondary-text flex-shrink-0" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-40 border-header-dropdown-border bg-header-dropdown-bg p-1">
+          <DropdownMenuItem
+            className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-heading text-header-nav-text focus:bg-header-dropdown-item-hover"
+            onSelect={async (event) => {
+              event.preventDefault();
+              if (loggingOut) return;
+              await onLogout?.();
+            }}
+          >
+            {loggingOut ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
+            <span>{loggingOut ? "Keluar..." : "Logout"}</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 };

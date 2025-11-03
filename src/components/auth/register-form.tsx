@@ -115,7 +115,7 @@ export default function RegisterForm() {
       <p className="text-center text-body text-auth-text-muted">
         Sudah punya akun?{" "}
         <a
-          href="/"
+          href="/auth"
           className="text-auth-text-secondary font-semibold hover:text-auth-text-primary transition-colors underline"
         >
           Masuk

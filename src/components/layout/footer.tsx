@@ -23,10 +23,9 @@ const Footer = ({ className = "" }: FooterProps) => {
   return (
     <footer className={`absolute bottom-0 left-0 right-0 z-20 ${className}`}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
-        <div className="border-t border-white/20 pt-8">
-          <div className="flex items-center justify-between text-white">
+          <div className="flex items-center justify-between text-footer-text-primary">
             {/* Copyright */}
-            <div className="text-sm text-white/70">
+            <div className="text-sm text-footer-text-secondary">
               © {new Date().getFullYear()} JUARA Events. All rights reserved.
             </div>
 
@@ -39,14 +38,13 @@ const Footer = ({ className = "" }: FooterProps) => {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white/70 hover:bg-white/20 hover:text-white/90 transition-all duration-200"
+                  className="group flex h-10 w-10 items-center justify-center rounded-lg border border-footer-border/60 bg-footer-button-surface text-footer-button-text hover:bg-footer-button-hover hover:text-footer-button-text-hover hover:ring-1 hover:ring-footer-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-footer-ring transition-colors duration-200 ease-out hover:scale-105 active:scale-95"
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
                 </a>
               ))}
             </div>
           </div>
-        </div>
       </div>
     </footer>
   );

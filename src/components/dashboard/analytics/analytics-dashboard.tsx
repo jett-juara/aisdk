@@ -164,7 +164,7 @@ export function AnalyticsDashboard({ currentUserId: _currentUserId, initialAnaly
 
   return (
     <div className="grid gap-6">
-      <Card className="border-auth-border bg-card text-card-foreground">
+      <Card className="border-auth-border dashboard-bg-sidebar text-auth-text-primary">
         <CardHeader className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <CardTitle className="text-auth-text-primary">User Analytics</CardTitle>
@@ -207,9 +207,9 @@ export function AnalyticsDashboard({ currentUserId: _currentUserId, initialAnaly
                 <p className="text-xs text-auth-text-muted">Total user terdaftar</p>
               </div>
               <div className="flex items-center gap-3 text-xs text-auth-text-secondary">
-                <Badge className="bg-auth-success/20 text-auth-success">Aktif {analytics?.totals?.activeUsers ?? 0}</Badge>
-                <Badge className="bg-auth-warning/20 text-auth-warning">Block {analytics?.totals?.blockedUsers ?? 0}</Badge>
-                <Badge className="bg-auth-text-error/20 text-auth-text-error">Deleted {analytics?.totals?.deletedUsers ?? 0}</Badge>
+                <Badge variant="secondary" className="bg-auth-success/20 text-auth-success hover:bg-auth-success/30">Aktif {analytics?.totals?.activeUsers ?? 0}</Badge>
+                <Badge variant="secondary" className="bg-auth-warning/20 text-auth-warning hover:bg-auth-warning/30">Block {analytics?.totals?.blockedUsers ?? 0}</Badge>
+                <Badge variant="secondary" className="bg-auth-text-error/20 text-auth-text-error hover:bg-auth-text-error/30">Deleted {analytics?.totals?.deletedUsers ?? 0}</Badge>
               </div>
             </div>
             <div className="mt-6 h-48 rounded-xl border border-auth-border bg-auth-bg-form p-4">
@@ -233,7 +233,7 @@ export function AnalyticsDashboard({ currentUserId: _currentUserId, initialAnaly
         </CardContent>
       </Card>
 
-      <Card className="border-auth-border bg-card text-card-foreground">
+      <Card className="border-auth-border dashboard-bg-sidebar text-auth-text-primary">
         <CardHeader className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
             <CardTitle className="text-auth-text-primary">System Health</CardTitle>
