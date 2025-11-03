@@ -3,7 +3,7 @@ import { getSuperadminContext } from '../../invitations/utils'
 import { createSupabaseAdminClient } from '@/lib/supabase/admin'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
-export async function GET(request: Request) {
+export async function GET(_request: Request) {
   const server = await createSupabaseServerClient()
   const admin = createSupabaseAdminClient()
 
@@ -42,7 +42,7 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json(healthStatus)
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       {
         status: 'unhealthy',
@@ -114,7 +114,7 @@ async function checkDatabaseHealth(admin: ReturnType<typeof createSupabaseAdminC
 async function getSystemMetrics(admin: ReturnType<typeof createSupabaseAdminClient>) {
   const now = new Date()
   const last24h = new Date(now.getTime() - 24 * 60 * 60 * 1000)
-  const last7d = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+  const _last7d = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
 
   try {
     const [
@@ -173,7 +173,7 @@ async function getSystemMetrics(admin: ReturnType<typeof createSupabaseAdminClie
       },
       metrics: systemMetrics || [],
     }
-  } catch (error) {
+  } catch (_error) {
     return {
       error: 'Failed to fetch system metrics',
     }
@@ -223,7 +223,7 @@ async function getRecentActivity(admin: ReturnType<typeof createSupabaseAdminCli
         totalInvitations1h: recentInvitations?.length || 0,
       },
     }
-  } catch (error) {
+  } catch (_error) {
     return {
       error: 'Failed to fetch recent activity',
     }

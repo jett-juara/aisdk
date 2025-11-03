@@ -28,7 +28,7 @@ export default function RegisterPage() {
       </svg>
     </div>
     <span className="font-brand text-xl font-bold uppercase text-auth-text-primary lg:text-2xl">
-      JETT
+      JUARA
     </span>
   </Link>
 

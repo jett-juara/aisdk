@@ -8,7 +8,6 @@ import {
   JetBrains_Mono,
   Montagu_Slab,
 } from "next/font/google";
-
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemePreload } from "@/components/theme-preload";

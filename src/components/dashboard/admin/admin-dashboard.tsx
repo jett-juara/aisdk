@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Users, Shield, Activity, RefreshCw, Settings, Download, Search, Filter, ShieldAlert } from 'lucide-react'
+import { Users, Shield, Activity, RefreshCw, Settings, Download, Search, ShieldAlert } from 'lucide-react'
 import { UserStatisticsPanel } from '../analytics/user-statistics-panel'
 import { SystemHealthPanel } from '../analytics/system-health-panel'
 import { UserManagementTable } from '../users/user-management-table'
@@ -9,11 +9,9 @@ import { PermissionManagementPanel } from '../permissions/permission-management-
 import { InvitationManagementPanel } from '../invitations/invitation-management-panel'
 import { QuickActionsPanel } from './quick-actions-panel'
 import { AdvancedSearchPanel } from './advanced-search-panel'
-import { ActivityLogsPanel } from './activity-logs-panel'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useToast } from '@/components/hooks/use-toast'
 import { createSupabaseBrowserClient } from '@/lib/supabase/client'
@@ -167,7 +165,7 @@ export function AdminDashboard({ currentUserId, currentUserRole, className }: Ad
         title: 'Export Berhasil',
         description: 'Data dashboard berhasil diekspor ke CSV.',
       })
-    } catch (error) {
+    } catch (_error) {
       toast({
         title: 'Export Gagal',
         description: 'Gagal mengekspor data dashboard.',
@@ -192,7 +190,7 @@ export function AdminDashboard({ currentUserId, currentUserRole, className }: Ad
     return `${Math.floor(diffMins / 1440)} hari lalu`
   }, [])
 
-  const getHealthColor = (status: string) => {
+  const _getHealthColor = (status: string) => {
     switch (status) {
       case 'healthy':
         return 'text-auth-success bg-auth-success/10 border-auth-success/20'
@@ -398,7 +396,7 @@ export function AdminDashboard({ currentUserId, currentUserRole, className }: Ad
                   description: `Searching with ${Object.keys(filters).length} filters`,
                 })
               }}
-              onExport={(filters) => {
+              onExport={(_filters) => {
                 // Implement export functionality
                 toast({
                   title: 'Export Started',

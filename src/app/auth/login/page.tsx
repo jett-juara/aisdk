@@ -27,7 +27,7 @@ export default function loginPage() {
       </svg>
     </div>
     <span className="font-brand text-xl font-bold uppercase text-auth-text-primary lg:text-2xl">
-      JETT
+      JUARA
     </span>
   </Link>
 
@@ -75,7 +75,7 @@ export default function loginPage() {
             >
               kebijakan layanan & privasi
             </a>{" "}
-            dari JETT, serta menerima email pembaharuan berkala
+            dari Juara, serta menerima email pembaharuan berkala
           </p>
         </div>
       </div>

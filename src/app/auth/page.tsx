@@ -45,7 +45,7 @@ export default function AuthPage() {
               color: "var(--color-auth-text-primary)"
             }}
           >
-            JETT
+            Juara
           </span>
         </Link>
 
@@ -93,7 +93,7 @@ export default function AuthPage() {
             >
               kebijakan layanan & privasi
             </a>{" "}
-            dari JETT, serta menerima email pembaharuan berkala
+            dari Juara, serta menerima email pembaharuan berkala
           </p>
         </div>
       </div>

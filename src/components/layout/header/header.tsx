@@ -3,14 +3,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-
-import { useToast } from "@/components/hooks/use-toast";
-import { createSupabaseBrowserClient } from "@/lib/supabase/client";
-
 import { HeaderLogo } from "./logo";
 import { DesktopMenu } from "./desktop-menu";
 import { HEADER_MENU_ITEMS } from "./config";
 import { HeaderAuthActions, type HeaderUserProfile } from "./auth-actions";
+import { useToast } from "@/components/hooks/use-toast";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 // Dynamic import MobileMenu dengan ssr: false untuk menghindari hydration mismatch
 const MobileMenu = dynamic(() => import("./mobile-menu").then(mod => ({ default: mod.MobileMenu })), {
@@ -76,7 +74,7 @@ export const Header = () => {
           lastName: data.lastName,
           role: data.role,
         });
-      } catch (error) {
+      } catch (_error) {
         if (isActive) {
           setProfile(null);
         }

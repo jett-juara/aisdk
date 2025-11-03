@@ -6,17 +6,12 @@ import {
   Users,
   Shield,
   Mail,
-  Calendar,
   Clock,
   Download,
   RefreshCw,
   Filter,
   Eye,
-  AlertTriangle,
-  CheckCircle,
-  XCircle,
   Search,
-  FileText,
   Settings
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -139,15 +134,15 @@ const mockLogs: ActivityLog[] = [
 
 export function ActivityLogsPanel({
   className,
-  currentUserId,
-  currentUserRole
+  currentUserId: _currentUserId,
+  currentUserRole: _currentUserRole
 }: ActivityLogsPanelProps) {
   const [logs, setLogs] = useState<ActivityLog[]>(mockLogs)
   const [loading, setLoading] = useState(false)
   const [filter, setFilter] = useState<string>('all')
   const [timeRange, setTimeRange] = useState<string>('24h')
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedLog, setSelectedLog] = useState<ActivityLog | null>(null)
+  const [_selectedLog, _setSelectedLog] = useState<ActivityLog | null>(null)
 
   // In real app, fetch logs from API
   const fetchLogs = useCallback(async () => {
@@ -157,7 +152,7 @@ export function ActivityLogsPanel({
       await new Promise(resolve => setTimeout(resolve, 1000))
       // In real app: const response = await fetch('/api/admin/activity-logs')
       setLogs(mockLogs)
-    } catch (error) {
+    } catch (_error) {
     } finally {
       setLoading(false)
     }
@@ -490,7 +485,7 @@ export function ActivityLogsPanel({
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                onClick={() => setSelectedLog(log)}
+                                onClick={() => _setSelectedLog(log)}
                                 className="text-auth-info hover:text-auth-info/80"
                               >
                                 <Eye className="h-4 w-4" />

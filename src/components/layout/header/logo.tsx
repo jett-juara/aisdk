@@ -12,7 +12,7 @@ export const HeaderLogo = () => (
       </svg>
     </div>
     <span className="font-brand text-xl font-bold uppercase text-header-nav-text lg:text-2xl">
-      JETT
+      Juara
     </span>
   </Link>
 );

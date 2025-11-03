@@ -10,14 +10,13 @@ import {
   RotateCcw,
   Download,
   Calendar,
-  Mail,
   Shield,
   Users,
   Activity,
   Clock
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -31,7 +30,6 @@ import {
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger,
 } from '@/components/ui/collapsible'
 import { cn } from '@/lib/utils'
 
@@ -79,7 +77,7 @@ export function AdvancedSearchPanel({
     createdBefore: ''
   })
 
-  const [activeFiltersCount, setActiveFiltersCount] = useState(0)
+  const [_activeFiltersCount, _setActiveFiltersCount] = useState(0)
 
   const updateFilter = useCallback((key: keyof SearchFilters, value: string) => {
     setFilters(prev => ({ ...prev, [key]: value }))

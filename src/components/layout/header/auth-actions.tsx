@@ -2,15 +2,12 @@
 
 import Link from "next/link";
 import { LogOut, Loader2, LayoutDashboard, ChevronDown } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
@@ -38,6 +35,12 @@ const loginButtonClasses =
 
 const mobileLoginClasses =
   "w-full rounded-lg bg-header-button-primary px-4 py-3 font-heading text-base font-semibold text-header-button-primary-text transition-colors duration-200 hover:bg-header-button-primary-hover active:bg-header-button-primary-active min-h-[44px]";
+
+const mobileDashboardClasses =
+  "w-full inline-flex items-center justify-center gap-3 rounded-lg px-4 py-3 font-heading text-base font-semibold text-header-button-primary-text transition-colors duration-200 h-12 bg-[var(--color-auth-button-brand)] hover:bg-[var(--color-auth-button-brand-hover)] active:bg-[var(--color-auth-button-brand-active)] border border-[oklch(83.265%_0.01687_17.19)]";
+
+const mobileUserClasses =
+  "w-full flex items-center justify-between gap-3 rounded-lg border border-[oklch(83.265%_0.01687_17.19)] bg-[var(--color-auth-surface-elevated)] px-4 py-3 transition-colors duration-200 hover:border-[oklch(83.265%_0.01687_17.19)] hover:bg-[var(--color-auth-surface-elevated)] font-heading text-[var(--color-auth-text-primary)] h-12";
 
 const buildInitials = (firstName?: string, lastName?: string) => {
   const initials = `${firstName?.[0] ?? ""}${lastName?.[0] ?? ""}`.trim();
@@ -94,33 +97,62 @@ export const HeaderAuthActions = ({
 
   const displayName = buildDisplayName(profile.firstName, profile.lastName);
   const initials = buildInitials(profile.firstName, profile.lastName);
-  const roleLabel = profile.role ? profile.role.toUpperCase() : undefined;
 
   if (layout === "mobile") {
     return (
       <div className={cn("mt-6 flex flex-col gap-3", className)}>
-        <div className="flex items-center gap-3 rounded-xl border border-header-border/60 bg-header-button-secondary px-3 py-3">
-          <Avatar className="h-9 w-9 border border-header-border/40 bg-header-surface">
-            <AvatarFallback className="bg-header-avatar-bg text-sm font-heading text-header-button-primary-text">
-              {initials}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col justify-center">
-            <span className="font-heading text-sm text-header-nav-text">{displayName}</span>
-          </div>
-        </div>
+        {/* Dashboard Button - Primary Color */}
         <Button
-          variant="ghost"
-          className="w-full justify-center gap-2 rounded-lg border border-header-border/50 px-4 py-3 font-heading text-sm text-header-button-secondary-text hover:bg-header-surface min-h-[44px]"
-          onClick={async () => {
-            if (loggingOut) return;
-            await onLogout?.();
-          }}
-          disabled={loggingOut}
+          asChild
+          className={mobileDashboardClasses}
         >
-          {loggingOut ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
-          <span>{loggingOut ? "Keluar..." : "Logout"}</span>
+          <Link
+            href="/dashboard"
+            onClick={() => {
+              onNavigate?.();
+            }}
+          >
+            <LayoutDashboard className="h-5 w-5 flex-shrink-0" />
+            <span>Dashboard</span>
+          </Link>
         </Button>
+
+        {/* User Dropdown - Secondary Color */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button className={mobileUserClasses}>
+              <div className="flex items-center gap-3 flex-1 min-w-0">
+                <Avatar className="h-9 w-9 border border-header-border/40 bg-header-surface flex-shrink-0">
+                  <AvatarFallback className="bg-header-avatar-bg text-sm font-heading text-header-button-primary-text">
+                    {initials}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col items-start justify-center min-w-0">
+                  <span className="font-heading text-base text-[var(--color-auth-text-primary)] truncate">{displayName}</span>
+                </div>
+              </div>
+              <ChevronDown className="h-5 w-5 text-[var(--color-auth-text-primary)] flex-shrink-0" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="start"
+            sideOffset={-1}
+            className="min-w-0 w-[var(--radix-popper-anchor-width)] border-[oklch(83.265%_0.01687_17.19)] bg-[var(--color-auth-surface-elevated)] p-0 overflow-hidden rounded-lg"
+          >
+            <DropdownMenuItem
+              className="flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 text-base font-heading text-[var(--color-auth-text-primary)] focus:bg-[var(--color-auth-dropdown-item-hover)] w-full hover:bg-[var(--color-auth-dropdown-item-hover)] transition-colors"
+              onSelect={async (event) => {
+                event.preventDefault();
+                if (loggingOut) return;
+                await onLogout?.();
+                onNavigate?.();
+              }}
+            >
+              {loggingOut ? <Loader2 className="h-5 w-5 animate-spin" /> : <LogOut className="h-5 w-5" />}
+              <span className="text-base font-heading">{loggingOut ? "Keluar..." : "Logout"}</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     );
   }
@@ -142,7 +174,7 @@ export const HeaderAuthActions = ({
         <DropdownMenuTrigger asChild>
           <Button
             className={cn(
-              "flex min-h-[48px] items-center gap-3 rounded-lg border border-header-border bg-header-button-secondary px-3 py-2 transition-colors duration-200 hover:border-header-button-primary hover:bg-header-button-secondary-hover focus-visible:outline-none w-auto lg:w-40 justify-between font-heading text-header-button-secondary-text",
+              "flex min-h-[48px] items-center gap-3 rounded-lg border border-header-border bg-[#171717] px-3 py-2 transition-colors duration-200 hover:border-header-button-primary hover:bg-header-button-secondary-hover focus-visible:outline-none w-auto lg:w-40 justify-between font-heading text-header-button-secondary-text",
               className
             )}
           >
@@ -159,7 +191,7 @@ export const HeaderAuthActions = ({
             <ChevronDown className="h-4 w-4 text-header-button-secondary-text flex-shrink-0" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-40 border-header-dropdown-border bg-header-dropdown-bg p-1">
+        <DropdownMenuContent align="end" className="w-40 border-header-dropdown-border bg-[#171717] p-1">
           <DropdownMenuItem
             className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-heading text-header-nav-text focus:bg-header-dropdown-item-hover"
             onSelect={async (event) => {

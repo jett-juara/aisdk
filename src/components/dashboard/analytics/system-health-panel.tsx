@@ -1,8 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts'
-import { Activity, Database, Server, AlertTriangle, CheckCircle, XCircle, RefreshCw, Users } from 'lucide-react'
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts'
+import { Activity, Database, AlertTriangle, CheckCircle, XCircle, RefreshCw, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -118,7 +118,7 @@ export function SystemHealthPanel({ className }: SystemHealthPanelProps) {
     return () => clearInterval(interval)
   }, [fetchHealthData])
 
-  const statusColor = useMemo(() => {
+  const _statusColor = useMemo(() => {
     switch (data?.status) {
       case 'healthy':
         return 'text-auth-success bg-auth-success/10 border-auth-success/20'

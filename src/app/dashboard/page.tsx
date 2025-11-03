@@ -27,7 +27,7 @@ export default async function DashboardPage() {
       <section className="flex flex-col gap-4 rounded-2xl border border-auth-border dashboard-bg-sidebar px-6 py-6 text-auth-text-primary lg:flex-row lg:items-center lg:justify-between">
         <div className="space-y-2">
           <p className="text-sm uppercase tracking-wide text-auth-text-muted">Status Sistem</p>
-          <h1 className="text-3xl font-heading">Selamat datang di JETT Control Center</h1>
+          <h1 className="text-3xl font-heading">Selamat datang di Juara Control Center</h1>
           <p className="text-sm text-auth-text-secondary">
             Pantau aktivitas event internal dan publik, kelola tim, serta kontrol akses dalam satu tempat.
           </p>

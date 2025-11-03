@@ -8,7 +8,6 @@ import {
   RefreshCw,
   BarChart3,
   Settings,
-  Mail,
   Lock,
   Unlock,
   Trash2,
@@ -209,7 +208,7 @@ export function QuickActionsPanel({
     setIsExecuting(action.id)
     try {
       action.action()
-    } catch (error) {
+    } catch (_error) {
       toast.error('Gagal menjalankan aksi')
     } finally {
       setTimeout(() => setIsExecuting(null), 1000)

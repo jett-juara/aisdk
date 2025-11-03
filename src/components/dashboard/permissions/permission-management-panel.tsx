@@ -172,7 +172,7 @@ export function PermissionManagementPanel({
     ? permissionState[activeUserId] ?? defaultPermissionMap
     : defaultPermissionMap
 
-  const selectedUserEntries = useMemo(
+  const _selectedUserEntries = useMemo(
     () => selectedIds.map((id) => users.find((entry) => entry.id === id)).filter(Boolean) as DashboardUserSummary[],
     [selectedIds, users]
   )

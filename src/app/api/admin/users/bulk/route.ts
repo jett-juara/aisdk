@@ -97,7 +97,7 @@ export async function POST(request: Request) {
         failed: results.filter(r => !r.success).length,
       },
     })
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { error: { message: 'Operasi bulk gagal' } },
       { status: 500 }

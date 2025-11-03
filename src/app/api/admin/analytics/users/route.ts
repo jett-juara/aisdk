@@ -74,7 +74,7 @@ export async function GET(request: Request) {
       roleDistribution,
       activity: activityData,
     })
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { error: { message: 'Gagal mengambil data analytics' } },
       { status: 500 }

@@ -2,13 +2,11 @@
 
 import { useCallback, useState } from "react";
 import Link from "next/link";
-import { Menu, LayoutDashboard } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-
+import { Menu } from "lucide-react";
 import type { HeaderMenuItem } from "./config";
 import { HeaderAuthActions, type HeaderUserProfile } from "./auth-actions";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 
 interface MobileMenuProps {
   items: HeaderMenuItem[];
@@ -44,9 +42,13 @@ export const MobileMenu = ({ items, profile, onLogout, loggingOut, loading }: Mo
         </Button>
       </SheetTrigger>
       <SheetContent
-        side="top"
-        className="border-none bg-header-dropdown-bg data-[state=open]:animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-top-8 data-[state=closed]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-top-6"
+        side="right"
+        className="border-none bg-header-dropdown-bg w-[80vw] max-w-md data-[state=open]:animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-right-8 data-[state=closed]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-6"
       >
+        {/* A11y: Dialog requires a Title (visually hidden) */}
+        <SheetTitle className="sr-only">Mobile Navigation Menu</SheetTitle>
+        
+        
         <nav className="flex flex-col gap-3 py-6">
           {items.map((item) => (
             <div key={item.label} className="flex flex-col gap-2">
@@ -78,19 +80,6 @@ export const MobileMenu = ({ items, profile, onLogout, loggingOut, loading }: Mo
             </div>
           ))}
         </nav>
-
-        {/* Dashboard Button - Only visible when user is logged in */}
-        {profile && (
-          <Button
-            className="inline-flex min-h-[44px] justify-start gap-3 rounded-lg px-3 text-base font-heading uppercase tracking-[0.16em] bg-header-button-primary text-header-button-primary-text transition-colors duration-200 hover:bg-header-button-primary-hover active:bg-header-button-primary-active"
-            asChild
-          >
-            <Link href="/dashboard" onClick={handleNavigate}>
-              <LayoutDashboard className="h-5 w-5" />
-              Dashboard
-            </Link>
-          </Button>
-        )}
 
         <HeaderAuthActions
           profile={profile}

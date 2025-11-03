@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts'
-import { TrendingUp, Users, UserCheck, UserX, Download, Calendar } from 'lucide-react'
+import { TrendingUp, Users, UserCheck, UserX, Download } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -110,7 +110,7 @@ export function UserStatisticsPanel({ className }: UserStatisticsPanelProps) {
         title: 'Data berhasil diekspor',
         description: `File CSV user analytics ${timeframe} sudah diunduh.`,
       })
-    } catch (err) {
+    } catch (_err) {
       toast({
         title: 'Export gagal',
         description: 'Gagal mengekspor data analytics',
@@ -424,7 +424,7 @@ function StatCard({
 
 function generateCSV(data: UserAnalyticsData): string {
   const headers = ['Tanggal', 'User Baru', 'Total User', 'Aktivitas']
-  const rows = data.userGrowth.map((growth, index) => {
+  const rows = data.userGrowth.map((growth, _index) => {
     const activity = data.activity.find(a => a.date === growth.date)
     return [
       growth.date,
