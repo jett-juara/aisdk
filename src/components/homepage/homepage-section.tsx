@@ -1,13 +1,18 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const HomepageSection = () => {
+  const [isReady, setIsReady] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-auth-bg-form">
       {/* Background Image */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 bg-auth-bg-form">
         <Image
           src="/images/hero_03.webp"
           alt="JUARA Off The Grid"
@@ -15,18 +20,19 @@ const HomepageSection = () => {
           priority
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, (max-width: 1920px) 100vw, 100vw"
           quality={90}
-          placeholder="blur"
-          blurDataURL="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAQAcJaQAA3AA/v3AgAA="
+          placeholder="empty"
           className="object-cover"
           style={{
             objectPosition: 'center',
             objectFit: 'cover'
           }}
+          onLoadingComplete={() => setIsReady(true)}
         />
         <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      {/* Main Content */}
+      {/* Main Content (render only when ready) */}
+      {isReady && (
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="flex flex-col items-center gap-8 py-16">
           {/* Main Headline */}
@@ -52,6 +58,17 @@ const HomepageSection = () => {
           </div>
         </div>
       </div>
+      )}
+
+      {/* Loading UI (full overlay until image is ready) */}
+      {!isReady && (
+        <div className="absolute inset-0 z-20 flex items-center justify-center bg-auth-bg-form">
+          <div className="flex items-center gap-3 text-auth-text-secondary" aria-busy>
+            <Loader2 className="h-6 w-6 animate-spin" />
+            <span className="font-body tracking-wide uppercase text-sm">Loading</span>
+          </div>
+        </div>
+      )}
 
       </section>
   );
