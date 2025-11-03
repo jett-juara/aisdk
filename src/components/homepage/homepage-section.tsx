@@ -14,7 +14,7 @@ const HomepageSection = () => {
       {/* Background Image */}
       <div className="absolute inset-0 bg-auth-bg-form">
         <Image
-          src="/images/hero_03.webp"
+          src="/images/hero_03-xlarge.webp"
           alt="JUARA Off The Grid"
           fill
           priority
