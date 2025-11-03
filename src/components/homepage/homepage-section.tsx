@@ -1,33 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Twitter,
-} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const HomepageSection = () => {
-  const SOCIAL_LINKS = [
-    { icon: Facebook, label: "Facebook", href: "https://facebook.com/juara" },
-    { icon: Instagram, label: "Instagram", href: "https://instagram.com/juara" },
-    { icon: Twitter, label: "Twitter", href: "https://x.com/juara" },
-    { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/juara" },
-  ];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/hero_03.png"
+          src="/images/hero_03.webp"
           alt="JUARA Off The Grid"
           fill
           priority
-          sizes="100vw"
-          quality={85}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, (max-width: 1920px) 100vw, 100vw"
+          quality={90}
+          placeholder="blur"
+          blurDataURL="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAQAcJaQAA3AA/v3AgAA="
           className="object-cover"
+          style={{
+            objectPosition: 'center',
+            objectFit: 'cover'
+          }}
         />
         <div className="absolute inset-0 bg-black/60" />
       </div>
@@ -50,45 +44,16 @@ const HomepageSection = () => {
             <Link href="/about">
               <Button
                 size="lg"
-                className="min-h-[56px] rounded-lg bg-white text-black px-8 py-4 font-heading text-lg font-semibold transition-all duration-200 hover:scale-[1.02] focus-visible:scale-[1.02]"
+                className="bg-white text-black hover:bg-white/90 focus:bg-white/90 font-heading text-lg font-semibold tracking-wide transition-all"
               >
-                Getting Started
+                Get Started
               </Button>
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Footer Overlay - Di atas background */}
-      <div className="absolute bottom-0 left-0 right-0 z-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
-          <div className="border-t border-white/20 pt-8">
-            <div className="flex items-center justify-between text-white">
-              {/* Copyright */}
-              <div className="text-sm text-white/70">
-                © {new Date().getFullYear()} JUARA Events. All rights reserved.
-              </div>
-
-              {/* Social Links */}
-              <div className="flex gap-3">
-                {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={label}
-                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white/70 hover:bg-white/20 hover:text-white/90 transition-all duration-200"
-                  >
-                    <Icon className="h-4 w-4" />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
   );
 };
 

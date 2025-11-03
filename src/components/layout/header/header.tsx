@@ -2,15 +2,24 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 
 import { useToast } from "@/components/hooks/use-toast";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 import { HeaderLogo } from "./logo";
 import { DesktopMenu } from "./desktop-menu";
-import { MobileMenu } from "./mobile-menu";
 import { HEADER_MENU_ITEMS } from "./config";
 import { HeaderAuthActions, type HeaderUserProfile } from "./auth-actions";
+import { ThemeToggle } from "@/components/theme-toggle";
+
+// Dynamic import MobileMenu dengan ssr: false untuk menghindari hydration mismatch
+const MobileMenu = dynamic(() => import("./mobile-menu").then(mod => ({ default: mod.MobileMenu })), {
+  ssr: false,
+  loading: () => (
+    <div className="md:hidden h-11 w-11 animate-pulse rounded-lg bg-auth-text-primary/10" />
+  ),
+});
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -142,7 +151,8 @@ export const Header = () => {
       <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <HeaderLogo />
         <DesktopMenu items={HEADER_MENU_ITEMS} />
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-2">
+          <ThemeToggle />
           <HeaderAuthActions
             profile={profile}
             loggingOut={isLoggingOut}

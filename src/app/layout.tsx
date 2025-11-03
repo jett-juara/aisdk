@@ -10,6 +10,8 @@ import {
 } from "next/font/google";
 
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemePreload } from "@/components/theme-preload";
 
 import "./globals.css";
 
@@ -80,13 +82,22 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${montserrat.variable} ${raleway.variable} ${rubik.variable} ${manrope.variable} ${jetbrainsMono.variable} ${montaguSlab.variable}`}
+      suppressHydrationWarning
     >
       <head>
-        <link rel="preload" href="/images/hero_03.png" as="image" type="image/png" />
+        <link rel="preload" href="/images/hero_03.webp" as="image" type="image/webp" />
+        <ThemePreload />
       </head>
       <body className="bg-background font-rubik antialiased">
-        {children}
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

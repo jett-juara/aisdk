@@ -1,2 +1,1 @@
-export * from "./types";
-export { default as HeroSection } from "./hero-section";
+// Homepage components exports will be added here when needed
