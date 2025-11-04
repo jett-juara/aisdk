@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
+import { revalidateTag } from 'next/cache'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 const profileUpdateSchema = z.object({
@@ -50,6 +51,15 @@ export async function GET() {
     usernameChanged: profile.username_changed,
     status: profile.status,
     role: profile.role,
+  }, {
+    headers: {
+      // Next.js 16 Cache headers
+      'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+      'CDN-Cache-Control': 'public, s-maxage=600, stale-while-revalidate=86400',
+      'Vary': 'Cookie, Authorization',
+      // Add cache tag metadata for client reference
+      'X-Cache-Tags': `user-profile, user-${profile.id}`
+    }
   })
 }
 
@@ -109,6 +119,16 @@ export async function PUT(request: Request) {
     return NextResponse.json({ error: { message } }, { status: 400 })
   }
 
+  // Next.js 16: Revalidate cache tags after successful update
+  // This will trigger stale-while-revalidate for cached user profiles
+  try {
+    revalidateTag('user-profile', 'max') // stale-while-revalidate behavior
+    revalidateTag(`user-${updatedProfile.id}`, 'max') // user-specific cache
+  } catch (revalidateError) {
+    // Log revalidation error but don't fail the request
+    console.warn('Failed to revalidate user profile cache:', revalidateError)
+  }
+
   return NextResponse.json({
     id: updatedProfile.id,
     email: updatedProfile.email,
@@ -118,5 +138,14 @@ export async function PUT(request: Request) {
     usernameChanged: updatedProfile.username_changed,
     status: updatedProfile.status,
     role: updatedProfile.role,
+  }, {
+    headers: {
+      // Disable caching for PUT responses to ensure fresh data
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+      // Indicate successful cache revalidation
+      'X-Cache-Revalidated': 'user-profile, user-' + updatedProfile.id
+    }
   })
 }

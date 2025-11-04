@@ -1,6 +1,18 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+
+// Simple debounce utility function
+function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  delay: number
+): (...args: Parameters<T>) => void {
+  let timeoutId: NodeJS.Timeout;
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func(...args), delay);
+  };
+}
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { HeaderLogo } from "./logo";
@@ -9,6 +21,7 @@ import { HEADER_MENU_ITEMS } from "./config";
 import { HeaderAuthActions, type HeaderUserProfile } from "./auth-actions";
 import { useToast } from "@/components/hooks/use-toast";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { getUserProfileOrNull } from "@/lib/cache/user-profile";
 
 // Dynamic import MobileMenu dengan ssr: false untuk menghindari hydration mismatch
 const MobileMenu = dynamic(() => import("./mobile-menu").then(mod => ({ default: mod.MobileMenu })), {
@@ -29,70 +42,84 @@ export const Header = () => {
 
   useEffect(() => {
     let isActive = true;
+    let timeoutId: NodeJS.Timeout;
+    let authTimeoutId: NodeJS.Timeout;
 
-    const resolveProfile = async () => {
-      try {
-        if (isActive) {
-          setIsLoadingProfile(true);
-        }
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
+    // Debounced profile resolution with Next.js 16 cached function
+    const resolveProfileWithDebounce = async () => {
+      // Clear any existing timeout
+      clearTimeout(timeoutId);
 
-        if (!session) {
-          if (isActive) {
-            setProfile(null);
-          }
-          return;
-        }
-
-        const response = await fetch("/api/user/profile", {
-          cache: "no-store",
-        });
-
-        if (!response.ok) {
-          if (isActive) {
-            setProfile(null);
-          }
-          return;
-        }
-
-        const data = await response.json();
+      timeoutId = setTimeout(async () => {
         if (!isActive) return;
 
-        setProfile({
-          id: data.id,
-          email: data.email,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          role: data.role,
-        });
-      } catch (_error) {
-        if (isActive) {
-          setProfile(null);
+        try {
+          setIsLoadingProfile(true);
+
+          const { data: { session } } = await supabase.auth.getSession();
+
+          if (!session) {
+            setProfile(null);
+            return;
+          }
+
+          // Use Next.js 16 cached function instead of direct fetch
+          const profileData = await getUserProfileOrNull(session.user.id);
+
+          if (!isActive) return;
+
+          if (profileData) {
+            setProfile({
+              id: profileData.id,
+              email: profileData.email,
+              firstName: profileData.firstName,
+              lastName: profileData.lastName,
+              role: profileData.role,
+            });
+          } else {
+            setProfile(null);
+          }
+        } catch (error) {
+          if (isActive) {
+            console.warn('Failed to load user profile:', error);
+            setProfile(null);
+          }
+        } finally {
+          if (isActive) {
+            setIsLoadingProfile(false);
+          }
         }
-      } finally {
-        if (isActive) {
-          setIsLoadingProfile(false);
-        }
-      }
+      }, 1000); // 1 second debounce
     };
 
-    resolveProfile();
+    // Debounced auth state change handler
+    const handleAuthChange = debounce((_event: any, session: any) => {
+      if (!isActive) return;
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        setProfile(null);
-        setIsLoadingProfile(false);
-        return;
-      }
-      resolveProfile();
-    });
+      clearTimeout(authTimeoutId);
+
+      authTimeoutId = setTimeout(() => {
+        if (!session) {
+          setProfile(null);
+          setIsLoadingProfile(false);
+          return;
+        }
+
+        // Only resolve profile if we have a session
+        resolveProfileWithDebounce();
+      }, 2000); // 2 second debounce for auth changes
+    }, 500);
+
+    // Initial profile load
+    resolveProfileWithDebounce();
+
+    // Set up auth state listener with debouncing
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(handleAuthChange);
 
     return () => {
       isActive = false;
+      clearTimeout(timeoutId);
+      clearTimeout(authTimeoutId);
       subscription.unsubscribe();
     };
   }, [supabase]);

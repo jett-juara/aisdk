@@ -32,7 +32,7 @@ const HomepageSection = () => {
 
         {/* Tablet: 768px - 1024px */}
         <Image
-          src="/images/hero_03-mobile.webp"
+          src="/images/hero_03-tablet.webp"
           alt="JUARA Off The Grid"
           fill
           priority

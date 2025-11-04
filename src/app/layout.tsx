@@ -84,7 +84,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="preload" href="/images/hero_03.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/images/hero_03-medium.webp" as="image" type="image/webp" />
         <ThemePreload />
       </head>
       <body className="bg-background font-rubik antialiased">
