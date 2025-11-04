@@ -167,6 +167,17 @@ const config = {
         heading: ["var(--font-raleway)", "sans-serif"],
         body: ["var(--font-rubik)", "var(--font-manrope)", "sans-serif"],
       },
+      // Homepage layout tokens
+      viewportWidth: {
+        "mobile": "var(--vp-mobile)",
+        "tablet": "var(--vp-tablet)",
+        "desktop": "var(--vp-desktop)",
+      },
+      maxWidth: {
+        "mobile-sm": "var(--max-w-mobile-sm)",
+        "tablet": "var(--max-w-tablet)",
+        "desktop": "var(--max-w-desktop)",
+      },
       transitionDuration: {
         fast: "var(--transition-fast)",
         base: "var(--transition-base)",

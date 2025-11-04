@@ -4,12 +4,10 @@ import Footer from "@/components/layout/footer";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="h-screen bg-black overflow-hidden relative">
       <Header />
-      <div className="relative">
-        <HomepageSection />
-        <Footer />
-      </div>
+      <HomepageSection />
+      <Footer />
     </div>
   );
 }

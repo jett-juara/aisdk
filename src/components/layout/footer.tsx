@@ -21,30 +21,30 @@ interface FooterProps {
 
 const Footer = ({ className = "" }: FooterProps) => {
   return (
-    <footer className={`absolute bottom-0 left-0 right-0 z-20 ${className}`}>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center justify-between text-footer-text-primary">
-            {/* Copyright */}
-            <div className="text-sm text-footer-text-secondary">
-              © {new Date().getFullYear()} JUARA Events. All rights reserved.
-            </div>
-
-            {/* Social Links */}
-            <div className="hidden md:flex gap-3">
-              {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={label}
-                  className="group flex h-10 w-10 items-center justify-center rounded-lg border border-footer-border/60 bg-footer-button-surface text-footer-button-text hover:bg-footer-button-hover hover:text-footer-button-text-hover hover:ring-1 hover:ring-footer-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-footer-ring transition-colors duration-200 ease-out hover:scale-105 active:scale-95"
-                >
-                  <Icon className="h-[14px] w-[14px] md:h-4 md:w-4 transition-transform duration-200 group-hover:scale-110" />
-                </a>
-              ))}
-            </div>
+    <footer className={`fixed inset-x-0 bottom-0 z-40 ${className}`}>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
+        <div className="flex flex-col items-center gap-3 text-white/90 lg:flex-row lg:justify-between lg:gap-4 lg:text-left text-center">
+          {/* Copyright */}
+          <div className="text-xs sm:text-sm text-white/70">
+            © {new Date().getFullYear()} JUARA Events. All rights reserved.
           </div>
+
+          {/* Social Links */}
+          <div className="flex gap-2 sm:gap-3">
+            {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={label}
+                className="group flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg border border-white/20 bg-black/20 text-white hover:bg-black/30 hover:text-white hover:ring-1 hover:ring-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 transition-colors duration-200 ease-out hover:scale-105 active:scale-95"
+              >
+                <Icon className="h-3 w-3 sm:h-[14px] sm:w-[14px] md:h-4 md:w-4 transition-transform duration-200 group-hover:scale-110" />
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </footer>
   );

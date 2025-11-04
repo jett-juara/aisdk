@@ -11,7 +11,7 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 1024, 1920, 2560],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    qualities: [75, 85],
+    qualities: [75, 85, 90],
   },
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
