@@ -1,31 +1,18 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white flex flex-col">
       <Header />
 
-      <main className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <main className="flex-1 relative z-10 flex items-center justify-center px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Back Button */}
-          <div className="mb-8">
-            <Link href="/">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-white/80 hover:text-white hover:bg-white/10"
-              >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Home
-              </Button>
-            </Link>
-          </div>
 
           {/* Content */}
-          <h1 className="font-heading text-4xl font-bold tracking-[0.18em] text-white mb-6 sm:text-5xl sm:tracking-[0.22em] md:text-6xl md:tracking-[0.26em] lg:text-7xl">
+          <h1 className="font-heading text-4xl font-bold text-white mb-6 sm:text-5xl md:text-6xl lg:text-7xl">
             About JUARA
           </h1>
 
@@ -70,6 +57,8 @@ export default function AboutPage() {
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }
