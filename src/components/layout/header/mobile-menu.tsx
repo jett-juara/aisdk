@@ -36,14 +36,14 @@ export const MobileMenu = ({ items, profile, onLogout, loggingOut, loading }: Mo
           variant="ghost"
           size="icon"
           aria-label="Buka menu navigasi"
-          className="md:hidden h-11 w-11 text-header-nav-text hover:text-header-nav-text"
+          className="lg:hidden h-11 w-11 text-header-nav-text hover:text-header-nav-text"
         >
           <Menu className="h-6 w-6" />
         </Button>
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="border-none bg-header-dropdown-bg w-[80vw] max-w-md data-[state=open]:animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-right-8 data-[state=closed]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-6"
+        className="border-none bg-header-dropdown-bg w-[60vw] max-w-md data-[state=open]:animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-right-8 data-[state=closed]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-6"
       >
         {/* A11y: Dialog requires a Title (visually hidden) */}
         <SheetTitle className="sr-only">Mobile Navigation Menu</SheetTitle>

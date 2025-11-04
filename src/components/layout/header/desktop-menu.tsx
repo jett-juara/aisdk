@@ -46,7 +46,7 @@ export const DesktopMenu = ({ items }: DesktopMenuProps) => {
   }, []);
 
   return (
-    <nav className="hidden items-center gap-6 md:flex">
+    <nav className="hidden items-center gap-6 lg:flex">
       {items.map((item) =>
         item.children && item.children.length > 0 ? (
           mounted ? (

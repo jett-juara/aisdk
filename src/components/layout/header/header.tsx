@@ -14,12 +14,11 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 const MobileMenu = dynamic(() => import("./mobile-menu").then(mod => ({ default: mod.MobileMenu })), {
   ssr: false,
   loading: () => (
-    <div className="md:hidden h-11 w-11 animate-pulse rounded-lg bg-header-nav-text/10" />
+    <div className="lg:hidden h-11 w-11 animate-pulse rounded-lg bg-header-nav-text/10" />
   ),
 });
 
 export const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [profile, setProfile] = useState<HeaderUserProfile | null>(null);
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -27,12 +26,6 @@ export const Header = () => {
   const supabase = useMemo(() => createSupabaseBrowserClient(), []);
   const router = useRouter();
   const { toast } = useToast();
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     let isActive = true;
@@ -140,15 +133,11 @@ export const Header = () => {
   }, [isLoggingOut, router, toast]);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        isScrolled ? "border-b border-header-border/60 bg-header-bg" : "bg-transparent"
-      }`}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 bg-transparent">
       <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <HeaderLogo />
         <DesktopMenu items={HEADER_MENU_ITEMS} />
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4">
           <HeaderAuthActions
             profile={profile}
             loggingOut={isLoggingOut}
@@ -156,7 +145,7 @@ export const Header = () => {
             onLogout={handleLogout}
           />
         </div>
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <MobileMenu
             items={HEADER_MENU_ITEMS}
             profile={profile}
