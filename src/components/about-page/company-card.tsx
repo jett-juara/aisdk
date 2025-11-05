@@ -1,14 +1,13 @@
 "use client"
 
 interface CompanyCardProps {
-  id: number
   name: string
   description: string
   gradient: string
   onSelect: () => void
 }
 
-export default function CompanyCard({ id, name, description, gradient, onSelect }: CompanyCardProps) {
+export default function CompanyCard({ name, description, gradient, onSelect }: CompanyCardProps) {
   return (
     <div
       className="group relative rounded-xl overflow-hidden cursor-pointer border auth-border transition-all duration-300 hover:border-purple-500/50 h-full hover:shadow-lg hover:shadow-purple-500/20 transform-origin-center transition-transform"

@@ -84,12 +84,11 @@ const CompaniesGrid = () => {
               selectedId
                 ? selectedId === company.id
                   ? "scale-100 opacity-100"
-                  : "transform scale-75 opacity-30"
+                  : "scale-75 opacity-30"
                 : "scale-100 opacity-100"
             } transform-gpu`}
           >
             <CompanyCard
-              id={company.id}
               name={company.name}
               description={company.description}
               gradient={company.gradient}
