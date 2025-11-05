@@ -81,39 +81,26 @@ const CompaniesGrid = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-6 w-full max-w-7xl px-4">
-      {/* Cards Section - Always Present */}
-      <div className={`grid gap-6 w-full ${
-        selectedId ? "grid-cols-4" : "grid-cols-2"
-      }`}>
-        {companies.map((company) => (
-          <div
-            key={company.id}
-            className={`transition-all duration-700 ease-out ${
-              selectedId ? "aspect-[32/9]" : "aspect-square"
-            } ${
-              selectedId
-                ? selectedId === company.id
-                  ? "scale-100 opacity-100"
-                  : "scale-75 opacity-30"
-                : "scale-100 opacity-100"
-            } transform-gpu`}
-          >
-            <CompanyCard
-              name={company.name}
-              description={company.description}
-              gradient={company.gradient}
-              onSelect={() => handleCardClick(company.id)}
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* STATE 1: 2-Column Layout - Cards Left, SVGs Right (Desktop Only) */}
+      {/* STATE 1: 2-Column Layout - Cards Left, SVGs Right (Desktop) */}
       {!selectedId && (
         <div className="flex flex-col lg:flex-row gap-8 w-full">
-          {/* LEFT: Empty space for cards alignment */}
-          <div className="flex-1 hidden lg:block">
-            {/* This creates balance in the 2-column layout */}
+          {/* LEFT: 4 Cards in 2x2 Grid */}
+          <div className="flex-1">
+            <div className="grid grid-cols-2 gap-6">
+              {companies.map((company) => (
+                <div
+                  key={company.id}
+                  className="transition-all duration-700 ease-out aspect-square scale-100 opacity-100 transform-gpu"
+                >
+                  <CompanyCard
+                    name={company.name}
+                    description={company.description}
+                    gradient={company.gradient}
+                    onSelect={() => handleCardClick(company.id)}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* RIGHT: All 4 SVGs with uniform height */}
@@ -142,15 +129,39 @@ const CompaniesGrid = () => {
         </div>
       )}
 
-      {/* STATE 2: Single SVG Below Cards */}
+      {/* STATE 2: Single Column Layout - Cards Full Width + SVG Below + Content */}
       {selectedId && (
-        <div className="flex justify-center w-full">
-          <img
-            src={svgFiles[selectedId as keyof typeof svgFiles]}
-            alt={`${companies.find(c => c.id === selectedId)?.name} visualization`}
-            className="h-32 w-auto max-w-md lg:max-w-full object-contain"
-          />
-        </div>
+        <>
+          {/* Cards Section - Full Width */}
+          <div className="grid grid-cols-4 gap-6 w-full">
+            {companies.map((company) => (
+              <div
+                key={company.id}
+                className={`transition-all duration-700 ease-out aspect-[32/9] ${
+                  selectedId === company.id
+                    ? "scale-100 opacity-100"
+                    : "scale-75 opacity-30"
+                } transform-gpu`}
+              >
+                <CompanyCard
+                  name={company.name}
+                  description={company.description}
+                  gradient={company.gradient}
+                  onSelect={() => handleCardClick(company.id)}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* SVG Section - Below Cards */}
+          <div className="flex justify-center w-full">
+            <img
+              src={svgFiles[selectedId as keyof typeof svgFiles]}
+              alt={`${companies.find(c => c.id === selectedId)?.name} visualization`}
+              className="h-32 w-auto max-w-md lg:max-w-full object-contain"
+            />
+          </div>
+        </>
       )}
 
       {/* Expandable Content Section */}
