@@ -10,7 +10,7 @@ interface CompanyCardProps {
 export default function CompanyCard({ name, description, gradient, onSelect }: CompanyCardProps) {
   return (
     <div
-      className="group relative rounded-xl overflow-hidden cursor-pointer border auth-border transition-all duration-300 hover:border-purple-500/50 h-full hover:shadow-lg hover:shadow-purple-500/20 transform-origin-center transition-transform"
+      className="group relative rounded-xl overflow-hidden cursor-pointer border auth-border transition-all duration-300 h-full hover:brightness-110 transform-origin-center transition-transform"
       onClick={onSelect}
     >
       <div
