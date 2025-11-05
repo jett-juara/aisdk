@@ -8,16 +8,16 @@ import { ThemeProvider } from "@/components/about-page/theme-provider";
 export default function AboutPage() {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-      <div className="min-h-screen bg-black text-white flex flex-col">
-        <Header />
+      <div className="min-h-screen bg-background text-white flex flex-col">
+        <Header fixed={false} />
 
-        <main className="flex-1 relative z-10 flex items-center justify-center">
-          <div className="relative z-10 bg-color-dashboard-bg-main h-screen w-screen overflow-hidden flex items-center justify-center">
+        <main className="flex-1 relative z-10 py-12">
+          <div className="container mx-auto px-4">
             <CompaniesGrid />
           </div>
         </main>
 
-        <Footer />
+        <Footer fixed={false} />
       </div>
     </ThemeProvider>
   );

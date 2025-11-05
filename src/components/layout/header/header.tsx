@@ -31,7 +31,11 @@ const MobileMenu = dynamic(() => import("./mobile-menu").then(mod => ({ default:
   ),
 });
 
-export const Header = () => {
+interface HeaderProps {
+  fixed?: boolean;
+}
+
+export const Header = ({ fixed = true }: HeaderProps) => {
   const [profile, setProfile] = useState<HeaderUserProfile | null>(null);
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -160,7 +164,7 @@ export const Header = () => {
   }, [isLoggingOut, router, toast]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-transparent">
+    <header className={`${fixed ? 'fixed inset-x-0 top-0 z-50' : 'relative'} bg-transparent`}>
       <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <HeaderLogo />
         <DesktopMenu items={HEADER_MENU_ITEMS} />
