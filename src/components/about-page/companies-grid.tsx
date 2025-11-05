@@ -71,47 +71,98 @@ const CompaniesGrid = () => {
 
   const selectedCompany = companies.find((c) => c.id === selectedId)
 
+  // SVG mapping for each company
+  const svgFiles = {
+    1: "/images/about-page/event-txt.svg",
+    2: "/images/about-page/community-txt.svg",
+    3: "/images/about-page/tech-txt.svg",
+    4: "/images/about-page/analytics-txt.svg"
+  }
+
   return (
     <div className="flex flex-col items-center justify-center gap-6 w-full max-w-7xl px-4">
-      {/* Cards Grid */}
-      <div className="grid grid-cols-4 gap-6 w-full">
-        {companies.map((company) => (
-          <div
-            key={company.id}
-            className={`transition-all duration-700 ease-out ${
-              selectedId ? "aspect-[32/9]" : "aspect-square"
-            } ${
-              selectedId
-                ? selectedId === company.id
-                  ? "scale-100 opacity-100"
-                  : "scale-75 opacity-30"
-                : "scale-100 opacity-100"
-            } transform-gpu`}
-          >
-            <CompanyCard
-              name={company.name}
-              description={company.description}
-              gradient={company.gradient}
-              onSelect={() => handleCardClick(company.id)}
-            />
+      {/* Main Content - 2 Columns (Desktop) / Single Column (Mobile/Tablet) */}
+      <div className="flex flex-col lg:flex-row gap-8 w-full">
+        {/* LEFT: Cards Section */}
+        <div className="flex-1">
+          <div className={`grid gap-6 ${
+            selectedId ? "grid-cols-4" : "grid-cols-2"
+          } w-full`}>
+            {companies.map((company) => (
+              <div
+                key={company.id}
+                className={`transition-all duration-700 ease-out ${
+                  selectedId ? "aspect-[32/9]" : "aspect-square"
+                } ${
+                  selectedId
+                    ? selectedId === company.id
+                      ? "scale-100 opacity-100"
+                      : "scale-75 opacity-30"
+                    : "scale-100 opacity-100"
+                } transform-gpu`}
+              >
+                <CompanyCard
+                  name={company.name}
+                  description={company.description}
+                  gradient={company.gradient}
+                  onSelect={() => handleCardClick(company.id)}
+                />
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        {/* RIGHT: SVG Section */}
+        <div className="flex-1 flex flex-col gap-6">
+          {selectedId ? (
+            // STATE 2: Show only the SVG related to selected card
+            <div className="flex justify-center lg:justify-end">
+              <img
+                src={svgFiles[selectedId as keyof typeof svgFiles]}
+                alt={`${companies.find(c => c.id === selectedId)?.name} visualization`}
+                className="h-auto w-full max-w-md lg:max-w-full object-contain"
+              />
+            </div>
+          ) : (
+            // STATE 1: Show all 4 SVGs
+            <div className="flex flex-col gap-6">
+              <img
+                src={svgFiles[1]}
+                alt="JUARA Events"
+                className="h-auto w-full max-w-md lg:max-w-full object-contain"
+              />
+              <img
+                src={svgFiles[2]}
+                alt="JUARA Community"
+                className="h-auto w-full max-w-md lg:max-w-full object-contain"
+              />
+              <img
+                src={svgFiles[3]}
+                alt="JUARA Tech"
+                className="h-auto w-full max-w-md lg:max-w-full object-contain"
+              />
+              <img
+                src={svgFiles[4]}
+                alt="JUARA Analytics"
+                className="h-auto w-full max-w-md lg:max-w-full object-contain"
+              />
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Expandable Content Section */}
       {selectedCompany && (
-        <div className="w-full grid grid-cols-4 gap-6">
-          <div className="col-span-4 cursor-pointer" onClick={() => setSelectedId(null)}>
-            <div className="animate-expandContent rounded-2xl overflow-hidden auth-border">
-              <div className={`bg-gradient-to-br ${selectedCompany.gradient} p-8`}>
-                <h2 className="text-4xl font-bold auth-text-primary mb-2 font-heading">{selectedCompany.shortName}</h2>
-                <p className="auth-text-secondary mb-6 text-lg">{selectedCompany.description}</p>
-                <h3 className="text-xl font-semibold auth-text-primary mb-3">Tentang</h3>
-                <div className="space-y-4">
-                  {selectedCompany.fullDescription.map((paragraph, idx) => (
-                    <p key={idx} className="auth-text-secondary leading-relaxed">{paragraph}</p>
-                  ))}
-                </div>
+        <div className="w-full cursor-pointer" onClick={() => setSelectedId(null)}>
+          <div className="animate-expandContent rounded-2xl overflow-hidden auth-border">
+            <div className={`bg-gradient-to-br ${selectedCompany.gradient} p-8`}>
+              <h2 className="text-4xl font-bold auth-text-primary mb-2 font-heading">{selectedCompany.shortName}</h2>
+              <p className="auth-text-secondary mb-6 text-lg">{selectedCompany.description}</p>
+              <h3 className="text-xl font-semibold auth-text-primary mb-3">Tentang</h3>
+              <div className="space-y-4">
+                {selectedCompany.fullDescription.map((paragraph, idx) => (
+                  <p key={idx} className="auth-text-secondary leading-relaxed">{paragraph}</p>
+                ))}
               </div>
             </div>
           </div>
