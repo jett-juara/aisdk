@@ -4,30 +4,30 @@ import Footer from "@/components/layout/footer";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-black flex flex-col">
+    <div className="relative isolate flex min-h-screen min-h-dvh flex-col overflow-hidden bg-black">
       {/* Background Image - covers full viewport */}
       <div
-        className="absolute inset-0 bg-[url('/images/hero_03-mobile.webp')] md:bg-[url('/images/hero_03-tablet.webp')] lg:bg-[url('/images/hero_03-xlarge.webp')] bg-cover bg-center"
+        className="pointer-events-none absolute inset-0 z-0 bg-[url('/images/hero_03-mobile.webp')] bg-cover bg-center md:bg-[url('/images/hero_03-tablet.webp')] lg:bg-[url('/images/hero_03-xlarge.webp')]"
         aria-hidden="true"
       />
 
       {/* 30% Dark Shadow Overlay */}
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="pointer-events-none absolute inset-0 z-10 bg-black/30" />
 
       {/* Header */}
-      <div className="relative z-10">
+      <div className="relative z-20">
         <Header />
       </div>
 
       {/* Main Content - Centered */}
-      <main className="flex-1 flex items-center justify-center relative z-10">
+      <main className="relative z-20 flex flex-1 items-center justify-center">
         <div className="w-full">
           <HomepageSection />
         </div>
       </main>
 
       {/* Footer */}
-      <div className="relative z-10">
+      <div className="relative z-20">
         <Footer />
       </div>
     </div>
