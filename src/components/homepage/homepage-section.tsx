@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 
 const HomepageSection = () => {
   return (
-    <section className="relative min-h-screen">
+    <section className="relative w-full">
       {/* Main Content - Mobile Layout (< 768px) */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 pt-16">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 pt-4">
         <div className="flex w-full flex-col gap-3 md:hidden">
           {/* SVG with translate adjustments - PRESERVE POSITIONING */}
           <div className="pointer-events-none flex self-start translate-y-2">
@@ -19,7 +19,7 @@ const HomepageSection = () => {
             />
           </div>
 
-          <div className="flex flex-col items-center space-y-3 px-4 pb-20">
+          <div className="flex flex-col items-center space-y-3 px-4 pb-8">
             <p className="text-center font-body text-white/90 text-base sm:text-lg">
               Extraordinary events beyond boundaries.
             </p>
@@ -56,7 +56,7 @@ const HomepageSection = () => {
             />
           </div>
 
-          <div className="flex flex-col items-center space-y-4 px-4 -mt-4 pb-20">
+          <div className="flex flex-col items-center space-y-4 px-4 -mt-4 pb-8">
             <p className="text-center font-body text-white/90 text-xl">
               Extraordinary events beyond boundaries.
             </p>
@@ -93,7 +93,7 @@ const HomepageSection = () => {
             />
           </div>
 
-          <div className="flex flex-col items-center space-y-6 px-4 -mt-6 pb-20">
+          <div className="flex flex-col items-center space-y-6 px-4 -mt-6 pb-8">
             <p className="text-center font-body text-white/90 text-2xl">
               Extraordinary events beyond boundaries.
             </p>
