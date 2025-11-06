@@ -1,31 +1,32 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
+import { CalendarCheck, UsersRound, Cpu, ChartBarBig } from "lucide-react"
 import CompanyCard from "./company-card"
 import { ABOUT_RESET_EVENT } from "@/lib/constants/events"
 
 const layoutConfigs = {
   1: {
-    textOrder: "order-1 lg:order-1",
-    imageOrder: "order-2 lg:order-2",
+    desktopTextOrder: "lg:order-1",
+    desktopImageOrder: "lg:order-2",
     textBasis: "lg:basis-[60%]",
     imageBasis: "lg:basis-[40%]",
   },
   2: {
-    textOrder: "order-2 lg:order-2",
-    imageOrder: "order-1 lg:order-1",
+    desktopTextOrder: "lg:order-2",
+    desktopImageOrder: "lg:order-1",
     textBasis: "lg:basis-[60%]",
     imageBasis: "lg:basis-[40%]",
   },
   3: {
-    textOrder: "order-1 lg:order-1",
-    imageOrder: "order-2 lg:order-2",
+    desktopTextOrder: "lg:order-1",
+    desktopImageOrder: "lg:order-2",
     textBasis: "lg:basis-[60%]",
     imageBasis: "lg:basis-[40%]",
   },
   4: {
-    textOrder: "order-2 lg:order-2",
-    imageOrder: "order-1 lg:order-1",
+    desktopTextOrder: "lg:order-2",
+    desktopImageOrder: "lg:order-1",
     textBasis: "lg:basis-[60%]",
     imageBasis: "lg:basis-[40%]",
   },
@@ -37,6 +38,7 @@ const CompaniesGrid = () => {
       id: 1,
       name: "Events",
       description: "Premium event experiences",
+      icon: CalendarCheck,
       fullDescription: [
         "JUARA Events menghadirkan pengalaman acara premium yang tak terlupakan. Kami menggabungkan kreativitas, teknologi, dan eksekusi sempurna untuk menciptakan momen yang berkesan bagi audiences Anda.",
         "Dengan pendekatan 'off the grid' yang signature, kami menciptakan event-event unik di lokasi-lokasi tak terduga yang menantang batasan konvensional. Setiap konsep dirancang khusus untuk memberikan pengalaman immersive yang tidak hanya menghibur, tetapi juga bermakna dan transformatif.",
@@ -48,6 +50,7 @@ const CompaniesGrid = () => {
       id: 2,
       name: "Community",
       description: "Community-driven innovation",
+      icon: UsersRound,
       fullDescription: [
         "Kami percaya pada kekuatan komunitas untuk mendorong inovasi. JUARA Community mengubah kreator, profesional, dan visioner untuk berkolaborasi dan saling menginspirasi dalam ekosistem yang saling mendukung.",
         "Platform komunitas kami menyediakan ruang bagi para innovator untuk berbagi ide, membangun koneksi, dan mengembangkan proyek-proyek ambisius. Melalui workshop, meetup, dan program mentorship, kami memfasilitasi knowledge transfer dan skill development yang berkelanjutan.",
@@ -59,6 +62,7 @@ const CompaniesGrid = () => {
       id: 3,
       name: "Tech",
       description: "Next-generation experiences",
+      icon: Cpu,
       fullDescription: [
         "Teknologi adalah jantung dari apa yang kami lakukan. JUARA Tech menghadirkan solusi inovatif yang mengubah visi menjadi kenyataan dengan kepercayaan diri, mengintegrasikan cutting-edge technology untuk menciptakan experiences yang truly revolutionary.",
         "Tim tech kami mengkhususkan diri dalam developing custom solutions yang mengoptimize setiap aspek event management. Dari AI-powered audience analytics hingga blockchain-based ticketing systems, kami leverage teknologi terdepan untuk streamline operations dan enhance participant experience.",
@@ -70,6 +74,7 @@ const CompaniesGrid = () => {
       id: 4,
       name: "Analytics",
       description: "Data-driven insights",
+      icon: ChartBarBig,
       fullDescription: [
         "Data memberikan pemahaman mendalam. JUARA Analytics menggunakan insights berbasis data untuk mengoptimalkan strategi dan memaksimalkan ROI dari setiap kampanye, memberikan competitive advantage yang measurable dan actionable.",
         "Platform analytics kami mengumpulkan dan menganalisis data real-time dari berbagai touchpoints: social media engagement, audience behavior, sentiment analysis, hingga conversion metrics. Visual dashboards yang intuitive membantu stakeholders make informed decisions berdasarkan evidence, bukan hanya intuition.",
@@ -82,10 +87,14 @@ const CompaniesGrid = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [hoveredId, setHoveredId] = useState<number | null>(null)
   const [introStep, setIntroStep] = useState(0)
+  const [introReady, setIntroReady] = useState(false)
+  const [detailStage, setDetailStage] = useState<"idle" | "cards" | "content">("idle")
   const totalIntroSteps = companies.length + 1
   const introDone = introStep >= totalIntroSteps
   const timeoutsRef = useRef<NodeJS.Timeout[]>([])
   const frameRef = useRef<number | null>(null)
+  const detailTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const introStartTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   const resetIntroTimers = useCallback(() => {
     if (frameRef.current !== null) {
@@ -99,7 +108,19 @@ const CompaniesGrid = () => {
   }, [])
 
   useEffect(() => {
-    const handleReset = () => setSelectedId(null)
+    const handleReset = () => {
+      setSelectedId(null)
+      setIntroStep(0)
+      setDetailStage("idle")
+      setIntroReady(false)
+      if (introStartTimerRef.current) {
+        clearTimeout(introStartTimerRef.current)
+        introStartTimerRef.current = null
+      }
+      introStartTimerRef.current = setTimeout(() => {
+        setIntroReady(true)
+      }, 600)
+    }
 
     if (typeof window !== "undefined") {
       window.addEventListener(ABOUT_RESET_EVENT, handleReset)
@@ -113,11 +134,24 @@ const CompaniesGrid = () => {
   }, [])
 
   useEffect(() => {
+    setIntroReady(true)
+    return () => {
+      if (introStartTimerRef.current) {
+        clearTimeout(introStartTimerRef.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
     return () => resetIntroTimers()
   }, [resetIntroTimers])
 
   useEffect(() => {
     if (selectedId !== null) {
+      return
+    }
+
+    if (!introReady) {
       return
     }
 
@@ -140,7 +174,7 @@ const CompaniesGrid = () => {
     return () => {
       resetIntroTimers()
     }
-  }, [resetIntroTimers, selectedId, totalIntroSteps])
+  }, [resetIntroTimers, selectedId, totalIntroSteps, introReady])
 
   useEffect(() => {
     if (selectedId !== null) {
@@ -148,10 +182,45 @@ const CompaniesGrid = () => {
     }
   }, [selectedId])
 
+  useEffect(() => {
+    if (detailTimerRef.current) {
+      clearTimeout(detailTimerRef.current)
+      detailTimerRef.current = null
+    }
+
+    if (selectedId === null) {
+      setDetailStage("idle")
+      return
+    }
+
+    setDetailStage("cards")
+    detailTimerRef.current = setTimeout(() => {
+      setDetailStage("content")
+      detailTimerRef.current = null
+    }, 220)
+
+    return () => {
+      if (detailTimerRef.current) {
+        clearTimeout(detailTimerRef.current)
+        detailTimerRef.current = null
+      }
+    }
+  }, [selectedId])
+
   const handleCardClick = (id: number) => {
     if (selectedId === id) {
       setSelectedId(null)
       setHoveredId(null)
+      setIntroStep(0)
+      setDetailStage("idle")
+      resetIntroTimers()
+      setIntroReady(false)
+      if (introStartTimerRef.current) {
+        clearTimeout(introStartTimerRef.current)
+      }
+      introStartTimerRef.current = setTimeout(() => {
+        setIntroReady(true)
+      }, 600)
     } else {
       setSelectedId(id)
     }
@@ -203,6 +272,7 @@ const CompaniesGrid = () => {
                     <CompanyCard
                       name={company.name}
                       description={company.description}
+                      icon={company.icon}
                       onSelect={() => handleCardClick(company.id)}
                     />
                   </div>
@@ -212,18 +282,21 @@ const CompaniesGrid = () => {
           </div>
 
           {/* RIGHT: Combined Headline Outline */}
-          <div className="lg:flex-1 flex items-left justify-left lg:ml-5">
+          <div className="lg:flex-1 flex items-left justify-left lg:ml-5 mt-8 lg:mt-0">
             <div
               className={`w-full max-w transition-all duration-700 ease-out ${
                 introStep < companies.length ? "opacity-0 translate-y-12 blur-md" : "opacity-100 translate-y-0 blur-0"
               }`}
+              style={{ visibility: introStep < companies.length ? "hidden" : "visible" }}
             >
               <div className="relative w-full" style={{ paddingTop: `${(644.37 / 1418.77) * 100}%` }}>
-                <img
-                  src={headlineSvg}
-                  alt="JUARA headline divisions"
-                  className="absolute inset-0 h-full w-full object-contain"
-                />
+                {introStep > 0 && (
+                  <img
+                    src={headlineSvg}
+                    alt="JUARA headline divisions"
+                    className="absolute inset-0 h-full w-full object-contain"
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -235,31 +308,64 @@ const CompaniesGrid = () => {
         <>
           {/* Cards Section - Full Width */}
           <div className="grid grid-cols-4 gap-6 w-full">
-            {companies.map((company) => (
-              <div
-                key={company.id}
-                className={`transition-all duration-700 ease-out aspect-[32/9] ${
-                  selectedId === company.id
-                    ? "scale-100 opacity-100"
-                    : "scale-75 opacity-30"
-                } transform-gpu`}
-              >
-                <CompanyCard
-                  name={company.name}
-                  description={company.description}
-                  onSelect={() => handleCardClick(company.id)}
-                />
-              </div>
-            ))}
+            {companies.map((company) => {
+              const isSelected = selectedId === company.id
+              const cascadeActive = detailStage !== "idle"
+
+              const cardScaleClass = !cascadeActive
+                ? isSelected
+                  ? "scale-100 opacity-100"
+                  : "scale-100 opacity-80"
+                : isSelected
+                  ? "scale-110 opacity-100"
+                  : "scale-70 opacity-40"
+
+              const cardHighlightClass = isSelected && cascadeActive
+                ? "ring-1 ring-white/40 shadow-[0_24px_56px_rgba(0,0,0,0.40)]"
+                : "shadow-none"
+
+              return (
+                <div
+                  key={company.id}
+                  className={`transition-all duration-500 ease-out aspect-square lg:aspect-[32/9] transform-gpu ${cardScaleClass} ${cardHighlightClass}`}
+                  style={{ transitionDelay: cascadeActive ? (isSelected ? "80ms" : "0ms") : "0ms" }}
+                >
+                  <CompanyCard
+                    name={company.name}
+                    description={company.description}
+                    icon={company.icon}
+                    showDescription={false}
+                    onSelect={() => handleCardClick(company.id)}
+                  />
+                </div>
+              )
+            })}
           </div>
 
           {/* SVG Section - Below Cards */}
-          <div className="flex justify-left w-full">
-            <img
-              src={svgFiles[selectedId as keyof typeof svgFiles]}
-              alt={`${companies.find(c => c.id === selectedId)?.name} visualization`}
-              className="w-auto max-w-md lg:max-w-full object-contain"
-            />
+          <div className="flex justify-left w-full py-6 lg:py-8">
+            {(() => {
+              const svgStage = detailStage === "content" ? "content" : "cards"
+              const svgClass = svgStage === "content"
+                ? "opacity-100 scale-100 translate-y-0 blur-0 drop-shadow-[0_28px_58px_rgba(0,0,0,0.45)]"
+                : "opacity-0 scale-90 translate-y-16 blur-[12px] drop-shadow-none"
+
+              const svgStyle: React.CSSProperties = {
+                transitionProperty: "transform, filter, opacity",
+                transitionDuration: svgStage === "content" ? "550ms" : "260ms",
+                transitionDelay: svgStage === "content" ? "90ms" : "0ms",
+                transitionTimingFunction: "cubic-bezier(0.32, 0.96, 0.33, 1)"
+              }
+
+              return (
+                <img
+                  src={svgFiles[selectedId as keyof typeof svgFiles]}
+                  alt={`${companies.find(c => c.id === selectedId)?.name} visualization`}
+                  className={`w-auto max-w-md lg:max-w-full object-contain transform-gpu transition-all ${svgClass}`}
+                  style={svgStyle}
+                />
+              )
+            })()}
           </div>
         </>
       )}
@@ -270,27 +376,54 @@ const CompaniesGrid = () => {
           <div className="animate-expandContent rounded-[var(--radius-none)] overflow-hidden auth-border">
             <div className="relative bg-auth-bg-hover">
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/0 opacity-40" aria-hidden="true" />
-              <div className="relative flex flex-col lg:flex-row gap-6 lg:gap-10 items-stretch h-full">
-                <div
-                  className={`p-4 lg:p-8 flex flex-col justify-between gap-6 ${layoutConfigs[selectedCompany.id as keyof typeof layoutConfigs]?.textOrder ?? ""} ${layoutConfigs[selectedCompany.id as keyof typeof layoutConfigs]?.textBasis ?? "lg:basis-[60%]"} pr-0 lg:pr-10`}
-                >
-                  <div>
-                    <h2 className="text-3xl font-heading auth-text-primary mb-2">{selectedCompany.name}</h2>
-                    <p className="auth-text-secondary mb-4">{selectedCompany.description}</p>
-                    <h3 className="text-xl font-semibold auth-text-primary mb-3">Tentang</h3>
+              {(() => {
+                const layoutConfig = layoutConfigs[selectedCompany.id as keyof typeof layoutConfigs]
+                const desktopImageOrder = layoutConfig?.desktopImageOrder ?? ""
+                const desktopTextOrder = layoutConfig?.desktopTextOrder ?? ""
+                const isImageRight = desktopImageOrder.includes("lg:order-2")
+                const detailPanelTransform = detailStage === "content"
+                  ? "lg:translate-x-0 translate-y-0 opacity-100"
+                  : "lg:translate-x-0 translate-y-12 opacity-0"
+
+                return (
+                  <div
+                    className={`relative flex flex-col lg:flex-row gap-6 lg:gap-10 items-stretch h-full transition-all duration-800 ease-out ${detailPanelTransform}`}
+                    style={{ transitionDelay: detailStage === "content" ? "150ms" : "0ms" }}
+                  >
+                    <div
+                      className={`order-1 ${desktopImageOrder} ${layoutConfig?.imageBasis ?? "lg:basis-[40%]"} flex flex-col w-full`}
+                    >
+                      <div
+                        className={`w-full h-full min-h-[200px] rounded-[var(--radius-none)] border border-dashed border-white/20 bg-black/20 transition-all duration-700 ease-out ${
+                          detailStage === "content" ? "opacity-100 blur-0" : "opacity-60 blur-[3px]"
+                        }`}
+                        style={{ transitionDelay: detailStage === "content" ? "250ms" : "0ms" }}
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div
+                      className={`order-2 ${desktopTextOrder} ${layoutConfig?.textBasis ?? "lg:basis-[60%]"} p-4 lg:p-8 flex flex-col justify-between gap-6 pr-0 lg:pr-10`}
+                    >
+                      <div className="space-y-2">
+                        <h2 className="text-2xl font-heading font-semibold auth-text-primary">{selectedCompany.description}</h2>
+                      </div>
+                      <div className="space-y-4">
+                        {selectedCompany.fullDescription.map((paragraph, idx) => (
+                          <p
+                            key={idx}
+                            className={`auth-text-secondary leading-relaxed transition-opacity duration-600 ease-out ${
+                              detailStage === "content" ? "opacity-100" : "opacity-0"
+                            }`}
+                            style={{ transitionDelay: detailStage === "content" ? `${0.25 + idx * 0.08}s` : "0ms" }}
+                          >
+                            {paragraph}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div className="space-y-4">
-                    {selectedCompany.fullDescription.map((paragraph, idx) => (
-                      <p key={idx} className="auth-text-secondary leading-relaxed">{paragraph}</p>
-                    ))}
-                  </div>
-                </div>
-                <div
-                  className={`w-full ${layoutConfigs[selectedCompany.id as keyof typeof layoutConfigs]?.imageOrder ?? ""} ${layoutConfigs[selectedCompany.id as keyof typeof layoutConfigs]?.imageBasis ?? "lg:basis-[40%]"} flex`}
-                >
-                  <div className="w-full h-full min-h-[200px] rounded-[var(--radius-none)] border border-dashed border-white/20 bg-black/20" aria-hidden="true" />
-                </div>
-              </div>
+                )
+              })()}
             </div>
           </div>
         </div>
