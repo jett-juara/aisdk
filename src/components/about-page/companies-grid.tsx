@@ -37,7 +37,6 @@ const CompaniesGrid = () => {
       id: 1,
       name: "Events",
       description: "Premium event experiences",
-      gradient: "from-amber-600/30 to-amber-900/30",
       fullDescription: [
         "JUARA Events menghadirkan pengalaman acara premium yang tak terlupakan. Kami menggabungkan kreativitas, teknologi, dan eksekusi sempurna untuk menciptakan momen yang berkesan bagi audiences Anda.",
         "Dengan pendekatan 'off the grid' yang signature, kami menciptakan event-event unik di lokasi-lokasi tak terduga yang menantang batasan konvensional. Setiap konsep dirancang khusus untuk memberikan pengalaman immersive yang tidak hanya menghibur, tetapi juga bermakna dan transformatif.",
@@ -49,7 +48,6 @@ const CompaniesGrid = () => {
       id: 2,
       name: "Community",
       description: "Community-driven innovation",
-      gradient: "from-slate-600/30 to-slate-900/30",
       fullDescription: [
         "Kami percaya pada kekuatan komunitas untuk mendorong inovasi. JUARA Community mengubah kreator, profesional, dan visioner untuk berkolaborasi dan saling menginspirasi dalam ekosistem yang saling mendukung.",
         "Platform komunitas kami menyediakan ruang bagi para innovator untuk berbagi ide, membangun koneksi, dan mengembangkan proyek-proyek ambisius. Melalui workshop, meetup, dan program mentorship, kami memfasilitasi knowledge transfer dan skill development yang berkelanjutan.",
@@ -61,7 +59,6 @@ const CompaniesGrid = () => {
       id: 3,
       name: "Tech",
       description: "Next-generation experiences",
-      gradient: "from-cyan-600/30 to-cyan-900/30",
       fullDescription: [
         "Teknologi adalah jantung dari apa yang kami lakukan. JUARA Tech menghadirkan solusi inovatif yang mengubah visi menjadi kenyataan dengan kepercayaan diri, mengintegrasikan cutting-edge technology untuk menciptakan experiences yang truly revolutionary.",
         "Tim tech kami mengkhususkan diri dalam developing custom solutions yang mengoptimize setiap aspek event management. Dari AI-powered audience analytics hingga blockchain-based ticketing systems, kami leverage teknologi terdepan untuk streamline operations dan enhance participant experience.",
@@ -73,7 +70,6 @@ const CompaniesGrid = () => {
       id: 4,
       name: "Analytics",
       description: "Data-driven insights",
-      gradient: "from-indigo-600/30 to-indigo-900/30",
       fullDescription: [
         "Data memberikan pemahaman mendalam. JUARA Analytics menggunakan insights berbasis data untuk mengoptimalkan strategi dan memaksimalkan ROI dari setiap kampanye, memberikan competitive advantage yang measurable dan actionable.",
         "Platform analytics kami mengumpulkan dan menganalisis data real-time dari berbagai touchpoints: social media engagement, audience behavior, sentiment analysis, hingga conversion metrics. Visual dashboards yang intuitive membantu stakeholders make informed decisions berdasarkan evidence, bukan hanya intuition.",
@@ -84,6 +80,7 @@ const CompaniesGrid = () => {
   ]
 
   const [selectedId, setSelectedId] = useState<number | null>(null)
+  const [hoveredId, setHoveredId] = useState<number | null>(null)
 
   useEffect(() => {
     const handleReset = () => setSelectedId(null)
@@ -99,9 +96,16 @@ const CompaniesGrid = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (selectedId !== null) {
+      setHoveredId(null)
+    }
+  }, [selectedId])
+
   const handleCardClick = (id: number) => {
     if (selectedId === id) {
       setSelectedId(null)
+      setHoveredId(null)
     } else {
       setSelectedId(id)
     }
@@ -124,17 +128,24 @@ const CompaniesGrid = () => {
       {!selectedId && (
         <div className="flex flex-col lg:flex-row lg:items-center w-full">
           {/* LEFT: 4 Cards in 2x2 Grid */}
-          <div className="w-full lg:max-w-[30vw] bg-red-500/10">
+          <div className="w-full lg:max-w-[30vw]">
             <div className="grid grid-cols-2 grid-rows-2">
               {companies.map((company) => (
                 <div
                   key={company.id}
-                  className="transition-all duration-700 ease-out scale-100 opacity-100 transform-gpu w-full aspect-square"
+                  className={`transition-all duration-500 ease-out transform-gpu w-full aspect-square ${
+                    hoveredId === company.id
+                      ? "scale-110 z-10 shadow-[0_24px_48px_rgba(0,0,0,0.45)]"
+                      : hoveredId === null
+                        ? "scale-100 shadow-none"
+                        : "scale-90 opacity-75 shadow-none"
+                  }`}
+                  onMouseEnter={() => setHoveredId(company.id)}
+                  onMouseLeave={() => setHoveredId(null)}
                 >
                   <CompanyCard
                     name={company.name}
                     description={company.description}
-                    gradient={company.gradient}
                     onSelect={() => handleCardClick(company.id)}
                   />
                 </div>
