@@ -9,13 +9,13 @@ const HomepageSection = () => {
       {/* Main Content - Mobile Layout (< 768px) */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 pt-4">
         <div className="flex w-full flex-col gap-3 md:hidden">
-          {/* SVG with translate adjustments - PRESERVE POSITIONING */}
+          {/* SVG - ORIGINAL positioning dengan translate adjustments */}
           <div className="pointer-events-none flex self-start translate-y-2">
             <img
               src="/images/off-the-grid.svg"
               alt=""
               aria-hidden="true"
-              className="h-auto w-[50vw] max-w-[80vw] select-none"
+              className="h-auto w-[40vw] max-w-[70vw] select-none"
             />
           </div>
 
@@ -46,7 +46,7 @@ const HomepageSection = () => {
 
         {/* Tablet Layout (768px - 1024px) */}
         <div className="hidden md:flex lg:hidden w-full flex-col items-center">
-          {/* SVG with translate adjustments - PRESERVE POSITIONING */}
+          {/* SVG - ORIGINAL positioning dengan translate adjustments */}
           <div className="pointer-events-none flex w-[50vw] self-start -translate-y-2">
             <img
               src="/images/off-the-grid.svg"
@@ -56,7 +56,7 @@ const HomepageSection = () => {
             />
           </div>
 
-          <div className="flex flex-col items-center space-y-4 px-4 -mt-4 pb-8">
+          <div className="flex flex-col items-center space-y-4 px-4 pb-8">
             <p className="text-center font-body text-white/90 text-xl">
               Extraordinary events beyond boundaries.
             </p>
@@ -83,7 +83,7 @@ const HomepageSection = () => {
 
         {/* Desktop Layout (> 1024px) */}
         <div className="hidden lg:flex w-full flex-col items-center">
-          {/* SVG with translate adjustments - PRESERVE POSITIONING */}
+          {/* SVG - ORIGINAL positioning dengan translate adjustments */}
           <div className="pointer-events-none flex w-[43vw] justify-end self-start translate-y-2">
             <img
               src="/images/off-the-grid.svg"
@@ -93,7 +93,7 @@ const HomepageSection = () => {
             />
           </div>
 
-          <div className="flex flex-col items-center space-y-6 px-4 -mt-6 pb-8">
+          <div className="flex flex-col items-center space-y-6 px-4 pb-8">
             <p className="text-center font-body text-white/90 text-2xl">
               Extraordinary events beyond boundaries.
             </p>
