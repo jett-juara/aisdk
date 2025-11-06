@@ -456,3 +456,72 @@
         @apply bg-background text-foreground;
     }
 }
+
+@layer components {
+    /* Homepage Animation Classes */
+    .homepage-svg-animation {
+        @apply transition-all duration-700 ease-out transform-gpu;
+        transition-property: opacity, transform, filter;
+    }
+
+    .homepage-text-animation {
+        @apply transition-all duration-700 ease-out;
+        transition-property: opacity, transform, filter;
+    }
+
+    .homepage-button-animation {
+        @apply transition-all duration-500 ease-out transform-gpu;
+        transition-property: opacity, transform;
+    }
+
+    /* Animation State Classes */
+    .homepage-svg-hidden {
+        @apply opacity-0 scale-75 blur-sm;
+    }
+
+    .homepage-svg-visible {
+        @apply opacity-100 scale-100 blur-0;
+    }
+
+    .homepage-text-hidden {
+        @apply opacity-0 translate-y-8 blur-md;
+    }
+
+    .homepage-text-visible {
+        @apply opacity-100 translate-y-0 blur-0;
+    }
+
+    .homepage-button-hidden {
+        @apply opacity-0 translate-y-6 scale-95;
+    }
+
+    .homepage-button-visible {
+        @apply opacity-100 translate-y-0 scale-100;
+    }
+
+    /* Hover Enhancement Classes */
+    .homepage-svg-hover {
+        @apply scale-105;
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    }
+
+    .homepage-button-hover {
+        @apply scale-105;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Reduced Motion Support */
+    @media (prefers-reduced-motion: reduce) {
+        .homepage-svg-animation,
+        .homepage-text-animation,
+        .homepage-button-animation {
+            @apply transition-none;
+        }
+
+        .homepage-svg-hidden,
+        .homepage-text-hidden,
+        .homepage-button-hidden {
+            @apply opacity-100 scale-100 blur-0 translate-y-0;
+        }
+    }
+}
