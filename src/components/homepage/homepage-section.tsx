@@ -10,7 +10,7 @@ const HomepageSection = () => {
   const [isReady, setIsReady] = useState(false);
 
   return (
-    <section className="absolute inset-0 flex items-center justify-center overflow-hidden bg-auth-bg-form">
+    <section className="flex-1 flex items-center justify-center overflow-hidden bg-auth-bg-form">
       {/* Background Images for 3 Breakpoints */}
       <div className="absolute inset-0 bg-auth-bg-form">
         {/* Mobile: < 768px */}
