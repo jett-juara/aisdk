@@ -80,7 +80,7 @@ const HomepageSection = () => {
               />
             </div>
 
-            <div className="flex flex-col items-center space-y-3 px-4">
+            <div className="flex flex-col items-center space-y-3 px-4 pb-20">
               <p className="text-center font-body text-white/90 text-base sm:text-lg">
                 Extraordinary events beyond boundaries.
               </p>
@@ -116,7 +116,7 @@ const HomepageSection = () => {
               />
             </div>
 
-            <div className="flex flex-col items-center space-y-4 px-4 -mt-4">
+            <div className="flex flex-col items-center space-y-4 px-4 -mt-4 pb-20">
               <p className="text-center font-body text-white/90 text-xl">
                 Extraordinary events beyond boundaries.
               </p>
@@ -152,7 +152,7 @@ const HomepageSection = () => {
               />
             </div>
 
-            <div className="flex flex-col items-center space-y-6 px-4 -mt-6">
+            <div className="flex flex-col items-center space-y-6 px-4 -mt-6 pb-20">
               <p className="text-center font-body text-white/90 text-2xl">
                 Extraordinary events beyond boundaries.
               </p>
