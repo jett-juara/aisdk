@@ -53,6 +53,16 @@ export function useConnection(options: UseConnectionOptions = {}): ConnectionRes
 
   const clientRef = useRef<SupabaseClient | null>(null)
   const isMounted = useRef(true)
+  const acquireRef = useRef<(() => Promise<void>) | null>(null)
+
+  const release = useCallback(() => {
+    if (clientRef.current && autoRelease) {
+      releaseConnection(poolName, clientRef.current)
+      clientRef.current = null
+      setClient(null)
+      setIsConnected(false)
+    }
+  }, [poolName, autoRelease])
 
   const acquire = useCallback(async () => {
     if (!isMounted.current) return
@@ -88,20 +98,18 @@ export function useConnection(options: UseConnectionOptions = {}): ConnectionRes
       if (currentRetryCount < retryCount) {
         setCurrentRetryCount(prev => prev + 1)
         setTimeout(() => {
-          acquire()
+          if (acquireRef.current) {
+            acquireRef.current()
+          }
         }, retryDelay * (currentRetryCount + 1)) // Exponential backoff
       }
     }
   }, [poolName, userId, priority, timeout, retryCount, retryDelay, currentRetryCount])
 
-  const release = useCallback(() => {
-    if (clientRef.current && autoRelease) {
-      releaseConnection(poolName, clientRef.current)
-      clientRef.current = null
-      setClient(null)
-      setIsConnected(false)
-    }
-  }, [poolName, autoRelease])
+  // Store acquire function in ref for self-reference
+  useEffect(() => {
+    acquireRef.current = acquire
+  }, [acquire])
 
   const retry = useCallback(async () => {
     setCurrentRetryCount(0)
@@ -186,7 +194,9 @@ export function useConnectionWithQuery<T = any>(
   // Execute query when dependencies change
   useEffect(() => {
     if (connection.isConnected && enabled) {
-      executeQuery()
+      setTimeout(() => {
+        executeQuery()
+      }, 0)
     }
   }, [connection.isConnected, executeQuery, ...deps])
 
@@ -336,7 +346,9 @@ export function useConnectionPoolAlerts(
       }
     }
 
-    setAlerts(newAlerts)
+    setTimeout(() => {
+      setAlerts(newAlerts)
+    }, 0)
   }, [monitoring.statistics, highUtilizationThreshold, highWaitingThreshold])
 
   const clearAlerts = useCallback(() => {
@@ -479,7 +491,7 @@ export function useConnectionLifecycle(
 
   const connection = useConnection({ poolName, autoRelease: false })
   const [isHealthy, setIsHealthy] = useState(true)
-  const [lastActivity, setLastActivity] = useState(Date.now())
+  const [lastActivity, setLastActivity] = useState(() => Date.now())
   const idleTimerRef = useRef<NodeJS.Timeout>()
 
   const checkHealth = useCallback(async () => {

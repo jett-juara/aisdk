@@ -15,7 +15,7 @@ export default function TestimonialLogin() {
             opacity: "0.7"
           }}
         >
-          "
+          &quot;
         </div>
         <p
           className="text-body-lg leading-relaxed text-left"

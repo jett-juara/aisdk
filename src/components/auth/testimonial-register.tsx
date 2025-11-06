@@ -9,7 +9,7 @@ export default function TestimonialRegister() {
           className="text-auth-button-brand opacity-70 font-serif"
           style={{ fontSize: "80px", lineHeight: "0", marginBottom: "0px" }}
         >
-          "
+          &quot;
         </div>
         <p className="text-body-lg text-auth-text-primary leading-relaxed text-left">
           Platform JETT sangat membantu tim kami mengelola event dengan lebih efisien. Interface yang intuitif

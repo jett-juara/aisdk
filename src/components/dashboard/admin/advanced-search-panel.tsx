@@ -131,44 +131,48 @@ export function AdvancedSearchPanel({
     return summaries.join(', ')
   }, [filters])
 
-  const quickFilters = [
-    {
-      label: 'Active Admins',
-      filters: { role: 'admin', status: 'active' },
-      icon: Shield,
-      color: 'blue'
-    },
-    {
-      label: 'Blocked Users',
-      filters: { status: 'blocked' },
-      icon: X,
-      color: 'red'
-    },
-    {
-      label: 'New Users (Week)',
-      filters: { dateRange: 'week', status: 'active' },
-      icon: Calendar,
-      color: 'green'
-    },
-    {
-      label: 'Inactive Users',
-      filters: { status: 'active', lastActiveBefore: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] },
-      icon: Clock,
-      color: 'yellow'
-    },
-    {
-      label: 'Users Without Permissions',
-      filters: { hasPermissions: 'without' },
-      icon: Shield,
-      color: 'purple'
-    },
-    {
-      label: 'All Superadmins',
-      filters: { role: 'superadmin' },
-      icon: Users,
-      color: 'red'
-    }
-  ]
+  const quickFilters = useMemo(() => {
+    const now = new Date()
+    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+    return [
+      {
+        label: 'Active Admins',
+        filters: { role: 'admin', status: 'active' },
+        icon: Shield,
+        color: 'blue'
+      },
+      {
+        label: 'Blocked Users',
+        filters: { status: 'blocked' },
+        icon: X,
+        color: 'red'
+      },
+      {
+        label: 'New Users (Week)',
+        filters: { dateRange: 'week', status: 'active' },
+        icon: Calendar,
+        color: 'green'
+      },
+      {
+        label: 'Inactive Users',
+        filters: { status: 'active', lastActiveBefore: thirtyDaysAgo },
+        icon: Clock,
+        color: 'yellow'
+      },
+      {
+        label: 'Users Without Permissions',
+        filters: { hasPermissions: 'without' },
+        icon: Shield,
+        color: 'purple'
+      },
+      {
+        label: 'All Superadmins',
+        filters: { role: 'superadmin' },
+        icon: Users,
+        color: 'red'
+      }
+    ]
+  }, [])
 
   const applyQuickFilter = useCallback((quickFilter: typeof quickFilters[0]) => {
     const newFilters = { ...filters, ...quickFilter.filters } as SearchFilters

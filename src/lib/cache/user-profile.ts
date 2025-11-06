@@ -62,7 +62,6 @@ export const getUserProfileOrNull = cache(async (userId: string): Promise<UserPr
   try {
     return await getUserProfile(userId)
   } catch (error) {
-    console.warn('Failed to fetch user profile:', error instanceof Error ? error.message : 'Unknown error')
     return null
   }
 })

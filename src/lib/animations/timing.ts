@@ -29,35 +29,51 @@ export const ANIMATION_DELAYS = {
   BUTTON_2_DELAY: 200   // Button 2 delay after button 1 (T=1200ms + 200ms = 1400ms)
 } as const
 
-// Easing function definitions
-export const ANIMATION_EASING = {
-  EASE_OUT: "ease-out",
-  EASE_IN_OUT: "ease-in-out",
-  EASE_IN: "ease-in",
-  SPRING: "cubic-bezier(0.16, 1, 0.3, 1)",  // Material Design spring
-  ELASTIC: "cubic-bezier(0.68, -0.55, 0.265, 1.55)" // Elastic bounce
-} as const
+// ============================================================================
+// UNUSED EXPORTS - Commented out for future use
+// ============================================================================
 
-// Reduced motion breakpoints
-export const REDUCED_MOTION_BREAKPOINTS = {
-  ENABLE_ANIMATIONS: true,
-  DISABLE_ANIMATIONS: false
-} as const
+/**
+ * @deprecated UNUSED - Easing function definitions
+ * Currently not utilized in homepage animations but available for future use
+ */
+// export const ANIMATION_EASING = {
+//   EASE_OUT: "ease-out",
+//   EASE_IN_OUT: "ease-in-out",
+//   EASE_IN: "ease-in",
+//   SPRING: "cubic-bezier(0.16, 1, 0.3, 1)",  // Material Design spring
+//   ELASTIC: "cubic-bezier(0.68, -0.55, 0.265, 1.55)" // Elastic bounce
+// } as const
 
-// Performance optimization settings
-export const ANIMATION_PERFORMANCE = {
-  TRANSFORM_GPU: "transform-gpu",  // GPU acceleration
-  WILL_CHANGE_AUTO: "will-change: auto",
-  WILL_CHANGE_TRANSFORM: "will-change: transform",
-  BACKFACE_VISIBLE: "backface-visibility: hidden"
-} as const
+/**
+ * @deprecated UNUSED - Reduced motion breakpoints
+ * Reserved for accessibility features (respect user motion preferences)
+ */
+// export const REDUCED_MOTION_BREAKPOINTS = {
+//   ENABLE_ANIMATIONS: true,
+//   DISABLE_ANIMATIONS: false
+// } as const
 
-// Responsive animation settings
-export const RESPONSIVE_ANIMATION = {
-  MOBILE_THRESHOLD: 768,
-  TABLET_THRESHOLD: 1024,
-  DESKTOP_THRESHOLD: 1024
-} as const
+/**
+ * @deprecated UNUSED - Performance optimization settings
+ * Available for advanced GPU acceleration and rendering optimizations
+ */
+// export const ANIMATION_PERFORMANCE = {
+//   TRANSFORM_GPU: "transform-gpu",  // GPU acceleration
+//   WILL_CHANGE_AUTO: "will-change: auto",
+//   WILL_CHANGE_TRANSFORM: "will-change: transform",
+//   BACKFACE_VISIBLE: "backface-visibility: hidden"
+// } as const
+
+/**
+ * @deprecated UNUSED - Responsive animation settings
+ * For future responsive animation breakpoints and configuration
+ */
+// export const RESPONSIVE_ANIMATION = {
+//   MOBILE_THRESHOLD: 768,
+//   TABLET_THRESHOLD: 1024,
+//   DESKTOP_THRESHOLD: 1024
+// } as const
 
 // Animation state type
 export type AnimationStage = typeof ANIMATION_STAGES[keyof typeof ANIMATION_STAGES]

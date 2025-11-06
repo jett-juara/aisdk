@@ -20,12 +20,6 @@ export const createSupabaseFetch = (label: string): SupabaseFetch => {
       })
     } catch (error) {
       if (error instanceof TypeError && error.message === 'Failed to fetch') {
-        if (process.env.NODE_ENV !== 'production') {
-          console.warn(
-            `[Supabase:${label}] jaringan tidak tersedia. Mengembalikan respons 503 simulasi.`,
-          )
-        }
-
         return new Response(
           JSON.stringify({
             error: 'service_unavailable',
@@ -45,4 +39,3 @@ export const createSupabaseFetch = (label: string): SupabaseFetch => {
     }
   }
 }
-

@@ -678,14 +678,6 @@ export class SuspiciousActivityDetector {
 
   private async notifyAdministrators(activity: SuspiciousActivity): Promise<void> {
     // In production, implement proper notification system
-    console.log('Suspicious activity detected:', {
-      type: activity.type,
-      severity: activity.severity,
-      activity: activity.activity,
-      userId: activity.userId,
-      timestamp: activity.timestamp,
-      details: activity.details
-    })
   }
 
   private async lockUserAccount(userId: string): Promise<void> {

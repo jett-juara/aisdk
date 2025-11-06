@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -50,12 +51,12 @@ export default function ForgotPasswordForm() {
       {/* Login Link */}
       <p className="text-center text-body text-auth-text-muted">
         Sudah punya akun?{" "}
-        <a
+        <Link
           href="/"
           className="text-auth-text-secondary font-semibold hover:text-auth-text-primary transition-colors underline"
         >
           Silakan login
-        </a>
+        </Link>
       </p>
     </form>
   )

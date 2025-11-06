@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { CalendarCheck, UsersRound, Cpu, ChartBarBig } from "lucide-react"
+import Image from "next/image"
 import CompanyCard from "./company-card"
 import { ABOUT_RESET_EVENT } from "@/lib/constants/events"
 
@@ -134,8 +135,11 @@ const CompaniesGrid = () => {
   }, [])
 
   useEffect(() => {
-    setIntroReady(true)
+    const timer = setTimeout(() => {
+      setIntroReady(true)
+    }, 100)
     return () => {
+      clearTimeout(timer)
       if (introStartTimerRef.current) {
         clearTimeout(introStartTimerRef.current)
       }
@@ -156,7 +160,9 @@ const CompaniesGrid = () => {
     }
 
     resetIntroTimers()
-    setIntroStep(0)
+    const timer = setTimeout(() => {
+      setIntroStep(0)
+    }, 0)
 
     const run = (index: number) => {
       const timeoutId = setTimeout(() => {
@@ -172,13 +178,17 @@ const CompaniesGrid = () => {
     frameRef.current = requestAnimationFrame(() => run(0))
 
     return () => {
+      clearTimeout(timer)
       resetIntroTimers()
     }
   }, [resetIntroTimers, selectedId, totalIntroSteps, introReady])
 
   useEffect(() => {
     if (selectedId !== null) {
-      setHoveredId(null)
+      const timer = setTimeout(() => {
+        setHoveredId(null)
+      }, 0)
+      return () => clearTimeout(timer)
     }
   }, [selectedId])
 
@@ -189,17 +199,22 @@ const CompaniesGrid = () => {
     }
 
     if (selectedId === null) {
-      setDetailStage("idle")
-      return
+      const timer = setTimeout(() => {
+        setDetailStage("idle")
+      }, 0)
+      return () => clearTimeout(timer)
     }
 
-    setDetailStage("cards")
-    detailTimerRef.current = setTimeout(() => {
-      setDetailStage("content")
-      detailTimerRef.current = null
-    }, 220)
+    const timer = setTimeout(() => {
+      setDetailStage("cards")
+      detailTimerRef.current = setTimeout(() => {
+        setDetailStage("content")
+        detailTimerRef.current = null
+      }, 220)
+    }, 0)
 
     return () => {
+      clearTimeout(timer)
       if (detailTimerRef.current) {
         clearTimeout(detailTimerRef.current)
         detailTimerRef.current = null
@@ -291,9 +306,11 @@ const CompaniesGrid = () => {
             >
               <div className="relative w-full" style={{ paddingTop: `${(644.37 / 1418.77) * 100}%` }}>
                 {introStep > 0 && (
-                  <img
+                  <Image
                     src={headlineSvg}
                     alt="JUARA headline divisions"
+                    width={1418}
+                    height={644}
                     className="absolute inset-0 h-full w-full object-contain"
                   />
                 )}
@@ -358,9 +375,11 @@ const CompaniesGrid = () => {
               }
 
               return (
-                <img
+                <Image
                   src={svgFiles[selectedId as keyof typeof svgFiles]}
                   alt={`${companies.find(c => c.id === selectedId)?.name} visualization`}
+                  width={400}
+                  height={200}
                   className={`w-auto max-w-md lg:max-w-full object-contain transform-gpu transition-all ${svgClass}`}
                   style={svgStyle}
                 />

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { ANIMATION_STAGES, ANIMATION_DURATION } from "@/lib/animations/timing"
+import { ANIMATION_STAGES } from "@/lib/animations/timing"
 
 interface AnimationClasses {
   svg: string
@@ -36,14 +36,22 @@ export const useHomepageAnimations = (): UseHomepageAnimationsReturn => {
   useEffect(() => {
     if (typeof window !== "undefined" && window.matchMedia) {
       const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
-      setPrefersReducedMotion(mediaQuery.matches)
+      const timer = setTimeout(() => {
+        setPrefersReducedMotion(mediaQuery.matches)
+      }, 0)
 
       const handleChange = (e: MediaQueryListEvent) => {
-        setPrefersReducedMotion(e.matches)
+        const changeTimer = setTimeout(() => {
+          setPrefersReducedMotion(e.matches)
+        }, 0)
+        return () => clearTimeout(changeTimer)
       }
 
       mediaQuery.addEventListener("change", handleChange)
-      return () => mediaQuery.removeEventListener("change", handleChange)
+      return () => {
+        clearTimeout(timer)
+        mediaQuery.removeEventListener("change", handleChange)
+      }
     }
   }, [])
 
@@ -51,8 +59,10 @@ export const useHomepageAnimations = (): UseHomepageAnimationsReturn => {
   useEffect(() => {
     if (prefersReducedMotion) {
       // Skip all animations if user prefers reduced motion
-      setStage(4)
-      return
+      const timer = setTimeout(() => {
+        setStage(4)
+      }, 0)
+      return () => clearTimeout(timer)
     }
 
     // Clear any existing timeouts

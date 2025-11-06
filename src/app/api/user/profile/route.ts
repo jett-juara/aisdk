@@ -126,7 +126,6 @@ export async function PUT(request: Request) {
     revalidateTag(`user-${updatedProfile.id}`, 'max') // user-specific cache
   } catch (revalidateError) {
     // Log revalidation error but don't fail the request
-    console.warn('Failed to revalidate user profile cache:', revalidateError)
   }
 
   return NextResponse.json({
