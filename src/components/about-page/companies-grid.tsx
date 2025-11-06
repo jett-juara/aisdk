@@ -83,7 +83,7 @@ const CompaniesGrid = () => {
         <div className="flex flex-col lg:flex-row lg:items-center w-full">
           {/* LEFT: 4 Cards in 2x2 Grid */}
           <div className="w-full lg:max-w-[30vw] bg-red-500/10">
-            <div className="grid grid-cols-2 grid-rows-2 gap-2 lg:gap-2">
+            <div className="grid grid-cols-2 grid-rows-2">
               {companies.map((company) => (
                 <div
                   key={company.id}
