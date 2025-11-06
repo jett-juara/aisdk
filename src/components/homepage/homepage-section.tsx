@@ -7,7 +7,7 @@ const HomepageSection = () => {
   return (
     <section className="relative w-full">
       {/* Main Content - Mobile Layout (< 768px) */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 pt-4">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 pt-16">
         <div className="flex w-full flex-col gap-3 md:hidden">
           {/* SVG - ORIGINAL positioning dengan translate adjustments */}
           <div className="pointer-events-none flex self-start translate-y-2">
