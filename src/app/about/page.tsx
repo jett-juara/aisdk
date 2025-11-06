@@ -9,7 +9,7 @@ export default function AboutPage() {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
       <div className="min-h-screen bg-black text-white flex flex-col">
-        <Header fixed={false} />
+        <Header />
 
         <main className="flex-1 relative z-10 py-12 flex items-center justify-center">
           <div className="container mx-auto px-4">

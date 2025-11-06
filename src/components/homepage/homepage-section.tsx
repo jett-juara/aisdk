@@ -7,15 +7,15 @@ const HomepageSection = () => {
   return (
     <section className="relative w-full">
       {/* Main Content - Mobile Layout (< 768px) */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 pt-16">
-        <div className="flex w-full flex-col gap-3 md:hidden">
+      <div className="w-full max-w-7xl mx-auto px-4">
+        <div className="flex w-full flex-col md:hidden">
           {/* SVG - ORIGINAL positioning dengan translate adjustments */}
-          <div className="pointer-events-none flex self-start translate-y-2">
+          <div className="pointer-events-none flex self-start">
             <img
               src="/images/off-the-grid.svg"
               alt=""
               aria-hidden="true"
-              className="h-auto w-[40vw] max-w-[70vw] select-none"
+              className="h-auto w-[50vw] max-w-[70vw] select-none"
             />
           </div>
 
@@ -47,7 +47,7 @@ const HomepageSection = () => {
         {/* Tablet Layout (768px - 1024px) */}
         <div className="hidden md:flex lg:hidden w-full flex-col items-center">
           {/* SVG - ORIGINAL positioning dengan translate adjustments */}
-          <div className="pointer-events-none flex w-[50vw] self-start -translate-y-2">
+          <div className="pointer-events-none flex w-[50vw] self-start">
             <img
               src="/images/off-the-grid.svg"
               alt=""
@@ -84,12 +84,12 @@ const HomepageSection = () => {
         {/* Desktop Layout (> 1024px) */}
         <div className="hidden lg:flex w-full flex-col items-center">
           {/* SVG - ORIGINAL positioning dengan translate adjustments */}
-          <div className="pointer-events-none flex w-[43vw] justify-end self-start translate-y-2">
+          <div className="pointer-events-none flex w-[43vw] justify-end self-start">
             <img
               src="/images/off-the-grid.svg"
               alt=""
               aria-hidden="true"
-              className="h-auto w-full max-w-[380px] select-none"
+              className="h-auto w-full max-w-[24vw] select-none"
             />
           </div>
 

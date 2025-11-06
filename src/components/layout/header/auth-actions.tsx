@@ -66,7 +66,7 @@ export const HeaderAuthActions = ({
     return (
       <div
         className={cn(
-          "flex items-center gap-3 rounded-lg border border-header-border/50 px-3 py-2",
+          "flex items-center gap-3 rounded-lg border border-header-border/50 px-3 py-2 lg:border-0",
           layout === "mobile" ? "mt-6" : "",
           className
         )}
