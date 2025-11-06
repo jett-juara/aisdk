@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import CompanyCard from "./company-card"
 import { ABOUT_RESET_EVENT } from "@/lib/constants/events"
 
@@ -81,6 +81,22 @@ const CompaniesGrid = () => {
 
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [hoveredId, setHoveredId] = useState<number | null>(null)
+  const [introStep, setIntroStep] = useState(0)
+  const totalIntroSteps = companies.length + 1
+  const introDone = introStep >= totalIntroSteps
+  const timeoutsRef = useRef<NodeJS.Timeout[]>([])
+  const frameRef = useRef<number | null>(null)
+
+  const resetIntroTimers = useCallback(() => {
+    if (frameRef.current !== null) {
+      cancelAnimationFrame(frameRef.current)
+      frameRef.current = null
+    }
+    if (timeoutsRef.current.length) {
+      timeoutsRef.current.forEach(clearTimeout)
+      timeoutsRef.current = []
+    }
+  }, [])
 
   useEffect(() => {
     const handleReset = () => setSelectedId(null)
@@ -95,6 +111,36 @@ const CompaniesGrid = () => {
       }
     }
   }, [])
+
+  useEffect(() => {
+    return () => resetIntroTimers()
+  }, [resetIntroTimers])
+
+  useEffect(() => {
+    if (selectedId !== null) {
+      return
+    }
+
+    resetIntroTimers()
+    setIntroStep(0)
+
+    const run = (index: number) => {
+      const timeoutId = setTimeout(() => {
+        setIntroStep(index + 1)
+        if (index < totalIntroSteps - 1) {
+          frameRef.current = requestAnimationFrame(() => run(index + 1))
+        }
+      }, index === 0 ? 160 : 240)
+
+      timeoutsRef.current.push(timeoutId)
+    }
+
+    frameRef.current = requestAnimationFrame(() => run(0))
+
+    return () => {
+      resetIntroTimers()
+    }
+  }, [resetIntroTimers, selectedId, totalIntroSteps])
 
   useEffect(() => {
     if (selectedId !== null) {
@@ -130,32 +176,48 @@ const CompaniesGrid = () => {
           {/* LEFT: 4 Cards in 2x2 Grid */}
           <div className="w-full lg:max-w-[30vw]">
             <div className="grid grid-cols-2 grid-rows-2">
-              {companies.map((company) => (
-                <div
-                  key={company.id}
-                  className={`transition-all duration-500 ease-out transform-gpu w-full aspect-square ${
-                    hoveredId === company.id
+              {companies.map((company, index) => {
+                const isStateOne = selectedId === null
+                const isIntroActive = introStep <= index
+                const introClass = isIntroActive
+                  ? "opacity-0 translate-y-10 blur-md"
+                  : "opacity-100 translate-y-0 blur-0"
+                const scaleClass =
+                  !isStateOne || introStep < totalIntroSteps
+                    ? "scale-100 shadow-none"
+                  : hoveredId === company.id
                       ? "scale-110 z-10 shadow-[0_24px_48px_rgba(0,0,0,0.45)]"
                       : hoveredId === null
                         ? "scale-100 shadow-none"
-                        : "scale-90 opacity-75 shadow-none"
-                  }`}
-                  onMouseEnter={() => setHoveredId(company.id)}
-                  onMouseLeave={() => setHoveredId(null)}
-                >
-                  <CompanyCard
-                    name={company.name}
-                    description={company.description}
-                    onSelect={() => handleCardClick(company.id)}
-                  />
-                </div>
-              ))}
+                        : "scale-90 opacity-80 shadow-none"
+
+                return (
+                  <div
+                    key={company.id}
+                    className={`transition-all duration-600 ease-out transform-gpu w-full aspect-square ${introClass} ${scaleClass} ${
+                      introStep < totalIntroSteps ? "pointer-events-none" : ""
+                    }`}
+                    onMouseEnter={() => introDone && setHoveredId(company.id)}
+                    onMouseLeave={() => introDone && setHoveredId(null)}
+                  >
+                    <CompanyCard
+                      name={company.name}
+                      description={company.description}
+                      onSelect={() => handleCardClick(company.id)}
+                    />
+                  </div>
+                )
+              })}
             </div>
           </div>
 
           {/* RIGHT: Combined Headline Outline */}
           <div className="lg:flex-1 flex items-left justify-left lg:ml-5">
-            <div className="w-full max-w">
+            <div
+              className={`w-full max-w transition-all duration-700 ease-out ${
+                introStep < companies.length ? "opacity-0 translate-y-12 blur-md" : "opacity-100 translate-y-0 blur-0"
+              }`}
+            >
               <div className="relative w-full" style={{ paddingTop: `${(644.37 / 1418.77) * 100}%` }}>
                 <img
                   src={headlineSvg}
@@ -185,7 +247,6 @@ const CompaniesGrid = () => {
                 <CompanyCard
                   name={company.name}
                   description={company.description}
-                  gradient={company.gradient}
                   onSelect={() => handleCardClick(company.id)}
                 />
               </div>
@@ -207,8 +268,9 @@ const CompaniesGrid = () => {
       {selectedCompany && (
         <div className="w-full cursor-pointer" onClick={() => setSelectedId(null)}>
           <div className="animate-expandContent rounded-[var(--radius-none)] overflow-hidden auth-border">
-            <div className={`bg-gradient-to-br ${selectedCompany.gradient}`}>
-              <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-stretch h-full">
+            <div className="relative bg-auth-bg-hover">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/0 opacity-40" aria-hidden="true" />
+              <div className="relative flex flex-col lg:flex-row gap-6 lg:gap-10 items-stretch h-full">
                 <div
                   className={`p-4 lg:p-8 flex flex-col justify-between gap-6 ${layoutConfigs[selectedCompany.id as keyof typeof layoutConfigs]?.textOrder ?? ""} ${layoutConfigs[selectedCompany.id as keyof typeof layoutConfigs]?.textBasis ?? "lg:basis-[60%]"} pr-0 lg:pr-10`}
                 >
