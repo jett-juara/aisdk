@@ -85,7 +85,6 @@ export const Header = ({ fixed = true }: HeaderProps) => {
           }
         } catch (error) {
           if (isActive) {
-            console.warn('Failed to load user profile:', error);
             setProfile(null);
           }
         } finally {

@@ -10,7 +10,7 @@ const HomepageSection = () => {
   const [isReady, setIsReady] = useState(false);
 
   return (
-    <section className="hidden relative h-full flex items-center justify-center overflow-hidden bg-auth-bg-form">
+    <section className="absolute inset-0 flex items-center justify-center overflow-hidden bg-auth-bg-form">
       {/* Background Images for 3 Breakpoints */}
       <div className="absolute inset-0 bg-auth-bg-form">
         {/* Mobile: < 768px */}
@@ -27,12 +27,12 @@ const HomepageSection = () => {
             objectPosition: 'center',
             objectFit: 'cover'
           }}
-          onLoadingComplete={() => setIsReady(true)}
+          onLoad={() => setIsReady(true)}
         />
 
         {/* Tablet: 768px - 1024px */}
         <Image
-          src="/images/hero_03-medium.webp"
+          src="/images/hero_03-tablet.webp"
           alt="JUARA Off The Grid"
           fill
           priority
@@ -44,7 +44,7 @@ const HomepageSection = () => {
             objectPosition: 'center',
             objectFit: 'cover'
           }}
-          onLoadingComplete={() => setIsReady(true)}
+          onLoad={() => setIsReady(true)}
         />
 
         {/* Desktop: > 1024px */}
@@ -61,7 +61,7 @@ const HomepageSection = () => {
             objectPosition: 'center',
             objectFit: 'cover'
           }}
-          onLoadingComplete={() => setIsReady(true)}
+          onLoad={() => setIsReady(true)}
         />
 
         <div className="absolute inset-0 bg-black/30" />
@@ -71,17 +71,17 @@ const HomepageSection = () => {
       {isReady && (
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center">
           <div className="flex w-full flex-col gap-3 md:hidden">
-            <div className="pointer-events-none flex self-start">
+            <div className="pointer-events-none flex self-start translate-y-2">
               <img
                 src="/images/off-the-grid.svg"
                 alt=""
                 aria-hidden="true"
-                className="h-auto w-[50vw] max-w-[280px] select-none"
+                className="h-auto w-[50vw] max-w-[80vw] select-none"
               />
             </div>
 
             <div className="flex flex-col items-center space-y-3 px-4">
-              <p className="text-center font-body text-white/90 drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)] text-base sm:text-lg">
+              <p className="text-center font-body text-white/90 text-base sm:text-lg">
                 Extraordinary events beyond boundaries.
               </p>
               <div className="flex flex-col sm:flex-row items-center gap-3">
@@ -107,17 +107,17 @@ const HomepageSection = () => {
 
           {/* Tablet Layout (768px - 1024px) */}
           <div className="hidden md:flex lg:hidden w-full flex-col items-center">
-            <div className="pointer-events-none flex w-[42vw] justify-end self-start -translate-y-8">
+            <div className="pointer-events-none flex w-[50vw] self-start -translate-y-2">
               <img
                 src="/images/off-the-grid.svg"
                 alt=""
                 aria-hidden="true"
-                className="h-auto w-full max-w-[320px] select-none"
+                className="h-auto w-full max-w-[90vw] select-none"
               />
             </div>
 
             <div className="flex flex-col items-center space-y-4 px-4 -mt-4">
-              <p className="text-center font-body text-white/90 text-xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
+              <p className="text-center font-body text-white/90 text-xl">
                 Extraordinary events beyond boundaries.
               </p>
               <div className="flex flex-col md:flex-row items-center gap-4">
@@ -143,7 +143,7 @@ const HomepageSection = () => {
 
           {/* Desktop Layout (> 1024px) */}
           <div className="hidden lg:flex w-full flex-col items-center">
-            <div className="pointer-events-none flex w-[35vw] justify-end self-start -translate-y-10">
+            <div className="pointer-events-none flex w-[43vw] justify-end self-start translate-y-2">
               <img
                 src="/images/off-the-grid.svg"
                 alt=""
@@ -153,7 +153,7 @@ const HomepageSection = () => {
             </div>
 
             <div className="flex flex-col items-center space-y-6 px-4 -mt-6">
-              <p className="text-center font-body text-white/90 text-2xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
+              <p className="text-center font-body text-white/90 text-2xl">
                 Extraordinary events beyond boundaries.
               </p>
               <div className="flex flex-row items-center gap-6">
