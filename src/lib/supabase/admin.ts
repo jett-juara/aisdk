@@ -1,5 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
-import type { SupabaseClient } from '@supabase/supabase-js'
+import { createSupabaseFetch } from '@/lib/supabase/safe-fetch'
+
+const supabaseFetch = createSupabaseFetch('server-admin')
 
 export function createSupabaseAdminClient() {
   return createServerClient(
@@ -13,7 +15,14 @@ export function createSupabaseAdminClient() {
         set() {},
         remove() {},
       },
+      global: {
+        fetch: supabaseFetch,
+      },
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+        detectSessionInUrl: false,
+      },
     }
   )
 }
-

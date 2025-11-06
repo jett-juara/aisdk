@@ -1,5 +1,8 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import { createSupabaseAdminClient } from '@/lib/supabase/admin'
+import { createSupabaseFetch } from '@/lib/supabase/safe-fetch'
+
+const poolSupabaseFetch = createSupabaseFetch('connection-pool')
 
 export type { SupabaseClient }
 
@@ -323,6 +326,9 @@ export class ConnectionPoolManager {
             auth: {
               persistSession: false,
               autoRefreshToken: false
+            },
+            global: {
+              fetch: poolSupabaseFetch
             }
           }
         )
@@ -342,7 +348,8 @@ export class ConnectionPoolManager {
             global: {
               headers: {
                 'X-User-ID': userId
-              }
+              },
+              fetch: poolSupabaseFetch
             }
           }
         )

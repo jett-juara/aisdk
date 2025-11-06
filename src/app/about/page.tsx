@@ -11,7 +11,7 @@ export default function AboutPage() {
       <div className="min-h-screen bg-black text-white flex flex-col">
         <Header fixed={false} />
 
-        <main className="flex-1 relative z-10 py-12">
+        <main className="flex-1 relative z-10 py-12 flex items-center justify-center">
           <div className="container mx-auto px-4">
             <CompaniesGrid />
           </div>

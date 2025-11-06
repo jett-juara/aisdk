@@ -1,6 +1,8 @@
 import { cookies } from 'next/headers'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import type { SupabaseClient } from '@supabase/supabase-js'
+import { createSupabaseFetch } from '@/lib/supabase/safe-fetch'
+
+const supabaseFetch = createSupabaseFetch('server-rsc')
 
 // RSC-safe client: do not write cookies from Server Components
 export async function createSupabaseRSCClient() {
@@ -16,6 +18,14 @@ export async function createSupabaseRSCClient() {
         // No-op writers in RSC
         set() {},
         remove() {},
+      },
+      global: {
+        fetch: supabaseFetch,
+      },
+      auth: {
+        autoRefreshToken: false,
+        persistSession: true,
+        detectSessionInUrl: false,
       },
     }
   )
@@ -38,6 +48,14 @@ export async function createSupabaseServerClient() {
         remove(name: string, options: CookieOptions) {
           cookieStore.set({ name, value: '', ...options, expires: new Date(0) })
         },
+      },
+      global: {
+        fetch: supabaseFetch,
+      },
+      auth: {
+        autoRefreshToken: false,
+        persistSession: true,
+        detectSessionInUrl: false,
       },
     }
   )

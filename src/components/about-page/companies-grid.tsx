@@ -7,8 +7,7 @@ const CompaniesGrid = () => {
   const companies = [
     {
       id: 1,
-      name: "JUARA Events",
-      shortName: "Events",
+      name: "Events",
       description: "Premium event experiences",
       gradient: "from-amber-600/30 to-amber-900/30",
       fullDescription: [
@@ -20,8 +19,7 @@ const CompaniesGrid = () => {
     },
     {
       id: 2,
-      name: "JUARA Community",
-      shortName: "Community",
+      name: "Community",
       description: "Community-driven innovation",
       gradient: "from-slate-600/30 to-slate-900/30",
       fullDescription: [
@@ -33,8 +31,7 @@ const CompaniesGrid = () => {
     },
     {
       id: 3,
-      name: "JUARA Tech",
-      shortName: "Tech",
+      name: "Tech",
       description: "Next-generation experiences",
       gradient: "from-cyan-600/30 to-cyan-900/30",
       fullDescription: [
@@ -46,8 +43,7 @@ const CompaniesGrid = () => {
     },
     {
       id: 4,
-      name: "JUARA Analytics",
-      shortName: "Analytics",
+      name: "Analytics",
       description: "Data-driven insights",
       gradient: "from-indigo-600/30 to-indigo-900/30",
       fullDescription: [
@@ -72,25 +68,26 @@ const CompaniesGrid = () => {
   const selectedCompany = companies.find((c) => c.id === selectedId)
 
   // SVG mapping for each company
+  const headlineSvg = "/images/about-page/headline-outline.svg"
   const svgFiles = {
-    1: "/images/about-page/event-txt.svg",
-    2: "/images/about-page/community-txt.svg",
-    3: "/images/about-page/tech-txt.svg",
-    4: "/images/about-page/analytics-txt.svg"
+    1: "/images/about-page/event-outline.svg",
+    2: "/images/about-page/community-outline.svg",
+    3: "/images/about-page/tech-outline.svg",
+    4: "/images/about-page/analytics-outline.svg"
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6 w-full max-w-7xl px-4">
+    <div className="flex flex-col items-center justify-center w-full max-w mx-auto">
       {/* STATE 1: 2-Column Layout - Cards Left, SVGs Right (Desktop) */}
       {!selectedId && (
-        <div className="flex flex-col lg:flex-row gap-8 w-full">
+        <div className="flex flex-col lg:flex-row lg:items-center w-full">
           {/* LEFT: 4 Cards in 2x2 Grid */}
-          <div className="flex-1">
-            <div className="grid grid-cols-2 gap-6">
+          <div className="w-full lg:max-w-[30vw] bg-red-500/10">
+            <div className="grid grid-cols-2 grid-rows-2 gap-2 lg:gap-2">
               {companies.map((company) => (
                 <div
                   key={company.id}
-                  className="transition-all duration-700 ease-out aspect-square scale-100 opacity-100 transform-gpu"
+                  className="transition-all duration-700 ease-out scale-100 opacity-100 transform-gpu w-full aspect-square"
                 >
                   <CompanyCard
                     name={company.name}
@@ -103,28 +100,17 @@ const CompaniesGrid = () => {
             </div>
           </div>
 
-          {/* RIGHT: All 4 SVGs with uniform height */}
-          <div className="flex-1 flex flex-col gap-6">
-            <img
-              src={svgFiles[1]}
-              alt="JUARA Events"
-              className="h-32 w-auto max-w-md lg:max-w-full object-contain"
-            />
-            <img
-              src={svgFiles[2]}
-              alt="JUARA Community"
-              className="h-32 w-auto max-w-md lg:max-w-full object-contain"
-            />
-            <img
-              src={svgFiles[3]}
-              alt="JUARA Tech"
-              className="h-32 w-auto max-w-md lg:max-w-full object-contain"
-            />
-            <img
-              src={svgFiles[4]}
-              alt="JUARA Analytics"
-              className="h-32 w-auto max-w-md lg:max-w-full object-contain"
-            />
+          {/* RIGHT: Combined Headline Outline */}
+          <div className="lg:flex-1 flex items-left justify-left lg:ml-5">
+            <div className="w-full max-w">
+              <div className="relative w-full" style={{ paddingTop: `${(644.37 / 1418.77) * 100}%` }}>
+                <img
+                  src={headlineSvg}
+                  alt="JUARA headline divisions"
+                  className="absolute inset-0 h-full w-full object-contain"
+                />
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -133,7 +119,7 @@ const CompaniesGrid = () => {
       {selectedId && (
         <>
           {/* Cards Section - Full Width */}
-          <div className="grid grid-cols-4 gap-6 w-full">
+          <div className="grid grid-cols-4 gap-2 w-full">
             {companies.map((company) => (
               <div
                 key={company.id}
@@ -154,11 +140,11 @@ const CompaniesGrid = () => {
           </div>
 
           {/* SVG Section - Below Cards */}
-          <div className="flex justify-center w-full">
+          <div className="flex justify-left w-full">
             <img
               src={svgFiles[selectedId as keyof typeof svgFiles]}
               alt={`${companies.find(c => c.id === selectedId)?.name} visualization`}
-              className="h-32 w-auto max-w-md lg:max-w-full object-contain"
+              className="w-auto max-w-md lg:max-w-full object-contain"
             />
           </div>
         </>
@@ -169,8 +155,6 @@ const CompaniesGrid = () => {
         <div className="w-full cursor-pointer" onClick={() => setSelectedId(null)}>
           <div className="animate-expandContent rounded-2xl overflow-hidden auth-border">
             <div className={`bg-gradient-to-br ${selectedCompany.gradient} p-8`}>
-              <h2 className="text-4xl font-bold auth-text-primary mb-2 font-heading">{selectedCompany.shortName}</h2>
-              <p className="auth-text-secondary mb-6 text-lg">{selectedCompany.description}</p>
               <h3 className="text-xl font-semibold auth-text-primary mb-3">Tentang</h3>
               <div className="space-y-4">
                 {selectedCompany.fullDescription.map((paragraph, idx) => (

@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
-import { cookies } from 'next/headers'
 import { cache } from 'react'
+import { createSupabaseFetch } from '@/lib/supabase/safe-fetch'
 
 // Session configuration
 export const SESSION_CONFIG = {
@@ -50,10 +50,17 @@ export interface SecurityContext {
 const sessionCache = new Map<string, SessionInfo>()
 const securityContextCache = new Map<string, SecurityContext>()
 
+const sessionSupabaseFetch = createSupabaseFetch('session-manager')
+
 export class SessionManager {
   private supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      global: {
+        fetch: sessionSupabaseFetch,
+      },
+    }
   )
 
   /**
