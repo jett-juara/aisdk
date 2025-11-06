@@ -22,7 +22,7 @@ interface FooterProps {
 
 const Footer = ({ className = "", fixed = true }: FooterProps) => {
   return (
-    <footer className={`${fixed ? 'fixed inset-x-0 bottom-0 z-40' : 'relative'} ${className}`}>
+    <footer className={`${fixed ? 'relative mt-auto' : 'relative'} ${className}`}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col items-center gap-3 text-white/90 lg:flex-row lg:justify-between lg:gap-4 lg:text-left text-center">
           {/* Copyright */}
