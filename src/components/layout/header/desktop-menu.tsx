@@ -6,6 +6,7 @@ import React from "react";
 import { ChevronDown } from "lucide-react";
 import type { HeaderMenuItem } from "./config";
 import { cn } from "@/lib/utils";
+import { ABOUT_RESET_EVENT } from "@/lib/constants/events";
 
 // Dynamic import untuk mengatasi hydration warning
 import {
@@ -43,6 +44,12 @@ export const DesktopMenu = ({ items }: DesktopMenuProps) => {
 
   React.useEffect(() => {
     setMounted(true);
+  }, []);
+
+  const emitAboutReset = React.useCallback((href: string) => {
+    if (href === "/about" && typeof window !== "undefined") {
+      window.dispatchEvent(new Event(ABOUT_RESET_EVENT));
+    }
   }, []);
 
   return (
@@ -88,7 +95,12 @@ export const DesktopMenu = ({ items }: DesktopMenuProps) => {
             </DropdownMenu>
           ) : null
         ) : (
-          <Link key={item.label} href={item.href} className={baseLinkClass}>
+          <Link
+            key={item.label}
+            href={item.href}
+            className={baseLinkClass}
+            onClick={() => emitAboutReset(item.href)}
+          >
             {item.label}
           </Link>
         )

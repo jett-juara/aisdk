@@ -7,6 +7,7 @@ import type { HeaderMenuItem } from "./config";
 import { HeaderAuthActions, type HeaderUserProfile } from "./auth-actions";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { ABOUT_RESET_EVENT } from "@/lib/constants/events";
 
 interface MobileMenuProps {
   items: HeaderMenuItem[];
@@ -19,9 +20,18 @@ interface MobileMenuProps {
 export const MobileMenu = ({ items, profile, onLogout, loggingOut, loading }: MobileMenuProps) => {
   const [open, setOpen] = useState(false);
 
-  const handleNavigate = useCallback(() => {
-    setOpen(false);
+  const emitAboutReset = useCallback((href: string) => {
+    if (href === "/about" && typeof window !== "undefined") {
+      window.dispatchEvent(new Event(ABOUT_RESET_EVENT));
+    }
   }, []);
+
+  const handleNavigate = useCallback((href?: string) => {
+    if (href) {
+      emitAboutReset(href);
+    }
+    setOpen(false);
+  }, [emitAboutReset]);
 
   const handleLogout = useCallback(async () => {
     if (!onLogout) return;
@@ -57,7 +67,7 @@ export const MobileMenu = ({ items, profile, onLogout, loggingOut, loading }: Mo
                 className="inline-flex min-h-[44px] justify-start rounded-lg px-3 text-base font-body uppercase tracking-[0.16em] text-header-nav-text transition-colors duration-200 hover:text-header-nav-text-hover hover:underline hover:decoration-dotted hover:underline-offset-4 hover:decoration-1"
                 asChild
               >
-                <Link href={item.href} onClick={handleNavigate}>
+                <Link href={item.href} onClick={() => handleNavigate(item.href)}>
                   {item.label}
                 </Link>
               </Button>
@@ -70,7 +80,7 @@ export const MobileMenu = ({ items, profile, onLogout, loggingOut, loading }: Mo
                       className="inline-flex min-h-[44px] justify-start rounded-md px-3 text-sm font-body uppercase tracking-[0.12em] text-header-nav-text-muted transition-colors duration-200 hover:text-header-nav-text"
                       asChild
                     >
-                      <Link href={child.href} onClick={handleNavigate}>
+                      <Link href={child.href} onClick={() => handleNavigate(child.href)}>
                         {child.label}
                       </Link>
                     </Button>

@@ -1,7 +1,35 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import CompanyCard from "./company-card"
+import { ABOUT_RESET_EVENT } from "@/lib/constants/events"
+
+const layoutConfigs = {
+  1: {
+    textOrder: "order-1 lg:order-1",
+    imageOrder: "order-2 lg:order-2",
+    textBasis: "lg:basis-[60%]",
+    imageBasis: "lg:basis-[40%]",
+  },
+  2: {
+    textOrder: "order-2 lg:order-2",
+    imageOrder: "order-1 lg:order-1",
+    textBasis: "lg:basis-[60%]",
+    imageBasis: "lg:basis-[40%]",
+  },
+  3: {
+    textOrder: "order-1 lg:order-1",
+    imageOrder: "order-2 lg:order-2",
+    textBasis: "lg:basis-[60%]",
+    imageBasis: "lg:basis-[40%]",
+  },
+  4: {
+    textOrder: "order-2 lg:order-2",
+    imageOrder: "order-1 lg:order-1",
+    textBasis: "lg:basis-[60%]",
+    imageBasis: "lg:basis-[40%]",
+  },
+} as const
 
 const CompaniesGrid = () => {
   const companies = [
@@ -56,6 +84,20 @@ const CompaniesGrid = () => {
   ]
 
   const [selectedId, setSelectedId] = useState<number | null>(null)
+
+  useEffect(() => {
+    const handleReset = () => setSelectedId(null)
+
+    if (typeof window !== "undefined") {
+      window.addEventListener(ABOUT_RESET_EVENT, handleReset)
+    }
+
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener(ABOUT_RESET_EVENT, handleReset)
+      }
+    }
+  }, [])
 
   const handleCardClick = (id: number) => {
     if (selectedId === id) {
@@ -119,7 +161,7 @@ const CompaniesGrid = () => {
       {selectedId && (
         <>
           {/* Cards Section - Full Width */}
-          <div className="grid grid-cols-4 gap-2 w-full">
+          <div className="grid grid-cols-4 gap-6 w-full">
             {companies.map((company) => (
               <div
                 key={company.id}
@@ -153,13 +195,28 @@ const CompaniesGrid = () => {
       {/* Expandable Content Section */}
       {selectedCompany && (
         <div className="w-full cursor-pointer" onClick={() => setSelectedId(null)}>
-          <div className="animate-expandContent rounded-2xl overflow-hidden auth-border">
-            <div className={`bg-gradient-to-br ${selectedCompany.gradient} p-8`}>
-              <h3 className="text-xl font-semibold auth-text-primary mb-3">Tentang</h3>
-              <div className="space-y-4">
-                {selectedCompany.fullDescription.map((paragraph, idx) => (
-                  <p key={idx} className="auth-text-secondary leading-relaxed">{paragraph}</p>
-                ))}
+          <div className="animate-expandContent rounded-[var(--radius-none)] overflow-hidden auth-border">
+            <div className={`bg-gradient-to-br ${selectedCompany.gradient}`}>
+              <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-stretch h-full">
+                <div
+                  className={`p-4 lg:p-8 flex flex-col justify-between gap-6 ${layoutConfigs[selectedCompany.id as keyof typeof layoutConfigs]?.textOrder ?? ""} ${layoutConfigs[selectedCompany.id as keyof typeof layoutConfigs]?.textBasis ?? "lg:basis-[60%]"} pr-0 lg:pr-10`}
+                >
+                  <div>
+                    <h2 className="text-3xl font-heading auth-text-primary mb-2">{selectedCompany.name}</h2>
+                    <p className="auth-text-secondary mb-4">{selectedCompany.description}</p>
+                    <h3 className="text-xl font-semibold auth-text-primary mb-3">Tentang</h3>
+                  </div>
+                  <div className="space-y-4">
+                    {selectedCompany.fullDescription.map((paragraph, idx) => (
+                      <p key={idx} className="auth-text-secondary leading-relaxed">{paragraph}</p>
+                    ))}
+                  </div>
+                </div>
+                <div
+                  className={`w-full ${layoutConfigs[selectedCompany.id as keyof typeof layoutConfigs]?.imageOrder ?? ""} ${layoutConfigs[selectedCompany.id as keyof typeof layoutConfigs]?.imageBasis ?? "lg:basis-[40%]"} flex`}
+                >
+                  <div className="w-full h-full min-h-[200px] rounded-[var(--radius-none)] border border-dashed border-white/20 bg-black/20" aria-hidden="true" />
+                </div>
               </div>
             </div>
           </div>
