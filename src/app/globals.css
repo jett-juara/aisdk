@@ -51,6 +51,11 @@
     /* Elevated surface untuk hover/containers di header/dropdown */
     --color-auth-surface-elevated: #242424;
 
+    /* Toast notification theme tokens */
+    --color-toast-bg: #242424;
+    --color-toast-foreground: #ffffff;
+    --color-toast-border: #37373a;
+
     /* HEADER THEME TOKENS */
     /* Mengacu ke sistem auth agar konsisten; mudah diubah terpusat */
     --color-header-bg: var(--color-auth-bg-form);
@@ -429,6 +434,13 @@
     .dashboard-active-logout,
     .dashboard-active-logout[data-highlighted] {
         background-color: #5b5b5b;
+    }
+
+    /* Toast notification utility classes */
+    .toast-bg {
+        background-color: var(--color-toast-bg);
+        color: var(--color-toast-foreground);
+        border-color: var(--color-toast-border);
     }
 
     /* Main Menu Utility Classes */
