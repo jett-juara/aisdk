@@ -38,7 +38,7 @@ const Footer = ({ className = "" }: FooterProps) => {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={label}
-                className="group flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg border border-white/20 bg-black/20 text-white hover:bg-black/30 hover:text-white hover:ring-1 hover:ring-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 transition-colors duration-200 ease-out hover:scale-105 active:scale-95"
+                className="group flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg border border-button-border bg-black/20 text-white hover:bg-black/30 hover:text-white hover:ring-1 hover:ring-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 transition-colors duration-200 ease-out hover:scale-105 active:scale-95"
               >
                 <Icon className="h-3 w-3 sm:h-[14px] sm:w-[14px] md:h-4 md:w-4 transition-transform duration-200 group-hover:scale-110" />
               </a>

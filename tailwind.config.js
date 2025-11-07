@@ -94,6 +94,7 @@ const config = {
         "auth-success": "var(--color-auth-success)",
         "auth-warning": "var(--color-auth-warning)",
         "auth-info": "var(--color-auth-info)",
+        "button-border": "var(--color-button-border)",
 
         // Header theme colors (mengacu ke auth agar mudah seragam)
         "header-bg": "var(--color-header-bg)",

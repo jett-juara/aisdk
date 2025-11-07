@@ -39,7 +39,7 @@ export default function RegisterForm() {
             placeholder="John"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            className="bg-[var(--color-auth-input-bg)] border-[var(--color-auth-input-border)] text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)]"
+            className="bg-[var(--color-auth-input-bg)] border-button-border text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)]"
           />
         </div>
         <div className="flex flex-col gap-3">
@@ -52,7 +52,7 @@ export default function RegisterForm() {
             placeholder="Doe"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            className="bg-[var(--color-auth-input-bg)] border-[var(--color-auth-input-border)] text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)]"
+            className="bg-[var(--color-auth-input-bg)] border-button-border text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)]"
           />
         </div>
       </div>

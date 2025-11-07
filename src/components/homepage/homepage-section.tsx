@@ -49,7 +49,7 @@ const HomepageSection = () => {
               <div className="flex flex-col space-x-0 space-y-4 w-full max-w-[50vw]">
                 <Link href="#">
                   <Button
-                                        className={`homepage-button-animation ${classes.button1} bg-transparent text-white border border-[var(--ring)] hover:bg-[var(--ring)] focus:bg-[var(--ring)] font-heading text-sm font-semibold tracking-wide px-6 w-full rounded-lg`}
+                                        className={`homepage-button-animation ${classes.button1} bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-sm font-semibold tracking-wide px-6 w-full rounded-lg`}
                     style={{ height: 'var(--size-home-button-md)' }}
                   >
                     Chat with JETT
@@ -57,7 +57,7 @@ const HomepageSection = () => {
                 </Link>
                 <Link href="/about">
                   <Button
-                                        className={`homepage-button-animation ${classes.button2} bg-transparent text-white border border-[var(--ring)] hover:bg-[var(--ring)] focus:bg-[var(--ring)] font-heading text-sm font-semibold tracking-wide px-6 w-full rounded-lg`}
+                                        className={`homepage-button-animation ${classes.button2} bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-sm font-semibold tracking-wide px-6 w-full rounded-lg`}
                     style={{ height: 'var(--size-home-button-md)' }}
                   >
                     Getting Started
@@ -107,7 +107,7 @@ const HomepageSection = () => {
               <div className="flex flex-col space-x-0 space-y-4 w-full max-w-[45vw]">
                 <Link href="#">
                   <Button
-                                        className={`homepage-button-animation ${classes.button1} bg-transparent text-white border border-[var(--ring)] hover:bg-[var(--ring)] focus:bg-[var(--ring)] font-heading text-sm font-semibold tracking-wide px-6 w-full rounded-lg`}
+                                        className={`homepage-button-animation ${classes.button1} bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-sm font-semibold tracking-wide px-6 w-full rounded-lg`}
                     style={{ height: 'var(--size-home-button-md)' }}
                   >
                     Chat with JETT
@@ -115,7 +115,7 @@ const HomepageSection = () => {
                 </Link>
                 <Link href="/about">
                   <Button
-                                        className={`homepage-button-animation ${classes.button2} bg-transparent text-white border border-[var(--ring)] hover:bg-[var(--ring)] focus:bg-[var(--ring)] font-heading text-sm font-semibold tracking-wide px-6 w-full rounded-lg`}
+                                        className={`homepage-button-animation ${classes.button2} bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-sm font-semibold tracking-wide px-6 w-full rounded-lg`}
                     style={{ height: 'var(--size-home-button-md)' }}
                   >
                     Getting Started
@@ -166,14 +166,14 @@ const HomepageSection = () => {
                 <div className="flex flex-row space-x-3 justify-end">
                   <Link href="#">
                     <Button
-                                            className={`homepage-button-animation ${classes.button1} bg-transparent text-white border border-[var(--ring)] hover:bg-[var(--ring)] focus:bg-[var(--ring)] font-heading text-sm font-semibold tracking-wide px-6 flex-1 rounded-lg`}
+                      className={`homepage-button-animation ${classes.button1} bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-sm font-semibold tracking-wide px-6 flex-1 rounded-lg`}
                     >
                       Chat with JETT
                     </Button>
                   </Link>
                   <Link href="/about">
                     <Button
-                                            className={`homepage-button-animation ${classes.button2} bg-transparent text-white border border-[var(--ring)] hover:bg-[var(--ring)] focus:bg-[var(--ring)] font-heading text-sm font-semibold tracking-wide px-6 flex-1 rounded-lg`}
+                      className={`homepage-button-animation ${classes.button2} bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-sm font-semibold tracking-wide px-6 flex-1 rounded-lg`}
                     >
                       Getting Started
                     </Button>

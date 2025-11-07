@@ -162,7 +162,7 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
           <DropdownMenuTrigger asChild>
             <button
               type="button"
-              className="mx-4 mb-6 w-[calc(100%-2rem)] rounded-xl border border-auth-border px-4 py-3 text-left text-auth-text-primary transition-opacity focus:outline-none focus:ring-2 focus:ring-auth-button-brand hover:opacity-90 bg-[var(--color-auth-button-brand)]"
+              className="mx-4 mb-6 w-[calc(100%-2rem)] rounded-xl border border-button-border px-4 py-3 text-left text-auth-text-primary transition-opacity focus:outline-none focus:ring-2 focus:ring-auth-button-brand hover:opacity-90 bg-[var(--color-auth-button-brand)]"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex flex-col">

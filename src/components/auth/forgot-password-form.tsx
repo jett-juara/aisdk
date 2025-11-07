@@ -35,7 +35,7 @@ export default function ForgotPasswordForm() {
           placeholder="anda@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="bg-[var(--color-auth-input-bg)] border-[var(--color-auth-input-border)] text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)]"
+          className="bg-[var(--color-auth-input-bg)] border-button-border text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)]"
         />
         {errorEmail && <p className="text-sm text-auth-text-error mt-2">{errorEmail}</p>}
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, Loader2, LayoutDashboard, ChevronDown } from "lucide-react";
+import { LogOut, Loader2, LayoutDashboard, ChevronDown, User2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -36,16 +36,10 @@ const mobileLoginClasses =
   "w-full rounded-lg bg-header-button-primary px-4 py-3 font-heading text-base font-semibold text-header-button-primary-text transition-colors duration-200 hover:bg-header-button-primary-hover active:bg-header-button-primary-active min-h-[44px]";
 
 const mobileDashboardClasses =
-  "w-full inline-flex items-center justify-center gap-3 rounded-lg px-4 py-3 font-heading text-base font-semibold text-header-button-primary-text transition-colors duration-200 h-12 bg-[var(--color-auth-button-brand)] hover:bg-[var(--color-auth-button-brand-hover)] active:bg-[var(--color-auth-button-brand-active)] border border-[oklch(83.265%_0.01687_17.19)]";
+  "w-full inline-flex items-center justify-center gap-3 rounded-lg border border-button-border px-4 py-3 font-heading text-base font-semibold text-header-button-primary-text transition-colors duration-200 h-12 bg-[var(--color-auth-button-brand)] hover:bg-[var(--color-auth-button-brand-hover)] active:bg-[var(--color-auth-button-brand-active)]";
 
 const mobileUserClasses =
-  "w-full flex items-center justify-between gap-3 rounded-lg border border-[oklch(83.265%_0.01687_17.19)] bg-[var(--color-auth-surface-elevated)] px-4 py-3 transition-colors duration-200 hover:border-[oklch(83.265%_0.01687_17.19)] hover:bg-[var(--color-auth-surface-elevated)] font-heading text-[var(--color-auth-text-primary)] h-12";
-
-const buildInitials = (firstName?: string, lastName?: string) => {
-  const initials = `${firstName?.[0] ?? ""}${lastName?.[0] ?? ""}`.trim();
-  if (initials) return initials.toUpperCase();
-  return firstName?.slice(0, 2).toUpperCase() ?? "JT";
-};
+  "w-full flex items-center justify-between gap-3 rounded-lg border border-button-border bg-[var(--color-auth-surface-elevated)] px-4 py-3 transition-colors duration-200 hover:border-button-border hover:bg-[var(--color-auth-surface-elevated)] font-heading text-[var(--color-auth-text-primary)] h-12";
 
 const buildDisplayName = (firstName?: string, lastName?: string) => {
   if (firstName && lastName) return `${firstName} ${lastName}`;
@@ -97,7 +91,6 @@ export const HeaderAuthActions = ({
   }
 
   const displayName = buildDisplayName(profile.firstName, profile.lastName);
-  const initials = buildInitials(profile.firstName, profile.lastName);
 
   if (layout === "mobile") {
     return (
@@ -123,16 +116,12 @@ export const HeaderAuthActions = ({
         {/* User Dropdown - Secondary Color */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button className={mobileUserClasses}>
-              <div className="flex items-center gap-3 flex-1 min-w-0">
-                <div className="h-10 w-10 bg-[var(--color-header-button-primary)] flex-shrink-0 flex items-center justify-center">
-                  <span className="text-sm font-heading text-[var(--color-header-button-primary-text)]">
-                    {initials}
-                  </span>
-                </div>
-                <div className="flex flex-col items-start justify-center min-w-0">
-                  <span className="font-heading text-base text-[var(--color-auth-text-primary)] truncate">{displayName}</span>
-                </div>
+            <Button className={cn(mobileUserClasses, "pl-4 pr-3") }>
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <User2 className="h-5 w-5 text-[var(--color-auth-text-primary)]" />
+                <span className="truncate text-left font-heading text-base text-[var(--color-auth-text-primary)]">
+                  {displayName}
+                </span>
               </div>
               <ChevronDown className="h-5 w-5 text-[var(--color-auth-text-primary)] flex-shrink-0" />
             </Button>
@@ -140,7 +129,7 @@ export const HeaderAuthActions = ({
           <DropdownMenuContent
             align="start"
             sideOffset={-1}
-            className="min-w-0 w-[var(--radix-popper-anchor-width)] border-[oklch(83.265%_0.01687_17.19)] bg-[var(--color-auth-surface-elevated)] p-0 overflow-hidden rounded-lg"
+            className="min-w-0 w-[var(--radix-popper-anchor-width)] border-button-border bg-[var(--color-auth-surface-elevated)] p-0 overflow-hidden rounded-lg"
           >
             <DropdownMenuItem
               className="flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 text-base font-heading text-[var(--color-auth-text-primary)] focus:bg-[var(--color-auth-dropdown-item-hover)] w-full hover:bg-[var(--color-auth-dropdown-item-hover)] transition-colors"
@@ -185,16 +174,12 @@ export const HeaderAuthActions = ({
         {/* User Dropdown - Secondary Color */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button className={mobileUserClasses}>
-              <div className="flex items-center gap-3 flex-1 min-w-0">
-                <div className="h-10 w-10 bg-[var(--color-header-button-primary)] flex-shrink-0 flex items-center justify-center">
-                  <span className="text-sm font-heading text-[var(--color-header-button-primary-text)]">
-                    {initials}
-                  </span>
-                </div>
-                <div className="flex flex-col items-start justify-center min-w-0">
-                  <span className="font-heading text-base text-[var(--color-auth-text-primary)] truncate">{displayName}</span>
-                </div>
+            <Button className={cn(mobileUserClasses, "pl-4 pr-3") }>
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <User2 className="h-5 w-5 text-[var(--color-auth-text-primary)]" />
+                <span className="truncate text-left font-heading text-base text-[var(--color-auth-text-primary)]">
+                  {displayName}
+                </span>
               </div>
               <ChevronDown className="h-5 w-5 text-[var(--color-auth-text-primary)] flex-shrink-0" />
             </Button>
@@ -202,7 +187,7 @@ export const HeaderAuthActions = ({
           <DropdownMenuContent
             align="start"
             sideOffset={-1}
-            className="min-w-0 w-[var(--radix-popper-anchor-width)] border-[oklch(83.265%_0.01687_17.19)] bg-[var(--color-auth-surface-elevated)] p-0 overflow-hidden rounded-lg"
+            className="min-w-0 w-[var(--radix-popper-anchor-width)] border-button-border bg-[var(--color-auth-surface-elevated)] p-0 overflow-hidden rounded-lg"
           >
             <DropdownMenuItem
               className="flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 text-base font-heading text-[var(--color-auth-text-primary)] focus:bg-[var(--color-auth-dropdown-item-hover)] w-full hover:bg-[var(--color-auth-dropdown-item-hover)] transition-colors"
@@ -241,24 +226,20 @@ export const HeaderAuthActions = ({
               variant="outline"
               size="md"
               className={cn(
-                "lg:w-40 justify-start font-heading",
+                "lg:w-40 justify-between font-heading px-4 overflow-hidden",
                 className
               )}
             >
-              <div className="flex items-center gap-1.5 flex-1 min-w-0">
-                <div className="h-10 w-10 bg-[var(--color-header-button-primary)] flex-shrink-0 flex items-center justify-center">
-                  <span className="text-xs font-heading text-[var(--color-header-button-primary-text)]">
-                    {initials}
-                  </span>
-                </div>
-                <div className="flex flex-col items-start justify-center min-w-0">
-                  <span className="font-heading text-sm text-header-nav-text truncate">{displayName}</span>
-                </div>
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <User2 className="h-4 w-4 text-header-button-secondary-text" />
+                <span className="flex-1 text-left font-heading text-sm text-header-nav-text truncate">
+                  {displayName}
+                </span>
               </div>
               <ChevronDown className="h-4 w-4 text-header-button-secondary-text flex-shrink-0" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-40 border-header-dropdown-border bg-[#171717] p-1">
+          <DropdownMenuContent align="end" className="w-40 border-button-border bg-[#171717] p-1">
             <DropdownMenuItem
               className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-heading text-header-nav-text focus:bg-header-dropdown-item-hover"
               onSelect={async (event) => {

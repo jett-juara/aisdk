@@ -13,7 +13,7 @@ interface CompanyCardProps {
 export default function CompanyCard({ name, description, icon: Icon, onSelect, showDescription = true }: CompanyCardProps) {
   return (
     <div
-      className="group relative rounded-[var(--radius-none)] overflow-hidden cursor-pointer border auth-border transition-all duration-300 h-full hover:brightness-110 transform-gpu shadow-none hover:-translate-y-[6px] hover:shadow-[0_20px_45px_rgba(0,0,0,0.45)]"
+      className="group relative rounded-[var(--radius-none)] overflow-hidden cursor-pointer border border-button-border transition-all duration-300 h-full hover:brightness-110 transform-gpu shadow-none hover:-translate-y-[6px] hover:shadow-[0_20px_45px_rgba(0,0,0,0.45)]"
       onClick={onSelect}
     >
       <div className="absolute inset-0 auth-bg-hover opacity-90 group-hover:opacity-100 transition-opacity duration-300" />

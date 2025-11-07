@@ -101,7 +101,7 @@ export default function LoginForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={isLoading}
-          className="bg-[var(--color-auth-input-bg)] border-[var(--color-auth-input-border)] text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-[var(--color-auth-input-bg)] border-button-border text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)] disabled:opacity-50 disabled:cursor-not-allowed"
         />
         {errorEmail && <p className="text-sm text-auth-text-error mt-2">{errorEmail}</p>}
       </div>
