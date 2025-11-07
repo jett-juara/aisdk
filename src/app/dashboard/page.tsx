@@ -24,7 +24,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="flex flex-col gap-4 rounded-2xl border border-auth-border dashboard-bg-sidebar px-6 py-6 text-auth-text-primary lg:flex-row lg:items-center lg:justify-between">
+      <section className="flex flex-col gap-4 rounded-2xl border border-button-border dashboard-bg-sidebar px-6 py-6 text-auth-text-primary lg:flex-row lg:items-center lg:justify-between">
         <div className="space-y-2">
           <p className="text-sm uppercase tracking-wide text-auth-text-muted">Status Sistem</p>
           <h1 className="text-3xl font-heading">Selamat datang di Juara Control Center</h1>
@@ -39,7 +39,7 @@ export default async function DashboardPage() {
               <ArrowUpRight className="ml-2 h-4 w-4" aria-hidden="true" />
             </Link>
           </Button>
-          <Button variant="outline" className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary">
+          <Button variant="outline" className="border-button-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary">
             <RefreshCcw className="mr-2 h-4 w-4" aria-hidden="true" />
             Sinkronkan
           </Button>
@@ -57,7 +57,7 @@ export default async function DashboardPage() {
         </div>
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {summarized.map((metric) => (
-            <Card key={metric.id} className="border-auth-border dashboard-bg-sidebar text-auth-text-primary">
+            <Card key={metric.id} className="border-button-border dashboard-bg-sidebar text-auth-text-primary">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-auth-text-secondary">{metric.title}</CardTitle>
                 {metric.icon}
@@ -72,7 +72,7 @@ export default async function DashboardPage() {
       </section>
 
       <section className="grid gap-4 lg:grid-cols-2">
-        <Card className="border-auth-border dashboard-bg-sidebar text-auth-text-primary">
+        <Card className="border-button-border dashboard-bg-sidebar text-auth-text-primary">
           <CardHeader>
             <CardTitle className="text-auth-text-primary">Aktivitas Terbaru</CardTitle>
             <CardDescription className="text-auth-text-muted">
@@ -83,7 +83,7 @@ export default async function DashboardPage() {
             Belum ada data aktivitas. Lanjutkan konfigurasi modul admin untuk mulai merekam log.
           </CardContent>
         </Card>
-        <Card className="border-auth-border dashboard-bg-sidebar text-auth-text-primary">
+        <Card className="border-button-border dashboard-bg-sidebar text-auth-text-primary">
           <CardHeader>
             <CardTitle className="text-auth-text-primary">Tindakan Cepat</CardTitle>
             <CardDescription className="text-auth-text-muted">
@@ -94,7 +94,7 @@ export default async function DashboardPage() {
             <Button
               asChild
               variant="outline"
-              className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+              className="border-button-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
             >
               <Link href="/dashboard/users">
                 <Users className="mr-2 h-4 w-4" aria-hidden="true" />
@@ -104,14 +104,14 @@ export default async function DashboardPage() {
             <Button
               asChild
               variant="outline"
-              className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+              className="border-button-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
             >
               <Link href="/dashboard/permissions">Atur Izin</Link>
             </Button>
             <Button
               asChild
               variant="outline"
-              className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+              className="border-button-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
             >
               <Link href="/dashboard/profile">Edit Profil</Link>
             </Button>
