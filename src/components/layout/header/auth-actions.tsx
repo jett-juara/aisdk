@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { LogOut, Loader2, LayoutDashboard, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -126,11 +125,11 @@ export const HeaderAuthActions = ({
           <DropdownMenuTrigger asChild>
             <Button className={mobileUserClasses}>
               <div className="flex items-center gap-3 flex-1 min-w-0">
-                <Avatar className="h-9 w-9 border border-header-border/40 bg-header-surface flex-shrink-0">
-                  <AvatarFallback className="bg-header-avatar-bg text-sm font-heading text-header-button-primary-text">
+                <div className="h-10 w-10 bg-[var(--color-header-button-primary)] flex-shrink-0 flex items-center justify-center">
+                  <span className="text-sm font-heading text-[var(--color-header-button-primary-text)]">
                     {initials}
-                  </AvatarFallback>
-                </Avatar>
+                  </span>
+                </div>
                 <div className="flex flex-col items-start justify-center min-w-0">
                   <span className="font-heading text-base text-[var(--color-auth-text-primary)] truncate">{displayName}</span>
                 </div>
@@ -188,11 +187,11 @@ export const HeaderAuthActions = ({
           <DropdownMenuTrigger asChild>
             <Button className={mobileUserClasses}>
               <div className="flex items-center gap-3 flex-1 min-w-0">
-                <Avatar className="h-9 w-9 border border-header-border/40 bg-header-surface flex-shrink-0">
-                  <AvatarFallback className="bg-header-avatar-bg text-sm font-heading text-header-button-primary-text">
+                <div className="h-10 w-10 bg-[var(--color-header-button-primary)] flex-shrink-0 flex items-center justify-center">
+                  <span className="text-sm font-heading text-[var(--color-header-button-primary-text)]">
                     {initials}
-                  </AvatarFallback>
-                </Avatar>
+                  </span>
+                </div>
                 <div className="flex flex-col items-start justify-center min-w-0">
                   <span className="font-heading text-base text-[var(--color-auth-text-primary)] truncate">{displayName}</span>
                 </div>
@@ -242,16 +241,16 @@ export const HeaderAuthActions = ({
               variant="outline"
               size="md"
               className={cn(
-                "lg:w-40 justify-between font-heading",
+                "lg:w-40 justify-start font-heading",
                 className
               )}
             >
-              <div className="flex items-center gap-3 flex-1 min-w-0">
-                <Avatar className="h-8 w-8 border border-header-border/40 bg-header-surface flex-shrink-0">
-                  <AvatarFallback className="bg-header-avatar-bg text-xs font-heading text-header-button-primary-text">
+              <div className="flex items-center gap-1.5 flex-1 min-w-0">
+                <div className="h-10 w-10 bg-[var(--color-header-button-primary)] flex-shrink-0 flex items-center justify-center">
+                  <span className="text-xs font-heading text-[var(--color-header-button-primary-text)]">
                     {initials}
-                  </AvatarFallback>
-                </Avatar>
+                  </span>
+                </div>
                 <div className="flex flex-col items-start justify-center min-w-0">
                   <span className="font-heading text-sm text-header-nav-text truncate">{displayName}</span>
                 </div>
