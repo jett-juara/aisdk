@@ -45,7 +45,7 @@ export default function AuthPage() {
               color: "var(--color-auth-text-primary)"
             }}
           >
-            Juara
+            JUARA
           </span>
         </Link>
 
