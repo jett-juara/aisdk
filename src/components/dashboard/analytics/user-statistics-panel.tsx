@@ -203,7 +203,7 @@ export function UserStatisticsPanel({ className }: UserStatisticsPanelProps) {
                 size="icon"
                 onClick={handleExportData}
                 disabled={!data || isLoading}
-                className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+                className="border-auth-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary"
               >
                 <Download className="h-4 w-4" />
               </Button>

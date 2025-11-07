@@ -406,7 +406,7 @@ export function InvitationManagementPanel({ currentUserId: _currentUserId, invit
                               <Button
                                 type="button"
                                 variant="outline"
-                                className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+                                className="border-auth-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary"
                                 disabled={actionsDisabled}
                                 onClick={() => performAction(record.id, 'resend')}
                               >

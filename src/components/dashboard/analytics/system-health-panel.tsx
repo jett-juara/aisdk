@@ -225,7 +225,7 @@ export function SystemHealthPanel({ className }: SystemHealthPanelProps) {
                 size="icon"
                 onClick={fetchHealthData}
                 disabled={isLoading}
-                className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+                className="border-auth-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary"
               >
                 <RefreshCw className={cn('h-4 w-4', isLoading && 'animate-spin')} />
               </Button>

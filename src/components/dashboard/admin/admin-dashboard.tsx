@@ -261,7 +261,7 @@ export function AdminDashboard({ currentUserId, currentUserRole, className }: Ad
                 size="sm"
                 onClick={handleGlobalRefresh}
                 disabled={refreshing}
-                className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+                className="border-auth-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary"
               >
                 <RefreshCw className={cn('mr-2 h-4 w-4', refreshing && 'animate-spin')} />
                 Refresh
@@ -270,7 +270,7 @@ export function AdminDashboard({ currentUserId, currentUserRole, className }: Ad
                 variant="outline"
                 size="sm"
                 onClick={handleExportData}
-                className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+                className="border-auth-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary"
               >
                 <Download className="mr-2 h-4 w-4" />
                 Export

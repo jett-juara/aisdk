@@ -62,7 +62,7 @@ export default function RegisterPage() {
         <div className="flex justify-end mb-12" style={{ marginBottom: "48px" }}>
           <Button
             variant="outline"
-            className="border-auth-border text-auth-text-secondary hover:text-auth-text-primary hover:border-auth-button-brand hover:bg-auth-button-secondary bg-transparent gap-2 flex items-center font-body"
+            className="border-auth-border text-auth-text-secondary hover:text-auth-text-primary hover:border-[#ececec] hover:bg-auth-button-secondary bg-transparent gap-2 flex items-center font-body"
             style={{ gap: "8px" }}
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">

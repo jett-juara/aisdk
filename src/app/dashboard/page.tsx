@@ -39,7 +39,7 @@ export default async function DashboardPage() {
               <ArrowUpRight className="ml-2 h-4 w-4" aria-hidden="true" />
             </Link>
           </Button>
-          <Button variant="outline" className="border-button-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary">
+          <Button variant="outline" className="border-button-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary">
             <RefreshCcw className="mr-2 h-4 w-4" aria-hidden="true" />
             Sinkronkan
           </Button>
@@ -94,7 +94,7 @@ export default async function DashboardPage() {
             <Button
               asChild
               variant="outline"
-              className="border-button-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+              className="border-button-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary"
             >
               <Link href="/dashboard/users">
                 <Users className="mr-2 h-4 w-4" aria-hidden="true" />
@@ -104,14 +104,14 @@ export default async function DashboardPage() {
             <Button
               asChild
               variant="outline"
-              className="border-button-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+              className="border-button-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary"
             >
               <Link href="/dashboard/permissions">Atur Izin</Link>
             </Button>
             <Button
               asChild
               variant="outline"
-              className="border-button-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+              className="border-button-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary"
             >
               <Link href="/dashboard/profile">Edit Profil</Link>
             </Button>

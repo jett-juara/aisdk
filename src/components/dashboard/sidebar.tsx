@@ -162,7 +162,7 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
           <DropdownMenuTrigger asChild>
             <button
               type="button"
-              className="mx-4 mb-6 w-[calc(100%-2rem)] rounded-xl border border-button-border px-4 py-3 text-left text-auth-text-primary transition-opacity focus:outline-none focus:ring-2 focus:ring-auth-button-brand hover:opacity-90 bg-[var(--color-auth-button-brand)]"
+              className="mx-4 mb-6 w-[calc(100%-2rem)] rounded-xl px-4 py-3 text-left text-auth-text-primary transition-opacity hover:opacity-90 bg-[var(--color-auth-button-brand)]"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex flex-col">
@@ -181,11 +181,11 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
           <DropdownMenuContent
             align="start"
             sideOffset={8}
-            className="border-auth-border dashboard-bg-main p-0 text-auth-text-secondary"
+            className="dashboard-bg-main p-0 text-auth-text-secondary"
             style={{ width: 'var(--radix-dropdown-menu-trigger-width)' }}
           >
             <DropdownMenuItem
-              className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm text-auth-text-primary focus:text-auth-text-primary hover:bg-auth-bg-hover data-[highlighted]:bg-auth-bg-hover"
+              className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm text-auth-text-primary hover:bg-auth-bg-hover data-[highlighted]:bg-auth-bg-hover border-none border-t border-t-button-border [&:focus-visible]:outline-none"
               disabled={loggingOut}
               onSelect={(event) => {
                 event.preventDefault()

@@ -347,7 +347,7 @@ export function UserManagementTable({
               type="button"
               variant="outline"
               size="md"
-              className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+              className="border-auth-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary"
               onClick={refreshFromServer}
               disabled={refreshingDisabled}
             >
@@ -573,7 +573,7 @@ export function UserManagementTable({
             <Button
               variant="outline"
               size="md"
-              className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+              className="border-auth-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary"
               onClick={cancelStatusChange}
               disabled={isPending}
             >

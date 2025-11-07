@@ -165,7 +165,7 @@ export function ProfilePanel({ profile }: ProfilePanelProps) {
             variant={isEditing ? 'outline' : 'default'}
             className={cn(
               isEditing
-                ? 'border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary'
+                ? 'border-auth-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary'
                 : 'auth-button-brand hover:auth-button-brand-hover'
             )}
             onClick={() => {
@@ -258,7 +258,7 @@ export function ProfilePanel({ profile }: ProfilePanelProps) {
                 <Button
                   type="button"
                   variant="outline"
-                  className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+                  className="border-auth-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary"
                   onClick={resetToInitial}
                   disabled={isPending}
                 >
@@ -314,7 +314,7 @@ export function ProfilePanel({ profile }: ProfilePanelProps) {
           <DialogFooter className="gap-2 pt-4">
             <Button
               variant="outline"
-              className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
+              className="border-auth-border text-auth-text-secondary hover:border-[#ececec] hover:text-auth-text-primary"
               onClick={() => {
                 setConfirmDialogOpen(false)
                 setPendingValues(null)
