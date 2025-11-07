@@ -1,24 +1,51 @@
-import { describe, expect, test, vi } from 'vitest'
+import { describe, expect, test, vi, beforeEach } from 'vitest'
 
-async function importResetRoute() {
-  return await import('@/app/api/auth/reset-password/route')
-}
+// Mock modules before imports
+const mockRateLimitOk = vi.fn()
+const mockCreateSupabaseServerClient = vi.fn()
+const mockResetPassword = vi.fn()
+
+vi.mock('@/lib/rate-limit', () => ({
+  rateLimitOk: mockRateLimitOk
+}))
+
+vi.mock('@/lib/supabase/server', () => ({
+  createSupabaseServerClient: mockCreateSupabaseServerClient
+}))
+
+vi.mock('@/lib/auth', () => ({
+  resetPassword: mockResetPassword
+}))
+
+const { POST } = await import('@/app/api/auth/reset-password/route')
 
 describe('Reset Password Route', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
   test('rate limited returns 429', async () => {
-    vi.doMock('@/lib/rate-limit', () => ({ rateLimitOk: () => ({ ok: false }) }))
-    const { POST } = await importResetRoute()
-    const req = new Request('http://localhost/api/auth/reset-password', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: 'a@b.com' }) })
+    mockRateLimitOk.mockReturnValue({ ok: false })
+
+    const req = new Request('http://localhost/api/auth/reset-password', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ email: 'a@b.com' })
+    })
     const res = await POST(req)
     expect(res.status).toBe(429)
   })
 
   test('invalid provider error mapped to Indonesian', async () => {
-    vi.doMock('@/lib/rate-limit', () => ({ rateLimitOk: () => ({ ok: true }) }))
-    vi.doMock('@/lib/supabase/server', () => ({ createSupabaseServerClient: vi.fn(async () => ({})) }))
-    vi.doMock('@/lib/auth', () => ({ resetPassword: vi.fn(async () => ({ error: { message: 'rate limit' } })) }))
-    const { POST } = await importResetRoute()
-    const req = new Request('http://localhost/api/auth/reset-password', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: 'a@b.com' }) })
+    mockRateLimitOk.mockReturnValue({ ok: true })
+    mockCreateSupabaseServerClient.mockResolvedValue({})
+    mockResetPassword.mockResolvedValue({ error: { message: 'rate limit' } })
+
+    const req = new Request('http://localhost/api/auth/reset-password', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ email: 'a@b.com' })
+    })
     const res = await POST(req)
     expect(res.status).toBe(400)
     const json = await res.json()

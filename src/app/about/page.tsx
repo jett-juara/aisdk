@@ -17,7 +17,7 @@ export default function AboutPage() {
           </div>
         </main>
 
-        <Footer fixed={false} />
+        <Footer />
       </div>
     </ThemeProvider>
   );

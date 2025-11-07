@@ -6,7 +6,7 @@ describe('Register Page links', () => {
     const { render, screen } = await import('@testing-library/react')
     render(<RegisterPage />)
     const link = screen.getByText(/sudah punya akun/i).parentElement?.querySelector('a')
-    expect(link?.getAttribute('href')).toBe('/')
+    expect(link?.getAttribute('href')).toBe('/auth')
   })
 })
 

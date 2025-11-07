@@ -99,12 +99,28 @@
     --color-auth-input-focus: #212020;
     --color-auth-input-placeholder: #696969;
 
-    /* Brand & Buttons */
+    /* Brand & Buttons - Auth */
     --color-auth-button-brand: #921756;
     --color-auth-button-brand-hover: #a81d63;
     --color-auth-button-brand-active: #7f1549;
-    --color-auth-button-secondary: #242424;
-    --color-auth-button-secondary-hover: #2a2a2a;
+    --color-auth-button-secondary: #352778;
+    --color-auth-button-secondary-hover: #1f164a;
+    --color-auth-button-tertiary: #d38337;
+    --color-auth-button-tertiary-hover: #b16116;
+
+    /* Brand & Buttons - Home */
+    --color-home-button-brand: #921756;
+    --color-home-button-brand-hover: #a81d63;
+    --color-home-button-brand-active: #7f1549;
+    --color-home-button-secondary: #352778;
+    --color-home-button-secondary-hover: #1f164a;
+    --color-home-button-tertiary: #d38337;
+    --color-home-button-tertiary-hover: #b16116;
+
+    /* Button Sizes - Home */
+    --size-home-button-sm: var(--space-8);  /* 32px */
+    --size-home-button-md: var(--space-10); /* 40px */
+    --size-home-button-lg: var(--space-12); /* 48px */
 
     /* Borders & Dividers */
     --color-auth-border: #2a2a2a;

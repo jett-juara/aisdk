@@ -17,10 +17,9 @@ const SOCIAL_LINKS = [
 
 interface FooterProps {
   className?: string;
-  fixed?: boolean;
 }
 
-const Footer = ({ className = "", fixed = false }: FooterProps) => {
+const Footer = ({ className = "" }: FooterProps) => {
   return (
     <footer className={`${className} bg-transparent`}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
