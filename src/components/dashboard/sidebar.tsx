@@ -93,7 +93,7 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
     } finally {
       setLoggingOut(false)
     }
-  }, [loggingOut, router])
+  }, [loggingOut, router, toast])
 
   const navContent = useMemo(
     () => (
@@ -199,7 +199,7 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
         </DropdownMenu>
       </div>
     ),
-    [sections, pathname, user, loggingOut, menuOpen])
+    [sections, pathname, user, loggingOut, menuOpen, handleLogout])
 
   return (
     <>

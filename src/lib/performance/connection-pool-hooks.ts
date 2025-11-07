@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import { acquireConnection, releaseConnection, getConnectionStatistics, type SupabaseClient } from './connection-pool'
 
 export interface UseConnectionOptions {
@@ -168,6 +168,7 @@ export function useConnectionWithQuery<T = any>(
   const [error, setError] = useState<Error | null>(null)
 
   const connection = useConnection(connectionOptions)
+  const depsKey = useMemo(() => JSON.stringify(deps), [deps])
 
   const executeQuery = useCallback(async () => {
     if (!connection.client || !enabled) return
@@ -196,12 +197,14 @@ export function useConnectionWithQuery<T = any>(
 
   // Execute query when dependencies change
   useEffect(() => {
-    if (connection.isConnected && enabled) {
-      setTimeout(() => {
-        executeQuery()
-      }, 0)
-    }
-  }, [connection.isConnected, executeQuery, ...deps])
+    if (!connection.isConnected || !enabled) return
+
+    const timeout = setTimeout(() => {
+      executeQuery()
+    }, 0)
+
+    return () => clearTimeout(timeout)
+  }, [connection.isConnected, executeQuery, enabled, depsKey])
 
   return {
     data,
@@ -509,6 +512,9 @@ export function useConnectionLifecycle(
   } = options
 
   const connection = useConnection({ poolName, autoRelease: false })
+  const acquireConnection = connection.acquire
+  const releaseConnection = connection.release
+  const isConnected = connection.isConnected
   const [isHealthy, setIsHealthy] = useState(true)
   const [lastActivity, setLastActivity] = useState(() => Date.now())
   const idleTimerRef = useRef<NodeJS.Timeout>()
@@ -537,26 +543,26 @@ export function useConnectionLifecycle(
 
   // Auto-connect
   useEffect(() => {
-    if (autoConnect && !connection.isConnected) {
-      connection.acquire()
+    if (autoConnect && !isConnected) {
+      acquireConnection()
     }
-  }, [autoConnect, connection.isConnected, connection.acquire])
+  }, [autoConnect, isConnected, acquireConnection])
 
   // Health checking
   useEffect(() => {
-    if (!healthCheck || !connection.isConnected) return
+    if (!healthCheck || !isConnected) return
 
     const interval = setInterval(checkHealth, 15000) // Check every 15 seconds
     return () => clearInterval(interval)
-  }, [healthCheck, connection.isConnected, checkHealth])
+  }, [healthCheck, isConnected, checkHealth])
 
   // Keep-alive pings
   useEffect(() => {
-    if (!keepAlive || !connection.isConnected) return
+    if (!keepAlive || !isConnected) return
 
     const interval = setInterval(keepAlivePing, 30000) // Ping every 30 seconds
     return () => clearInterval(interval)
-  }, [keepAlive, connection.isConnected, keepAlivePing])
+  }, [keepAlive, isConnected, keepAlivePing])
 
   // Idle timeout management
   useEffect(() => {
@@ -568,8 +574,8 @@ export function useConnectionLifecycle(
       }
 
       idleTimerRef.current = setTimeout(() => {
-        if (connection.isConnected) {
-          connection.release()
+        if (isConnected) {
+          releaseConnection()
         }
       }, maxIdleTime)
     }
@@ -581,15 +587,15 @@ export function useConnectionLifecycle(
         clearTimeout(idleTimerRef.current)
       }
     }
-  }, [maxIdleTime, connection.isConnected, connection.release])
+  }, [maxIdleTime, isConnected, releaseConnection])
 
   const refresh = useCallback(async () => {
-    if (connection.isConnected) {
-      connection.release()
+    if (isConnected) {
+      releaseConnection()
     }
-    await connection.acquire()
+    await acquireConnection()
     await checkHealth()
-  }, [connection, checkHealth])
+  }, [isConnected, releaseConnection, acquireConnection, checkHealth])
 
   return {
     connection,

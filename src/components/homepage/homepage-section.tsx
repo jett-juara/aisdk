@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useHomepageAnimations } from "@/hooks/use-homepage-animations";
@@ -19,10 +20,14 @@ const HomepageSection = () => {
         <div className="flex w-full flex-col md:hidden">
           {/* SVG - Animation: Scale-in + Blur Clear + Hover Effects */}
           <div className="pointer-events-none flex self-start">
-            <img
+            <Image
               src="/images/off-the-grid.svg"
               alt=""
               aria-hidden="true"
+              width={960}
+              height={540}
+              priority
+              sizes="(max-width: 768px) 70vw, 50vw"
               className={`homepage-svg-animation ${classes.svg} h-auto w-[50vw] max-w-[70vw] select-none ${!prefersReducedMotion && svgHovered ? 'homepage-svg-hover' : ''}`}
               onMouseEnter={() => !prefersReducedMotion && setSvgHovered(true)}
               onMouseLeave={() => !prefersReducedMotion && setSvgHovered(false)}
@@ -58,10 +63,13 @@ const HomepageSection = () => {
         <div className="hidden md:flex lg:hidden w-full flex-col items-center">
           {/* SVG - Animation: Scale-in + Blur Clear + Hover Effects */}
           <div className="pointer-events-none flex w-[50vw] self-start">
-            <img
+            <Image
               src="/images/off-the-grid.svg"
               alt=""
               aria-hidden="true"
+              width={960}
+              height={540}
+              sizes="(max-width: 1024px) 90vw"
               className={`homepage-svg-animation ${classes.svg} h-auto w-full max-w-[90vw] select-none ${!prefersReducedMotion && svgHovered ? 'homepage-svg-hover' : ''}`}
               onMouseEnter={() => !prefersReducedMotion && setSvgHovered(true)}
               onMouseLeave={() => !prefersReducedMotion && setSvgHovered(false)}
@@ -97,10 +105,13 @@ const HomepageSection = () => {
         <div className="hidden lg:flex w-full flex-col items-center">
           {/* SVG - Animation: Scale-in + Blur Clear + Hover Effects */}
           <div className="pointer-events-none flex w-[43vw] justify-end self-start">
-            <img
+            <Image
               src="/images/off-the-grid.svg"
               alt=""
               aria-hidden="true"
+              width={960}
+              height={540}
+              sizes="(min-width: 1024px) 24vw"
               className={`homepage-svg-animation ${classes.svg} h-auto w-full max-w-[24vw] select-none ${!prefersReducedMotion && svgHovered ? 'homepage-svg-hover' : ''}`}
               onMouseEnter={() => !prefersReducedMotion && setSvgHovered(true)}
               onMouseLeave={() => !prefersReducedMotion && setSvgHovered(false)}

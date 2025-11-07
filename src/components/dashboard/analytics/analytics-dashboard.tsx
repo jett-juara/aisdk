@@ -97,7 +97,8 @@ export function AnalyticsDashboard({ currentUserId: _currentUserId, initialAnaly
     }
   }, [supabase])
 
-  const timeline = analytics?.timeline ?? []
+  const timelineSource = analytics?.timeline
+  const timeline = useMemo(() => timelineSource ?? [], [timelineSource])
   const maxNewUsers = Math.max(...timeline.map((point) => point.count), 0)
 
   const handleRangeChange = useCallback(

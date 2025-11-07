@@ -27,12 +27,17 @@ export function useLazyLoad<T = any>(
 
   const [forceUpdate, setForceUpdate] = useState(0)
   const resultRef = useRef<LazyLoadResult<T>>()
+  const configRef = useRef(config)
+  useEffect(() => {
+    configRef.current = config
+  }, [config])
+  const configSignature = useMemo(() => JSON.stringify(config), [config])
 
   // Initialize lazy loading
   useEffect(() => {
     const initializeLazyLoad = async () => {
       try {
-        const lazyLoadResult = await createLazyLoad<T>(id, config)
+        const lazyLoadResult = await createLazyLoad<T>(id, configRef.current)
         setResult(lazyLoadResult)
         resultRef.current = lazyLoadResult
       } catch (error) {
@@ -45,7 +50,7 @@ export function useLazyLoad<T = any>(
     }
 
     initializeLazyLoad()
-  }, [id, config.table, config.pageSize, JSON.stringify(config.filters)])
+  }, [id, configSignature])
 
   // Force update to trigger re-render when data changes
   const triggerUpdate = useCallback(() => {
@@ -166,6 +171,7 @@ export function useInfiniteScroll<T = any>(
       return
     }
 
+    const containerEl = containerRef.current
     const observer = new IntersectionObserver(
       (entries) => {
         const target = entries[0]
@@ -187,15 +193,15 @@ export function useInfiniteScroll<T = any>(
     sentinel.style.left = '0'
     sentinel.style.visibility = 'hidden'
 
-    if (containerRef.current) {
-      containerRef.current.appendChild(sentinel)
+    if (containerEl) {
+      containerEl.appendChild(sentinel)
       observer.observe(sentinel)
     }
 
     return () => {
       observer.disconnect()
-      if (containerRef.current && containerRef.current.contains(sentinel)) {
-        containerRef.current.removeChild(sentinel)
+      if (containerEl && containerEl.contains(sentinel)) {
+        containerEl.removeChild(sentinel)
       }
     }
   }, [enabled, lazyLoadResult.hasMore, lazyLoadResult.isLoading, threshold])
