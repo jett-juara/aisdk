@@ -93,17 +93,32 @@ export function useLoadBalancing(options: UseLoadBalancingOptions = {}): LoadBal
     }
   }, [instances])
 
-  // Initialize and set up refresh interval
+  // Initialize and set up refresh interval tanpa trigger synchronous setState di effect
   useEffect(() => {
-    refresh()
+    let cancelled = false
+
+    const immediate = setTimeout(() => {
+      if (!cancelled) {
+        refresh()
+      }
+    }, 0)
+
+    if (refreshIntervalRef.current) {
+      clearInterval(refreshIntervalRef.current)
+    }
 
     if (refreshInterval > 0) {
-      refreshIntervalRef.current = setInterval(refresh, refreshInterval)
+      refreshIntervalRef.current = setInterval(() => {
+        refresh()
+      }, refreshInterval)
     }
 
     return () => {
+      cancelled = true
+      clearTimeout(immediate)
       if (refreshIntervalRef.current) {
         clearInterval(refreshIntervalRef.current)
+        refreshIntervalRef.current = undefined
       }
     }
   }, [refresh, refreshInterval])
@@ -140,10 +155,21 @@ export function useInstanceMonitoring(instanceId: string) {
   }, [instanceId])
 
   useEffect(() => {
-    refresh()
+    let cancelled = false
+    const immediate = setTimeout(() => {
+      if (!cancelled) {
+        refresh()
+      }
+    }, 0)
 
-    const interval = setInterval(refresh, 5000) // Update every 5 seconds
-    return () => clearInterval(interval)
+    const interval = setInterval(() => {
+      refresh()
+    }, 5000) // Update every 5 seconds
+    return () => {
+      cancelled = true
+      clearTimeout(immediate)
+      clearInterval(interval)
+    }
   }, [refresh])
 
   const performHealthCheck = useCallback(async () => {
@@ -188,6 +214,7 @@ export function useSessionAffinity(clientId: string) {
     sessionCreated: null,
     sessionExpires: null
   })
+  const [currentTime, setCurrentTime] = useState(() => Date.now())
 
   const refresh = useCallback(async () => {
     try {
@@ -217,14 +244,32 @@ export function useSessionAffinity(clientId: string) {
   }, [clientId])
 
   useEffect(() => {
-    refresh()
+    let cancelled = false
+    const immediate = setTimeout(() => {
+      if (!cancelled) {
+        refresh()
+      }
+    }, 0)
 
-    const interval = setInterval(refresh, 10000) // Update every 10 seconds
-    return () => clearInterval(interval)
+    const interval = setInterval(() => {
+      refresh()
+    }, 10000) // Update every 10 seconds
+    return () => {
+      cancelled = true
+      clearTimeout(immediate)
+      clearInterval(interval)
+    }
   }, [refresh])
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(Date.now())
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
   const isSessionExpired = sessionInfo.sessionExpires
-    ? Date.now() > sessionInfo.sessionExpires
+    ? currentTime > sessionInfo.sessionExpires
     : false
 
   return {
@@ -282,10 +327,21 @@ export function useLoadBalancingMetrics() {
   }, [])
 
   useEffect(() => {
-    refresh()
+    let cancelled = false
+    const immediate = setTimeout(() => {
+      if (!cancelled) {
+        refresh()
+      }
+    }, 0)
 
-    const interval = setInterval(refresh, 5000) // Update every 5 seconds
-    return () => clearInterval(interval)
+    const interval = setInterval(() => {
+      refresh()
+    }, 5000) // Update every 5 seconds
+    return () => {
+      cancelled = true
+      clearTimeout(immediate)
+      clearInterval(interval)
+    }
   }, [refresh])
 
   return {
@@ -331,10 +387,21 @@ export function useCircuitBreakerMonitoring() {
   }, [])
 
   useEffect(() => {
-    refresh()
+    let cancelled = false
+    const immediate = setTimeout(() => {
+      if (!cancelled) {
+        refresh()
+      }
+    }, 0)
 
-    const interval = setInterval(refresh, 3000) // Update every 3 seconds
-    return () => clearInterval(interval)
+    const interval = setInterval(() => {
+      refresh()
+    }, 3000) // Update every 3 seconds
+    return () => {
+      cancelled = true
+      clearTimeout(immediate)
+      clearInterval(interval)
+    }
   }, [refresh])
 
   const openBreakers = circuitBreakers.filter(cb => cb.state === 'open')

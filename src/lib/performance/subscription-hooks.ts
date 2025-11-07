@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import { createOptimizedSubscription, removeOptimizedSubscription, getSubscriptionMetrics } from './subscription-optimizer'
 import type { SubscriptionConfig, SubscriptionMetrics } from './subscription-optimizer'
 
@@ -41,6 +41,7 @@ export function useRealtimeSubscription<T = any>(
 
   const subscriptionIdRef = useRef<string | null>(null)
   const retryCountRef = useRef(0)
+  const connectRef = useRef<(() => void) | null>(null)
   const {
     enabled = true,
     retryCount = 3,
@@ -144,7 +145,7 @@ export function useRealtimeSubscription<T = any>(
       if (retryCountRef.current < retryCount) {
         retryCountRef.current++
         setTimeout(() => {
-          connect()
+          connectRef.current?.()
         }, retryDelay)
       } else {
         if (onError) {
@@ -173,16 +174,27 @@ export function useRealtimeSubscription<T = any>(
     })
   }, [disconnect, connect])
 
-  // Auto-connect on mount and config change
   useEffect(() => {
-    if (enabled) {
-      connect()
+    connectRef.current = connect
+  }, [connect])
+
+  // Auto-connect on mount/config change (async untuk hindari setState sinkron)
+  useEffect(() => {
+    if (!enabled) {
+      return () => {
+        disconnect()
+      }
     }
 
+    const timeout = setTimeout(() => {
+      connect()
+    }, 0)
+
     return () => {
+      clearTimeout(timeout)
       disconnect()
     }
-  }, [enabled, config.table, config.filter])
+  }, [enabled, connect, disconnect])
 
   return {
     data,
@@ -204,22 +216,14 @@ export function useRealtimeSubscriptionWithTransform<T = any, R = any>(
   transform: (data: T[]) => R,
   options: UseRealtimeOptions = {}
 ): RealtimeSubscriptionResult<R> {
-  const [transformedData, setTransformedData] = useState<R[]>([])
-
   const subscriptionResult = useRealtimeSubscription<T>(config, {
-    ...options,
-    onSuccess: () => {
-      setTransformedData([transform(subscriptionResult.data)])
-      if (options.onSuccess) {
-        options.onSuccess()
-      }
-    }
+    ...options
   })
 
-  // Transform initial data
-  useEffect(() => {
-    setTransformedData([transform(subscriptionResult.data)])
-  }, [subscriptionResult.data, transform])
+  const transformedData = useMemo(() => [transform(subscriptionResult.data)], [
+    subscriptionResult.data,
+    transform
+  ])
 
   return {
     ...subscriptionResult,
@@ -235,56 +239,19 @@ export function useRealtimeSubscriptionWithFilter<T = any>(
   filterFn: (item: T) => boolean,
   options: UseRealtimeOptions = {}
 ): RealtimeSubscriptionResult<T> {
-  const [filteredData, setFilteredData] = useState<T[]>([])
-
   const subscriptionResult = useRealtimeSubscription<T>(config, {
-    ...options,
-    onSuccess: () => {
-      setFilteredData(subscriptionResult.data.filter(filterFn))
-      if (options.onSuccess) {
-        options.onSuccess()
-      }
-    }
+    ...options
   })
 
-  // Filter initial data
-  useEffect(() => {
-    setFilteredData(subscriptionResult.data.filter(filterFn))
-  }, [subscriptionResult.data, filterFn])
+  const filteredData = useMemo(
+    () => subscriptionResult.data.filter(filterFn),
+    [subscriptionResult.data, filterFn]
+  )
 
   return {
     ...subscriptionResult,
     data: filteredData
   }
-}
-
-/**
- * Hook for multiple real-time subscriptions
- */
-export function useMultipleRealtimeSubscriptions(
-  configs: Array<{ config: SubscriptionConfig; key: string }>,
-  options: UseRealtimeOptions = {}
-): Record<string, RealtimeSubscriptionResult> {
-  const [results, setResults] = useState<Record<string, RealtimeSubscriptionResult>>({})
-
-  useEffect(() => {
-    const newResults: Record<string, RealtimeSubscriptionResult> = {}
-
-    for (const { config, key } of configs) {
-      newResults[key] = useRealtimeSubscription(config, {
-        ...options,
-        onError: (error) => {
-          if (options.onError) {
-            options.onError(error)
-          }
-        }
-      })
-    }
-
-    setResults(newResults)
-  }, [configs.map(c => `${c.key}-${c.config.table}-${c.config.filter}`).join(',')])
-
-  return results
 }
 
 /**
@@ -337,22 +304,33 @@ export function useCachedRealtimeSubscription<T = any>(
   const [cachedData, setCachedData] = useState<T[]>([])
   const [isCacheHit, setIsCacheHit] = useState(false)
 
-  const subscriptionResult = useRealtimeSubscription<T>(config, {
-    ...options,
-    onSuccess: () => {
-      // Update cache with new data
-      if (typeof window !== 'undefined') {
-        localStorage.setItem(cacheKey, JSON.stringify({
-          data: subscriptionResult.data,
-          timestamp: Date.now()
-        }))
-      }
+  const subscriptionResult = useRealtimeSubscription<T>(config, options)
+
+  // Persist data ke cache setiap kali update (async supaya lulus lint React hooks)
+  useEffect(() => {
+    if (typeof window === 'undefined' || subscriptionResult.data.length === 0) {
+      return
     }
-  })
+
+    const timeout = setTimeout(() => {
+      localStorage.setItem(cacheKey, JSON.stringify({
+        data: subscriptionResult.data,
+        timestamp: Date.now()
+      }))
+    }, 0)
+
+    return () => clearTimeout(timeout)
+  }, [cacheKey, subscriptionResult.data])
 
   // Load from cache on mount
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    let cancelled = false
+    const timeout = setTimeout(() => {
+      if (cancelled) return
       try {
         const cached = localStorage.getItem(cacheKey)
         if (cached) {
@@ -367,6 +345,11 @@ export function useCachedRealtimeSubscription<T = any>(
         }
       } catch (error) {
       }
+    }, 0)
+
+    return () => {
+      cancelled = true
+      clearTimeout(timeout)
     }
   }, [cacheKey])
 

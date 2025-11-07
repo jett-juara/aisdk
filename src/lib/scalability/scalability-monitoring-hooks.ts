@@ -107,17 +107,32 @@ export function useScalabilityMonitoring(
     total: 0
   }
 
-  // Initialize and set up refresh interval
+  // Initialize dan jalankan refresh tanpa memicu setState sinkron di effect
   useEffect(() => {
-    refresh()
+    let cancelled = false
+
+    const immediate = setTimeout(() => {
+      if (!cancelled) {
+        refresh()
+      }
+    }, 0)
+
+    if (refreshIntervalRef.current) {
+      clearInterval(refreshIntervalRef.current)
+    }
 
     if (refreshInterval > 0) {
-      refreshIntervalRef.current = setInterval(refresh, refreshInterval)
+      refreshIntervalRef.current = setInterval(() => {
+        refresh()
+      }, refreshInterval)
     }
 
     return () => {
+      cancelled = true
+      clearTimeout(immediate)
       if (refreshIntervalRef.current) {
         clearInterval(refreshIntervalRef.current)
+        refreshIntervalRef.current = undefined
       }
     }
   }, [refresh, refreshInterval])
@@ -152,10 +167,21 @@ export function useScalabilityMetrics(timeRangeHours = 24) {
   }, [timeRangeHours])
 
   useEffect(() => {
-    refresh()
+    let cancelled = false
+    const immediate = setTimeout(() => {
+      if (!cancelled) {
+        refresh()
+      }
+    }, 0)
 
-    const interval = setInterval(refresh, 60000) // Update every minute
-    return () => clearInterval(interval)
+    const interval = setInterval(() => {
+      refresh()
+    }, 60000) // Update every minute
+    return () => {
+      cancelled = true
+      clearTimeout(immediate)
+      clearInterval(interval)
+    }
   }, [refresh])
 
   const chartData = {
@@ -193,10 +219,21 @@ export function useScalabilityAlerts() {
   }, [])
 
   useEffect(() => {
-    refresh()
+    let cancelled = false
+    const immediate = setTimeout(() => {
+      if (!cancelled) {
+        refresh()
+      }
+    }, 0)
 
-    const interval = setInterval(refresh, 15000) // Update every 15 seconds
-    return () => clearInterval(interval)
+    const interval = setInterval(() => {
+      refresh()
+    }, 15000) // Update every 15 seconds
+    return () => {
+      cancelled = true
+      clearTimeout(immediate)
+      clearInterval(interval)
+    }
   }, [refresh])
 
   const resolveAlert = useCallback((alertId: string) => {
@@ -328,10 +365,21 @@ export function useScalabilityRecommendations() {
   }, [])
 
   useEffect(() => {
-    refresh()
+    let cancelled = false
+    const immediate = setTimeout(() => {
+      if (!cancelled) {
+        refresh()
+      }
+    }, 0)
 
-    const interval = setInterval(refresh, 60000) // Update every minute
-    return () => clearInterval(interval)
+    const interval = setInterval(() => {
+      refresh()
+    }, 60000) // Update every minute
+    return () => {
+      cancelled = true
+      clearTimeout(immediate)
+      clearInterval(interval)
+    }
   }, [refresh])
 
   const prioritizedRecommendations = recommendations.sort((a, b) => {
@@ -422,17 +470,31 @@ export function useCapacityPlanning() {
  */
 export function useRealTimeMonitoring() {
   const [isMonitoring, setIsMonitoring] = useState(true)
-  const [lastUpdate, setLastUpdate] = useState<number>(Date.now())
+  const [lastUpdate, setLastUpdate] = useState<number>(() => Date.now())
+  const [timeSinceLastUpdate, setTimeSinceLastUpdate] = useState(0)
 
   const monitoringMetrics = useScalabilityMonitoring({
     refreshInterval: isMonitoring ? 10000 : 0 // 10 seconds if monitoring
   })
 
   useEffect(() => {
-    setLastUpdate(Date.now())
+    const timeout = setTimeout(() => {
+      setLastUpdate(Date.now())
+      setTimeSinceLastUpdate(0)
+    }, 0)
+    return () => clearTimeout(timeout)
   }, [monitoringMetrics.dashboard])
 
-  const timeSinceLastUpdate = Date.now() - lastUpdate
+  useEffect(() => {
+    if (!isMonitoring) return
+
+    const interval = setInterval(() => {
+      setTimeSinceLastUpdate(Date.now() - lastUpdate)
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [isMonitoring, lastUpdate])
+
   const isStale = timeSinceLastUpdate > 60000 // Consider stale after 1 minute
 
   return {

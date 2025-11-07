@@ -401,10 +401,10 @@ export function useUserInteractionTracker(componentName: string) {
  */
 export function usePerformanceAlerts() {
   const [alerts, setAlerts] = useState<PerformanceAlert[]>([])
-  const [isSubscribed, setIsSubscribed] = useState(false)
+  const isSubscribedRef = useRef(false)
 
   useEffect(() => {
-    if (isSubscribed) return
+    if (isSubscribedRef.current) return
 
     // In a real implementation, this would subscribe to real-time alert updates
     const checkForNewAlerts = async () => {
@@ -416,13 +416,13 @@ export function usePerformanceAlerts() {
     }
 
     const interval = setInterval(checkForNewAlerts, 10000) // Check every 10 seconds
-    setIsSubscribed(true)
+    isSubscribedRef.current = true
 
     return () => {
       clearInterval(interval)
-      setIsSubscribed(false)
+      isSubscribedRef.current = false
     }
-  }, [isSubscribed])
+  }, [])
 
   const criticalAlerts = useMemo(() =>
     alerts.filter(alert => alert.severity === 'critical'), [alerts]

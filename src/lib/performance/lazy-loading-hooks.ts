@@ -202,10 +202,16 @@ export function useInfiniteScroll<T = any>(
 
   // Load more when intersecting
   useEffect(() => {
-    if (isIntersecting && lazyLoadResult.hasMore && !lazyLoadResult.isLoading) {
-      lazyLoadResult.loadMore()
-      setIsIntersecting(false)
+    if (!isIntersecting || !lazyLoadResult.hasMore || lazyLoadResult.isLoading) {
+      return
     }
+
+    lazyLoadResult.loadMore()
+    const timeout = setTimeout(() => {
+      setIsIntersecting(false)
+    }, 0)
+
+    return () => clearTimeout(timeout)
   }, [isIntersecting, lazyLoadResult])
 
   return {
@@ -233,7 +239,7 @@ export function useVirtualScroll<T = any>(
         onScroll(newScrollTop, visibleRange)
       }
     })
-  }, [items, config.itemHeight, config.containerHeight, config.enabled, onScroll])
+  }, [items, config, onScroll])
 
   // Scroll to item
   const scrollToItem = useCallback((index: number, alignment: 'start' | 'center' | 'end' = 'start') => {
@@ -254,7 +260,7 @@ export function useVirtualScroll<T = any>(
     }
 
     scrollElementRef.current.scrollTop = Math.max(0, scrollTo)
-  }, [config.itemHeight, config.containerHeight])
+  }, [config])
 
   // Scroll to top
   const scrollToTop = useCallback(() => {
