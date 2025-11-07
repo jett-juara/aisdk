@@ -21,7 +21,7 @@ const HomepageSection = () => {
           {/* SVG - Animation: Scale-in + Blur Clear + Hover Effects */}
           <div className="pointer-events-none flex self-start">
             <Image
-              src="/images/off-the-grid.svg"
+              src="/images/home-hero/off-the-grid.svg"
               alt=""
               aria-hidden="true"
               width={960}
@@ -64,7 +64,7 @@ const HomepageSection = () => {
           {/* SVG - Animation: Scale-in + Blur Clear + Hover Effects */}
           <div className="pointer-events-none flex w-[50vw] self-start">
             <Image
-              src="/images/off-the-grid.svg"
+              src="/images/home-hero/off-the-grid.svg"
               alt=""
               aria-hidden="true"
               width={960}
@@ -106,7 +106,7 @@ const HomepageSection = () => {
           {/* SVG - Animation: Scale-in + Blur Clear + Hover Effects */}
           <div className="pointer-events-none flex w-[43vw] justify-end self-start">
             <Image
-              src="/images/off-the-grid.svg"
+              src="/images/home-hero/off-the-grid.svg"
               alt=""
               aria-hidden="true"
               width={960}
