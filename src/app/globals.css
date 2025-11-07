@@ -56,6 +56,19 @@
     --color-toast-foreground: #ffffff;
     --color-toast-border: #37373a;
 
+    /* Button standardization theme tokens */
+    --button-height-sm: 32px;    /* h-8 - Secondary actions, table rows */
+    --button-height-md: 40px;    /* h-10 - Primary actions, forms (NEW DEFAULT) */
+    --button-height-lg: 48px;    /* h-12 - Hero CTAs, main navigation */
+
+    /* Icon button sizes */
+    --icon-button-size-sm: 32px;  /* w-8 h-8 - Table actions, toggles */
+    --icon-button-size-md: 40px;  /* w-10 h-10 - Header actions (NEW DEFAULT) */
+    --icon-button-size-lg: 48px;  /* w-12 h-12 - Mobile actions, hero icons */
+
+    /* Special case: Homepage hero buttons */
+    --home-button-height: var(--button-height-lg);
+
     /* HEADER THEME TOKENS */
     /* Mengacu ke sistem auth agar konsisten; mudah diubah terpusat */
     --color-header-bg: var(--color-auth-bg-form);
@@ -441,6 +454,67 @@
         background-color: var(--color-toast-bg);
         color: var(--color-toast-foreground);
         border-color: var(--color-toast-border);
+    }
+
+    /* Button standardization utility classes */
+    .btn-jetta-brand {
+        background-color: var(--color-auth-button-brand);
+        color: var(--color-auth-text-primary);
+        border-color: transparent;
+    }
+
+    .btn-jetta-brand:hover {
+        background-color: var(--color-auth-button-brand-hover);
+    }
+
+    .btn-homepage-transparent {
+        background-color: transparent;
+        color: white;
+        border: 1px solid var(--ring);
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-homepage-transparent:hover {
+        background-color: var(--ring);
+    }
+
+    .btn-header-auth {
+        background-color: var(--color-auth-button-brand);
+        color: var(--color-auth-text-primary);
+        border-color: transparent;
+    }
+
+    .btn-header-auth:hover {
+        background-color: var(--color-auth-button-brand-hover);
+    }
+
+    /* Button size utilities for direct use */
+    .btn-height-sm {
+        height: var(--button-height-sm);
+    }
+
+    .btn-height-md {
+        height: var(--button-height-md);
+    }
+
+    .btn-height-lg {
+        height: var(--button-height-lg);
+    }
+
+    /* Icon button size utilities */
+    .icon-btn-sm {
+        width: var(--icon-button-size-sm);
+        height: var(--icon-button-size-sm);
+    }
+
+    .icon-btn-md {
+        width: var(--icon-button-size-md);
+        height: var(--icon-button-size-md);
+    }
+
+    .icon-btn-lg {
+        width: var(--icon-button-size-lg);
+        height: var(--icon-button-size-lg);
     }
 
     /* Main Menu Utility Classes */

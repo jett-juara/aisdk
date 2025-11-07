@@ -18,19 +18,27 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        // JETT-specific variants
+        jetta: "btn-jetta-brand hover:btn-jetta-brand-hover focus-visible:ring-2 focus-visible:ring-white/20",
+        homepage: "btn-homepage-transparent hover:ring-2 hover:ring-white/40",
+        "header-auth": "btn-header-auth hover:btn-header-auth-hover focus-visible:ring-2 focus-visible:ring-white/20",
       },
       size: {
+        // Legacy sizes (keeping for compatibility)
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-        icon: "size-9",
-        "icon-sm": "size-8",
-        "icon-lg": "size-10",
+        // New standardized sizes
+        md: "h-10 px-4 py-2 has-[>svg]:px-3", // 40px - NEW DEFAULT
+        // Icon button sizes (standardized)
+        icon: "size-10", // 40px - updated to match md
+        "icon-sm": "size-8", // 32px - table actions
+        "icon-lg": "size-12", // 48px - mobile touch targets
       },
     },
     defaultVariants: {
       variant: "default",
-      size: "default",
+      size: "md", // Changed from "default" to "md"
     },
   }
 )

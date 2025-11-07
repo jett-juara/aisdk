@@ -346,6 +346,7 @@ export function UserManagementTable({
             <Button
               type="button"
               variant="outline"
+              size="md"
               className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
               onClick={refreshFromServer}
               disabled={refreshingDisabled}
@@ -571,6 +572,7 @@ export function UserManagementTable({
           <DialogFooter className="gap-3">
             <Button
               variant="outline"
+              size="md"
               className="border-auth-border text-auth-text-secondary hover:border-auth-button-brand hover:text-auth-text-primary"
               onClick={cancelStatusChange}
               disabled={isPending}
@@ -578,7 +580,8 @@ export function UserManagementTable({
               Batal
             </Button>
             <Button
-              className="auth-button-brand hover:auth-button-brand-hover"
+              variant="jetta"
+              size="md"
               onClick={confirmStatusChange}
               disabled={isPending}
             >
@@ -640,19 +643,17 @@ export function UserManagementTable({
           <DialogFooter className="gap-3">
             <Button
               variant="outline"
+              size="md"
               onClick={() => setShowBulkDialog(false)}
               className="border-auth-border text-auth-text-secondary hover:border-auth-text-primary hover:text-auth-text-primary"
             >
               Batal
             </Button>
             <Button
+              variant={bulkOperation?.type === 'delete' ? 'destructive' : 'jetta'}
+              size="md"
               onClick={executeBulkOperation}
               disabled={isPending}
-              className={cn(
-                bulkOperation?.type === 'delete'
-                  ? 'bg-auth-text-error hover:bg-auth-text-error hover:bg-auth-text-error/90'
-                  : 'auth-button-brand hover:auth-button-brand-hover'
-              )}
             >
               {isPending ? (
                 <>

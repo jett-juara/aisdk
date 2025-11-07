@@ -31,7 +31,7 @@ interface HeaderAuthActionsProps {
 }
 
 const loginButtonClasses =
-  "rounded-lg bg-header-button-primary px-4 py-2 font-heading text-sm font-semibold text-header-button-primary-text transition-colors duration-200 hover:bg-header-button-primary-hover active:bg-header-button-primary-active min-h-[44px]";
+  "rounded-lg px-4 py-2 font-heading text-sm font-semibold transition-colors duration-200 min-h-[44px]";
 
 const mobileLoginClasses =
   "w-full rounded-lg bg-header-button-primary px-4 py-3 font-heading text-base font-semibold text-header-button-primary-text transition-colors duration-200 hover:bg-header-button-primary-hover active:bg-header-button-primary-active min-h-[44px]";
@@ -81,7 +81,9 @@ export const HeaderAuthActions = ({
     return (
       <Button
         asChild
-        className={cn(layout === "mobile" ? mobileLoginClasses : loginButtonClasses, className)}
+        variant="header-auth"
+        size={layout === "mobile" ? "lg" : "md"}
+        className={cn(layout === "mobile" ? "w-full py-3 text-base" : loginButtonClasses, className)}
       >
         <Link
           href="/auth"
@@ -104,7 +106,9 @@ export const HeaderAuthActions = ({
         {/* Dashboard Button - Primary Color */}
         <Button
           asChild
-          className={mobileDashboardClasses}
+          variant="header-auth"
+          size="lg"
+          className="w-full items-center justify-start gap-3 py-3 text-base"
         >
           <Link
             href="/dashboard"
@@ -164,7 +168,9 @@ export const HeaderAuthActions = ({
         {/* Dashboard Button - Primary Color */}
         <Button
           asChild
-          className={mobileDashboardClasses}
+          variant="header-auth"
+          size="lg"
+          className="w-full items-center justify-start gap-3 py-3 text-base"
         >
           <Link
             href="/dashboard"
@@ -220,7 +226,9 @@ export const HeaderAuthActions = ({
         {/* Dashboard Button - Only visible when user is logged in */}
         <Button
           asChild
-          className="hidden min-h-[48px] items-center gap-3 rounded-lg border border-transparent bg-header-button-primary px-3 py-2 text-sm font-heading text-header-button-primary-text transition-colors duration-200 hover:bg-header-button-primary-hover active:bg-header-button-primary-active lg:flex lg:w-40"
+          variant="header-auth"
+          size="md"
+          className="hidden items-center gap-3 lg:flex lg:w-40"
         >
           <Link href="/dashboard" className="flex items-center gap-3 w-full justify-center">
             <LayoutDashboard className="h-4 w-4 flex-shrink-0" />
@@ -231,8 +239,10 @@ export const HeaderAuthActions = ({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
+              variant="outline"
+              size="md"
               className={cn(
-                "flex min-h-[48px] items-center gap-3 rounded-lg border border-header-border bg-[#171717] px-3 py-2 transition-colors duration-200 hover:border-header-button-primary hover:bg-header-button-secondary-hover focus-visible:outline-none lg:w-40 justify-between font-heading text-header-button-secondary-text",
+                "lg:w-40 justify-between font-heading",
                 className
               )}
             >

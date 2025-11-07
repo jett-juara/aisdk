@@ -244,6 +244,7 @@ export function QuickActionsPanel({
                 <Button
                   key={action.id}
                   variant="outline"
+                  size="md"
                   className={cn(
                     'h-auto p-4 flex flex-col items-start text-left space-y-2 border',
                     getColorClasses(action.color),

@@ -134,10 +134,10 @@ export default function LoginForm() {
           <Button
             type="button"
             variant="ghost"
-            size="icon"
+            size="icon-sm"
             onClick={() => setShowPassword(!showPassword)}
             disabled={isLoading}
-            className="absolute right-3 top-1/2 -translate-y-1/2 h-auto w-auto p-1 text-[var(--color-auth-text-secondary)] hover:text-[var(--color-auth-text-primary)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-auth-text-secondary)] hover:text-[var(--color-auth-text-primary)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {showPassword ? (
               <svg
@@ -175,8 +175,10 @@ export default function LoginForm() {
       {/* Login Button */}
       <Button
         type="submit"
+        variant="jetta"
+        size="md"
         disabled={isLoading}
-        className="w-full bg-[var(--color-auth-button-brand)] text-[var(--color-auth-text-primary)] hover:bg-[var(--color-auth-button-brand-hover)] focus-visible:ring-[var(--color-auth-button-brand)]/20 font-manrope font-semibold"
+        className="w-full font-manrope font-semibold"
       >
         {isLoading ? (
           <span className="flex items-center gap-2">

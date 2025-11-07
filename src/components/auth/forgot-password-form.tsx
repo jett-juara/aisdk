@@ -43,7 +43,9 @@ export default function ForgotPasswordForm() {
       {/* Send Button */}
       <Button
         type="submit"
-        className="w-full bg-[var(--color-auth-button-brand)] text-[var(--color-auth-text-primary)] hover:bg-[var(--color-auth-button-brand-hover)] focus-visible:ring-[var(--color-auth-button-brand)]/20 font-manrope font-semibold"
+        variant="jetta"
+        size="md"
+        className="w-full font-manrope font-semibold"
       >
         Kirim tautan reset
       </Button>
