@@ -18,6 +18,15 @@ const config = {
         "2xl": "1400px",
       },
     },
+    screens: {
+      'xxs': '0px',      // 0–320px (Extra Extra Small: iPhone SE, small phones)
+      'xs': '320px',     // ≥320px (Extra Small: standard phones)
+      'sm': '576px',     // ≥576px (Small: large phones, small tablets)
+      'md': '768px',     // ≥768px (Medium: tablets, small laptops)
+      'lg': '1024px',    // ≥1024px (Large: standard laptops)
+      'xl': '1280px',    // ≥1280px (Extra Large: large laptops)
+      '2xl': '1536px',   // ≥1536px (Extra Extra Large: wide desktop)
+    },
     extend: {
       colors: {
         border: "oklch(var(--border))",

@@ -7,7 +7,7 @@ export default function HomePage() {
     <div className="relative isolate flex min-h-screen min-h-dvh flex-col overflow-hidden bg-black">
       {/* Background Image - covers full viewport */}
       <div
-        className="pointer-events-none absolute inset-0 z-0 bg-[url('/images/home-hero/hero_03-mobile.webp')] bg-cover bg-center md:bg-[url('/images/home-hero/hero_03-tablet.webp')] lg:bg-[url('/images/home-hero/hero_03-desktop.webp')]"
+        className="pointer-events-none absolute inset-0 z-0 bg-[url('/images/home-hero/hero_03-mobile.webp')] bg-cover bg-center sm:bg-[url('/images/home-hero/hero_03-tablet.webp')] lg:bg-[url('/images/home-hero/hero_03-desktop.webp')] 2xl:bg-[url('/images/home-hero/hero_03-desktop.webp')]"
         aria-hidden="true"
       />
 
