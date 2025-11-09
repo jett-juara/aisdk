@@ -55,13 +55,63 @@ const ICON_MAP: Record<DashboardIconKey, ComponentType<any>> = {
 // Fallback icon untuk handle missing icon cases
 const FALLBACK_ICON = Settings2
 
+// Separate UserDropdown component to prevent hydration issues
+function UserDropdown({ user, loggingOut, handleLogout }: {
+  user: SidebarUser
+  loggingOut: boolean
+  handleLogout: () => void
+}) {
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  return (
+    <DropdownMenu onOpenChange={setMenuOpen}>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          className="mx-4 mb-6 w-[calc(100%-2rem)] rounded-xl px-4 py-3 text-left text-auth-text-primary transition-opacity hover:opacity-90 bg-[var(--color-auth-button-brand)]"
+        >
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex flex-col">
+              <p className="text-sm font-medium">{user.name}</p>
+            </div>
+            <ChevronDown
+              className={cn(
+                'mt-1 h-4 w-4 flex-shrink-0 text-auth-text-primary transition-transform duration-fast',
+                menuOpen ? 'rotate-180' : 'rotate-0'
+              )}
+              aria-hidden="true"
+            />
+          </div>
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align="start"
+        sideOffset={8}
+        className="dashboard-bg-main p-0 text-auth-text-secondary"
+        style={{ width: 'var(--radix-dropdown-menu-trigger-width)' }}
+      >
+        <DropdownMenuItem
+          className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm text-auth-text-primary hover:bg-auth-bg-hover data-[highlighted]:bg-auth-bg-hover border-none border-t border-t-button-border [&:focus-visible]:outline-none"
+          disabled={loggingOut}
+          onSelect={(event) => {
+            event.preventDefault()
+            handleLogout()
+          }}
+        >
+          <LogOut className="h-4 w-4" aria-hidden="true" />
+          Keluar
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
 export function DashboardSidebar({ sections, user }: SidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
   const { toast } = useToast()
   const [open, setOpen] = useState(false)
   const [loggingOut, setLoggingOut] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
 
   const handleLogout = useCallback(async () => {
     if (loggingOut) return
@@ -158,48 +208,10 @@ export function DashboardSidebar({ sections, user }: SidebarProps) {
             </Fragment>
           ))}
         </div>
-        <DropdownMenu onOpenChange={setMenuOpen}>
-          <DropdownMenuTrigger asChild>
-            <button
-              type="button"
-              className="mx-4 mb-6 w-[calc(100%-2rem)] rounded-xl px-4 py-3 text-left text-auth-text-primary transition-opacity hover:opacity-90 bg-[var(--color-auth-button-brand)]"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex flex-col">
-                  <p className="text-sm font-medium">{user.name}</p>
-                </div>
-                <ChevronDown
-                  className={cn(
-                    'mt-1 h-4 w-4 flex-shrink-0 text-auth-text-primary transition-transform duration-fast',
-                    menuOpen ? 'rotate-180' : 'rotate-0'
-                  )}
-                  aria-hidden="true"
-                />
-              </div>
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="start"
-            sideOffset={8}
-            className="dashboard-bg-main p-0 text-auth-text-secondary"
-            style={{ width: 'var(--radix-dropdown-menu-trigger-width)' }}
-          >
-            <DropdownMenuItem
-              className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm text-auth-text-primary hover:bg-auth-bg-hover data-[highlighted]:bg-auth-bg-hover border-none border-t border-t-button-border [&:focus-visible]:outline-none"
-              disabled={loggingOut}
-              onSelect={(event) => {
-                event.preventDefault()
-                handleLogout()
-              }}
-            >
-              <LogOut className="h-4 w-4" aria-hidden="true" />
-              Keluar
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <UserDropdown user={user} loggingOut={loggingOut} handleLogout={handleLogout} />
       </div>
     ),
-    [sections, pathname, user, loggingOut, menuOpen, handleLogout])
+    [sections, pathname, user, loggingOut, handleLogout])
 
   return (
     <>
