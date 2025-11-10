@@ -174,14 +174,13 @@
     --radius-full: 9999px;
 
     /* FONT SIZE SCALE */
-    --text-xxs: 8px;
-    --text-xs: 10px;
-    --text-sm: 12px;
-    --text-md: 14px;
-    --text-lg: 16px;
-    --text-xl: 18px;
-    --text-2xl: 22px;
-    --text-3xl: 28px;
+    --text-xs: 8px;
+    --text-sm: 10px;
+    --text-md: 12px;
+    --text-lg: 14px;
+    --text-xl: 16px;
+    --text-2xl: 24px;
+    --text-3xl: 32px;
     --text-4xl: 36px;
     --text-5xl: 48px;
 
@@ -579,7 +578,7 @@
     }
 
     .homepage-svg-visible {
-        @apply opacity-100 scale-100 blur-0;
+        @apply opacity-100 scale-80 blur-0;
     }
 
     .homepage-text-hidden {
@@ -600,12 +599,10 @@
 
     /* Hover Enhancement Classes */
     .homepage-svg-hover {
-        @apply scale-105;
         filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
     }
 
     .homepage-button-hover {
-        @apply scale-105;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     }
 
@@ -623,4 +620,5 @@
             @apply opacity-100 scale-100 blur-0 translate-y-0;
         }
     }
+
 }

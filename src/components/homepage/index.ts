@@ -1,1 +1,1 @@
-// Homepage components exports will be added here when needed
+export { Hero47 as HomepageSection } from "./homepage-section";

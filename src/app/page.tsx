@@ -1,5 +1,5 @@
 import { Header } from "@/components/layout/header/header";
-import HomepageSection from "@/components/homepage/homepage-section";
+import { HomepageSection } from "@/components/homepage";
 import Footer from "@/components/layout/footer";
 
 export default function HomePage() {

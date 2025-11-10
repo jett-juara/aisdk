@@ -13,7 +13,7 @@ export const setMockRedirects = (redirects: string[]) => {
 
 export const getMockRedirects = () => mockRedirects
 
-export const setCustomRedirectHandler = (handler: (href: string) => void) => {
+export const setCustomRedirectHandler = (handler: ((href: string) => void) | null) => {
   customRedirectHandler = handler
 }
 
@@ -104,12 +104,14 @@ vi.mock('next/dynamic', () => ({
   default: (dynamicImportFn: () => Promise<any>, options?: any) => {
     // For test environment, return a simple mock that resolves synchronously
     try {
-      const module = dynamicImportFn()
-      const Component = (module as any).default || (module as any).MobileMenu
+      const mod = dynamicImportFn()
+      const Component = (mod as any).default || (mod as any).MobileMenu
       return Component
     } catch {
-      // Fallback: return a simple div
-      return () => React.createElement('div', { 'data-testid': 'dynamic-mock' }, 'Dynamic Component')
+      // Fallback: return a simple div with display name
+      const FallbackComponent = () => React.createElement('div', { 'data-testid': 'dynamic-mock' }, 'Dynamic Component')
+      FallbackComponent.displayName = 'DynamicMock'
+      return FallbackComponent
     }
   },
 }))

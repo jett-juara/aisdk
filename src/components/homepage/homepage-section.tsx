@@ -1,196 +1,132 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useHomepageAnimations } from "@/hooks/use-homepage-animations";
 
-const HomepageSection = () => {
-  const { getClasses, prefersReducedMotion } = useHomepageAnimations();
-  const classes = getClasses();
+interface Hero47Props {
+  heading?: {
+    src: string;
+    alt?: string;
+  };
+  subheading?: string;
+  buttons?: {
+    primary?: {
+      text: string;
+      url: string;
+    };
+    secondary?: {
+      text: string;
+      url: string;
+    };
+  };
+}
 
-  // SVG hover handler
-  const [svgHovered, setSvgHovered] = useState(false);
+const Hero47 = ({
+  heading = {
+    src: "/images/home-hero/off-the-grid.svg",
+    alt: "Off The Grid",
+  },
+  subheading = "Extraordinary events beyond boundaries.",
+  buttons = {
+    primary: {
+      text: "Chat with JETT",
+      url: "#",
+    },
+    secondary: {
+      text: "Getting Started",
+      url: "/about",
+    },
+  },
+}: Hero47Props) => {
+  // Initialize homepage animations
+  const { getClasses } = useHomepageAnimations()
+  const animationClasses = getClasses()
 
   return (
     <section className="relative w-full">
-      {/* Main Content - Mobile Layout (< 768px) */}
-      <div className="flex w-full flex-col sm:hidden md:hidden">
-        {/* Kiri - SVG & Content Container */}
-        <div className="w-[55vw] xxs:w-[60vw] xs:w-[65vw] flex flex-col justify-center h-full max-h-[calc(100vh-88px)]">
-          {/* SVG - Animation: Scale-in + Blur Clear + Hover Effects */}
-          <div className="pointer-events-none mb-2 flex justify-end">
-            <Image
-              src="/images/home-hero/off-the-grid.svg"
-              alt=""
-              aria-hidden="true"
-              width={960}
-              height={540}
-              priority
-              sizes="(max-width: 768px) 50vw"
-              className={`homepage-svg-animation ${classes.svg} h-auto select-none ${!prefersReducedMotion && svgHovered ? 'homepage-svg-hover' : ''}`}
-              style={{ width: '50vw', height: 'auto' }}
-              onMouseEnter={() => !prefersReducedMotion && setSvgHovered(true)}
-              onMouseLeave={() => !prefersReducedMotion && setSvgHovered(false)}
+      {/* Mobile & Tablet Layout */}
+      <div className="lg:hidden flex items-center">
+        <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-[50%] sm:max-w-[60%] md:max-w-[55%] justify-end py-8">
+          {/* SVG Title */}
+          <div className="flex justify-end">
+            <img
+              src={heading.src}
+              alt={heading.alt || ""}
+              className={`h-auto object-contain w-[80px] sm:w-[180px] md:w-[380px] transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}
             />
           </div>
 
-          {/* Subheading & CTA */}
-          <div className="flex flex-col space-y-2">
-            <div className="flex justify-end">
-              <div className="w-full max-w-[50vw] xxs:max-w-[60vw] xs:max-w-[65vw]">
-                <p className={`homepage-text-animation ${classes.text} text-right font-body text-white/90 text-lg leading-relaxed`}>
-                  Extraordinary events beyond boundaries.
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-end">
-              <div className="flex flex-col space-x-0 space-y-4 w-full max-w-[50vw] xxs:max-w-[60vw] xs:max-w-[65vw]">
-                <Link href="#">
-                  <Button
-                                        className={`homepage-button-animation ${classes.button1} bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-sm font-semibold tracking-wide px-6 w-full rounded-lg`}
-                    style={{ height: 'var(--size-home-button-md)' }}
-                  >
-                    Chat with JETT
-                  </Button>
-                </Link>
-                <Link href="/about">
-                  <Button
-                                        className={`homepage-button-animation ${classes.button2} bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-sm font-semibold tracking-wide px-6 w-full rounded-lg`}
-                    style={{ height: 'var(--size-home-button-md)' }}
-                  >
-                    Getting Started
-                  </Button>
-                </Link>
+          {/* Subheading & Buttons - dalam 1 container */}
+          <div className="flex justify-end">
+            <div className="flex flex-col gap-3 sm:gap-4 max-w-[70%] sm:max-w-[70%] md:max-w-[80%] md:px-4 md:py-2 items-center">
+              <p className={`text-white/90 text-xl sm:text-xl md:text-2xl text-center transition-all duration-700 ease-out ${animationClasses.text}`}>
+                {subheading}
+              </p>
+              <div className="flex flex-wrap items-start gap-4 sm:gap-3 md:gap-6 justify-center">
+                <Button
+                  asChild
+                  className={`bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-xs sm:text-md md:text-xl font-semibold tracking-wide px-1.5 sm:px-3 md:px-4 py-0 sm:py-2 rounded-md whitespace-nowrap transition-all duration-500 ease-out transform-gpu ${animationClasses.button1}`}
+                >
+                  <a href={buttons.primary?.url}>
+                    {buttons.primary?.text}
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  className={`bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-xs sm:text-md md:text-lg font-semibold tracking-wide px-1.5 sm:px-3 md:px-6 py-1 sm:py-2 rounded-md whitespace-nowrap transition-all duration-500 ease-out transform-gpu ${animationClasses.button2}`}
+                >
+                  <a href={buttons.secondary?.url}>
+                    {buttons.secondary?.text}
+                  </a>
+                </Button>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Kanan - Empty Space */}
-        <div className="flex-1 h-full">
-          {/* Empty luxury space */}
         </div>
       </div>
 
-      {/* Tablet Layout (768px - 1024px) */}
-      <div className="hidden sm:flex md:flex lg:hidden w-full h-full">
-        {/* Kiri - SVG & Content Container */}
-        <div className="w-[55vw] sm:w-[50vw] flex flex-col justify-center h-full max-h-[calc(100vh-88px)]">
-          {/* SVG - Animation: Scale-in + Blur Clear + Hover Effects */}
-          <div className="pointer-events-none mb-4 flex justify-end">
-            <Image
-              src="/images/home-hero/off-the-grid.svg"
-              alt=""
-              aria-hidden="true"
-              width={960}
-              height={540}
-              sizes="(max-width: 1024px) 45vw"
-              className={`homepage-svg-animation ${classes.svg} h-auto select-none ${!prefersReducedMotion && svgHovered ? 'homepage-svg-hover' : ''}`}
-              style={{ width: '45vw', height: 'auto' }}
-              onMouseEnter={() => !prefersReducedMotion && setSvgHovered(true)}
-              onMouseLeave={() => !prefersReducedMotion && setSvgHovered(false)}
+      {/* Desktop Layout */}
+      <div className="hidden lg:flex items-center min-h-[calc(100dvh-10rem)]">
+        <div className="flex flex-col gap-4 w-full max-w-[50%] justify-center py-8">
+          {/* SVG Title */}
+          <div className="flex justify-end">
+            <img
+              src={heading.src}
+              alt={heading.alt || ""}
+              className={`h-auto w-[350px] object-contain transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}
             />
           </div>
 
-          {/* Subheading & CTA */}
-          <div className="flex flex-col space-y-4">
-            <div className="flex justify-end">
-              <div className="w-full max-w-[45vw] sm:max-w-[50vw]">
-                <p className={`homepage-text-animation ${classes.text} text-right font-body text-white/90 text-xl leading-relaxed`}>
-                  Extraordinary events beyond boundaries.
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <div className="flex flex-col space-x-0 space-y-4 w-full max-w-[45vw] sm:max-w-[50vw]">
-                <Link href="#">
-                  <Button
-                                        className={`homepage-button-animation ${classes.button1} bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-sm font-semibold tracking-wide px-6 w-full rounded-lg`}
-                    style={{ height: 'var(--size-home-button-md)' }}
-                  >
-                    Chat with JETT
-                  </Button>
-                </Link>
-                <Link href="/about">
-                  <Button
-                                        className={`homepage-button-animation ${classes.button2} bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-sm font-semibold tracking-wide px-6 w-full rounded-lg`}
-                    style={{ height: 'var(--size-home-button-md)' }}
-                  >
-                    Getting Started
-                  </Button>
-                </Link>
+          {/* Subheading & Buttons - dalam 1 container */}
+          <div className="flex justify-end">
+            <div className="flex flex-col gap-5 max-w-[50%] items-center">
+              <p className={`text-white/90 text-xl text-right transition-all duration-700 ease-out ${animationClasses.text}`}>
+                {subheading}
+              </p>
+              <div className="flex flex-wrap items-start gap-5 justify-center">
+                <Button
+                  asChild
+                  className={`bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-lg font-semibold tracking-wide px-6 rounded-lg transition-all duration-500 ease-out transform-gpu ${animationClasses.button1}`}
+                >
+                  <a href={buttons.primary?.url}>
+                    {buttons.primary?.text}
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  className={`bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-lg font-semibold tracking-wide px-6 rounded-lg transition-all duration-500 ease-out transform-gpu ${animationClasses.button2}`}
+                >
+                  <a href={buttons.secondary?.url}>
+                    {buttons.secondary?.text}
+                  </a>
+                </Button>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Kanan - Empty Space */}
-        <div className="flex-1 h-full">
-          {/* Empty luxury space */}
-        </div>
-      </div>
-
-      {/* Desktop Layout (> 1024px) */}
-      <div className="hidden lg:flex w-full h-full">
-        {/* Kiri - SVG & Content Container */}
-        <div className="w-[50vw] flex flex-col justify-center h-full max-h-[calc(100vh-88px)]">
-          {/* SVG - Animation: Scale-in + Blur Clear + Hover Effects */}
-          <div className="pointer-events-none mb-2 flex justify-end">
-            <Image
-              src="/images/home-hero/off-the-grid.svg"
-              alt=""
-              aria-hidden="true"
-              width={1920}
-              height={1080}
-              sizes="(min-width: 1024px) 24vw"
-              className={`homepage-svg-animation ${classes.svg} h-auto select-none ${!prefersReducedMotion && svgHovered ? 'homepage-svg-hover' : ''}`}
-              style={{ width: '24vw', height: 'auto' }}
-              onMouseEnter={() => !prefersReducedMotion && setSvgHovered(true)}
-              onMouseLeave={() => !prefersReducedMotion && setSvgHovered(false)}
-            />
-          </div>
-
-          {/* Subheading & CTA */}
-          <div className="flex flex-col space-y-2">
-            <div className="flex justify-end">
-              <div className="w-full max-w-[24vw]">
-                <p className={`homepage-text-animation ${classes.text} text-right font-body text-white/90 text-xl leading-relaxed`}>
-                  Extraordinary events beyond boundaries.
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-end">
-              <div className="w-full max-w-[24vw]">
-                <div className="flex flex-row space-x-3 justify-end">
-                  <Link href="#">
-                    <Button
-                      className={`homepage-button-animation ${classes.button1} bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-sm font-semibold tracking-wide px-6 flex-1 rounded-lg`}
-                    >
-                      Chat with JETT
-                    </Button>
-                  </Link>
-                  <Link href="/about">
-                    <Button
-                      className={`homepage-button-animation ${classes.button2} bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-sm font-semibold tracking-wide px-6 flex-1 rounded-lg`}
-                    >
-                      Getting Started
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Kanan - Empty Space */}
-        <div className="flex-1 h-full">
-          {/* Empty luxury space */}
         </div>
       </div>
     </section>
   );
 };
 
-export default HomepageSection;
+export { Hero47 };
