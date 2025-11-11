@@ -19,7 +19,7 @@ interface DesktopMenuProps {
 }
 
 const baseLinkClass =
-  "font-raleway text-xl uppercase tracking-wide text-50 transition-all duration-[var(--transition-base)] hover:text-brand-100 focus-visible:text-brand-100 hover:underline hover:decoration-dotted hover:underline-offset-4 hover:decoration-1";
+  "font-raleway text-xl uppercase tracking-wide text-50 transition-all duration-base hover:text-brand-100 focus-visible:text-brand-100 hover:underline hover:decoration-dotted hover:underline-offset-4 hover:decoration-1";
 
 export const DesktopMenu = ({ items }: DesktopMenuProps) => {
   const emitAboutReset = React.useCallback((href: string) => {
@@ -50,7 +50,7 @@ export const DesktopMenu = ({ items }: DesktopMenuProps) => {
                       <NavigationMenuLink
                         key={child.label}
                         asChild
-                        className="cursor-pointer rounded-lg px-3 py-2 focus:text-50 transition-colors duration-[var(--transition-base)] "
+                        className="cursor-pointer rounded-lg px-3 py-2 focus:text-50 transition-colors duration-base "
                       >
                         <Link href={child.href} className="flex flex-col gap-1 text-left" onClick={() => emitAboutReset(child.href)}>
                           <span className="font-rubik text-md text-50">{child.label}</span>

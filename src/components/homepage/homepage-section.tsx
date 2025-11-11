@@ -59,7 +59,7 @@ const Hero47 = ({
           {/* Subheading & Buttons - dalam 1 container */}
           <div className="flex justify-end">
             <div className="flex flex-col gap-3 sm:gap-4 max-w-[70%] sm:max-w-[70%] md:max-w-[80%] md:px-4 md:py-2 items-center">
-              <p className={`text-text-50 text-lg sm:text-lg md:text-2xl md:pb-4 text-center transition-all font-manrope uppercase duration-700 ease-out ${animationClasses.text}`}>
+              <p className={`text-text-info-500 text-lg sm:text-lg md:text-2xl md:pb-4 text-center transition-all font-manrope uppercase duration-700 ease-out ${animationClasses.text}`}>
                 {subheading}
               </p>
               <div className="flex flex-wrap items-start gap-4 sm:gap-3 md:gap-6 justify-center">
@@ -100,7 +100,7 @@ const Hero47 = ({
           {/* Subheading & Buttons - dalam 1 container */}
           <div className="flex justify-end">
             <div className="flex flex-col gap-4 max-w-[60%] items-center">
-              <p className={`text-text-50 text-xl font-manrope uppercase text-right transition-all duration-700 ease-out ${animationClasses.text}`}>
+              <p className={`text-text-info-500 text-xl font-manrope uppercase text-right transition-all duration-700 ease-out ${animationClasses.text}`}>
                 {subheading}
               </p>
               <div className="flex flex-wrap items-start gap-4 justify-center">

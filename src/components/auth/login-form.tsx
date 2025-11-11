@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import { useToast } from "@/components/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+// import { Label } from "@/components/ui/label"
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
@@ -91,30 +91,25 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Email Field */}
       <div className="flex flex-col gap-3">
-        <Label htmlFor="email" className="font-manrope text-sm font-medium text-[var(--color-auth-text-primary)]">
-          Email
-        </Label>
         <Input
           id="email"
           type="email"
-          placeholder="anda@email.com"
+          placeholder="Email"
+          aria-label="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={isLoading}
-          className="bg-[var(--color-auth-input-bg)] border-button-border text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed"
         />
-        {errorEmail && <p className="text-sm text-auth-text-error mt-2">{errorEmail}</p>}
+        {errorEmail && <p className="text-xl text-auth-text-error mt-2">{errorEmail}</p>}
       </div>
 
       {/* Password Field */}
       <div className="flex flex-col gap-3">
-        <div className="flex justify-between items-center">
-          <Label htmlFor="password" className="font-manrope text-sm font-medium text-[var(--color-auth-text-primary)]">
-            Kata sandi
-          </Label>
+        <div className="flex justify-end items-center">
           <a
             href="/auth/forgot-password"
-            className="text-body-sm text-[var(--color-auth-text-secondary)] hover:text-[var(--color-auth-text-primary)] transition-colors"
+            className="text-text-400 transition-all duration-base hover:text-text-50 focus-visible:text-brand-100 hover:underline hover:decoration-dotted hover:underline-offset-4 hover:decoration-1"
           >
             Lupa Password?
           </a>
@@ -123,12 +118,13 @@ export default function LoginForm() {
           <Input
             id="password"
             type={showPassword ? "text" : "password"}
-            placeholder="••••••••"
+            placeholder="Kata sandi"
+            aria-label="Kata sandi"
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isLoading}
-            className="bg-[var(--color-auth-input-bg)] border-[var(--color-auth-input-border)] text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)] pr-10 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 pr-10 disabled:opacity-100 disabled:cursor-not-allowed"
           />
           {errorPassword && <p className="text-sm text-auth-text-error mt-2">{errorPassword}</p>}
           <Button
@@ -137,7 +133,7 @@ export default function LoginForm() {
             size="icon-sm"
             onClick={() => setShowPassword(!showPassword)}
             disabled={isLoading}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-auth-text-secondary)] hover:text-[var(--color-auth-text-primary)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent hover:bg-transparent text-text-400 hover:text-text-50 focus-visible:ring-0 focus-visible:border-transparent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {showPassword ? (
               <svg
@@ -175,15 +171,13 @@ export default function LoginForm() {
       {/* Login Button */}
       <Button
         type="submit"
-        variant="jetta"
-        size="md"
         disabled={isLoading}
-        className="w-full font-manrope font-semibold"
+        className="w-full font-heading text-xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide rounded-lg transition-all duration-500 ease-out h-12"
       >
         {isLoading ? (
           <span className="flex items-center gap-2">
             <svg
-              className="animate-spin -ml-1 mr-2 h-4 w-4 text-[var(--color-auth-text-primary)]"
+              className="animate-spin -ml-1 mr-2 h-5 w-5 text-text-50"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -210,15 +204,15 @@ export default function LoginForm() {
       </Button>
 
       {generalError ? (
-        <p className="text-center text-sm text-auth-text-error">{generalError}</p>
+        <p className="text-center text-lg text-auth-text-error">{generalError}</p>
       ) : null}
 
       {/* Register Link */}
-      <p className="text-center text-body text-auth-text-muted">
+      <p className="text-center text-xl text-text-200">
         Tidak punya akun?{" "}
         <a
           href="/auth/register"
-          className="text-auth-text-secondary font-semibold hover:text-auth-text-primary transition-colors underline"
+          className="text-text-200 font-semibold hover:text-text-50 transition-colors underline"
         >
           Register sekarang
         </a>

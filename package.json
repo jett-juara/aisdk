@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "eslint src --ext ts,tsx --max-warnings 600",
     "type-check": "tsc --noEmit",
+    "dev:all": "concurrently -n dev,type \"next dev\" \"tsc --noEmit --watch\"",
     "test": "vitest run",
     "test:ui": "vitest",
     "test:coverage": "vitest run --coverage"
@@ -73,6 +74,7 @@
     "@vercel/analytics": "^1.5.0",
     "@vitest/coverage-v8": "^1.6.1",
     "autoprefixer": "^10.4.21",
+    "concurrently": "^9.2.1",
     "eslint": "^9.38.0",
     "eslint-config-next": "^16.0.1",
     "eslint-plugin-import": "^2.32.0",

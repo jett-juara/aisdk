@@ -2,62 +2,30 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
 export default function TestimonialLogin() {
   return (
-    <div className="flex flex-col" style={{ gap: "16px" }}>
+    <div className="flex flex-col gap-4">
       {/* Testimonial Text with Quote Icon */}
-      <div className="flex flex-col" style={{ gap: "16px" }}>
-        <div
-          className="font-serif"
-          style={{
-            fontSize: "80px",
-            lineHeight: "0",
-            marginBottom: "0px",
-            color: "var(--color-auth-button-brand)",
-            opacity: "0.7"
-          }}
-        >
+      <div className="flex flex-col gap-4">
+        <div className="font-serif text-9xl leading-[0] mb-0 text-text-50 opacity-20">
           &quot;
         </div>
-        <p
-          className="text-body-lg leading-relaxed text-left"
-          style={{ color: "var(--color-auth-text-primary)" }}
-        >
+        <p className="font-heading text-2xl leading-tight text-left text-text-info-500">
           Sistem keamanan JETT sangat membantu saya melindungi data penting bisnis. Interface yang intuitif membuat
           semua proses jadi lebih cepat dan efisien.
         </p>
       </div>
 
       {/* Author */}
-      <div className="flex items-center justify-start" style={{ gap: "12px" }}>
-        <Avatar
-          className="w-12 h-12"
-          style={{
-            width: "48px",
-            height: "48px",
-            borderRadius: "24px",
-            backgroundColor: "var(--color-auth-button-brand)"
-          }}
-        >
-          <AvatarFallback
-            className="font-bold"
-            style={{
-              backgroundColor: "var(--color-auth-button-brand)",
-              color: "var(--color-auth-text-primary)"
-            }}
-          >
+      <div className="flex items-center justify-start gap-3">
+        <Avatar className="w-12 h-12 bg-background-700 rounded-full">
+          <AvatarFallback className="bg-background-600 text-text-400 text-2xl font-bold">
             RS
           </AvatarFallback>
         </Avatar>
         <div className="text-left">
-          <p
-            className="font-medium text-body"
-            style={{ color: "var(--color-auth-text-primary)" }}
-          >
+          <p className="font-medium text-body text-text-100 text-lg">
             Rina Santoso
           </p>
-          <p
-            className="text-body-sm"
-            style={{ color: "var(--color-auth-text-muted)" }}
-          >
+          <p className="text-body text-text-100 text-md">
             CEO Tech Solutions
           </p>
         </div>

@@ -5,7 +5,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+// import { Label } from "@/components/ui/label"
 
 export default function ForgotPasswordForm() {
   const [email, setEmail] = useState("")
@@ -24,39 +24,32 @@ export default function ForgotPasswordForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Email Field */}
+      {/* Email Field (label in-input) */}
       <div className="flex flex-col gap-3">
-        <Label htmlFor="email" className="font-manrope text-sm font-medium text-[var(--color-auth-text-primary)]">
-          Email
-        </Label>
         <Input
           id="email"
           type="email"
-          placeholder="anda@email.com"
+          placeholder="Email"
+          aria-label="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="bg-[var(--color-auth-input-bg)] border-button-border text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)]"
+          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
         />
-        {errorEmail && <p className="text-sm text-auth-text-error mt-2">{errorEmail}</p>}
+        {errorEmail && <p className="text-xl text-auth-text-error mt-2">{errorEmail}</p>}
       </div>
 
-      {/* Send Button */}
+      {/* Send Button (match primary button) */}
       <Button
         type="submit"
-        variant="jetta"
-        size="md"
-        className="w-full font-manrope font-semibold"
+        className="w-full h-12 font-heading text-lg bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide rounded-lg transition-all duration-500 ease-out"
       >
         Kirim tautan reset
       </Button>
 
       {/* Login Link */}
-      <p className="text-center text-body text-auth-text-muted">
+      <p className="text-center text-body text-text-200">
         Sudah punya akun?{" "}
-        <Link
-          href="/"
-          className="text-auth-text-secondary font-semibold hover:text-auth-text-primary transition-colors underline"
-        >
+        <Link href="/auth/login" className="text-text-200 font-semibold hover:text-text-50 transition-colors underline">
           Silakan login
         </Link>
       </p>

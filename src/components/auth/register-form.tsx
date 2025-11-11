@@ -4,7 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+// import { Label } from "@/components/ui/label"
 
 export default function RegisterForm() {
   const [firstName, setFirstName] = useState("")
@@ -26,100 +26,82 @@ export default function RegisterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {/* Name Fields */}
       <div className="grid grid-cols-2 gap-4">
         <div className="flex flex-col gap-3">
-          <Label htmlFor="firstName" className="font-manrope text-sm font-medium text-[var(--color-auth-text-primary)]">
-            Nama depan
-          </Label>
           <Input
             id="firstName"
             type="text"
-            placeholder="John"
+            placeholder="Nama depan"
+            aria-label="Nama depan"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            className="bg-[var(--color-auth-input-bg)] border-button-border text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)]"
+            className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
           />
         </div>
         <div className="flex flex-col gap-3">
-          <Label htmlFor="lastName" className="font-manrope text-sm font-medium text-[var(--color-auth-text-primary)]">
-            Nama belakang
-          </Label>
           <Input
             id="lastName"
             type="text"
-            placeholder="Doe"
+            placeholder="Nama belakang"
+            aria-label="Nama belakang"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            className="bg-[var(--color-auth-input-bg)] border-button-border text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)]"
+            className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
           />
         </div>
       </div>
 
       {/* Email Field */}
       <div className="flex flex-col gap-3">
-        <Label htmlFor="email" className="font-manrope text-sm font-medium text-[var(--color-auth-text-primary)]">
-          Email
-        </Label>
         <Input
           id="email"
           type="email"
-          placeholder="john.doe@example.com"
+          placeholder="Email"
+          aria-label="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="bg-[var(--color-auth-input-bg)] border-[var(--color-auth-input-border)] text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)]"
+          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
         />
       </div>
 
       {/* Password Field */}
       <div className="flex flex-col gap-3">
-        <Label htmlFor="password" className="font-manrope text-sm font-medium text-[var(--color-auth-text-primary)]">
-          Kata sandi
-        </Label>
         <Input
           id="password"
           type="password"
-          placeholder="••••••••"
+          placeholder="Kata sandi"
+          aria-label="Kata sandi"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="bg-[var(--color-auth-input-bg)] border-[var(--color-auth-input-border)] text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)]"
+          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
         />
       </div>
 
       {/* Confirm Password Field */}
       <div className="flex flex-col gap-3">
-        <Label htmlFor="confirmPassword" className="font-manrope text-sm font-medium text-[var(--color-auth-text-primary)]">
-          Konfirmasi kata sandi
-        </Label>
         <Input
           id="confirmPassword"
           type="password"
-          placeholder="••••••••"
+          placeholder="Konfirmasi kata sandi"
+          aria-label="Konfirmasi kata sandi"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          className="bg-[var(--color-auth-input-bg)] border-[var(--color-auth-input-border)] text-[var(--color-auth-text-primary)] placeholder:text-[var(--color-auth-input-placeholder)]"
+          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
         />
-        {confirmError && <p className="text-sm text-auth-text-error mt-2">{confirmError}</p>}
+        {confirmError && <p className="text-xl text-auth-text-error mt-2">{confirmError}</p>}
       </div>
 
       {/* Register Button */}
-      <Button
-        type="submit"
-        variant="jetta"
-        size="md"
-        className="w-full font-manrope font-semibold"
-      >
+      <Button type="submit" className="w-full h-12 font-heading text-lg bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide rounded-lg transition-all duration-500 ease-out">
         Daftar
       </Button>
 
       {/* Login Link */}
-      <p className="text-center text-body text-auth-text-muted">
+      <p className="text-center text-body text-text-200">
         Sudah punya akun?{" "}
-        <a
-          href="/auth"
-          className="text-auth-text-secondary font-semibold hover:text-auth-text-primary transition-colors underline"
-        >
+        <a href="/auth" className="text-text-200 font-semibold hover:text-text-50 transition-colors underline">
           Masuk
         </a>
       </p>

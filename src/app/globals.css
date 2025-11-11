@@ -8,16 +8,21 @@
 
     /* REQUIRED BASE COLORS (10) */
     --color-background-900: #0c151a;  /* Dark blue-gray - main app background */
-    --color-text-50: #ededed;         /* Light gray - primary text */
+    --color-text-50: #dedede;         /* Light gray - primary text */
     --color-text-error-500: #f98e5f;  /* Orange - error messages */
     --color-text-success-500: #a2d360; /* Light green - success messages */
     --color-text-warning-500: #ff4e20; /* Red-orange - warning messages */
-    --color-text-info-500: #e8d274;    /* Light yellow - info messages */
+    --color-text-info-500: #dbd1a6;    /* Light yellow - info messages */
     --color-brand-500: #87139b;        /* Burgundy - brand primary */
     --color-border-800: #414e58;       /* Dark slate - default borders */
-    --color-border-900: #343e46;       /* Very Dark slate - default borders */
-    --color-input-bg-900: #313c42;     /* Dark slate - input background */
+    --color-border-900: #313c42;       /* Very Dark slate - default borders */
+    --color-input-bg-900: #343e46;     /* Dark slate - input background */
     --color-hover-overlay-700: #1e3442; /* Dark blue-gray - hover effects */
+    --color-text-grafy: #840804;      /* Optional color Grafy (base) */
+    --color-text-otan: #B83312;       /* Optional color Otan (base) */
+    /* Provide -500 tokens to match Tailwind mapping */
+    --color-text-grafy-500: var(--color-text-grafy);
+    --color-text-otan-500: var(--color-text-otan);
 
     /* OPTIONAL DESTRUCTIVE BUTTON COLORS (2) */
     --color-button-destructive-hover: #840804;  /* Dark red - destructive hover */
@@ -33,12 +38,13 @@
 
     /* Text variants (5) */
     --color-text-100: #d4d4d4;  /* Secondary text */
-    --color-text-400: #8a8a8a;  /* Muted text */
+    --color-text-200: #a4a4a4;  /* Muted text */
+    --color-text-400: #777777;  /* Muted text */
     --color-text-500: #6a6a6a;  /* Disabled text */
 
     /* Brand variants (4) */
     --color-brand-50: #e6c8dd;   /* Light burgundy - hover light */
-     --color-brand-100: #cc87b8;   /* Light burgundy - hover light */
+    --color-brand-100: #cc87b8;   /* Light burgundy - hover light */
     --color-brand-600: #ab1e7e;  /* Hover state */
     --color-brand-700: #760f54;  /* Active state */
     --color-brand-800: #5a2a5a;  /* Secondary brand */
@@ -49,7 +55,7 @@
     /* Input variants (3) */
     --color-input-border-800: #414e58;   /* Input border */
     --color-input-focus-700: #5a6a74;    /* Focus ring */
-    --color-input-placeholder-600: #6a7a84; /* Placeholder text */
+    --color-input-placeholder-600: #1c2124; /* Placeholder text */
 
     /* Interactive variants (2) */
     --color-ring-500: #70139b;  /* Focus rings - uses brand */
@@ -57,7 +63,7 @@
     /* ===== BUTTON COLORS (12 tokens) ===== */
 
     /* Primary Button - from brand-500 (3) */
-    --color-button-primary: #87139b;         /* Base brand */
+    --color-button-primary: #741055;         /* Base brand */
     --color-button-primary-hover: #4e0c39;   /* Hover */
     --color-button-primary-active: #630a45;  /* Active */
 

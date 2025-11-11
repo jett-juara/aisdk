@@ -84,6 +84,7 @@ const config = {
         text: {
           50: "var(--color-text-50)",      // Primary text
           100: "var(--color-text-100)",    // Secondary text
+          200: "var(--color-text-200)",    // Tertiary text
           400: "var(--color-text-400)",    // Muted text
           500: "var(--color-text-500)",    // Disabled text
           error: {
@@ -97,6 +98,12 @@ const config = {
           },
           info: {
             500: "var(--color-text-info-500)",    // Info messages
+          },
+          grafy: {
+            500: "var(--color-text-grafy-500)",    // Optional color Grafy
+          },
+          otan: {
+            500: "var(--color-text-otan-500)",     // Optional color Otan
           },
         },
 
