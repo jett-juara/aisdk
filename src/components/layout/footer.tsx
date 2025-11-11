@@ -1,13 +1,11 @@
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Instagram, Linkedin } from "lucide-react";
 
 const SOCIAL_LINKS = [
-  { icon: Facebook, label: "Facebook", href: "https://facebook.com/juara" },
   {
     icon: Instagram,
     label: "Instagram",
     href: "https://instagram.com/juara",
   },
-  { icon: Twitter, label: "Twitter", href: "https://x.com/juara" },
   {
     icon: Linkedin,
     label: "LinkedIn",
@@ -23,9 +21,9 @@ const Footer = ({ className = "" }: FooterProps) => {
   return (
     <footer className={`${className} bg-transparent`}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
-        <div className="flex flex-col items-center gap-3 text-white/90 lg:flex-row lg:justify-between lg:gap-4 lg:text-left text-center">
+        <div className="flex flex-col items-center gap-3 text-text-50 lg:flex-row lg:justify-between lg:gap-4 lg:text-left text-center">
           {/* Copyright */}
-          <div className="text-xs sm:text-sm text-white/70">
+          <div className="text-xs sm:text-sm text-text-400">
             © {new Date().getFullYear()} JUARA Events. All rights reserved.
           </div>
 
@@ -38,7 +36,7 @@ const Footer = ({ className = "" }: FooterProps) => {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={label}
-                className="group flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg border border-button-border bg-black/20 text-white hover:bg-black/30 hover:text-white hover:ring-1 hover:ring-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 transition-colors duration-200 ease-out hover:scale-105 active:scale-95"
+                className="group flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg border border-border-800 bg-transparent text-text-50 hover:bg-transparent hover:text-brand-100 focus-visible:outline-none transition-colors duration-200 ease-out hover:scale-105 active:scale-95"
               >
                 <Icon className="h-3 w-3 sm:h-[14px] sm:w-[14px] md:h-4 md:w-4 transition-transform duration-200 group-hover:scale-110" />
               </a>

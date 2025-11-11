@@ -15,121 +15,156 @@ const config = {
       center: true,
       padding: "2rem",
     },
-    screens: {
-      'xxs': '0px',      // 0–320px (Extra Extra Small: iPhone SE, small phones)
-      'sm': '320px',     // ≥320px (Small: large phones, small tablets)
-      'md': '768px',     // ≥768px (Medium: tablets, small laptops)
-      'lg': '1024px',    // ≥1024px (Large: standard laptops)
-      'xl': '1280px',    // ≥1280px (Extra Large: large laptops)
-      '2xl': '1536px',   // ≥1536px (Extra Extra Large: wide desktop)
-    },
     extend: {
       colors: {
-        border: "oklch(var(--border))",
-        input: "oklch(var(--input))",
-        ring: "oklch(var(--ring))",
-        background: "oklch(var(--background))",
-        foreground: "oklch(var(--foreground))",
+        // Standard shadcn/ui colors (mapped to new dark mode system)
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
         primary: {
-          DEFAULT: "oklch(var(--primary))",
-          foreground: "oklch(var(--primary-foreground))",
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
         },
         secondary: {
-          DEFAULT: "oklch(var(--secondary))",
-          foreground: "oklch(var(--secondary-foreground))",
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
         },
         destructive: {
-          DEFAULT: "oklch(var(--destructive))",
-          foreground: "oklch(var(--destructive-foreground))",
+          DEFAULT: "var(--destructive)",
+          foreground: "var(--destructive-foreground)",
         },
         muted: {
-          DEFAULT: "oklch(var(--muted))",
-          foreground: "oklch(var(--muted-foreground))",
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
         },
         accent: {
-          DEFAULT: "oklch(var(--accent))",
-          foreground: "oklch(var(--accent-foreground))",
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
         },
         popover: {
-          DEFAULT: "oklch(var(--popover))",
-          foreground: "oklch(var(--popover-foreground))",
+          DEFAULT: "var(--popover)",
+          foreground: "var(--popover-foreground)",
         },
         card: {
-          DEFAULT: "oklch(var(--card))",
-          foreground: "oklch(var(--card-foreground))",
+          DEFAULT: "var(--card)",
+          foreground: "var(--card-foreground)",
         },
         chart: {
-          "1": "oklch(var(--chart-1))",
-          "2": "oklch(var(--chart-2))",
-          "3": "oklch(var(--chart-3))",
-          "4": "oklch(var(--chart-4))",
-          "5": "oklch(var(--chart-5))",
+          "1": "var(--chart-1)",
+          "2": "var(--chart-2)",
+          "3": "var(--chart-3)",
+          "4": "var(--chart-4)",
+          "5": "var(--chart-5)",
         },
         sidebar: {
-          DEFAULT: "oklch(var(--sidebar))",
-          foreground: "oklch(var(--sidebar-foreground))",
-          primary: "oklch(var(--sidebar-primary))",
-          "primary-foreground": "oklch(var(--sidebar-primary-foreground))",
-          accent: "oklch(var(--sidebar-accent))",
-          "accent-foreground": "oklch(var(--sidebar-accent-foreground))",
-          border: "oklch(var(--sidebar-border))",
-          ring: "oklch(var(--sidebar-ring))",
+          DEFAULT: "var(--sidebar)",
+          foreground: "var(--sidebar-foreground)",
+          primary: "var(--sidebar-primary)",
+          "primary-foreground": "var(--sidebar-primary-foreground)",
+          accent: "var(--sidebar-accent)",
+          "accent-foreground": "var(--sidebar-accent-foreground)",
+          border: "var(--sidebar-border)",
+          ring: "var(--sidebar-ring)",
         },
-        // Auth theme colors
-        "auth-bg-form": "var(--color-auth-bg-form)",
-        "auth-bg-testimonial": "var(--color-auth-bg-testimonial)",
-        "auth-bg-overlay": "var(--color-auth-bg-overlay)",
-        "auth-bg-hover": "var(--color-auth-bg-hover)",
-        "auth-surface-elevated": "var(--color-auth-surface-elevated)",
-        "auth-text-primary": "var(--color-auth-text-primary)",
-        "auth-text-secondary": "var(--color-auth-text-secondary)",
-        "auth-text-muted": "var(--color-auth-text-muted)",
-        "auth-text-error": "var(--color-auth-text-error)",
-        "auth-input-bg": "var(--color-auth-input-bg)",
-        "auth-input-border": "var(--color-auth-input-border)",
-        "auth-input-focus": "var(--color-auth-input-focus)",
-        "auth-input-placeholder": "var(--color-auth-input-placeholder)",
-        "auth-button-brand": "var(--color-auth-button-brand)",
-        "auth-button-brand-hover": "var(--color-auth-button-brand-hover)",
-        "auth-button-brand-active": "var(--color-auth-button-brand-active)",
-        "auth-button-secondary": "var(--color-auth-button-secondary)",
-        "auth-button-secondary-hover": "var(--color-auth-button-secondary-hover)",
-        "auth-border": "var(--color-auth-border)",
-        "auth-border-light": "var(--color-auth-border-light)",
-        "auth-success": "var(--color-auth-success)",
-        "auth-warning": "var(--color-auth-warning)",
-        "auth-info": "var(--color-auth-info)",
-        "button-border": "var(--color-button-border)",
 
-        // Header theme colors (mengacu ke auth agar mudah seragam)
-        "header-bg": "var(--color-header-bg)",
-        "header-border": "var(--color-header-border)",
-        "header-nav-text": "var(--color-header-nav-text)",
-        "header-nav-text-hover": "var(--color-header-nav-text-hover)",
-        "header-nav-text-muted": "var(--color-header-nav-text-muted)",
-        "header-button-primary": "var(--color-header-button-primary)",
-        "header-button-primary-hover": "var(--color-header-button-primary-hover)",
-        "header-button-primary-active": "var(--color-header-button-primary-active)",
-        "header-button-primary-text": "var(--color-header-button-primary-text)",
-        "header-button-secondary": "var(--color-header-button-secondary)",
-        "header-button-secondary-hover": "var(--color-header-button-secondary-hover)",
-        "header-button-secondary-text": "var(--color-header-button-secondary-text)",
-        "header-surface": "var(--color-header-surface)",
-        "header-dropdown-bg": "var(--color-header-dropdown-bg)",
-        "header-dropdown-border": "var(--color-header-dropdown-border)",
-        "header-dropdown-item-hover": "var(--color-header-dropdown-item-hover)",
-        "header-avatar-bg": "var(--color-header-avatar-bg)",
-        // Footer theme colors
-        "footer-bg": "var(--color-footer-bg)",
-        "footer-border": "var(--color-footer-border)",
-        "footer-text-primary": "var(--color-footer-text-primary)",
-        "footer-text-secondary": "var(--color-footer-text-secondary)",
-        "footer-text-muted": "var(--color-footer-text-muted)",
-        "footer-button-surface": "var(--color-footer-button-surface)",
-        "footer-button-hover": "var(--color-footer-button-hover)",
-        "footer-button-text": "var(--color-footer-button-text)",
-        "footer-button-text-hover": "var(--color-footer-button-text-hover)",
-        "footer-ring": "var(--color-footer-ring)",
+        // ===== NEW COLOR SYSTEM (Dark Mode Only) =====
+        // Based on Sophisticated Dark Green-Gray Theme with Warm Accents
+
+        // Background System (4 levels)
+        background: {
+          900: "var(--color-background-900)",  // Main app background
+          800: "var(--color-background-800)",  // Surfaces
+          700: "var(--color-background-700)",   // Elevated
+          600: "var(--color-background-600)",   // Muted
+        },
+
+        // Text System (5 levels)
+        text: {
+          50: "var(--color-text-50)",      // Primary text
+          100: "var(--color-text-100)",    // Secondary text
+          400: "var(--color-text-400)",    // Muted text
+          500: "var(--color-text-500)",    // Disabled text
+          error: {
+            500: "var(--color-text-error-500)",    // Error messages
+          },
+          success: {
+            500: "var(--color-text-success-500)",  // Success messages
+          },
+          warning: {
+            500: "var(--color-text-warning-500)",  // Warning messages
+          },
+          info: {
+            500: "var(--color-text-info-500)",    // Info messages
+          },
+        },
+
+        // Brand System (5 levels)
+        brand: {
+          50: "var(--color-brand-50)",     // Light variant
+          100: "var(--color-brand-100)",   // Light variant
+          500: "var(--color-brand-500)",   // Primary brand
+          600: "var(--color-brand-600)",   // Hover state
+          700: "var(--color-brand-700)",   // Active state
+          800: "var(--color-brand-800)",   // Secondary brand
+        },
+
+        // Border System (3 levels)
+        border: {
+          900: "var(--color-border-900)",  // Very Dark borders
+          800: "var(--color-border-800)",  // Default borders
+          700: "var(--color-border-700)",  // Light borders
+        },
+
+        // Input System (4 levels)
+        input: {
+          bg: {
+            900: "var(--color-input-bg-900)",    // Input background
+          },
+          border: {
+            800: "var(--color-input-border-800)", // Input border
+          },
+          focus: {
+            700: "var(--color-input-focus-700)",   // Focus ring
+          },
+          placeholder: {
+            600: "var(--color-input-placeholder-600)", // Placeholder
+          },
+        },
+
+        // Interactive States
+        hover: {
+          overlay: {
+            700: "var(--color-hover-overlay-700)", // Hover effects
+          },
+        },
+        ring: {
+          500: "var(--color-ring-500)",           // Focus rings
+        },
+
+        // ===== BUTTON COLORS (12 tokens) =====
+
+        // Primary Button (3 states)
+        button: {
+          primary: "var(--color-button-primary)",         // Base
+          "primary-hover": "var(--color-button-primary-hover)",   // Hover
+          "primary-active": "var(--color-button-primary-active)",  // Active
+        },
+
+        // Secondary Button (2 states)
+        secondary: "var(--color-button-secondary)",               // Secondary button
+        "secondary-hover": "var(--color-button-secondary-hover)", // Secondary hover
+
+        // Outline Button (3 states)
+        "outline-text": "var(--color-button-outline-text)",      // Text color
+        "outline-border": "var(--color-button-outline-border)",   // Border
+        "outline-hover": "var(--color-button-outline-hover)",     // Hover bg
+
+        // Destructive Button (3 states)
+        destructive: "var(--color-button-destructive)",            // Base
+        "destructive-hover": "var(--color-button-destructive-hover)",  // Custom hover
+        "destructive-active": "var(--color-button-destructive-active)", // Custom active
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -137,8 +172,9 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
         xl: "calc(var(--radius) + 4px)",
         "2xl": "var(--radius-2xl)",
-        "3xl": "var(--radius-3xl)",
+        "3xl": "calc(var(--radius) + 8px)",
         full: "var(--radius-full)",
+        none: "var(--radius-none)",
       },
       spacing: {
         "0": "var(--space-0)",
@@ -173,22 +209,37 @@ const config = {
         heading: ["var(--font-raleway)", "sans-serif"],
         body: ["var(--font-rubik)", "var(--font-manrope)", "sans-serif"],
       },
-      // Homepage layout tokens
-      viewportWidth: {
-        "mobile": "var(--vp-mobile)",
-        "tablet": "var(--vp-tablet)",
-        "desktop": "var(--vp-desktop)",
+
+      // Global responsive width system (kept from original)
+      width: {
+        "mobile": "50%",      // Mobile default (0-639px)
+        "mobile-sm": "50%",   // Mobile small (same as mobile)
+        "tablet": "60%",      // sm: 640px+
+        "tablet-md": "55%",   // md: 768px+
+        "desktop": "50%",     // lg: 1024px+
       },
       maxWidth: {
-        "mobile-sm": "var(--max-w-mobile-sm)",
-        "tablet": "var(--max-w-tablet)",
-        "desktop": "var(--max-w-desktop)",
+        "mobile": "50%",      // Mobile default (0-639px)
+        "mobile-sm": "50%",   // Mobile small (same as mobile)
+        "tablet": "60%",      // sm: 640px+
+        "tablet-md": "80%",   // md: 768px+
+        "desktop": "50%",     // lg: 1024px+
       },
+
+      // Global responsive component sizing (kept from original)
+      size: {
+        "icon-mobile": "80px",     // Mobile icon/SVG
+        "icon-tablet": "180px",    // sm: 640px+
+        "icon-tablet-md": "380px", // md: 768px+
+        "icon-desktop": "350px",   // lg: 1024px+
+      },
+
       transitionDuration: {
         fast: "var(--transition-fast)",
         base: "var(--transition-base)",
         slow: "var(--transition-slow)",
       },
+
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

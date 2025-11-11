@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export const HeaderLogo = () => (
   <Link href="/" className="flex items-center gap-2">
-    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-header-button-primary">
-      <svg className="h-6 w-6 text-header-button-primary-text" viewBox="0 0 20 20" fill="currentColor">
+    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-button-primary">
+      <svg className="h-6 w-6 text-text-50" viewBox="0 0 20 20" fill="currentColor">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -11,7 +11,7 @@ export const HeaderLogo = () => (
         />
       </svg>
     </div>
-    <span className="font-brand text-xl font-bold uppercase text-header-nav-text lg:text-2xl">
+    <span className="font-brand text-xl font-bold uppercase text-text-50 lg:text-2xl">
       Juara
     </span>
   </Link>

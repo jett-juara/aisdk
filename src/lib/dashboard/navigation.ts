@@ -31,7 +31,7 @@ export type DashboardNavSection = {
 
 export const DASHBOARD_NAV_SECTIONS: DashboardNavSection[] = [
   {
-    title: 'Dasbor',
+    title: 'Dashboard',
     items: [
       {
         title: 'Ringkasan',

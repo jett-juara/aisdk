@@ -26,7 +26,7 @@ const Hero47 = ({
     src: "/images/home-hero/off-the-grid.svg",
     alt: "Off The Grid",
   },
-  subheading = "Extraordinary events beyond boundaries.",
+  subheading = "Extraordinary events beyond boundaries",
   buttons = {
     primary: {
       text: "Chat with JETT",
@@ -52,20 +52,20 @@ const Hero47 = ({
             <img
               src={heading.src}
               alt={heading.alt || ""}
-              className={`h-auto object-contain w-[80px] sm:w-[180px] md:w-[380px] transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}
+              className={`h-auto object-contain w-[160px] sm:w-[180px] md:w-[380px] transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}
             />
           </div>
 
           {/* Subheading & Buttons - dalam 1 container */}
           <div className="flex justify-end">
             <div className="flex flex-col gap-3 sm:gap-4 max-w-[70%] sm:max-w-[70%] md:max-w-[80%] md:px-4 md:py-2 items-center">
-              <p className={`text-white/90 text-xl sm:text-xl md:text-2xl text-center transition-all duration-700 ease-out ${animationClasses.text}`}>
+              <p className={`text-text-50 text-lg sm:text-lg md:text-2xl md:pb-4 text-center transition-all font-manrope uppercase duration-700 ease-out ${animationClasses.text}`}>
                 {subheading}
               </p>
               <div className="flex flex-wrap items-start gap-4 sm:gap-3 md:gap-6 justify-center">
                 <Button
                   asChild
-                  className={`bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-xs sm:text-md md:text-xl font-semibold tracking-wide px-1.5 sm:px-3 md:px-4 py-0 sm:py-2 rounded-md whitespace-nowrap transition-all duration-500 ease-out transform-gpu ${animationClasses.button1}`}
+                  className={`font-heading text-md sm:text-md md:text-xl bg-button-primary hover:bg-button-primary-hover active:bg-button-primary-active text-text-50 font-semibold tracking-wide px-3 sm:px-3 md:px-4 py-0 sm:py-2 rounded-lg whitespace-nowrap transition-all duration-500 ease-out transform-gpu ${animationClasses.button1}`}
                 >
                   <a href={buttons.primary?.url}>
                     {buttons.primary?.text}
@@ -73,7 +73,7 @@ const Hero47 = ({
                 </Button>
                 <Button
                   asChild
-                  className={`bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-xs sm:text-md md:text-lg font-semibold tracking-wide px-1.5 sm:px-3 md:px-6 py-1 sm:py-2 rounded-md whitespace-nowrap transition-all duration-500 ease-out transform-gpu ${animationClasses.button2}`}
+                  className={`font-heading text-md sm:text-md md:text-xl bg-button-primary hover:bg-button-primary-hover active:bg-button-primary-active text-text-50 font-semibold tracking-wide px-3 sm:px-3 md:px-4 py-0 sm:py-2 rounded-lg whitespace-nowrap transition-all duration-500 ease-out transform-gpu ${animationClasses.button2}`}
                 >
                   <a href={buttons.secondary?.url}>
                     {buttons.secondary?.text}
@@ -99,14 +99,14 @@ const Hero47 = ({
 
           {/* Subheading & Buttons - dalam 1 container */}
           <div className="flex justify-end">
-            <div className="flex flex-col gap-5 max-w-[50%] items-center">
-              <p className={`text-white/90 text-xl text-right transition-all duration-700 ease-out ${animationClasses.text}`}>
+            <div className="flex flex-col gap-4 max-w-[60%] items-center">
+              <p className={`text-text-50 text-xl font-manrope uppercase text-right transition-all duration-700 ease-out ${animationClasses.text}`}>
                 {subheading}
               </p>
-              <div className="flex flex-wrap items-start gap-5 justify-center">
+              <div className="flex flex-wrap items-start gap-4 justify-center">
                 <Button
                   asChild
-                  className={`bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-lg font-semibold tracking-wide px-6 rounded-lg transition-all duration-500 ease-out transform-gpu ${animationClasses.button1}`}
+                  className={`font-heading text-lg bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-6 rounded-lg transition-all duration-500 ease-out transform-gpu ${animationClasses.button1}`}
                 >
                   <a href={buttons.primary?.url}>
                     {buttons.primary?.text}
@@ -114,7 +114,7 @@ const Hero47 = ({
                 </Button>
                 <Button
                   asChild
-                  className={`bg-transparent text-white border border-button-border hover:bg-button-border focus:bg-button-border font-heading text-lg font-semibold tracking-wide px-6 rounded-lg transition-all duration-500 ease-out transform-gpu ${animationClasses.button2}`}
+                  className={`font-heading text-lg bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-6 rounded-lg transition-all duration-500 ease-out transform-gpu ${animationClasses.button2}`}
                 >
                   <a href={buttons.secondary?.url}>
                     {buttons.secondary?.text}

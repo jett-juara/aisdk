@@ -18,7 +18,7 @@ import dynamic from "next/dynamic";
 import { HeaderLogo } from "./logo";
 import { DesktopMenu } from "./desktop-menu";
 import { HEADER_MENU_ITEMS } from "./config";
-import { HeaderAuthActions, type HeaderUserProfile } from "./auth-actions";
+import { DesktopAuthActions, type HeaderUserProfile } from "./desktop-auth-actions";
 import { useToast } from "@/components/hooks/use-toast";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { getUserProfileOrNull } from "@/lib/cache/user-profile";
@@ -27,7 +27,7 @@ import { getUserProfileOrNull } from "@/lib/cache/user-profile";
 const MobileMenu = dynamic(() => import("./mobile-menu").then(mod => ({ default: mod.MobileMenu })), {
   ssr: false,
   loading: () => (
-    <div className="lg:hidden h-11 w-11 animate-pulse rounded-lg bg-header-nav-text/10" />
+    <div className="lg:hidden h-11 w-11 animate-pulse rounded-lg bg-text-50/10" />
   ),
 });
 
@@ -164,7 +164,7 @@ export const Header = () => {
         <HeaderLogo />
         <DesktopMenu items={HEADER_MENU_ITEMS} />
         <div className="hidden lg:flex items-center gap-4">
-          <HeaderAuthActions
+          <DesktopAuthActions
             profile={profile}
             loggingOut={isLoggingOut}
             loading={isLoadingProfile}

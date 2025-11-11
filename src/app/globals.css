@@ -3,154 +3,118 @@
 @tailwind utilities;
 
 :root {
-    --background: oklch(0.900 0 0);
-    --foreground: oklch(0.1418 0 0);
-    --card: oklch(0.900 0 0);
-    --card-foreground: oklch(0.178 0 0);
-    --popover: oklch(0.900 0 0);
-    --popover-foreground: oklch(0.178 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --destructive-foreground: oklch(0.577 0.245 27.325);
-    --border: oklch(83.265% 0.01687 17.19);
-    --input: rgb(255, 255, 255);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
+    /* ===== NEW COLOR SYSTEM (Dark Mode Only) ===== */
+    /* Based on Sophisticated Dark Theme with Warm Accents */
+
+    /* REQUIRED BASE COLORS (10) */
+    --color-background-900: #0c151a;  /* Dark blue-gray - main app background */
+    --color-text-50: #ededed;         /* Light gray - primary text */
+    --color-text-error-500: #f98e5f;  /* Orange - error messages */
+    --color-text-success-500: #a2d360; /* Light green - success messages */
+    --color-text-warning-500: #ff4e20; /* Red-orange - warning messages */
+    --color-text-info-500: #e8d274;    /* Light yellow - info messages */
+    --color-brand-500: #87139b;        /* Burgundy - brand primary */
+    --color-border-800: #414e58;       /* Dark slate - default borders */
+    --color-border-900: #343e46;       /* Very Dark slate - default borders */
+    --color-input-bg-900: #313c42;     /* Dark slate - input background */
+    --color-hover-overlay-700: #1e3442; /* Dark blue-gray - hover effects */
+
+    /* OPTIONAL DESTRUCTIVE BUTTON COLORS (2) */
+    --color-button-destructive-hover: #840804;  /* Dark red - destructive hover */
+    --color-button-destructive-active: #B83312; /* Red - destructive active */
+
+    /* ===== AUTO-GENERATED VARIANTS (45+ total colors) ===== */
+
+    /* Background variants (4) */
+    --color-background-800: #121f28; 
+    --color-background-700: #182a35;  
+    --color-background-600: #1e3442;
+    --color-background-brand-800: #5a2a5a; 
+
+    /* Text variants (5) */
+    --color-text-100: #d4d4d4;  /* Secondary text */
+    --color-text-400: #8a8a8a;  /* Muted text */
+    --color-text-500: #6a6a6a;  /* Disabled text */
+
+    /* Brand variants (4) */
+    --color-brand-50: #e6c8dd;   /* Light burgundy - hover light */
+     --color-brand-100: #cc87b8;   /* Light burgundy - hover light */
+    --color-brand-600: #ab1e7e;  /* Hover state */
+    --color-brand-700: #760f54;  /* Active state */
+    --color-brand-800: #5a2a5a;  /* Secondary brand */
+
+    /* Border variants (2) */
+    --color-border-700: #5a6a74;  /* Light borders */
+
+    /* Input variants (3) */
+    --color-input-border-800: #414e58;   /* Input border */
+    --color-input-focus-700: #5a6a74;    /* Focus ring */
+    --color-input-placeholder-600: #6a7a84; /* Placeholder text */
+
+    /* Interactive variants (2) */
+    --color-ring-500: #70139b;  /* Focus rings - uses brand */
+
+    /* ===== BUTTON COLORS (12 tokens) ===== */
+
+    /* Primary Button - from brand-500 (3) */
+    --color-button-primary: #87139b;         /* Base brand */
+    --color-button-primary-hover: #4e0c39;   /* Hover */
+    --color-button-primary-active: #630a45;  /* Active */
+
+    /* Secondary Button - from brand-800 (2) */
+    --color-button-secondary: #5a2a5a;       /* Secondary brand */
+    --color-button-secondary-hover: #870f5f; /* Hover */
+
+    /* Outline Button - combine text-50 + border-800 + hover-700 (3) */
+    --color-button-outline-text: #ededed;      /* Text color */
+    --color-button-outline-border: #414e58;   /* Border */
+    --color-button-outline-hover: #1e3442;    /* Hover bg */
+
+    /* Destructive Button - from error-500 + custom (3) */
+    --color-button-destructive: #f98e5f;          /* Error color */
+    --color-button-destructive-hover: #840804;    /* Custom hover */
+    --color-button-destructive-active: #B83312;   /* Custom active */
+
+    /* ===== SHADCN UI CORE VARIABLES ===== */
+    /* Standard shadcn variables (mapped to new system) */
+    --background: #0c151a;
+    --foreground: #ededed;
+    --card: #2a343b;
+    --card-foreground: #ededed;
+    --popover: #2a363b;
+    --popover-foreground: #ededed;
+    --primary: #9b1380;
+    --primary-foreground: #ededed;
+    --secondary: #5a2a5a;
+    --secondary-foreground: #ededed;
+    --muted: #35454a;
+    --muted-foreground: #8a8a8a;
+    --accent: #35454a;
+    --accent-foreground: #ededed;
+    --destructive: #f98e5f;
+    --destructive-foreground: #ededed;
+    --border: #414e58;
+    --input: #313c42;
+    --ring: #9b1371;
+    --chart-1: #9b1371;
+    --chart-2: #a2d360;
+    --chart-3: #e8d274;
+    --chart-4: #f98e5f;
+    --chart-5: #ab1e7e;
     --radius: 0.625rem;
     --radius-none: 0px;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.178 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
 
-    /* AUTH PAGE COLOR SYSTEM - Core Design */
-    /* Charcoal/Burgundy theme for authentication flows */
+    /* Sidebar variables */
+    --sidebar: #2a3a2f;
+    --sidebar-foreground: #ededed;
+    --sidebar-primary: #9b1371;
+    --sidebar-primary-foreground: #ededed;
+    --sidebar-accent: #354a3a;
+    --sidebar-accent-foreground: #ededed;
+    --sidebar-border: #414e58;
+    --sidebar-ring: #9b1371;
 
-    /* Backgrounds */
-    --color-auth-bg-form: #202020;
-    --color-auth-bg-testimonial: #171717;
-    --color-dashboard-bg-sidebar: #202020;
-    --color-dashboard-bg-main: #171717;
-    --color-auth-bg-overlay: rgba(25, 25, 25, 0.4);
-    --color-auth-bg-hover: #1f1f1f;
-    /* Elevated surface untuk hover/containers di header/dropdown */
-    --color-auth-surface-elevated: #242424;
-
-    /* Toast notification theme tokens */
-    --color-toast-bg: #242424;
-    --color-toast-foreground: #ffffff;
-    --color-toast-border: #37373a;
-
-    /* Button standardization theme tokens */
-    --button-height-sm: 32px;    /* h-8 - Secondary actions, table rows */
-    --button-height-md: 40px;    /* h-10 - Primary actions, forms (NEW DEFAULT) */
-    --button-height-lg: 48px;    /* h-12 - Hero CTAs, main navigation */
-
-    /* Icon button sizes */
-    --icon-button-size-sm: 32px;  /* w-8 h-8 - Table actions, toggles */
-    --icon-button-size-md: 40px;  /* w-10 h-10 - Header actions (NEW DEFAULT) */
-    --icon-button-size-lg: 48px;  /* w-12 h-12 - Mobile actions, hero icons */
-
-    /* Special case: Homepage hero buttons */
-    --home-button-height: var(--button-height-lg);
-
-    /* HEADER THEME TOKENS */
-    /* Mengacu ke sistem auth agar konsisten; mudah diubah terpusat */
-    --color-header-bg: var(--color-auth-bg-form);
-    --color-header-border: var(--color-auth-border);
-
-    --color-header-nav-text: var(--color-auth-text-primary);
-    --color-header-nav-text-hover: var(--color-auth-text-secondary);
-    --color-header-nav-text-muted: var(--color-auth-text-muted);
-
-    --color-header-button-primary: var(--color-auth-button-brand);
-    --color-header-button-primary-hover: var(--color-auth-button-brand-hover);
-    --color-header-button-primary-active: var(--color-auth-button-brand-active);
-    --color-header-button-primary-text: var(--color-auth-text-primary);
-
-    --color-header-button-secondary: var(--color-auth-button-secondary);
-    --color-header-button-secondary-hover: var(--color-auth-surface-elevated);
-    --color-header-button-secondary-text: var(--color-auth-text-primary);
-
-    --color-header-surface: var(--color-auth-surface-elevated);
-    --color-header-dropdown-bg: var(--color-auth-bg-form);
-    --color-header-dropdown-border: var(--color-auth-border);
-    --color-header-dropdown-item-hover: var(--color-auth-surface-elevated);
-    --color-header-avatar-bg: var(--color-auth-button-brand);
-
-    /* FOOTER THEME TOKENS */
-    --color-footer-bg: var(--color-auth-bg-testimonial);
-    --color-footer-border: var(--color-auth-border);
-    --color-footer-text-primary: var(--color-auth-text-primary);
-    --color-footer-text-secondary: var(--color-auth-text-secondary);
-    --color-footer-text-muted: var(--color-auth-text-muted);
-    --color-footer-button-surface: var(--color-auth-surface-elevated);
-    --color-footer-button-hover: var(--color-auth-button-secondary-hover);
-    --color-footer-button-text: var(--color-auth-text-secondary);
-    --color-footer-button-text-hover: var(--color-auth-text-primary);
-    --color-footer-ring: #ececec;
-
-    /* Text Colors */
-    --color-auth-text-primary: #fafafa;
-    --color-auth-text-secondary: #ececec;
-    --color-auth-text-muted: #969696;
-    --color-auth-text-error: #ef4444;
-
-    /* Input & Forms */
-    --color-auth-input-bg: #171717;
-    --color-auth-input-border: #2a2a2a;
-    --color-auth-input-focus: #212020;
-    --color-auth-input-placeholder: #696969;
-
-    /* Brand & Buttons - Auth */
-    --color-auth-button-brand: #921756;
-    --color-auth-button-brand-hover: #a81d63;
-    --color-auth-button-brand-active: #7f1549;
-    --color-auth-button-secondary: #352778;
-    --color-auth-button-secondary-hover: #1f164a;
-    --color-auth-button-tertiary: #d38337;
-    --color-auth-button-tertiary-hover: #b16116;
-
-    /* Brand & Buttons - Home */
-    --color-home-button-brand: #921756;
-    --color-home-button-brand-hover: #a81d63;
-    --color-home-button-brand-active: #7f1549;
-    --color-home-button-secondary: #352778;
-    --color-home-button-secondary-hover: #1f164a;
-    --color-home-button-tertiary: #d38337;
-    --color-home-button-tertiary-hover: #b16116;
-
-    /* Button Sizes - Home */
-    --size-home-button-sm: var(--space-8);  /* 32px */
-    --size-home-button-md: var(--space-10); /* 40px */
-    --size-home-button-lg: var(--space-12); /* 48px */
-
-    /* Borders & Dividers */
-    --color-auth-border: #2a2a2a;
-    --color-auth-border-light: #3a3a3a;
-
-    /* Button Border Standard - oklch(0.708 0 0) - Light Gray */
-    --color-button-border: oklch(0.708 0 0);
-
-    /* Status Colors */
-    --color-auth-success: #22c55e;
-    --color-auth-warning: #eab308;
-    --color-auth-info: #3b82f6;
+    /* ===== NON-COLOR SETTINGS (Keep All) ===== */
 
     /* SPACING SCALE */
     --space-0: 0px;
@@ -197,404 +161,71 @@
     --font-jetbrains-mono: "JetBrains Mono", monospace;
     --font-montagu-slab: "Montagu Slab", serif;
 
+    /* BUTTON SIZE TOKENS */
+    --button-height-sm: 32px;    /* h-8 */
+    --button-height-md: 40px;    /* h-10 */
+    --button-height-lg: 48px;    /* h-12 */
+    --home-button-height: var(--button-height-lg);
+
+    /* Icon button sizes */
+    --icon-button-size-sm: 32px;  /* w-8 h-8 */
+    --icon-button-size-md: 40px;  /* w-10 h-10 */
+    --icon-button-size-lg: 48px;  /* w-12 h-12 */
+
     /* MAIN MENU TOKENS */
-    /* Typography */
-    --main-menu-font-family: var(--font-body);
+    --main-menu-font-family: var(--font-raleway);
     --main-menu-font-size: 14px;
-    --main-menu-font-weight: 400;
-    --main-menu-letter-spacing: 0.12em;
+    --main-menu-font-weight: 600;
     --main-menu-text-transform: uppercase;
-
-    /* Colors */
-    --main-menu-color-idle: #fafafa;
-    --main-menu-color-hover: #ececec;
-    --main-menu-color-active: #ececec;
-    --main-menu-color-disabled: #969696;
-
-    /* Child Menu Items */
-    --main-menu-child-color-idle: #969696;
-    --main-menu-child-color-hover: #fafafa;
-
-    /* Spacing & Layout */
-    --main-menu-padding-x: 0;
-    --main-menu-padding-y: 0;
-    --main-menu-gap: 24px;
-
-    /* Transitions */
-    --main-menu-transition: color 200ms ease;
-
-    /* Background (if needed for active states) */
+    --main-menu-letter-spacing: 0.05em;
+    --main-menu-color-idle: var(--color-text-50);
+    --main-menu-color-hover: var(--color-text-50);
     --main-menu-bg-hover: transparent;
     --main-menu-bg-active: transparent;
-
-    /* HOMEPAGE LAYOUT TOKENS */
-    /* Viewport Width Units untuk responsive layout */
-    --vp-mobile: 50vw;  /* Mobile SVG width */
-    --vp-tablet: 50vw;  /* Tablet SVG width */
-    --vp-desktop: 43vw; /* Desktop SVG width */
-
-    /* Max Width Tokens */
-    --max-w-mobile-sm: 80vw;   /* Mobile SVG max width */
-    --max-w-tablet: 90vw;      /* Tablet SVG max width */
-    --max-w-desktop: 380px;    /* Desktop SVG max width */
+    --main-menu-transition: var(--transition-base);
 }
-
-.dark {
-    --background: oklch(0.178 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.178 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.178 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.985 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.396 0.141 25.723);
-    --destructive-foreground: oklch(0.637 0.237 25.331);
-    --border: oklch(0.269 0 0);
-    --input: oklch(0.269 0 0);
-    --ring: oklch(0.439 0 0);
-    --chart-1: oklch(0.488 0.243 264.376);
-    --chart-2: oklch(0.696 0.17 162.48);
-    --chart-3: oklch(0.769 0.188 70.08);
-    --chart-4: oklch(0.627 0.265 303.9);
-    --chart-5: oklch(0.645 0.246 16.439);
-    --radius-none: 0px;
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(0.269 0 0);
-    --sidebar-ring: oklch(0.439 0 0);
-
-    --color-dashboard-bg-sidebar: #202020;
-    --color-dashboard-bg-main: #171717;
-}
-
 
 @layer utilities {
-    /* Define reusable font family utility classes */
-    .font-brand {
-        font-family: var(--font-montserrat), sans-serif;
-    }
-
-    .font-heading {
-        font-family: var(--font-raleway), sans-serif;
-    }
-
-    .font-body {
-        font-family: var(--font-rubik), var(--font-manrope), sans-serif;
-    }
-
-    .font-mono {
-        font-family: var(--font-jetbrains-mono), monospace;
-    }
-
-    .font-serif {
-        font-family: var(--font-montagu-slab), serif;
-    }
-
-    /* Heading styles with appropriate fonts */
-    .text-h1 {
-        font-family: var(--font-raleway);
-        font-size: 48px;
-        font-weight: 700;
-        line-height: 1.2;
-    }
-
-    .text-h2 {
-        font-family: var(--font-raleway);
-        font-size: 36px;
-        font-weight: 700;
-        line-height: 1.3;
-    }
-
-    .text-h3 {
-        font-family: var(--font-raleway);
-        font-size: 28px;
-        font-weight: 600;
-        line-height: 1.4;
-    }
-
-    /* Body text styles */
-    .text-body-lg {
-        font-family: var(--font-rubik);
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 1.6;
-    }
-
-    .text-body {
-        font-family: var(--font-manrope);
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 1.5;
-    }
-
-    .text-body-sm {
-        font-family: var(--font-manrope);
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 1.4;
-    }
-
-    /* Auth theme utility classes - Policy Compliant */
-    .auth-bg-form {
-        background-color: var(--color-auth-bg-form);
-    }
-
-    .auth-bg-testimonial {
-        background-color: var(--color-auth-bg-testimonial);
-    }
-
-    .auth-bg-hover {
-        background-color: var(--color-auth-bg-hover);
-    }
-
-    .auth-text-primary {
-        color: var(--color-auth-text-primary);
-    }
-
-    .auth-text-secondary {
-        color: var(--color-auth-text-secondary);
-    }
-
-    .auth-text-muted {
-        color: var(--color-auth-text-muted);
-    }
-
-    .auth-text-error {
-        color: var(--color-auth-text-error);
-    }
-
-    .auth-input-bg {
-        background-color: var(--color-auth-input-bg);
-    }
-
-    .auth-input-border {
-        border-color: var(--color-auth-input-border);
-    }
-
-    .auth-input-focus {
-        border-color: var(--color-auth-button-brand);
-        background-color: var(--color-auth-input-focus);
-    }
-
-    .auth-input-placeholder {
-        color: var(--color-auth-input-placeholder);
-    }
-
-    .auth-button-brand {
-        background-color: var(--color-auth-button-brand);
-        color: var(--color-auth-text-primary);
-    }
-
-    .auth-button-brand-hover {
-        background-color: var(--color-auth-button-brand-hover);
-    }
-
-    .auth-button-brand-active {
-        background-color: var(--color-auth-button-brand-active);
-    }
-
-    .auth-button-secondary {
-        background-color: var(--color-auth-button-secondary);
-        color: var(--color-auth-text-primary);
-    }
-
-    .auth-button-secondary-hover {
-        background-color: var(--color-auth-button-secondary-hover);
-    }
-
-    /* Removed: auth-border and auth-border-light - replaced with border-button-border token */
-
-    .auth-success {
-        color: var(--color-auth-success);
-    }
-
-    .auth-warning {
-        color: var(--color-auth-warning);
-    }
-
-    .auth-info {
-        color: var(--color-auth-info);
-    }
-
-    .dashboard-bg-sidebar {
-        background-color: var(--color-dashboard-bg-sidebar);
-    }
-
-    .dashboard-bg-main {
-        background-color: var(--color-dashboard-bg-main);
-    }
-
-    .dashboard-hover-logout:hover,
-    .dashboard-hover-logout[data-highlighted] {
-        background-color: #5b5b5b;
-    }
-
-    .dashboard-active-logout,
-    .dashboard-active-logout[data-highlighted] {
-        background-color: #5b5b5b;
-    }
-
-    /* Toast notification utility classes */
-    .toast-bg {
-        background-color: var(--color-toast-bg);
-        color: var(--color-toast-foreground);
-        border-color: var(--color-toast-border);
-    }
-
-    /* Button standardization utility classes */
-    .btn-jetta-brand {
-        background-color: var(--color-auth-button-brand);
-        color: var(--color-auth-text-primary);
-        border-color: transparent;
-    }
-
-    .btn-jetta-brand:hover {
-        background-color: var(--color-auth-button-brand-hover);
-    }
-
-    .btn-homepage-transparent {
-        background-color: transparent;
-        color: white;
-        border: 1px solid var(--color-button-border);
-        transition: all 0.2s ease-in-out;
-    }
-
-    .btn-homepage-transparent:hover {
-        background-color: var(--color-button-border);
-    }
-
-    .btn-header-auth {
-        background-color: var(--color-auth-button-brand);
-        color: var(--color-auth-text-primary);
-        border-color: transparent;
-    }
-
-    .btn-header-auth:hover {
-        background-color: var(--color-auth-button-brand-hover);
-    }
-
-    /* Button size utilities for direct use */
-    .btn-height-sm {
-        height: var(--button-height-sm);
-    }
-
-    .btn-height-md {
-        height: var(--button-height-md);
-    }
-
-    .btn-height-lg {
-        height: var(--button-height-lg);
-    }
-
-    /* Icon button size utilities */
-    .icon-btn-sm {
-        width: var(--icon-button-size-sm);
-        height: var(--icon-button-size-sm);
-    }
-
-    .icon-btn-md {
-        width: var(--icon-button-size-md);
-        height: var(--icon-button-size-md);
-    }
-
-    .icon-btn-lg {
-        width: var(--icon-button-size-lg);
-        height: var(--icon-button-size-lg);
-    }
-
-    /* Main Menu Utility Classes */
-    .main-menu-base {
-        font-family: var(--main-menu-font-family);
-        font-size: var(--main-menu-font-size);
-        font-weight: var(--main-menu-font-weight);
-        letter-spacing: var(--main-menu-letter-spacing);
-        text-transform: var(--main-menu-text-transform);
-        color: var(--main-menu-color-idle);
-        transition: var(--main-menu-transition);
-    }
-
-    .main-menu-base:hover {
-        color: var(--main-menu-color-hover);
-        text-decoration: underline dotted;
-        text-underline-offset: 0.25em;
-        text-decoration-thickness: 1px;
-    }
-
-    .main-menu-child {
-        font-family: var(--main-menu-font-family);
-        font-size: var(--main-menu-font-size);
-        color: var(--main-menu-child-color-idle);
-        transition: var(--main-menu-transition);
-    }
-
-    .main-menu-child:hover {
-        color: var(--main-menu-child-color-hover);
-        text-decoration: underline dotted;
-        text-underline-offset: 0.25em;
-        text-decoration-thickness: 1px;
-    }
-}
-
-@layer base {
-    * {
-        @apply border-border;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
-}
-
-@layer components {
-    /* Homepage Animation Classes */
-    .homepage-svg-animation {
-        @apply transition-all duration-700 ease-out transform-gpu;
-        transition-property: opacity, transform, filter;
-    }
-
-    .homepage-text-animation {
-        @apply transition-all duration-700 ease-out;
-        transition-property: opacity, transform, filter;
-    }
-
-    .homepage-button-animation {
-        @apply transition-all duration-500 ease-out transform-gpu;
-        transition-property: opacity, transform;
-    }
-
+    /* ===== HOMEPAGE ANIMATION UTILITIES ===== */
     /* Animation State Classes */
     .homepage-svg-hidden {
-        @apply opacity-0 scale-75 blur-sm;
+        opacity: 0;
+        transform: scale(0.75);
+        filter: blur(4px);
+        transition: all var(--transition-slow);
     }
 
     .homepage-svg-visible {
-        @apply opacity-100 scale-80 blur-0;
+        opacity: 1;
+        transform: scale(0.8);
+        filter: blur(0);
+        transition: all var(--transition-slow);
     }
 
     .homepage-text-hidden {
-        @apply opacity-0 translate-y-8 blur-md;
+        opacity: 0;
+        transform: translateY(8px);
+        filter: blur(6px);
+        transition: all var(--transition-slow);
     }
 
     .homepage-text-visible {
-        @apply opacity-100 translate-y-0 blur-0;
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+        transition: all var(--transition-slow);
     }
 
     .homepage-button-hidden {
-        @apply opacity-0 translate-y-6 scale-95;
+        opacity: 0;
+        transform: translateY(6px) scale(0.95);
+        transition: all var(--transition-slow);
     }
 
     .homepage-button-visible {
-        @apply opacity-100 translate-y-0 scale-100;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        transition: all var(--transition-slow);
     }
 
     /* Hover Enhancement Classes */
@@ -611,14 +242,15 @@
         .homepage-svg-animation,
         .homepage-text-animation,
         .homepage-button-animation {
-            @apply transition-none;
+            transition: none;
         }
 
         .homepage-svg-hidden,
         .homepage-text-hidden,
         .homepage-button-hidden {
-            @apply opacity-100 scale-100 blur-0 translate-y-0;
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            filter: blur(0);
         }
     }
-
 }
