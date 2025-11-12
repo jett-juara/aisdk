@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 import { HeaderLogo } from "./logo";
 import { HeaderMenu } from "./header-menu";
 import { HEADER_MENU_ITEMS } from "./config";
-import { AuthActions, type HeaderUserProfile } from "./auth-actions";
+import type { HeaderUserProfile } from "./header-menu";
 import { useToast } from "@/components/hooks/use-toast";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { getUserProfileOrNull } from "@/lib/cache/user-profile";
@@ -154,7 +154,7 @@ export const Header = () => {
 
   return (
     <header className="relative bg-transparent">
-      <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 w-full">
         <HeaderLogo />
         <HeaderMenu
           items={HEADER_MENU_ITEMS}
@@ -163,14 +163,6 @@ export const Header = () => {
           loading={isLoadingProfile}
           onLogout={handleLogout}
         />
-        <div className="hidden lg:flex items-center gap-4">
-          <AuthActions
-            profile={profile}
-            loggingOut={isLoggingOut}
-            loading={isLoadingProfile}
-            onLogout={handleLogout}
-          />
-        </div>
       </div>
     </header>
   );
