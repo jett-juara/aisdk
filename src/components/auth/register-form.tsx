@@ -28,7 +28,7 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Name Fields */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-4">
         <div className="flex flex-col gap-3">
           <Input
             id="firstName"

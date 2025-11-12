@@ -2,6 +2,10 @@
 
 import { useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
+import { AuthShell } from '@/components/auth/auth-shell'
+import { Button } from '@/components/ui/button'
+import { HeaderLogo } from '@/components/layout/header/logo'
 
 function ConfirmContent() {
   const searchParams = useSearchParams()
@@ -15,30 +19,73 @@ function ConfirmContent() {
   }, [searchParams])
 
   return (
-    <section className="bg-auth-bg-form min-h-screen">
-      <div className="flex min-h-screen items-center justify-center p-8">
-        <div className="w-full max-w-md space-y-4 text-center">
-          <h1 className="font-heading text-[24px] text-[var(--color-auth-text-primary)]">Email terverifikasi</h1>
-          <p className="font-body text-[16px] text-[var(--color-auth-text-muted)]">Akun kamu sudah aktif. Silakan login.</p>
-          <a href="/auth/login" className="underline transition-colors text-[var(--color-auth-text-secondary)] hover:text-[var(--color-auth-text-primary)]">
-            Kembali ke halaman login
-          </a>
-        </div>
+    <>
+      {/* Mobile/Tablet: gunakan AuthShell agar konsisten dengan login */}
+      <div className="lg:hidden">
+        <AuthShell
+          title="Email terverifikasi"
+          subtitle="Akun And sudah aktif. Silakan login."
+          left={
+            <div className="space-y-6">
+              <Button asChild className="w-full h-12 font-heading text-lg sm:text-xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide rounded-lg transition-all duration-500 ease-out">
+                <Link href="/auth/login">Ke halaman login</Link>
+              </Button>
+            </div>
+          }
+          right={null}
+        />
       </div>
-    </section>
+
+      {/* Desktop: tampilkan sebagai card terpusat seperti forgot-password desktop */}
+      <section className="hidden lg:block bg-background-800 min-h-screen">
+        <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+          <div className="w-full max-w-md rounded-xl border border-input-border-800 bg-background-900 p-6 md:p-8 shadow-xs">
+            {/* Logo */}
+            <div className="mb-6 h-10 flex items-center">
+              <HeaderLogo />
+            </div>
+
+            {/* Header */}
+            <div className="mb-6">
+              <h1 className="font-heading font-bold text-2xl text-text-200">Email terverifikasi</h1>
+              <p className="mt-2 font-body text-xl text-text-50">Akun lo sudah aktif. Silakan login.</p>
+            </div>
+
+            <div className="space-y-6">
+              <Button asChild className="w-full h-12 font-heading text-lg bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide rounded-lg transition-all duration-500 ease-out">
+                <Link href="/auth/login">Ke halaman login</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   )
 }
 
 export default function ConfirmPage() {
   return (
     <Suspense fallback={
-      <section className="bg-auth-bg-form min-h-screen">
-        <div className="flex min-h-screen items-center justify-center p-8">
-          <div className="w-full max-w-md space-y-4 text-center">
-            <h1 className="font-heading text-[24px] text-[var(--color-auth-text-primary)]">Memverifikasi...</h1>
-          </div>
+      <>
+        <div className="lg:hidden">
+          <AuthShell
+            title="Memverifikasi..."
+            subtitle="Mohon tunggu"
+            left={<div />}
+            right={null}
+          />
         </div>
-      </section>
+        <section className="hidden lg:block bg-background-800 min-h-screen">
+          <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+            <div className="w-full max-w-md rounded-xl border border-input-border-800 bg-background-900 p-6 md:p-8 shadow-xs">
+              <div className="mb-2 h-10 flex items-center">
+                <HeaderLogo />
+              </div>
+              <h1 className="font-heading font-bold text-2xl text-text-200">Memverifikasi...</h1>
+            </div>
+          </div>
+        </section>
+      </>
     }>
       <ConfirmContent />
     </Suspense>
