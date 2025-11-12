@@ -36,7 +36,7 @@ const buildDisplayName = (firstName?: string, lastName?: string) => {
   return firstName ?? lastName ?? "Guest";
 };
 
-export const DesktopAuthActions = ({
+export const AuthActions = ({
   profile,
   onLogout,
   loggingOut,
@@ -137,4 +137,3 @@ export const DesktopAuthActions = ({
     </div>
   );
 };
-

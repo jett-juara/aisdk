@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 import { HeaderLogo } from "./logo";
 import { HeaderMenu } from "./header-menu";
 import { HEADER_MENU_ITEMS } from "./config";
-import { DesktopAuthActions, type HeaderUserProfile } from "./desktop-auth-actions";
+import { AuthActions, type HeaderUserProfile } from "./auth-actions";
 import { useToast } from "@/components/hooks/use-toast";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { getUserProfileOrNull } from "@/lib/cache/user-profile";
@@ -164,7 +164,7 @@ export const Header = () => {
           onLogout={handleLogout}
         />
         <div className="hidden lg:flex items-center gap-4">
-          <DesktopAuthActions
+          <AuthActions
             profile={profile}
             loggingOut={isLoggingOut}
             loading={isLoadingProfile}
