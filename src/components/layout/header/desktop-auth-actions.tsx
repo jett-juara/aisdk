@@ -59,7 +59,7 @@ export const DesktopAuthActions = ({
       <Button
         asChild
         className={cn(
-          "font-heading text-lg bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-6 rounded-lg transition-all duration-500 ease-out",
+          "font-heading lg:text-sm bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-6 rounded-lg transition-all duration-500 ease-out",
           "px-4 py-2 h-10 text-lg",
           className
         )}
@@ -77,14 +77,14 @@ export const DesktopAuthActions = ({
         <DropdownMenuTrigger asChild>
           <Button
             className={cn(
-              "group font-heading text-lg justify-between px-4 h-10 overflow-hidden transition-all duration-200 font-semibold tracking-wide rounded-lg",
+              "group font-heading text-sm justify-between px-4 h-10 overflow-hidden transition-all duration-200 font-semibold tracking-wide rounded-lg",
               isDropdownOpen ? "lg:w-56" : "lg:w-40",
               "bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none"
             )}
           >
             <div className="flex items-center gap-2 flex-1 min-w-0">
               <User2 className="h-4 w-4 text-text-50" />
-              <span className="flex-1 text-left font-heading text-lg text-text-50 truncate">
+              <span className="flex-1 text-left font-heading text-sm text-text-50 truncate">
                 {displayName}
               </span>
             </div>
@@ -98,7 +98,7 @@ export const DesktopAuthActions = ({
                 <Mail className="h-5 w-5 text-text-50" />
               </div>
               <div className="flex flex-col space-y-1">
-                <p className="text-text-50 text-lg leading-none">{profile.email}</p>
+                <p className="text-text-50 text-sm leading-none">{profile.email}</p>
               </div>
             </div>
           </DropdownMenuLabel>
@@ -111,14 +111,14 @@ export const DesktopAuthActions = ({
             >
               <Link href="/dashboard" className="flex items-center gap-3 w-full px-3 py-2 min-h-[44px] group">
                 <LayoutDashboard className="h-4 w-4 text-text-50 group-hover:text-brand-100" />
-                <span className="font-heading text-lg">Dashboard</span>
+                <span className="font-heading text-sm">Dashboard</span>
               </Link>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator className="bg-border-800" />
 
           <DropdownMenuItem
-            className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent group"
+            className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent group flex items-center gap-3 w-full px-3 py-2 min-h-[44px] group"
             onSelect={async (event) => {
               event.preventDefault();
               if (loggingOut) return;
@@ -130,7 +130,7 @@ export const DesktopAuthActions = ({
             ) : (
               <LogOut className="h-4 w-4 text-text-50 group-hover:text-brand-100" />
             )}
-            <span className="font-heading text-lg">{loggingOut ? "Keluar..." : "Logout"}</span>
+            <span className="font-heading text-sm">{loggingOut ? "Keluar..." : "Logout"}</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import '@testing-library/jest-dom'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { MobileMenu } from '@/components/layout/header/mobile-menu'
+import { MobileMenu } from '@/components/layout/header/header-menu'
 
 const ITEMS = [
   { label: 'Services', href: '#services', children: [{ label: 'Design', href: '#design' }] },

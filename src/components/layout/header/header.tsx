@@ -14,22 +14,16 @@ function debounce<T extends (...args: any[]) => any>(
   };
 }
 import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
+// dynamic import not needed here; handled inside HeaderMenu
 import { HeaderLogo } from "./logo";
-import { DesktopMenu } from "./desktop-menu";
+import { HeaderMenu } from "./header-menu";
 import { HEADER_MENU_ITEMS } from "./config";
 import { DesktopAuthActions, type HeaderUserProfile } from "./desktop-auth-actions";
 import { useToast } from "@/components/hooks/use-toast";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { getUserProfileOrNull } from "@/lib/cache/user-profile";
 
-// Dynamic import MobileMenu dengan ssr: false untuk menghindari hydration mismatch
-const MobileMenu = dynamic(() => import("./mobile-menu").then(mod => ({ default: mod.MobileMenu })), {
-  ssr: false,
-  loading: () => (
-    <div className="lg:hidden h-11 w-11 animate-pulse rounded-lg bg-text-50/10" />
-  ),
-});
+// (Mobile menu now handled inside HeaderMenu with dynamic import)
 
 export const Header = () => {
   const [profile, setProfile] = useState<HeaderUserProfile | null>(null);
@@ -162,18 +156,15 @@ export const Header = () => {
     <header className="relative bg-transparent">
       <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <HeaderLogo />
-        <DesktopMenu items={HEADER_MENU_ITEMS} />
+        <HeaderMenu
+          items={HEADER_MENU_ITEMS}
+          profile={profile}
+          loggingOut={isLoggingOut}
+          loading={isLoadingProfile}
+          onLogout={handleLogout}
+        />
         <div className="hidden lg:flex items-center gap-4">
           <DesktopAuthActions
-            profile={profile}
-            loggingOut={isLoggingOut}
-            loading={isLoadingProfile}
-            onLogout={handleLogout}
-          />
-        </div>
-        <div className="lg:hidden">
-          <MobileMenu
-            items={HEADER_MENU_ITEMS}
             profile={profile}
             loggingOut={isLoggingOut}
             loading={isLoadingProfile}

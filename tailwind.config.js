@@ -196,19 +196,7 @@ const config = {
         "12": "var(--space-12)",
         "16": "var(--space-16)",
       },
-      fontSize: {
-        "xxs": "var(--text-xxs)",
-        "xs": "var(--text-xs)",
-        "sm": "var(--text-sm)",
-        "md": "var(--text-md)",
-        "lg": "var(--text-lg)",
-        "xl": "var(--text-xl)",
-        "2xl": "var(--text-2xl)",
-        "3xl": "var(--text-3xl)",
-        "4xl": "var(--text-4xl)",
-        "5xl": "var(--text-5xl)",
-      },
-      fontFamily: {
+        fontFamily: {
         sans: ["var(--font-rubik)", "var(--font-manrope)", "sans-serif"],
         serif: ["var(--font-montagu-slab)", "serif"],
         mono: ["var(--font-jetbrains-mono)", "monospace"],
@@ -217,28 +205,23 @@ const config = {
         body: ["var(--font-rubik)", "var(--font-manrope)", "sans-serif"],
       },
 
-      // Global responsive width system (kept from original)
+      // Global responsive width system (simplified)
       width: {
-        "mobile": "50%",      // Mobile default (0-639px)
-        "mobile-sm": "50%",   // Mobile small (same as mobile)
-        "tablet": "60%",      // sm: 640px+
-        "tablet-md": "55%",   // md: 768px+
+        "mobile": "100%",     // Mobile default
+        "tablet": "60%",      // md: 768px+
         "desktop": "50%",     // lg: 1024px+
       },
       maxWidth: {
-        "mobile": "50%",      // Mobile default (0-639px)
-        "mobile-sm": "50%",   // Mobile small (same as mobile)
-        "tablet": "60%",      // sm: 640px+
-        "tablet-md": "80%",   // md: 768px+
+        "mobile": "100%",     // Mobile default
+        "tablet": "80%",      // md: 768px+
         "desktop": "50%",     // lg: 1024px+
       },
 
-      // Global responsive component sizing (kept from original)
+      // Global responsive component sizing (simplified)
       size: {
-        "icon-mobile": "80px",     // Mobile icon/SVG
-        "icon-tablet": "180px",    // sm: 640px+
-        "icon-tablet-md": "380px", // md: 768px+
-        "icon-desktop": "350px",   // lg: 1024px+
+        "icon-mobile": "80px",   // Mobile
+        "icon-tablet": "180px", // md: 768px+
+        "icon-desktop": "350px", // lg: 1024px+
       },
 
       transitionDuration: {

@@ -37,7 +37,7 @@ export default function RegisterForm() {
             aria-label="Nama depan"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
+            className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-lg sm:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
           />
         </div>
         <div className="flex flex-col gap-3">
@@ -48,7 +48,7 @@ export default function RegisterForm() {
             aria-label="Nama belakang"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
+            className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-lg sm:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
           />
         </div>
       </div>
@@ -62,7 +62,7 @@ export default function RegisterForm() {
           aria-label="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
+          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-lg sm:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
         />
       </div>
 
@@ -75,7 +75,7 @@ export default function RegisterForm() {
           aria-label="Kata sandi"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
+          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-lg sm:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
         />
       </div>
 
@@ -88,18 +88,18 @@ export default function RegisterForm() {
           aria-label="Konfirmasi kata sandi"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
+          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-lg sm:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0"
         />
         {confirmError && <p className="text-xl text-auth-text-error mt-2">{confirmError}</p>}
       </div>
 
       {/* Register Button */}
-      <Button type="submit" className="w-full h-12 font-heading text-lg bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide rounded-lg transition-all duration-500 ease-out">
+      <Button type="submit" className="w-full h-12 font-heading text-lg sm:text-xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide rounded-lg transition-all duration-500 ease-out">
         Daftar
       </Button>
 
       {/* Login Link */}
-      <p className="text-center text-body text-text-200">
+      <p className="text-center text-body text-lg sm:text-xl text-text-200">
         Sudah punya akun?{" "}
         <a href="/auth" className="text-text-200 font-semibold hover:text-text-50 transition-colors underline">
           Masuk

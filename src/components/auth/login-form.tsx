@@ -99,9 +99,9 @@ export default function LoginForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={isLoading}
-          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed"
+          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl sm:text-lg placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed"
         />
-        {errorEmail && <p className="text-xl text-auth-text-error mt-2">{errorEmail}</p>}
+        {errorEmail && <p className="text-lg sm:text-base md:text-sm text-auth-text-error mt-2">{errorEmail}</p>}
       </div>
 
       {/* Password Field */}
@@ -124,7 +124,7 @@ export default function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isLoading}
-            className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl md:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 pr-10 disabled:opacity-100 disabled:cursor-not-allowed"
+            className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-lg sm:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 pr-10 disabled:opacity-100 disabled:cursor-not-allowed"
           />
           {errorPassword && <p className="text-sm text-auth-text-error mt-2">{errorPassword}</p>}
           <Button
@@ -172,7 +172,7 @@ export default function LoginForm() {
       <Button
         type="submit"
         disabled={isLoading}
-        className="w-full font-heading text-xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide rounded-lg transition-all duration-500 ease-out h-12"
+        className="w-full font-heading text-lg sm:text-xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide rounded-lg transition-all duration-500 ease-out h-12"
       >
         {isLoading ? (
           <span className="flex items-center gap-2">
@@ -204,11 +204,11 @@ export default function LoginForm() {
       </Button>
 
       {generalError ? (
-        <p className="text-center text-lg text-auth-text-error">{generalError}</p>
+        <p className="text-center text-lg sm:text-xl text-auth-text-error">{generalError}</p>
       ) : null}
 
       {/* Register Link */}
-      <p className="text-center text-xl text-text-200">
+      <p className="text-center text-lg sm:text-xl text-text-200">
         Tidak punya akun?{" "}
         <a
           href="/auth/register"
