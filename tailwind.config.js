@@ -72,12 +72,14 @@ const config = {
         // ===== NEW COLOR SYSTEM (Dark Mode Only) =====
         // Based on Sophisticated Dark Green-Gray Theme with Warm Accents
 
-        // Background System (4 levels)
+        // Background System (6 levels)
         background: {
           900: "var(--color-background-900)",  // Main app background
           800: "var(--color-background-800)",  // Surfaces
           700: "var(--color-background-700)",   // Elevated
           600: "var(--color-background-600)",   // Muted
+          "brand-800": "var(--color-background-brand-800)", // Brand background
+          otan: "var(--color-background-otan)",         // Otan background
         },
 
         // Text System (5 levels)
@@ -106,6 +108,15 @@ const config = {
           otan: {
             500: "var(--color-text-otan-500)",     // Optional color Otan
           },
+        },
+
+        // Background Toast System (5 levels)
+        "background-toast": {
+          success: "var(--color-background-success)",     // Success toast background
+          error: "var(--color-background-error)",         // Error toast background
+          warning: "var(--color-background-warning)",     // Warning toast background
+          info: "var(--color-background-info)",           // Info toast background
+          destructive: "var(--color-background-destructive)", // Destructive toast background
         },
 
         // Brand System (5 levels)

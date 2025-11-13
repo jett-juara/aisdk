@@ -136,7 +136,7 @@ export const Header = () => {
       setProfile(null);
       toast({
         title: "Logout sukses",
-        description: "Gue arahin lo ke halaman login.",
+        description: "Diarahkan ke halaman login.",
       });
       router.replace("/auth/login");
       router.refresh();
@@ -154,7 +154,7 @@ export const Header = () => {
 
   return (
     <header className="relative bg-transparent">
-      <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 w-full">
+      <div className="mx-auto flex h-20 md:h-18 lg:h-20 items-center justify-between px-4 md:px-6 lg:px-8 w-full">
         <HeaderLogo />
         <HeaderMenu
           items={HEADER_MENU_ITEMS}

@@ -35,7 +35,14 @@
     --color-background-700: #182a35;  
     --color-background-600: #1e3442;
     --color-background-brand-800: #5a2a5a;
-    --color-background-otan-500:#B83312;
+    --color-background-otan:#B83312;
+
+      /* Background toast */
+    --color-background-success: #06562a;
+    --color-background-error: #500000;
+    --color-background-warning: #904424;
+    --color-background-info: #cfc872;
+    --color-background-destructive:#8c1e02;
 
     /* Text variants (5) */
     --color-text-100: #d4d4d4;  /* Secondary text */

@@ -57,7 +57,7 @@ export const DesktopMenu = ({ items }: { items: HeaderMenuItem[] }) => {
                 asChild
                 className={cn(
                   baseLinkClass,
-                  "p-0 rounded-none bg-transparent hover:bg-transparent focus:bg-transparent data-[active=true]:bg-transparent ring-0 focus-visible:ring-0 outline-none focus-visible:outline-0"
+                  "p-0 mt-6 rounded-none bg-transparent hover:bg-transparent focus:bg-transparent data-[active=true]:bg-transparent ring-0 focus-visible:ring-0 outline-none focus-visible:outline-0"
                 )}
               >
                 <Link href={item.href} onClick={() => emitAboutReset(item.href)}>
@@ -115,7 +115,7 @@ export const MobileMenu = ({
           variant="ghost"
           size="icon"
           aria-label="Buka menu navigasi"
-          className="lg:hidden h-11 w-11 text-text-50 hover:bg-transparent hover:text-brand-100"
+          className="lg:hidden h-11 w-11 md:h-20 md:px-4 text-text-50 hover:bg-transparent hover:text-brand-100"
         >
           <PanelLeftOpen className="h-8 w-8 md:h-10 md:w-10 text-text-100" strokeWidth={1.5} />
         </Button>
@@ -127,7 +127,7 @@ export const MobileMenu = ({
             <SheetClose asChild>
               <button
                 aria-label="Tutup menu"
-                className="grid h-11 w-11 place-items-center text-text-50 hover:text-brand-100"
+                className="grid h-11 w-11 md:h-20 place-items-center text-text-50 hover:text-brand-100"
               >
                 <PanelLeftClose className="h-8 w-8 md:h-10 md:w-10 text-text-100" strokeWidth={1.5} />
               </button>
@@ -156,7 +156,7 @@ export const MobileMenu = ({
             {/* Auth actions for mobile inside sheet footer */}
             <div className="border-t border-border-800 px-4 py-3">
               {!profile ? (
-                <Button asChild className="w-full font-button font-medium text-md bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide rounded-lg transition-all duration-500 ease-out h-10">
+                <Button asChild className="w-full font-button font-medium text-lg md:text-2xl bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide rounded-lg transition-all duration-500 ease-out h-10 md:h-12 mb-4 mt-4">
                   <Link href="/auth">Login</Link>
                 </Button>
               ) : (
@@ -311,7 +311,7 @@ export const HeaderMenu = ({ items, profile, onLogout, loggingOut, loading }: He
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button asChild className="h-11 font-button font-medium text-sm bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-4 transition-all duration-500 ease-out">
+            <Button asChild className="px-10 font-button font-medium text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10">
               <Link href="/auth">Login</Link>
             </Button>
           )}

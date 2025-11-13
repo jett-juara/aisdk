@@ -52,12 +52,13 @@ export default function LoginForm() {
         const message =
           (payload && typeof payload.error === "string" && payload.error.trim().length > 0
             ? payload.error.trim()
-            : "Login gagal. Coba lagi ya.")
+            : "Login gagal. Coba lagi!")
 
         setGeneralError(message)
         toast({
           title: "Login gagal",
           description: message,
+          variant: "error",
         })
         setIsLoading(false) // Only set loading to false on error
         return
@@ -66,6 +67,7 @@ export default function LoginForm() {
       toast({
         title: "Login sukses",
         description: "Mengarahkan ke dashboard...",
+        variant: "success",
       })
 
       // Add small delay to ensure user sees success state
@@ -77,11 +79,12 @@ export default function LoginForm() {
       // Don't set loading to false here - let redirect handle it
     } catch (error) {
       const message =
-        error instanceof Error ? error.message : "Terjadi kendala saat login. Coba lagi bentar ya."
+        error instanceof Error ? error.message : "Terjadi kendala saat login. Coba beberapa saat lagi."
       setGeneralError(message)
       toast({
         title: "Login gagal",
         description: message,
+        variant: "error",
       })
       setIsLoading(false) // Only set loading to false on error
     }
@@ -99,9 +102,9 @@ export default function LoginForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={isLoading}
-          className="h-10 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-lg font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed focus:bg-[var(--color-text-50)] focus:text-text-900 selection:bg-[var(--color-background-800)] selection:text-[var(--color-text-50)]"
+          className="h-10 md:h-12 lg:h-10 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed focus:bg-[var(--color-text-50)] focus:text-text-900 selection:bg-[var(--color-background-800)] selection:text-[var(--color-text-50)]"
         />
-        {errorEmail && <p className="text-lg text-base md:text-sm text-auth-text-error mt-2">{errorEmail}</p>}
+        {errorEmail && <p className="text-sm md:text-xl lg:text-sm text-text-error-500 px-4 ">{errorEmail}</p>}
       </div>
 
       {/* Password Field */}
@@ -116,9 +119,8 @@ export default function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isLoading}
-            className="h-10 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-lg font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed focus:bg-[var(--color-text-50)] focus:text-text-900 selection:bg-[var(--color-background-800)] selection:text-[var(--color-text-50)]"
+            className="h-10 md:h-12 lg:h-10 px-4 pr-12 bg-input-bg-900 border-input-border-800 text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed focus:bg-[var(--color-text-50)] focus:text-text-900 selection:bg-[var(--color-background-800)] selection:text-[var(--color-text-50)]"
           />
-          {errorPassword && <p className="text-sm text-auth-text-error mt-2">{errorPassword}</p>}
           <Button
             type="button"
             variant="ghost"
@@ -128,22 +130,23 @@ export default function LoginForm() {
             className="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent hover:bg-transparent text-text-200 hover:text-text-50 group-focus-within:hover:text-[var(--color-text-900)] focus-visible:ring-0 focus-visible:border-transparent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {showPassword ? (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 md:w-5 md:h-5 lg:w-4 lg:h-4">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                 <circle cx="12" cy="12" r="3"></circle>
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 md:w-5 md:h-5 lg:w-4 lg:h-4">
                 <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
                 <line x1="1" y1="1" x2="23" y2="23"></line>
               </svg>
             )}
           </Button>
         </div>
+        {errorPassword && <p className="text-sm md:text-xl lg:text-sm text-text-error-500 px-4 mt-0">{errorPassword}</p>}
         <div className="flex justify-end items-center">
           <a
             href="/auth/forgot-password"
-            className="text-text-400 transition-all duration-base text-sm hover:text-text-50 focus-visible:text-brand-100 hover:underline hover:decoration-dotted hover:underline-offset-4 hover:decoration-1"
+            className="text-text-200 transition-all duration-base text-sm md:text-lg lg:text-sm hover:text-text-50 focus-visible:text-brand-100 hover:underline hover:decoration-dotted hover:underline-offset-4 hover:decoration-1"
           >
             Lupa Password?
           </a>
@@ -151,10 +154,11 @@ export default function LoginForm() {
       </div>
 
       {/* Login Button */}
+      <div className="flex justify-center">
       <Button
         type="submit"
         disabled={isLoading}
-        className="w-full font-button font-medium text-md bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide  transition-all duration-500 ease-out h-10"
+        className="px-10 md:px-10 lg:px-8 font-button font-medium text-md md:text-xl lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10"
       >
         {isLoading ? (
           <span className="flex items-center gap-2">
@@ -184,13 +188,14 @@ export default function LoginForm() {
           "Masuk"
         )}
       </Button>
+      </div>
 
       {generalError ? (
         <p className="text-center text-lg text-auth-text-error">{generalError}</p>
       ) : null}
 
       {/* Register Link */}
-      <p className="text-center text-sm text-text-200">
+      <p className="text-center text-sm md:text-lg lg:text-sm text-text-200">
         Tidak punya akun?{" "}
         <a
           href="/auth/register"

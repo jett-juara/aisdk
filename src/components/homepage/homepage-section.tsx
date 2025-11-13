@@ -56,16 +56,16 @@ const Hero47 = ({
             />
           </div>
 
-          {/* Subheading & Buttons - dalam 1 container */}
-          <div className="flex justify-end">
-            <div className="flex flex-col gap-3 md:gap-4 max-w-[70%] md:max-w-[80%] lg:max-w-[65%] md:px-4 md:py-2 lg:px-0 items-end">
-              <p className={`text-text-info-500 text-sm md:text-2xl lg:text-sm font-manrope uppercase text-center  lg:items-end transition-all duration-700 ease-out ${animationClasses.text}`}>
+          {/* Subheading & Buttons CTA - dalam 1 container */}
+          <div className="flex justify-end md:justify-end lg:justify-end">
+            <div className="flex flex-col gap-3 md:gap-4 max-w-[70%] md:max-w-[80%] lg:max-w-[65%] md:px-4 md:py-2 lg:px-0 items-center">
+              <p className={`text-text-info-500 text-md md:text-2xl lg:text-sm font-heading uppercase text-center  transition-all duration-700 ease-out ${animationClasses.text}`}>
                 {subheading}
               </p>
-              <div className="flex flex-wrap items-start gap-4 md:gap-6 justify-center lg:justify-end">
+              <div className="mt-2 flex flex-wrap items-center gap-6 md:gap-8 lg:gap-6 justify-center">
                 <Button
                   asChild
-                  className={`font-heading text-md md:text-xl lg:text-sm bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-3 md:px-4 lg:px-6 py-0 md:py-2 whitespace-nowrap transition-all duration-500 ease-out transform-gpu ${animationClasses.button1}`}
+                  className={`font-button font-medium text-xs md:text-lg lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10 transform-gpu ${animationClasses.button1}`}
                 >
                   <a href={buttons.primary?.url}>
                     {buttons.primary?.text}
@@ -73,7 +73,7 @@ const Hero47 = ({
                 </Button>
                 <Button
                   asChild
-                  className={`font-heading text-md md:text-xl lg:text-sm bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-3 md:px-4 lg:px-6 py-0 md:py-2 whitespace-nowrap transition-all duration-500 ease-out transform-gpu ${animationClasses.button2}`}
+                  className={`font-button font-medium text-xs md:text-lg lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10 transform-gpu ${animationClasses.button2}`}
                 >
                   <a href={buttons.secondary?.url}>
                     {buttons.secondary?.text}
