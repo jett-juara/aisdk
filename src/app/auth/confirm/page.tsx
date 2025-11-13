@@ -20,7 +20,7 @@ function ConfirmContent() {
   }, [searchParams])
 
   return (
-    <section className="bg-background-900 min-h-screen">
+    <section className="bg-background-800 md:bg-background-800 lg:bg-background-900 min-h-screen">
       {/* Mobile & Tablet Layout - Tanpa Card */}
       <div className="lg:hidden min-h-screen flex flex-col px-4 py-6 px-6 md:px-8">
         {/* Logo untuk mobile & tablet */}
