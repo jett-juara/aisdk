@@ -38,7 +38,7 @@ export interface HeaderUserProfile {
 
 // Desktop navigation menu (inline from previous desktop-menu.tsx)
 const baseLinkClass =
-  "font-raleway text-md uppercase tracking-wide text-50 transition-all duration-base hover:text-brand-100 focus-visible:text-brand-100 hover:underline hover:decoration-dotted hover:underline-offset-4 hover:decoration-1";
+  "font-heading text-sm uppercase tracking-wide text-50 transition-all duration-base hover:text-brand-100 focus-visible:text-brand-100 hover:underline hover:decoration-dotted hover:underline-offset-4 hover:decoration-1";
 
 export const DesktopMenu = ({ items }: { items: HeaderMenuItem[] }) => {
   const emitAboutReset = React.useCallback((href: string) => {
@@ -117,7 +117,7 @@ export const MobileMenu = ({
           aria-label="Buka menu navigasi"
           className="lg:hidden h-11 w-11 text-text-50 hover:bg-transparent hover:text-brand-100"
         >
-          <PanelLeftOpen className="h-8 w-8 md:h-10 md:w-10" />
+          <PanelLeftOpen className="h-8 w-8 md:h-10 md:w-10 text-text-100" strokeWidth={1.5} />
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="border-none bg-background-900 w-[74vw] max-w-[340px] p-0">
@@ -129,7 +129,7 @@ export const MobileMenu = ({
                 aria-label="Tutup menu"
                 className="grid h-11 w-11 place-items-center text-text-50 hover:text-brand-100"
               >
-                <PanelLeftClose className="h-8 w-8 md:h-10 md:w-10" />
+                <PanelLeftClose className="h-8 w-8 md:h-10 md:w-10 text-text-100" strokeWidth={1.5} />
               </button>
             </SheetClose>
           </div>
@@ -142,7 +142,7 @@ export const MobileMenu = ({
                     <Button
                       asChild
                       variant="ghost"
-                      className="w-full justify-between px-3 py-3 min-h-[44px]  md:min-h-[60px] rounded-lg text-left text-lg md:text-2xl font-manrope font-thin uppercase tracking-wide text-400 hover:bg-transparent hover:text-brand-100"
+                      className="w-full justify-between px-3 py-3 min-h-[44px]  md:min-h-[60px] text-left text-lg md:text-2xl font-manrope font-thin uppercase tracking-wide text-400 hover:bg-transparent hover:text-brand-100"
                     >
                       <Link href={item.href} onClick={() => handleNavigate(item.href)}>
                         {item.label}
@@ -156,19 +156,18 @@ export const MobileMenu = ({
             {/* Auth actions for mobile inside sheet footer */}
             <div className="border-t border-border-800 px-4 py-3">
               {!profile ? (
-                <Button asChild className="w-full h-11 font-heading text-lg md:text-xl bg-button-primary hover:bg-button-primary-hover active:bg-button-primary-active">
+                <Button asChild className="w-full font-button font-medium text-md bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide rounded-lg transition-all duration-500 ease-out h-10">
                   <Link href="/auth">Login</Link>
                 </Button>
               ) : (
                 <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button className="group w-full h-11 justify-between font-heading text-lg md:text-2xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active md:min-h-[60px]">
+                  <Button className="group w-full h-11 justify-between font-button font-medium text-lg md:text-2xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active md:min-h-[60px]">
                     <span className="flex items-center gap-2">
                       <Avatar className="h-6 w-6 md:h-8 md:w-8">
-                        <AvatarFallback className="text-text-50 font-bold bg-[var(--color-background-brand-800)]">
-                          <svg viewBox="0 0 24 24" className="h-4 w-4 md:h-5 md:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M4 21v-2a4 4 0 0 1 3-3.87"/>
+                        <AvatarFallback className="text-text-50 font-bold bg-brand-50">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user-icon lucide-user h-4 w-4 md:h-5 md:w-5 text-[var(--color-button-primary)]">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
                             <circle cx="12" cy="7" r="4"/>
                           </svg>
                         </AvatarFallback>
@@ -183,7 +182,7 @@ export const MobileMenu = ({
                     <DropdownMenuItem asChild className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent ">
                       <Link href="/dashboard" className="flex items-center gap-3 w-full px-3 py-2 min-h-[44px] md:min-h-[60px] group" onClick={() => handleNavigate("/dashboard")}>
                         <LayoutDashboard className="h-5 w-5 md:h-6 md:w-6" />
-                        <span className="font-heading text-lg md:text-2xl">Dashboard</span>
+                        <span className="font-button font-medium text-lg md:text-2xl">Dashboard</span>
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
@@ -198,7 +197,7 @@ export const MobileMenu = ({
                       }}
                     >
                       {loggingOut ? <Loader2 className="h-5 w-5 animate-spin md:h-6 md:w-6" /> : <LogOut className="h-5 w-5 md:h-6 md:w-6" />}
-                      <span className="font-heading text-lg md:text-2xl">{loggingOut ? "Keluar..." : "Logout"}</span>
+                      <span className="font-button font-medium text-lg md:text-2xl">{loggingOut ? "Keluar..." : "Logout"}</span>
                     </button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -268,14 +267,13 @@ export const HeaderMenu = ({ items, profile, onLogout, loggingOut, loading }: He
                 <Button
                   ref={triggerRef}
                   style={expandedWidth ? { width: `${expandedWidth}px` } : undefined}
-                  className="group h-11 justify-between font-heading text-sm px-4 overflow-hidden transition-all duration-200 font-semibold tracking-wide rounded-lg bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none"
+                  className="group h-11 justify-between font-button font-medium text-sm px-4 overflow-hidden transition-all duration-200 font-semibold tracking-wide bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none"
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     <Avatar className="h-8 w-8">
-                      <AvatarFallback className="text-text-50 font-bold bg-[var(--color-background-brand-800)]">
-                        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M20 21v-2a4 4 0 0 0-3-3.87"/>
-                          <path d="M4 21v-2a4 4 0 0 1 3-3.87"/>
+                      <AvatarFallback className="text-text-50 font-bold bg-brand-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user-icon lucide-user h-5 w-5 text-[var(--color-button-primary)]">
+                          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
                           <circle cx="12" cy="7" r="4"/>
                         </svg>
                       </AvatarFallback>
@@ -294,7 +292,7 @@ export const HeaderMenu = ({ items, profile, onLogout, loggingOut, loading }: He
                   <DropdownMenuItem asChild className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent">
                     <Link href="/dashboard" className="flex items-center gap-3 w-full px-3 py-2 min-h-[44px]">
                       <LayoutDashboard className="h-4 w-4 text-text-50" />
-                      <span className="font-heading text-sm">Dashboard</span>
+                      <span className="font-button font-medium text-sm">Dashboard</span>
                     </Link>
                 </DropdownMenuItem>
                 </DropdownMenuGroup>
@@ -308,12 +306,12 @@ export const HeaderMenu = ({ items, profile, onLogout, loggingOut, loading }: He
                   }}
                 >
                   {loggingOut ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
-                  <span className="font-heading text-sm">{loggingOut ? "Keluar..." : "Logout"}</span>
+                  <span className="font-button font-medium text-sm">{loggingOut ? "Keluar..." : "Logout"}</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button asChild className="h-11 font-heading text-sm bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-4 rounded-lg transition-all duration-500 ease-out">
+            <Button asChild className="h-11 font-button font-medium text-sm bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-4 transition-all duration-500 ease-out">
               <Link href="/auth">Login</Link>
             </Button>
           )}

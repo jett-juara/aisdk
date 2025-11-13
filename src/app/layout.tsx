@@ -2,11 +2,12 @@ import type React from "react";
 import type { Metadata } from "next";
 import {
   Montserrat,
-  Raleway,
   Rubik,
   Manrope,
   JetBrains_Mono,
   Montagu_Slab,
+  Albert_Sans,
+  Instrument_Sans,
 } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/about-page/theme-provider";
@@ -16,28 +17,42 @@ import "./globals.css";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["700"],
+  weight: [
+    "100",
+    "200",
+    "300",
+    "400",
+    "500",
+    "600",
+    "700",
+    "800",
+    "900",
+  ],
+  style: ["normal", "italic"],
   variable: "--font-montserrat",
   display: "swap",
 });
 
-const raleway = Raleway({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-raleway",
-  display: "swap",
-});
 
 const rubik = Rubik({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: [
+    "300",
+    "400",
+    "500",
+    "600",
+    "700",
+    "800",
+    "900",
+  ],
+  style: ["normal", "italic"],
   variable: "--font-rubik",
   display: "swap",
 });
 
 const manrope = Manrope({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
   variable: "--font-manrope",
   display: "swap",
 });
@@ -51,8 +66,24 @@ const jetbrainsMono = JetBrains_Mono({
 
 const montaguSlab = Montagu_Slab({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "600", "700"],
   variable: "--font-montagu-slab",
+  display: "swap",
+});
+
+const albertSans = Albert_Sans({
+  subsets: ["latin"],
+  weight: ["100","200","300","400","500","600","700","800","900"],
+  style: ["normal","italic"],
+  variable: "--font-albert-sans",
+  display: "swap",
+});
+
+const instrumentSans = Instrument_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument-sans",
   display: "swap",
 });
 
@@ -80,7 +111,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${raleway.variable} ${rubik.variable} ${manrope.variable} ${jetbrainsMono.variable} ${montaguSlab.variable}`}
+      className={`${montserrat.variable} ${rubik.variable} ${manrope.variable} ${jetbrainsMono.variable} ${montaguSlab.variable} ${albertSans.variable} ${instrumentSans.variable}`}
       suppressHydrationWarning
     >
       <head>

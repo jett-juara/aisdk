@@ -4,6 +4,6 @@ import TestimonialRegister from "@/components/auth/testimonial-register";
 
 export default function RegisterPage() {
   return (
-    <AuthShell title="Daftar untuk kolaborasi" left={<RegisterForm />} right={<TestimonialRegister />} />
+    <AuthShell title="Register" subtitle=" Mari berkolaborasi" left={<RegisterForm />} right={<TestimonialRegister />} />
   );
 }

@@ -65,7 +65,7 @@ const Hero47 = ({
               <div className="flex flex-wrap items-start gap-4 md:gap-6 justify-center lg:justify-end">
                 <Button
                   asChild
-                  className={`font-heading text-md md:text-xl lg:text-sm bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-3 md:px-4 lg:px-6 py-0 md:py-2 rounded-lg whitespace-nowrap transition-all duration-500 ease-out transform-gpu ${animationClasses.button1}`}
+                  className={`font-heading text-md md:text-xl lg:text-sm bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-3 md:px-4 lg:px-6 py-0 md:py-2 whitespace-nowrap transition-all duration-500 ease-out transform-gpu ${animationClasses.button1}`}
                 >
                   <a href={buttons.primary?.url}>
                     {buttons.primary?.text}
@@ -73,7 +73,7 @@ const Hero47 = ({
                 </Button>
                 <Button
                   asChild
-                  className={`font-heading text-md md:text-xl lg:text-sm bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-3 md:px-4 lg:px-6 py-0 md:py-2 rounded-lg whitespace-nowrap transition-all duration-500 ease-out transform-gpu ${animationClasses.button2}`}
+                  className={`font-heading text-md md:text-xl lg:text-sm bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide px-3 md:px-4 lg:px-6 py-0 md:py-2 whitespace-nowrap transition-all duration-500 ease-out transform-gpu ${animationClasses.button2}`}
                 >
                   <a href={buttons.secondary?.url}>
                     {buttons.secondary?.text}

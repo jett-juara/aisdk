@@ -88,7 +88,7 @@ export default function LoginForm() {
   }, [email, password, router, toast])
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-8">
       {/* Email Field */}
       <div className="flex flex-col gap-3">
         <Input
@@ -99,72 +99,54 @@ export default function LoginForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={isLoading}
-          className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-xl sm:text-lg placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed"
+          className="h-10 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-lg font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed focus:bg-[var(--color-text-50)] focus:text-text-900 selection:bg-[var(--color-background-800)] selection:text-[var(--color-text-50)]"
         />
-        {errorEmail && <p className="text-lg sm:text-base md:text-sm text-auth-text-error mt-2">{errorEmail}</p>}
+        {errorEmail && <p className="text-lg text-base md:text-sm text-auth-text-error mt-2">{errorEmail}</p>}
       </div>
 
       {/* Password Field */}
       <div className="flex flex-col gap-3">
-        <div className="flex justify-end items-center">
-          <a
-            href="/auth/forgot-password"
-            className="text-text-400 transition-all duration-base hover:text-text-50 focus-visible:text-brand-100 hover:underline hover:decoration-dotted hover:underline-offset-4 hover:decoration-1"
-          >
-            Lupa Password?
-          </a>
-        </div>
-        <div className="relative">
+        <div className="relative group">
           <Input
             id="password"
             type={showPassword ? "text" : "password"}
-            placeholder="Kata sandi"
-            aria-label="Kata sandi"
+            placeholder="Password"
+            aria-label="Password"
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isLoading}
-            className="h-12 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-lg sm:text-xl placeholder:text-input-placeholder-400 placeholder:font-manrope placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 pr-10 disabled:opacity-100 disabled:cursor-not-allowed"
+            className="h-10 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-lg font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed focus:bg-[var(--color-text-50)] focus:text-text-900 selection:bg-[var(--color-background-800)] selection:text-[var(--color-text-50)]"
           />
           {errorPassword && <p className="text-sm text-auth-text-error mt-2">{errorPassword}</p>}
           <Button
             type="button"
             variant="ghost"
             size="icon-sm"
-            onClick={() => setShowPassword(!showPassword)}
-            disabled={isLoading}
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent hover:bg-transparent text-text-400 hover:text-text-50 focus-visible:ring-0 focus-visible:border-transparent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
+            onClick={() => setShowPassword((v) => !v)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent hover:bg-transparent text-text-200 hover:text-text-50 group-focus-within:hover:text-[var(--color-text-900)] focus-visible:ring-0 focus-visible:border-transparent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {showPassword ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="w-5 h-5"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                 <circle cx="12" cy="12" r="3"></circle>
               </svg>
             ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="w-5 h-5"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
                 <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
                 <line x1="1" y1="1" x2="23" y2="23"></line>
               </svg>
             )}
           </Button>
+        </div>
+        <div className="flex justify-end items-center">
+          <a
+            href="/auth/forgot-password"
+            className="text-text-400 transition-all duration-base text-sm hover:text-text-50 focus-visible:text-brand-100 hover:underline hover:decoration-dotted hover:underline-offset-4 hover:decoration-1"
+          >
+            Lupa Password?
+          </a>
         </div>
       </div>
 
@@ -172,7 +154,7 @@ export default function LoginForm() {
       <Button
         type="submit"
         disabled={isLoading}
-        className="w-full font-heading text-lg sm:text-xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active font-semibold tracking-wide rounded-lg transition-all duration-500 ease-out h-12"
+        className="w-full font-button font-medium text-md bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide  transition-all duration-500 ease-out h-10"
       >
         {isLoading ? (
           <span className="flex items-center gap-2">
@@ -204,11 +186,11 @@ export default function LoginForm() {
       </Button>
 
       {generalError ? (
-        <p className="text-center text-lg sm:text-xl text-auth-text-error">{generalError}</p>
+        <p className="text-center text-lg text-auth-text-error">{generalError}</p>
       ) : null}
 
       {/* Register Link */}
-      <p className="text-center text-lg sm:text-xl text-text-200">
+      <p className="text-center text-sm text-text-200">
         Tidak punya akun?{" "}
         <a
           href="/auth/register"

@@ -18,8 +18,8 @@
     --color-border-900: #313c42;       /* Very Dark slate - default borders */
     --color-input-bg-900: #343e46;     /* Dark slate - input background */
     --color-hover-overlay-700: #1e3442; /* Dark blue-gray - hover effects */
-    --color-text-grafy: #840804;      /* Optional color Grafy (base) */
-    --color-text-otan: #B83312;       /* Optional color Otan (base) */
+    --color-text-grafy-500: #840804;      /* Optional color Grafy (base) */
+    --color-text-otan-500: #B83312;       /* Optional color Otan (base) */
     /* Provide -500 tokens to match Tailwind mapping */
     --color-text-grafy-500: var(--color-text-grafy);
     --color-text-otan-500: var(--color-text-otan);
@@ -34,13 +34,15 @@
     --color-background-800: #121f28; 
     --color-background-700: #182a35;  
     --color-background-600: #1e3442;
-    --color-background-brand-800: #5a2a5a; 
+    --color-background-brand-800: #5a2a5a;
+    --color-background-otan-500:#B83312;
 
     /* Text variants (5) */
     --color-text-100: #d4d4d4;  /* Secondary text */
     --color-text-200: #a4a4a4;  /* Muted text */
     --color-text-400: #777777;  /* Muted text */
     --color-text-500: #6a6a6a;  /* Disabled text */
+    --color-text-900: #1d2328;  /* Text on light background */
 
     /* Brand variants (4) */
     --color-brand-50: #e6c8dd;   /* Light burgundy - hover light */
@@ -161,11 +163,12 @@
 
     /* Font families */
     --font-montserrat: "Montserrat", sans-serif;
-    --font-raleway: "Raleway", sans-serif;
+    --font-albert-sans: "Albert Sans", sans-serif;
     --font-rubik: "Rubik", sans-serif;
     --font-manrope: "Manrope", sans-serif;
     --font-jetbrains-mono: "JetBrains Mono", monospace;
     --font-montagu-slab: "Montagu Slab", serif;
+    --font-instrument-sans: "Instrument Sans", sans-serif;
 
     /* BUTTON SIZE TOKENS */
     --button-height-sm: 32px;    /* h-8 */
@@ -179,7 +182,7 @@
     --icon-button-size-lg: 48px;  /* w-12 h-12 */
 
     /* MAIN MENU TOKENS */
-    --main-menu-font-family: var(--font-raleway);
+    --main-menu-font-family: var(--font-albert-sans);
     --main-menu-font-size: 14px;
     --main-menu-font-weight: 600;
     --main-menu-text-transform: uppercase;
@@ -192,6 +195,10 @@
 }
 
 @layer utilities {
+    /* Paksa optical sizing ON untuk semua elemen dengan font-heading */
+    .font-heading {
+        font-optical-sizing: auto;
+    }
     /* ===== HOMEPAGE ANIMATION UTILITIES ===== */
     /* Animation State Classes */
     .homepage-svg-hidden {

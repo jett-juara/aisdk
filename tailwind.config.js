@@ -87,6 +87,7 @@ const config = {
           200: "var(--color-text-200)",    // Tertiary text
           400: "var(--color-text-400)",    // Muted text
           500: "var(--color-text-500)",    // Disabled text
+          900: "var(--color-text-900)",    // Text on light background
           error: {
             500: "var(--color-text-error-500)",    // Error messages
           },
@@ -201,8 +202,10 @@ const config = {
         serif: ["var(--font-montagu-slab)", "serif"],
         mono: ["var(--font-jetbrains-mono)", "monospace"],
         brand: ["var(--font-montserrat)", "sans-serif"],
-        heading: ["var(--font-raleway)", "sans-serif"],
-        body: ["var(--font-rubik)", "var(--font-manrope)", "sans-serif"],
+        heading: ["var(--font-albert-sans)", "sans-serif"],
+        subheading: ["var(--font-rubik)", "sans-serif"],
+        body: ["var(--font-manrope)", "sans-serif"],
+        button: ["var(--font-instrument-sans)", "sans-serif"],
       },
 
       // Global responsive width system (simplified)
