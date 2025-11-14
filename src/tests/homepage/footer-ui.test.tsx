@@ -10,13 +10,11 @@ describe('Footer – content & links', () => {
     // Check copyright text (using regex to handle dynamic year)
     expect(screen.getByText(/© \d+ JUARA Events\. All rights reserved\./i)).toBeInTheDocument()
 
-    // Social labels are aria-label on anchors
-    expect(screen.getByLabelText(/Facebook/i)).toBeInTheDocument()
+    // Social labels are aria-label on anchors (Instagram & LinkedIn only)
     expect(screen.getByLabelText(/Instagram/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/Twitter/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/LinkedIn/i)).toBeInTheDocument()
 
     // Check that all social links are present
-    expect(screen.getAllByRole('link').length).toBe(4)
+    expect(screen.getAllByRole('link').length).toBe(2)
   })
 })

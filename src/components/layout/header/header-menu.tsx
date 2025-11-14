@@ -222,7 +222,10 @@ interface HeaderMenuProps {
 export const HeaderMenu = ({ items, profile, onLogout, loggingOut, loading }: HeaderMenuProps) => {
   // Mount gate to mimic ssr: false for mobile section to avoid hydration issues
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   // Desktop only: sinkronkan lebar tombol user dengan lebar dropdown saat terbuka
   const [menuOpen, setMenuOpen] = useState(false);
@@ -231,17 +234,20 @@ export const HeaderMenu = ({ items, profile, onLogout, loggingOut, loading }: He
   const [expandedWidth, setExpandedWidth] = useState<number | null>(null);
 
   useEffect(() => {
+    let raf: number;
     if (!menuOpen) {
-      setExpandedWidth(null);
-      return;
+      raf = requestAnimationFrame(() => {
+        setExpandedWidth(null);
+      });
+    } else {
+      // Pastikan content sudah ter-render sebelum mengukur
+      raf = requestAnimationFrame(() => {
+        const width = contentRef.current?.offsetWidth;
+        if (width && width > 0) {
+          setExpandedWidth(width);
+        }
+      });
     }
-    // Pastikan content sudah ter-render sebelum mengukur
-    const raf = requestAnimationFrame(() => {
-      const width = contentRef.current?.offsetWidth;
-      if (width && width > 0) {
-        setExpandedWidth(width);
-      }
-    });
     return () => cancelAnimationFrame(raf);
   }, [menuOpen]);
 

@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useHomepageAnimations } from "@/hooks/use-homepage-animations";
+import Image from "next/image";
 
 interface Hero47Props {
   heading?: {
@@ -49,9 +50,12 @@ const Hero47 = ({
         <div className="flex flex-col gap-3 md:gap-4 w-full max-w-[50%] md:max-w-[50%] lg:max-w-[50%] justify-end lg:justify-center py-2">
           {/* SVG Title */}
           <div className="flex justify-end">
-            <img
+            <Image
               src={heading.src}
               alt={heading.alt || ""}
+              width={350}
+              height={120}
+              sizes="(min-width:1024px) 330px, (min-width:768px) 350px, 160px"
               className={`h-auto object-contain w-[160px] md:w-[350px] lg:w-[330px] transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}
             />
           </div>

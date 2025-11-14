@@ -9,7 +9,7 @@ describe('ForgotPasswordForm', () => {
 
   it('validates email format', async () => {
     render(<ForgotPasswordForm />)
-    fireEvent.click(screen.getByRole('button', { name: /kirim tautan reset/i }))
+    fireEvent.click(screen.getByRole('button', { name: /^kirim$/i }))
     expect(await screen.findByText(/email tidak valid/i)).toBeTruthy()
   })
 })
