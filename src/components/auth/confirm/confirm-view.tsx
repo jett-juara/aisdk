@@ -22,7 +22,7 @@ export default function ConfirmView({ title, subtitle }: { title?: string; subti
               </div>
             )}
             <div className="flex justify-center">
-              <Button asChild className="px-8 md:px-10 lg:px-8 font-button font-medium text-md md:text-xl lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10">
+              <Button asChild className="font-button font-medium text-md md:text-xl lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10">
                 <Link href="/auth/login">Kembali ke halaman login</Link>
               </Button>
             </div>
@@ -46,7 +46,7 @@ export default function ConfirmView({ title, subtitle }: { title?: string; subti
             </div>
           )}
           <div className="flex justify-center">
-            <Button asChild className="px-8 md:px-10 lg:px-8 font-button font-medium text-md md:text-xl lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10">
+            <Button asChild className="font-button font-medium text-md md:text-xl lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10">
               <Link href="/auth/login">Kembali ke halaman login</Link>
             </Button>
           </div>
