@@ -139,7 +139,7 @@ export default function RegisterForm() {
       <div className="flex justify-center">
         <Button
           type="submit"
-          className="px-10 md:px10 lg:px-10 mt-2 md:mt-4 lg:mt-2 font-button font-medium text-md md:text-xl lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10"
+          className="w-full mt-2 md:mt-4 lg:mt-2 font-button font-medium text-md md:text-xl lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10"
         >
           Daftar
         </Button>

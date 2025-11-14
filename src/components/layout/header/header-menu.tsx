@@ -317,7 +317,7 @@ export const HeaderMenu = ({ items, profile, onLogout, loggingOut, loading }: He
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button asChild className="px-10 font-button font-medium text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10">
+            <Button asChild className="font-button font-medium text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10">
               <Link href="/auth">Login</Link>
             </Button>
           )}
