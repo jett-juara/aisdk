@@ -55,9 +55,9 @@ function ConfirmContent() {
 
       {/* Desktop Layout - Card Design */}
       <div className="hidden lg:flex min-h-screen items-center justify-center px-4">
-        <div className="w-full max-w-md rounded-2xl border border-input-border-800 bg-background-800 lg:p-6">
+        <div className="w-full max-w-md rounded-lg border border-input-border-800 bg-background-800 lg:p-6">
           {/* Logo */}
-          <div className="mb-4 h-10 flex items-center">
+          <div className="h-8 mb-4 flex items-center">
             <HeaderLogo size="sm" />
           </div>
 

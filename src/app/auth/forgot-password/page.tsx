@@ -11,7 +11,7 @@ export default function ForgotPasswordPage() {
       <div className="lg:hidden min-h-screen flex flex-col px-4 py-6 px-6 md:px-8">
         {/* Logo untuk mobile & tablet */}
         <div className="h-10 flex items-center">
-          <HeaderLogo />
+           <HeaderLogo size="lg" />
         </div>
 
         {/* Header + Form dalam satu container untuk mobile & tablet */}
@@ -37,10 +37,10 @@ export default function ForgotPasswordPage() {
 
       {/* Desktop Layout - Card Design */}
       <div className="hidden lg:flex min-h-screen items-center justify-center px-4">
-        <div className="w-full max-w-md rounded-2xl border border-input-border-800 bg-background-800 lg:p-6">
+        <div className="w-full max-w-md rounded-lg border border-input-border-800 bg-background-800 lg:p-6">
           {/* Logo */}
-          <div className="mb-6 h-10 flex items-center">
-            <HeaderLogo />
+          <div className="h-8 mb-4 flex items-center">
+            <HeaderLogo size="sm" />
           </div>
 
           {/* Header menggunakan auth-shell pattern */}

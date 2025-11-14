@@ -75,10 +75,20 @@
     --color-button-primary: #741055;         /* Base brand */
     --color-button-primary-hover: #4e0c39;   /* Hover */
     --color-button-primary-active: #630a45;  /* Active */
-
-    /* Secondary Button - from brand-800 (2) */
-    --color-button-secondary: #5a2a5a;       /* Secondary brand */
-    --color-button-secondary-hover: #870f5f; /* Hover */
+    --color-button-secondary: #652f65;       /* Secondary brand */
+    --color-button-secondary-hover: #3f1532; /* Hover */
+    --color-button-secondary-active: #5d1f49;
+    
+    /* Custom Button */
+    --color-button-orange: #a13901;   /* Orange */
+    --color-button-orange-hover: #772a00;
+    --color-button-orange-active: #b46f00;
+    --color-button-blue: #163b7c;   /* Blue */
+    --color-button-blue-hover: #102a56;
+    --color-button-blue-active: #102e62;
+    --color-button-green: #05641a;   /* Green */
+    --color-button-green-hover: #022a0b;
+    --color-button-green-active: #044b15;
 
     /* Outline Button - combine text-50 + border-800 + hover-700 (3) */
     --color-button-outline-text: #ededed;      /* Text color */

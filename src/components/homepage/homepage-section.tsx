@@ -65,7 +65,7 @@ const Hero47 = ({
               <div className="mt-2 flex flex-wrap items-center gap-6 md:gap-8 lg:gap-6 justify-center">
                 <Button
                   asChild
-                  className={`font-button font-medium text-xs md:text-lg lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10 transform-gpu ${animationClasses.button1}`}
+                  className={`font-button font-medium text-xs md:text-lg lg:text-sm bg-transparent text-text-100 border border-outline-text hover:bg-brand-50 hover:text-text-900 tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10 transform-gpu ${animationClasses.button1}`}
                 >
                   <a href={buttons.primary?.url}>
                     {buttons.primary?.text}
@@ -73,7 +73,7 @@ const Hero47 = ({
                 </Button>
                 <Button
                   asChild
-                  className={`font-button font-medium text-xs md:text-lg lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10 transform-gpu ${animationClasses.button2}`}
+                  className={`font-button font-medium text-xs md:text-lg lg:text-sm bg-transparent text-text-100 border border-outline-text hover:bg-brand-50 hover:text-text-900 tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10 transform-gpu ${animationClasses.button2}`}
                 >
                   <a href={buttons.secondary?.url}>
                     {buttons.secondary?.text}

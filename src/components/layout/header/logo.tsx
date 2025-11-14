@@ -9,22 +9,22 @@ interface HeaderLogoProps {
 
 const SIZE_CLASSES = {
   sm: {
-    container: "h-8 w-8 rounded-md",
-    icon: "h-5 w-5",
-    text: "text-lg font-bold uppercase",
-    gap: "gap-1.5"
+    container: "h-6 w-6 rounded-sm",
+    icon: "h-4 w-4",
+    text: "text-md font-bold uppercase text-text-50",
+    gap: "gap-2"
   },
   md: {
-    container: "h-9 w-9 rounded-lg",
-    icon: "h-5.5 w-5.5",
-    text: "text-xl font-bold uppercase",
-    gap: "gap-1.75"
+    container: "h-7 w-7 rounded-sm",
+    icon: "h-6 w-6",
+    text: "text-lg font-bold uppercase text-text-50",
+    gap: "gap-2"
   },
   lg: {
-    container: "h-10 w-10 rounded-lg",
-    icon: "h-6 w-6",
-    text: "text-xl font-bold uppercase lg:text-2xl",
-    gap: "gap-2"
+    container: "h-8 w-8 rounded-sm",
+    icon: "h-7 w-7",
+    text: "text-xl font-bold uppercase lg:text-2xl text-text-50 lg:text-text-50",
+    gap: "gap-3"
   }
 } as const;
 
