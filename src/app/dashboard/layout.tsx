@@ -1,14 +1,15 @@
 import { redirect } from 'next/navigation'
 import type { ReactNode } from 'react'
-import { DashboardHeader } from '@/components/dashboard/header'
 import { DashboardRouteGuard } from '@/components/dashboard/route-guard'
 import { DashboardSidebar } from '@/components/dashboard/sidebar'
+import { DashboardSidebarHeader } from '@/components/dashboard/sidebar-header'
 import {
   deriveAccessibleNavigation,
   type DashboardPermission,
   type DashboardRole,
 } from '@/lib/dashboard/navigation'
 import { createSupabaseRSCClient } from '@/lib/supabase/server'
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar'
 
 type DashboardLayoutProps = {
   children: ReactNode
@@ -67,9 +68,9 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
   const fallbackPath = allowedPaths.includes('/dashboard') ? '/dashboard' : allowedPaths[0] ?? '/dashboard'
 
   return (
-    <div className="min-h-screen dashboard-bg-main text-auth-text-primary">
+    <div className="min-h-screen bg-background-900 text-text-50">
       <DashboardRouteGuard allowedPaths={allowedPaths} fallbackPath={fallbackPath} />
-      <div className="flex min-h-screen flex-col md:flex-row">
+      <SidebarProvider>
         <DashboardSidebar
           sections={sections}
           user={{
@@ -79,11 +80,13 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
             status: profile.status,
           }}
         />
-        <div className="flex w-full flex-1 flex-col dashboard-bg-main">
-          <DashboardHeader sections={sections} role={profile.role} />
-          <main className="flex-1 dashboard-bg-main px-6 py-8 text-auth-text-primary">{children}</main>
-        </div>
-      </div>
+        <SidebarInset className="bg-background-900">
+          <DashboardSidebarHeader sections={sections} role={profile.role} />
+          <main className="flex-1 bg-background-900 px-6 py-8 text-text-50">
+            {children}
+          </main>
+        </SidebarInset>
+      </SidebarProvider>
     </div>
   )
 }
