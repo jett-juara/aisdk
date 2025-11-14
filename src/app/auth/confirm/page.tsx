@@ -25,7 +25,7 @@ function ConfirmContent() {
       <div className="lg:hidden min-h-screen flex flex-col px-4 py-6 px-6 md:px-8">
         {/* Logo untuk mobile & tablet */}
         <div className="h-10 flex items-center">
-          <HeaderLogo size="sm" />
+          <HeaderLogo size="lg" />
         </div>
 
         {/* Header + Button dalam satu container untuk mobile & tablet */}
@@ -92,7 +92,7 @@ export default function ConfirmPage() {
         <div className="lg:hidden">
           <section className="bg-background-900 min-h-screen flex flex-col px-4 py-6 px-6 md:px-8">
             <div className="h-10 flex items-center">
-              <HeaderLogo size="sm" />
+              <HeaderLogo size="lg" />
             </div>
             <div className="flex-1 flex flex-col justify-center">
               <div className="max-w-full mx-auto w-full space-y-8">
