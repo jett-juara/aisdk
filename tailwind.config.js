@@ -184,6 +184,19 @@ const config = {
         destructive: "var(--color-button-destructive)",            // Base
         "destructive-hover": "var(--color-button-destructive-hover)",  // Custom hover
         "destructive-active": "var(--color-button-destructive-active)", // Custom active
+
+        // Colorful Buttons (3 colors × 3 states each)
+        orange: "var(--color-button-orange)",              // Orange base
+        "orange-hover": "var(--color-button-orange-hover)",   // Orange hover
+        "orange-active": "var(--color-button-orange-active)", // Orange active
+
+        blue: "var(--color-button-blue)",                // Blue base
+        "blue-hover": "var(--color-button-blue-hover)",     // Blue hover
+        "blue-active": "var(--color-button-blue-active)",   // Blue active
+
+        green: "var(--color-button-green)",              // Green base
+        "green-hover": "var(--color-button-green-hover)",   // Green hover
+        "green-active": "var(--color-button-green-active)", // Green active
       },
       borderRadius: {
         lg: "var(--radius)",
