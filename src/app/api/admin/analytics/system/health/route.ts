@@ -11,7 +11,7 @@ export async function GET() {
   } = await server.auth.getUser()
 
   if (!user) {
-    return NextResponse.json({ error: { message: 'Lo harus login dulu.' } }, { status: 401 })
+    return NextResponse.json({ error: { message: 'Anda harus login terlebih dahulu.' } }, { status: 401 })
   }
 
   const { data: profile } = await server
@@ -21,7 +21,7 @@ export async function GET() {
     .single()
 
   if (!profile || (profile.role !== 'admin' && profile.role !== 'superadmin')) {
-    return NextResponse.json({ error: { message: 'Lo nggak punya akses ke system health.' } }, { status: 403 })
+    return NextResponse.json({ error: { message: 'Anda tidak memiliki akses untuk melihat system health.' } }, { status: 403 })
   }
 
   const { data, error } = await admin.rpc('get_system_health')

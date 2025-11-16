@@ -20,7 +20,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   } = await supabase.auth.getUser()
 
   if (!user) {
-    return NextResponse.json({ error: { message: 'Lo harus login dulu.' } }, { status: 401 })
+    return NextResponse.json({ error: { message: 'Anda harus login terlebih dahulu.' } }, { status: 401 })
   }
 
   const { data: actorProfile, error: actorError } = await supabase
@@ -30,11 +30,11 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     .single()
 
   if (actorError || !actorProfile) {
-    return NextResponse.json({ error: { message: 'Profil admin nggak ditemukan.' } }, { status: 403 })
+    return NextResponse.json({ error: { message: 'Profil admin tidak ditemukan.' } }, { status: 403 })
   }
 
   if (actorProfile.role !== 'admin' && actorProfile.role !== 'superadmin') {
-    return NextResponse.json({ error: { message: 'Lo nggak punya akses buat ubah status user.' } }, { status: 403 })
+    return NextResponse.json({ error: { message: 'Anda tidak memiliki akses untuk mengubah status pengguna.' } }, { status: 403 })
   }
 
   const payload = await request.json().catch(() => null)
@@ -55,7 +55,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     .single()
 
   if (targetError || !targetUser) {
-    return NextResponse.json({ error: { message: 'User nggak ditemukan.' } }, { status: 404 })
+    return NextResponse.json({ error: { message: 'Pengguna tidak ditemukan.' } }, { status: 404 })
   }
 
   if (targetUser.role === 'superadmin' && actorProfile.role !== 'superadmin') {

@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import type { SidebarProps, NavigationItem } from "@/lib/dashboard/types";
 import { sidebarConfig } from "@/lib/dashboard/navigation";
+import { HeaderLogo } from "@/components/layout/header/logo";
 import {
   Home,
   User as UserIcon, // ← NEEDED untuk "My Profile" menu (rename to avoid conflict)
@@ -82,42 +83,45 @@ function SidebarLogo({ collapsed }: { collapsed: boolean }) {
   // Return consistent placeholder during SSR to prevent hydration mismatch
   if (!isMounted) {
     return (
-      <Link
-        href="/dashboard"
-        className="flex items-center gap-3 transition-all duration-200 ease-in-out"
-      >
-        {/* Logo Icon - Always render in consistent state during SSR */}
+      <div className="flex items-center transition-all duration-200 ease-in-out">
         <div className="flex-shrink-0 flex items-center justify-center bg-button-primary rounded-sm h-10 w-10 transition-all duration-200">
-          <Zap className="text-text-50 h-6 w-6 transition-all duration-200" />
+          <svg className="h-6 w-6 text-text-50" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M11.3 1.046A1 1 0 0010 2v5H4a1 1 0 00-.82 1.573l7 10A1 1 0 0011 18v-5h6a1 1 0 00.82-1.573l-7-10a1 1 0 00-.68-.381z"
+            />
+          </svg>
         </div>
-
-        {/* Logo Text - Always show during SSR for consistency */}
-        <div className="flex flex-col">
+        <div className="flex items-center h-10 ml-3">
           <span className="text-xl font-bold uppercase text-text-50 font-brand">
             {sidebarConfig.branding.name}
           </span>
-          <span className="text-xs text-text-400 font-body">
-            {sidebarConfig.branding.tagline}
-          </span>
         </div>
-      </Link>
+      </div>
     );
   }
 
   return (
     <Link
-      href="/dashboard"
+      href="/"
       className="flex w-full items-center gap-3 transition-colors duration-200 ease-in-out"
     >
-      {/* Logo Icon */}
+      {/* Logo Icon - gunakan SVG yang sama dengan HeaderLogo, tapi tetap square 40x40 */}
       <div className="flex-shrink-0 flex items-center justify-center bg-button-primary rounded-sm h-10 w-10 transition-colors duration-200">
-        <Zap className="text-text-50 h-5 w-5 transition-colors duration-200" />
+        <svg className="h-6 w-6 text-text-50" viewBox="0 0 20 20" fill="currentColor">
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M11.3 1.046A1 1 0 0010 2v5H4a1 1 0 00-.82 1.573l7 10A1 1 0 0011 18v-5h6a1 1 0 00.82-1.573l-7-10a1 1 0 00-.68-.381z"
+          />
+        </svg>
       </div>
 
-      {/* Logo Text - selalu dirender, tapi di-fade saat collapsed */}
+      {/* Logo Text - selalu dirender, center terhadap logo, di-fade saat collapsed */}
       <div
         className={cn(
-          "flex flex-col transition-opacity duration-200",
+          "flex items-center h-10 transition-opacity duration-200",
           collapsed
             ? "opacity-0 pointer-events-none select-none"
             : "opacity-100",
@@ -125,9 +129,6 @@ function SidebarLogo({ collapsed }: { collapsed: boolean }) {
       >
         <span className="text-xl font-bold uppercase text-text-50 font-brand">
           {sidebarConfig.branding.name}
-        </span>
-        <span className="text-xs text-text-400 font-body">
-          {sidebarConfig.branding.tagline}
         </span>
       </div>
     </Link>

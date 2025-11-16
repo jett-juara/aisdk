@@ -24,7 +24,14 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { PanelLeftOpen, PanelLeftClose, ChevronDown, LogOut, Loader2 } from "lucide-react";
+import {
+  PanelLeftOpen,
+  PanelLeftClose,
+  ChevronDown,
+  LogOut,
+  Loader2,
+  LayoutDashboard,
+} from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 // Desktop layout now handled in header.tsx; this module renders only mobile/tablet
 
@@ -259,8 +266,8 @@ export const HeaderMenu = ({ items, profile, onLogout, loggingOut, loading }: He
               <div className="h-8 w-8 animate-pulse rounded-full bg-background-800" />
               <div className="h-3 w-24 animate-pulse rounded bg-background-800" />
             </div>
-          ) : profile ? (
-            <DropdownMenu onOpenChange={setMenuOpen}>
+	          ) : profile ? (
+	            <DropdownMenu onOpenChange={setMenuOpen}>
               <DropdownMenuTrigger asChild>
                 <Button
                   ref={triggerRef}
@@ -281,24 +288,39 @@ export const HeaderMenu = ({ items, profile, onLogout, loggingOut, loading }: He
                   <ChevronDown className="h-4 w-4 text-text-50 flex-shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent
-                ref={contentRef}
-                align="end"
-                className="w-auto border-border-900 bg-background-900 p-0"
-              >
-                  <DropdownMenuSeparator className="bg-border-800" />
-                <DropdownMenuItem
-                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-3 py-2 min-h-[44px]"
-                  onSelect={async (event) => {
-                    event.preventDefault();
-                    if (loggingOut) return;
-                    await onLogout?.();
-                  }}
-                >
-                  {loggingOut ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
-                  <span className="font-button font-medium text-sm">{loggingOut ? "Keluar..." : "Logout"}</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
+	            <DropdownMenuContent
+	                ref={contentRef}
+	                align="end"
+	                className="w-auto border-border-900 bg-background-900 p-0"
+	              >
+	                <DropdownMenuItem
+	                  asChild
+	                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-3 py-2 min-h-[44px]"
+	                >
+	                  <Link href="/dashboard" className="flex items-center gap-3 w-full">
+	                    <LayoutDashboard className="h-4 w-4" />
+	                    <span className="font-button font-medium text-sm">Dashboard</span>
+	                  </Link>
+	                </DropdownMenuItem>
+	                <DropdownMenuSeparator className="bg-border-800" />
+	                <DropdownMenuItem
+	                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-3 py-2 min-h-[44px]"
+	                  onSelect={async (event) => {
+	                    event.preventDefault();
+	                    if (loggingOut) return;
+	                    await onLogout?.();
+	                  }}
+	                >
+	                  {loggingOut ? (
+	                    <Loader2 className="h-4 w-4 animate-spin" />
+	                  ) : (
+	                    <LogOut className="h-4 w-4" />
+	                  )}
+	                  <span className="font-button font-medium text-sm">
+	                    {loggingOut ? "Keluar..." : "Logout"}
+	                  </span>
+	                </DropdownMenuItem>
+	              </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <Button asChild className="font-button font-medium text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10">

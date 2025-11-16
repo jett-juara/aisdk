@@ -7,7 +7,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -155,23 +154,30 @@ function QuickActions({ userRole }: { userRole: string }) {
  * Recent Activity Component
  */
 function RecentActivity({ userRole }: { userRole: string }) {
-  const activities = {
-    superadmin: [
-      { action: "New user registration", user: "John Doe", time: "2 hours ago", type: "info" },
-      { action: "System backup completed", user: "System", time: "4 hours ago", type: "success" },
-      { action: "Security alert detected", user: "Security System", time: "6 hours ago", type: "warning" },
-    ],
-    admin: [
-      { action: "User role updated", user: "Jane Smith", time: "1 hour ago", type: "info" },
-      { action: "Permission granted", user: "Mike Johnson", time: "3 hours ago", type: "success" },
-    ],
-    user: [
-      { action: "Profile updated", user: "You", time: "30 minutes ago", type: "info" },
-      { action: "Last login", user: "You", time: "2 days ago", type: "success" },
-    ],
-  };
+  const [activities, setActivities] = useState<
+    { action: string; user: string; time: string | null; type: "success" | "warning" | "info" }[]
+  >([]);
+  const [loading, setLoading] = useState(true);
 
-  const userActivities = activities[userRole as keyof typeof activities] || activities.user;
+  useEffect(() => {
+    const fetchActivity = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch("/api/dashboard/recent-activity");
+        if (!res.ok) {
+          setLoading(false);
+          return;
+        }
+        const payload = await res.json();
+        setActivities(payload?.activities ?? []);
+        setLoading(false);
+      } catch (_error) {
+        setLoading(false);
+      }
+    };
+
+    fetchActivity();
+  }, []);
 
   return (
     <Card className="bg-background-800 border-border-700">
@@ -183,26 +189,41 @@ function RecentActivity({ userRole }: { userRole: string }) {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {userActivities.map((activity, index) => (
-            <div key={index} className="flex items-start gap-3">
-              <div
-                className={cn(
-                  "w-2 h-2 rounded-full mt-2",
-                  activity.type === "success" && "bg-button-green",
-                  activity.type === "warning" && "bg-button-orange",
-                  activity.type === "info" && "bg-brand-500"
-                )}
-              />
-              <div className="flex-1 min-w-0">
-                <div className="text-sm text-text-50">{activity.action}</div>
-                <div className="flex items-center gap-2 text-xs text-text-400">
-                  <span>{activity.user}</span>
-                  <span>•</span>
-                  <span>{activity.time}</span>
+          {loading && (
+            <div className="space-y-3">
+              {[...Array(3)].map((_, idx) => (
+                <div key={idx} className="h-10 bg-background-700/50 rounded-md animate-pulse" />
+              ))}
+            </div>
+          )}
+          {!loading &&
+            activities.map((activity, index) => (
+              <div key={index} className="flex items-start gap-3">
+                <div
+                  className={cn(
+                    "w-2 h-2 rounded-full mt-2",
+                    activity.type === "success" && "bg-button-green",
+                    activity.type === "warning" && "bg-button-orange",
+                    activity.type === "info" && "bg-brand-500",
+                  )}
+                />
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm text-text-50">{activity.action}</div>
+                  <div className="flex items-center gap-2 text-xs text-text-400">
+                    <span>{activity.user}</span>
+                    {activity.time && (
+                      <>
+                        <span>•</span>
+                        <span>{activity.time}</span>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          {!loading && activities.length === 0 && (
+            <p className="text-xs text-text-500">Belum ada aktivitas yang terekam untuk akun lo.</p>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -214,19 +235,54 @@ function RecentActivity({ userRole }: { userRole: string }) {
  */
 function SystemStatus() {
   const [systemHealth, setSystemHealth] = useState<SystemHealth | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Mock data - akan di-fetch dari API
-    setSystemHealth({
-      status: 'excellent',
-      uptime: 99.9,
-      responseTime: 142,
-      errorRate: 0.1,
-      lastChecked: new Date().toISOString(),
-    });
+    const fetchStatus = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch("/api/dashboard/system-status");
+        if (!res.ok) {
+          setLoading(false);
+          return;
+        }
+        const payload = await res.json();
+        const api = payload?.systemStatus;
+        if (!api) {
+          setLoading(false);
+          return;
+        }
+        setSystemHealth({
+          status: api.status ?? "good",
+          uptime: api.uptime ?? 0,
+          responseTime: api.responseTime ?? 0,
+          errorRate: api.errorRate ?? 0,
+          lastChecked: api.lastChecked ?? new Date().toISOString(),
+        });
+        setLoading(false);
+      } catch (_error) {
+        setLoading(false);
+      }
+    };
+
+    fetchStatus();
   }, []);
 
-  if (!systemHealth) return null;
+  if (loading || !systemHealth) {
+    return (
+      <Card className="bg-background-800 border-border-700">
+        <CardHeader>
+          <CardTitle className="text-text-50">System Health</CardTitle>
+          <CardDescription className="text-text-400">
+            Sedang mengambil data kesehatan sistem…
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="h-16 bg-background-700/50 rounded-md animate-pulse" />
+        </CardContent>
+      </Card>
+    );
+  }
 
   const statusColors = {
     excellent: "text-button-green",
@@ -265,10 +321,7 @@ function SystemStatus() {
             <span className="text-sm text-text-200">Uptime</span>
             <span className="text-sm font-medium text-text-50">{systemHealth.uptime}%</span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-text-200">Response Time</span>
-            <span className="text-sm font-medium text-text-50">{systemHealth.responseTime}ms</span>
-          </div>
+          {/* Response time belum tersedia dari metrics faktual, jadi disembunyikan */}
           <div className="flex items-center justify-between">
             <span className="text-sm text-text-200">Error Rate</span>
             <span className="text-sm font-medium text-text-50">{systemHealth.errorRate}%</span>
@@ -287,19 +340,26 @@ export function DashboardOverview({ user }: DashboardContentProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Mock stats fetching - akan diganti dengan API call
     const fetchStats = async () => {
-      setLoading(true);
-      // Simulate API call
-      setTimeout(() => {
+      try {
+        setLoading(true);
+        const res = await fetch("/api/dashboard/stats");
+        if (!res.ok) {
+          setLoading(false);
+          return;
+        }
+        const payload = await res.json();
+        const apiStats = payload?.stats;
         setStats({
-          totalUsers: 156,
-          activeUsers: 142,
-          pendingInvitations: 8,
-          systemHealth: 'excellent',
+          totalUsers: apiStats?.totalUsers ?? 0,
+          activeUsers: apiStats?.activeUsers ?? 0,
+          pendingInvitations: apiStats?.pendingInvitations ?? 0,
+          systemHealth: apiStats?.systemHealth ?? "good",
         });
         setLoading(false);
-      }, 1000);
+      } catch (_error) {
+        setLoading(false);
+      }
     };
 
     fetchStats();

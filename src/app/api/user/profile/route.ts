@@ -6,14 +6,14 @@ import { createSupabaseServerClient } from '@/lib/supabase/server'
 const profileUpdateSchema = z.object({
   firstName: z
     .string()
-    .min(2, 'Nama depan minimal 2 karakter')
+    .min(2, 'Nama depan minimal 2 karakter.')
     .max(60, 'Nama depan maksimal 60 karakter')
     .trim(),
   lastName: z
     .string()
     .optional()
     .transform((value) => (value ?? '').trim()),
-  email: z.string().email('Format email nggak valid').trim(),
+  email: z.string().email('Format email tidak valid.').trim(),
   username: z
     .string()
     .min(3, 'Username minimal 3 karakter')
@@ -29,7 +29,7 @@ export async function GET() {
   } = await supabase.auth.getUser()
 
   if (!user) {
-    return NextResponse.json({ error: { message: 'Lo harus login dulu.' } }, { status: 401 })
+    return NextResponse.json({ error: { message: 'Anda harus login terlebih dahulu.' } }, { status: 401 })
   }
 
   const { data: profile, error } = await supabase
@@ -38,9 +38,9 @@ export async function GET() {
     .eq('id', user.id)
     .single()
 
-  if (error || !profile) {
-    return NextResponse.json({ error: { message: 'Profil nggak ditemukan.' } }, { status: 404 })
-  }
+if (error || !profile) {
+  return NextResponse.json({ error: { message: 'Profil tidak ditemukan.' } }, { status: 404 })
+}
 
   return NextResponse.json({
     id: profile.id,
@@ -70,7 +70,7 @@ export async function PUT(request: Request) {
   } = await supabase.auth.getUser()
 
   if (!user) {
-    return NextResponse.json({ error: { message: 'Lo harus login dulu.' } }, { status: 401 })
+    return NextResponse.json({ error: { message: 'Anda harus login terlebih dahulu.' } }, { status: 401 })
   }
 
   const payload = await request.json().catch(() => null)
@@ -90,7 +90,7 @@ export async function PUT(request: Request) {
     .single()
 
   if (fetchError || !currentProfile) {
-    return NextResponse.json({ error: { message: 'Profil nggak ditemukan.' } }, { status: 404 })
+    return NextResponse.json({ error: { message: 'Profil tidak ditemukan.' } }, { status: 404 })
   }
 
   if (currentProfile.email !== email) {
@@ -115,7 +115,7 @@ export async function PUT(request: Request) {
   if (updateError || !updatedProfile) {
     const message =
       updateError?.message ??
-      'Gagal memperbarui profil. Pastikan data lo valid dan coba lagi.'
+      'Gagal memperbarui profil. Pastikan data Anda valid dan coba lagi.'
     return NextResponse.json({ error: { message } }, { status: 400 })
   }
 

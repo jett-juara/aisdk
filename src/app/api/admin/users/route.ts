@@ -9,7 +9,7 @@ export async function GET(_request: Request) {
   } = await supabase.auth.getUser()
 
   if (!user) {
-    return NextResponse.json({ error: { message: 'Lo harus login dulu.' } }, { status: 401 })
+    return NextResponse.json({ error: { message: 'Anda harus login terlebih dahulu.' } }, { status: 401 })
   }
 
   const { data: actorProfile, error: actorError } = await supabase
@@ -19,7 +19,7 @@ export async function GET(_request: Request) {
     .single()
 
   if (actorError || !actorProfile || (actorProfile.role !== 'admin' && actorProfile.role !== 'superadmin')) {
-    return NextResponse.json({ error: { message: 'Lo nggak punya akses buat lihat daftar user.' } }, { status: 403 })
+    return NextResponse.json({ error: { message: 'Anda tidak memiliki akses untuk melihat daftar pengguna.' } }, { status: 403 })
   }
 
   const { data: users, error } = await supabase
