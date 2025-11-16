@@ -8,3 +8,5 @@ export function createSupabaseBrowserClient() {
   )
 }
 
+// Default export untuk kemudahan import
+export const createClient = createSupabaseBrowserClient;

@@ -24,7 +24,7 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { PanelLeftOpen, PanelLeftClose, ChevronDown, LayoutDashboard, LogOut, Loader2 } from "lucide-react";
+import { PanelLeftOpen, PanelLeftClose, ChevronDown, LogOut, Loader2 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 // Desktop layout now handled in header.tsx; this module renders only mobile/tablet
 
@@ -178,14 +178,6 @@ export const MobileMenu = ({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-[var(--radix-dropdown-menu-trigger-width)] bg-background-900 border-border-900 p-0">
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem asChild className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent ">
-                      <Link href="/dashboard" className="flex items-center gap-3 w-full px-3 py-2 min-h-[44px] md:min-h-[60px] group" onClick={() => handleNavigate("/dashboard")}>
-                        <LayoutDashboard className="h-5 w-5 md:h-6 md:w-6" />
-                        <span className="font-button font-medium text-lg md:text-2xl">Dashboard</span>
-                      </Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
                   <DropdownMenuSeparator className="bg-border-800" />
                   <DropdownMenuItem asChild className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent">
                     <button
@@ -294,15 +286,7 @@ export const HeaderMenu = ({ items, profile, onLogout, loggingOut, loading }: He
                 align="end"
                 className="w-auto border-border-900 bg-background-900 p-0"
               >
-                <DropdownMenuGroup>
-                  <DropdownMenuItem asChild className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent">
-                    <Link href="/dashboard" className="flex items-center gap-3 w-full px-3 py-2 min-h-[44px]">
-                      <LayoutDashboard className="h-4 w-4 text-text-50" />
-                      <span className="font-button font-medium text-sm">Dashboard</span>
-                    </Link>
-                </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator className="bg-border-800" />
+                  <DropdownMenuSeparator className="bg-border-800" />
                 <DropdownMenuItem
                   className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-3 py-2 min-h-[44px]"
                   onSelect={async (event) => {

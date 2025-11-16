@@ -66,13 +66,13 @@ export default function LoginForm() {
 
       toast({
         title: "Login sukses",
-        description: "Mengarahkan ke dashboard...",
+        description: "Mengarahkan ke beranda...",
         variant: "success",
       })
 
       // Add small delay to ensure user sees success state
       setTimeout(() => {
-        router.replace("/dashboard")
+        router.replace("/")
         router.refresh()
       }, 800)
 

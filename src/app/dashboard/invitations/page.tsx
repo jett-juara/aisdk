@@ -1,40 +1,14 @@
-import { redirect } from 'next/navigation'
-import { InvitationManagementPanel } from '@/components/dashboard/invitations/invitation-management-panel'
-import { createSupabaseAdminClient } from '@/lib/supabase/admin'
-import { createSupabaseRSCClient } from '@/lib/supabase/server'
+import { DashboardClient } from "@/components/dashboard/dashboard-client";
+import { getDashboardUserOrRedirect } from "../_data";
 
-export default async function InvitationsPage() {
-  const supabase = await createSupabaseRSCClient()
-  const admin = createSupabaseAdminClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+export const metadata = {
+  title: "Invitations | JETT Dashboard",
+  description: "Kelola undangan user baru untuk JETT Dashboard.",
+};
 
-  if (!user) {
-    redirect('/auth/login')
-  }
+export default async function DashboardInvitationsPage() {
+  const user = await getDashboardUserOrRedirect();
 
-  const { data: profile } = await supabase
-    .from('users')
-    .select('id, role')
-    .eq('id', user.id)
-    .single()
-
-  if (!profile || profile.role !== 'superadmin') {
-    redirect('/dashboard')
-  }
-
-  const { data: invitations } = await admin
-    .from('admin_invitations')
-    .select(
-      'id, email, first_name, last_name, role, status, inviter_id, invited_user_id, invite_link, expires_at, sent_at, last_sent_at, responded_at, created_at, updated_at'
-    )
-    .order('created_at', { ascending: false })
-
-  return (
-    <InvitationManagementPanel
-      currentUserId={profile.id}
-      invitations={invitations ?? []}
-    />
-  )
+  return <DashboardClient user={user} view="invitations" />;
 }
+

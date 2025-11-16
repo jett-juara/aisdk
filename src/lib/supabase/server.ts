@@ -60,3 +60,6 @@ export async function createSupabaseServerClient() {
     }
   )
 }
+
+// Default export untuk kemudahan import
+export const createClient = createSupabaseServerClient;

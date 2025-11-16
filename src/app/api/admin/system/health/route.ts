@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { getSuperadminContext } from '../../invitations/utils'
 import { createSupabaseAdminClient } from '@/lib/supabase/admin'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
@@ -7,9 +6,21 @@ export async function GET(_request: Request) {
   const server = await createSupabaseServerClient()
   const admin = createSupabaseAdminClient()
 
-  const contextResult = await getSuperadminContext(server)
-  if ('error' in contextResult) {
-    return NextResponse.json({ error: { message: contextResult.error.message } }, { status: contextResult.error.status })
+  // Get authenticated user
+  const { data: { user } } = await server.auth.getUser()
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  // Check if superadmin
+  const { data: profile } = await server
+    .from('users')
+    .select('role')
+    .eq('id', user.id)
+    .single()
+
+  if (!profile || profile.role !== 'superadmin') {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
   try {

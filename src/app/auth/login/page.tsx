@@ -6,7 +6,7 @@ export default function LoginPage() {
   return (
     <AuthShell
       title="Masuk Akun"
-      subtitle="Login untuk mengakses dashboard"
+      subtitle="Login untuk mengakses akun Anda"
       left={<LoginForm />}
       right={<TestimonialLogin />}
     />

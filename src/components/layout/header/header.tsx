@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 // Simple debounce utility function
 function debounce<T extends (...args: any[]) => any>(
   func: T,
-  delay: number
+  delay: number,
 ): (...args: Parameters<T>) => void {
   let timeoutId: NodeJS.Timeout;
   return (...args: Parameters<T>) => {
@@ -50,7 +50,9 @@ export const Header = () => {
         try {
           setIsLoadingProfile(true);
 
-          const { data: { session } } = await supabase.auth.getSession();
+          const {
+            data: { session },
+          } = await supabase.auth.getSession();
 
           if (!session) {
             setProfile(null);
@@ -107,7 +109,9 @@ export const Header = () => {
     resolveProfileWithDebounce();
 
     // Set up auth state listener with debouncing
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(handleAuthChange);
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(handleAuthChange);
 
     return () => {
       isActive = false;
@@ -141,7 +145,8 @@ export const Header = () => {
       router.replace("/auth/login");
       router.refresh();
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Logout gagal. Coba lagi.";
+      const message =
+        error instanceof Error ? error.message : "Logout gagal. Coba lagi.";
       toast({
         title: "Logout gagal",
         description: message,
@@ -155,18 +160,9 @@ export const Header = () => {
   return (
     <header className="relative bg-transparent">
       <div className="mx-auto flex h-20 md:h-18 lg:h-20 items-center justify-between px-4 md:px-6 lg:px-8 w-full">
-        <HeaderLogo
-          size="sm"
-          className="md:hidden"
-        />
-        <HeaderLogo
-          size="md"
-          className="hidden md:flex lg:hidden"
-        />
-        <HeaderLogo
-          size="lg"
-          className="hidden lg:flex"
-        />
+        <HeaderLogo size="sm" className="md:hidden" />
+        <HeaderLogo size="md" className="hidden md:flex lg:hidden" />
+        <HeaderLogo size="lg" className="hidden lg:flex" />
         <HeaderMenu
           items={HEADER_MENU_ITEMS}
           profile={profile}
