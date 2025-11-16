@@ -85,7 +85,11 @@ function SidebarLogo({ collapsed }: { collapsed: boolean }) {
     return (
       <div className="flex items-center transition-all duration-200 ease-in-out">
         <div className="flex-shrink-0 flex items-center justify-center bg-button-primary rounded-sm h-10 w-10 transition-all duration-200">
-          <svg className="h-6 w-6 text-text-50" viewBox="0 0 20 20" fill="currentColor">
+          <svg
+            className="h-6 w-6 text-text-50"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -109,7 +113,11 @@ function SidebarLogo({ collapsed }: { collapsed: boolean }) {
     >
       {/* Logo Icon - gunakan SVG yang sama dengan HeaderLogo, tapi tetap square 40x40 */}
       <div className="flex-shrink-0 flex items-center justify-center bg-button-primary rounded-sm h-10 w-10 transition-colors duration-200">
-        <svg className="h-6 w-6 text-text-50" viewBox="0 0 20 20" fill="currentColor">
+        <svg
+          className="h-6 w-6 text-text-50"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -127,7 +135,7 @@ function SidebarLogo({ collapsed }: { collapsed: boolean }) {
             : "opacity-100",
         )}
       >
-        <span className="text-xl font-bold uppercase text-text-50 font-brand">
+        <span className="text-2xl font-bold uppercase text-text-50 font-brand">
           {sidebarConfig.branding.name}
         </span>
       </div>
@@ -225,11 +233,11 @@ export function DashboardSidebar({
         "flex flex-col h-full bg-background-900 border-r border-border-800",
         effectiveCollapsed ? "w-20" : "w-56",
       )}
-	    >
-	      {/* Sidebar Header dengan Logo */}
-	      <div className="flex h-20 items-center px-4">
-	        <SidebarLogo collapsed={effectiveCollapsed} />
-	      </div>
+    >
+      {/* Sidebar Header dengan Logo */}
+      <div className="flex h-20 items-center px-4">
+        <SidebarLogo collapsed={effectiveCollapsed} />
+      </div>
 
       <Separator className="bg-border-800" />
 

@@ -12,32 +12,41 @@ const SIZE_CLASSES = {
     container: "h-6 w-6 rounded-sm",
     icon: "h-4 w-4",
     text: "text-md font-bold uppercase text-text-50",
-    gap: "gap-2"
+    gap: "gap-2",
   },
   md: {
     container: "h-7 w-7 rounded-sm",
     icon: "h-6 w-6",
     text: "text-lg font-bold uppercase text-text-50",
-    gap: "gap-2"
+    gap: "gap-2",
   },
   lg: {
-    container: "h-8 w-8 rounded-sm",
-    icon: "h-7 w-7",
+    container: "h-10 w-10 rounded-sm",
+    icon: "h-6 w-6",
     text: "text-xl font-bold uppercase lg:text-2xl text-text-50 lg:text-text-50",
-    gap: "gap-3"
-  }
+    gap: "gap-3",
+  },
 } as const;
 
 export const HeaderLogo = ({
   size = "lg",
-  className = ""
+  className = "",
 }: HeaderLogoProps) => {
   const sizeClasses = SIZE_CLASSES[size];
 
   return (
-    <Link href="/" className={`flex items-center ${sizeClasses.gap} ${className}`}>
-      <div className={`flex flex-shrink-0 items-center justify-center ${sizeClasses.container} bg-button-primary`}>
-        <svg className={`${sizeClasses.icon} text-text-50`} viewBox="0 0 20 20" fill="currentColor">
+    <Link
+      href="/"
+      className={`flex items-center ${sizeClasses.gap} ${className}`}
+    >
+      <div
+        className={`flex flex-shrink-0 items-center justify-center ${sizeClasses.container} bg-button-primary`}
+      >
+        <svg
+          className={`${sizeClasses.icon} text-text-50`}
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
           <path
             fillRule="evenodd"
             clipRule="evenodd"
