@@ -90,6 +90,7 @@ export interface SidebarProps {
   user: User | null;
   navigationItems: NavigationItem[];
   onNavigate?: (href: string) => void;
+  variant?: "desktop" | "mobile";
 }
 
 // Header component props
@@ -99,4 +100,6 @@ export interface DashboardHeaderProps {
   onLogout: () => Promise<void>;
   onSidebarToggle: () => void;
   sidebarCollapsed: boolean;
+  mobileSidebarOpen: boolean;
+  onMobileSidebarToggle: () => void;
 }

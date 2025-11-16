@@ -60,10 +60,10 @@ function NotificationBell() {
  */
 function MobileMenuToggle({
   onClick,
-  collapsed,
+  open,
 }: {
   onClick: () => void;
-  collapsed: boolean;
+  open: boolean;
 }) {
   return (
     <Button
@@ -72,10 +72,16 @@ function MobileMenuToggle({
       onClick={onClick}
       className="lg:hidden h-10 w-10"
     >
-      {collapsed ? (
-        <PanelLeftOpen className="h-5 w-5 text-text-50" />
+      {open ? (
+        <PanelLeftClose
+          className="h-8 w-8 md:h-10 md:w-10 text-text-100"
+          strokeWidth={1.5}
+        />
       ) : (
-        <PanelLeftClose className="h-5 w-5 text-text-50" />
+        <PanelLeftOpen
+          className="h-8 w-8 md:h-10 md:w-10 text-text-100"
+          strokeWidth={1.5}
+        />
       )}
     </Button>
   );
@@ -210,6 +216,8 @@ export function DashboardHeader({
   onLogout,
   onSidebarToggle,
   sidebarCollapsed,
+  mobileSidebarOpen,
+  onMobileSidebarToggle,
 }: DashboardHeaderProps) {
   return (
     <header
@@ -237,8 +245,8 @@ export function DashboardHeader({
 
         {/* Mobile Menu Toggle */}
         <MobileMenuToggle
-          onClick={onSidebarToggle}
-          collapsed={sidebarCollapsed}
+          onClick={onMobileSidebarToggle}
+          open={mobileSidebarOpen}
         />
 
         {/* Breadcrumb */}

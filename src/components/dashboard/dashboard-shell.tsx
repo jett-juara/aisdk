@@ -12,7 +12,8 @@ import { cn } from "@/lib/utils";
 import { DashboardSidebar } from "./sidebar/sidebar";
 import { DashboardHeader } from "./header/header";
 import { Separator } from "@/components/ui/separator";
-import { User, DashboardConfig, SidebarProps } from "@/lib/dashboard/types";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { User, DashboardConfig } from "@/lib/dashboard/types";
 import { getNavigationItems, getActiveNavigation } from "@/lib/dashboard/navigation";
 
 /**
@@ -42,32 +43,29 @@ interface DashboardShellProps {
 	  // Sidebar state management
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
-  // Mobile sidebar state untuk slide-over
+  // Mobile sidebar state untuk Sheet
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+
+  // Mount gate untuk menghindari hydration mismatch dengan Radix Sheet
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   // Handle sidebar toggle
   const handleSidebarToggle = useCallback(() => {
     setSidebarCollapsed((prev) => !prev);
   }, []);
 
-  // Handle mobile sidebar close
+  // Handle mobile sidebar toggle & close
+  const handleMobileSidebarToggle = useCallback(() => {
+    setMobileSidebarOpen((prev) => !prev);
+  }, []);
+
   const handleMobileSidebarClose = useCallback(() => {
     setMobileSidebarOpen(false);
   }, []);
-
-  // Close mobile sidebar on escape key
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        handleMobileSidebarClose();
-      }
-    };
-
-    if (mobileSidebarOpen) {
-      document.addEventListener('keydown', handleEscape);
-      return () => document.removeEventListener('keydown', handleEscape);
-    }
-  }, [mobileSidebarOpen, handleMobileSidebarClose]);
 
 	  // Get navigation items berdasarkan user role + current path
 	  const navigationItems = getActiveNavigation(
@@ -98,6 +96,7 @@ interface DashboardShellProps {
       user={user}
       navigationItems={navigationItems}
       onNavigate={() => handleMobileSidebarClose()}
+      variant="desktop"
     />
   );
 
@@ -111,6 +110,8 @@ interface DashboardShellProps {
       onLogout={onLogout || (() => Promise.resolve())}
       onSidebarToggle={handleSidebarToggle}
       sidebarCollapsed={sidebarCollapsed}
+      mobileSidebarOpen={mobileSidebarOpen}
+      onMobileSidebarToggle={handleMobileSidebarToggle}
     />
   );
 
@@ -151,56 +152,32 @@ interface DashboardShellProps {
   /**
    * Mobile Sidebar Overlay - Internal sub-component
    */
-  const MobileSidebar = () => (
-    <div
-      className={cn(
-        "fixed inset-0 z-50 lg:hidden",
-        "transition-all duration-200 ease-in-out",
-        mobileSidebarOpen
-          ? "opacity-100 pointer-events-auto"
-          : "opacity-0 pointer-events-none"
-      )}
-    >
-      {/* Backdrop */}
-      <div
-        className={cn(
-          "absolute inset-0 bg-black/50 backdrop-blur-sm",
-          mobileSidebarOpen ? "opacity-100" : "opacity-0"
-        )}
-        onClick={handleMobileSidebarClose}
-      />
+  const MobileSidebar = () => {
+    if (!mounted) return null;
 
-      {/* Mobile Sidebar */}
-      <div
-        className={cn(
-          "relative flex h-full w-80 max-w-[80vw] flex-col",
-          "bg-background-900 border-r border-border-800",
-          "transform transition-transform duration-200 ease-in-out",
-          mobileSidebarOpen
-            ? "translate-x-0"
-            : "-translate-x-full"
-        )}
-      >
-        {/* Mobile Sidebar Close Button */}
-        <div className="flex items-center justify-between p-4 border-b border-border-800">
-          <h2 className="text-lg font-semibold text-text-50">Menu</h2>
-          <button
-            onClick={handleMobileSidebarClose}
-            className="p-2 rounded-lg text-text-400 hover:text-text-50 hover:bg-hover-overlay-700 transition-colors"
+    return (
+      <div className="lg:hidden">
+        <Sheet open={mobileSidebarOpen} onOpenChange={setMobileSidebarOpen}>
+          <SheetContent
+            side="left"
+            className="border-none bg-background-900 w-[74vw] max-w-[340px] p-0"
           >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Mobile Sidebar Content */}
-        <div className="flex-1 overflow-auto">
-          <Sidebar />
-        </div>
+            <SheetTitle className="sr-only">Menu dashboard</SheetTitle>
+            <div className="flex h-full flex-col">
+              <DashboardSidebar
+                collapsed={false}
+                onToggle={handleSidebarToggle}
+                user={user}
+                navigationItems={navigationItems}
+                onNavigate={() => handleMobileSidebarClose()}
+                variant="mobile"
+              />
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
-    </div>
-  );
+    );
+  };
 
   // Render main dashboard shell
   return (

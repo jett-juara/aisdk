@@ -133,7 +133,7 @@ export const MobileMenu = ({
           aria-label="Buka menu navigasi"
           className="lg:hidden h-11 w-11 md:h-20 md:px-4 text-text-50 hover:bg-transparent hover:text-brand-100"
         >
-          <PanelLeftOpen
+          <PanelLeftClose
             className="h-8 w-8 md:h-10 md:w-10 text-text-100"
             strokeWidth={1.5}
           />
@@ -145,13 +145,13 @@ export const MobileMenu = ({
       >
         <SheetTitle className="sr-only">Menu</SheetTitle>
         <div className="flex h-full flex-col">
-          <div className="px-4 pt-2 pb-1">
+          <div className="flex h-20 items-center px-4">
             <SheetClose asChild>
               <button
                 aria-label="Tutup menu"
-                className="grid h-11 w-11 md:h-20 place-items-center text-text-50 hover:text-brand-100"
+                className="grid h-11 w-11 place-items-center text-text-50 hover:text-brand-100"
               >
-                <PanelLeftClose
+                <PanelLeftOpen
                   className="h-8 w-8 md:h-10 md:w-10 text-text-100"
                   strokeWidth={1.5}
                 />
@@ -160,14 +160,14 @@ export const MobileMenu = ({
           </div>
 
           <nav className="flex-1 flex flex-col bg-background-900 text-text-50 min-h-0">
-            <div className="flex-1 overflow-y-auto pt-6 px-2 pb-5 min-h-0">
+            <div className="flex-1 overflow-y-auto pt-0 px-2 pb-5 min-h-0">
               <ul className="space-y-1">
                 {items.map((item) => (
                   <li key={item.label}>
                     <Button
                       asChild
                       variant="ghost"
-                      className="w-full justify-between px-3 py-3 min-h-[44px]  md:min-h-[60px] text-left text-lg md:text-2xl font-manrope font-thin uppercase tracking-wide text-400 hover:bg-transparent hover:text-brand-100"
+                      className="w-full justify-between px-3 py-3 min-h-[44px] md:min-h-[60px] text-left text-lg md:text-2xl font-manrope font-thin uppercase tracking-wide text-text-50 hover:bg-hover-overlay-700 hover:text-text-50 focus:bg-hover-overlay-700 focus:text-text-50"
                     >
                       <Link
                         href={item.href}
@@ -223,10 +223,25 @@ export const MobileMenu = ({
                     align="end"
                     className="w-[var(--radix-dropdown-menu-trigger-width)] bg-background-900 border-border-900 p-0"
                   >
+                    <DropdownMenuItem
+                      asChild
+                      className="cursor-pointer text-text-50 hover:bg-hover-overlay-700 hover:text-text-50 focus:bg-hover-overlay-700 focus:text-text-50"
+                    >
+                      <Link
+                        href="/dashboard"
+                        className="flex items-center gap-3 w-full px-3 py-2 min-h-[44px] md:min-h-[60px] text-left"
+                        onClick={() => setOpen(false)}
+                      >
+                        <LayoutDashboard className="h-5 w-5 md:h-6 md:w-6" />
+                        <span className="font-button font-medium text-lg md:text-2xl">
+                          Dashboard
+                        </span>
+                      </Link>
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator className="bg-border-800" />
                     <DropdownMenuItem
                       asChild
-                      className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent"
+                      className="cursor-pointer text-text-50 hover:bg-hover-overlay-700 hover:text-text-50 focus:bg-hover-overlay-700 focus:text-text-50"
                     >
                       <button
                         className="flex items-center gap-3 w-full px-3 py-2 min-h-[44px] md:min-h-[60px] text-left"

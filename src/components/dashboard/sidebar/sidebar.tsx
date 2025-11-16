@@ -11,9 +11,9 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { SheetClose } from "@/components/ui/sheet";
 import type { SidebarProps, NavigationItem } from "@/lib/dashboard/types";
 import { sidebarConfig } from "@/lib/dashboard/navigation";
-import { HeaderLogo } from "@/components/layout/header/logo";
 import {
   Home,
   User as UserIcon, // ← NEEDED untuk "My Profile" menu (rename to avoid conflict)
@@ -24,9 +24,7 @@ import {
   Mail,
   Activity,
   Settings,
-  ChevronLeft,
-  ChevronRight,
-  Zap,
+  PanelLeftClose,
 } from "lucide-react";
 
 /**
@@ -73,8 +71,15 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 /**
  * Logo component untuk sidebar - modified dari header logo
  */
-function SidebarLogo({ collapsed }: { collapsed: boolean }) {
+function SidebarLogo({
+  collapsed,
+  variant = "desktop",
+}: {
+  collapsed: boolean;
+  variant?: "desktop" | "mobile";
+}) {
   const [isMounted, setIsMounted] = React.useState(false);
+  const isMobileVariant = variant === "mobile";
 
   React.useEffect(() => {
     setIsMounted(true);
@@ -84,9 +89,17 @@ function SidebarLogo({ collapsed }: { collapsed: boolean }) {
   if (!isMounted) {
     return (
       <div className="flex items-center transition-all duration-200 ease-in-out">
-        <div className="flex-shrink-0 flex items-center justify-center bg-button-primary rounded-sm h-10 w-10 transition-all duration-200">
+        <div
+          className={cn(
+            "flex-shrink-0 flex items-center justify-center bg-button-primary rounded-sm transition-all duration-200",
+            isMobileVariant ? "h-8 w-8" : "h-10 w-10",
+          )}
+        >
           <svg
-            className="h-6 w-6 text-text-50"
+            className={cn(
+              "text-text-50",
+              isMobileVariant ? "h-5 w-5" : "h-6 w-6",
+            )}
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -97,8 +110,18 @@ function SidebarLogo({ collapsed }: { collapsed: boolean }) {
             />
           </svg>
         </div>
-        <div className="flex items-center h-10 ml-3">
-          <span className="text-xl font-bold uppercase text-text-50 font-brand">
+        <div
+          className={cn(
+            "flex items-center ml-3",
+            isMobileVariant ? "h-8" : "h-10",
+          )}
+        >
+          <span
+            className={cn(
+              "font-bold uppercase text-text-50 font-brand",
+              isMobileVariant ? "text-base" : "text-2xl",
+            )}
+          >
             {sidebarConfig.branding.name}
           </span>
         </div>
@@ -111,10 +134,18 @@ function SidebarLogo({ collapsed }: { collapsed: boolean }) {
       href="/"
       className="flex w-full items-center gap-3 transition-colors duration-200 ease-in-out"
     >
-      {/* Logo Icon - gunakan SVG yang sama dengan HeaderLogo, tapi tetap square 40x40 */}
-      <div className="flex-shrink-0 flex items-center justify-center bg-button-primary rounded-sm h-10 w-10 transition-colors duration-200">
+      {/* Logo Icon - gunakan SVG yang sama dengan HeaderLogo */}
+      <div
+        className={cn(
+          "flex-shrink-0 flex items-center justify-center bg-button-primary rounded-sm transition-colors duration-200",
+          isMobileVariant ? "h-8 w-8" : "h-10 w-10",
+        )}
+      >
         <svg
-          className="h-6 w-6 text-text-50"
+          className={cn(
+            "text-text-50",
+            isMobileVariant ? "h-5 w-5" : "h-6 w-6",
+          )}
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -129,13 +160,18 @@ function SidebarLogo({ collapsed }: { collapsed: boolean }) {
       {/* Logo Text - selalu dirender, center terhadap logo, di-fade saat collapsed */}
       <div
         className={cn(
-          "flex items-center h-10 transition-opacity duration-200",
+          "flex items-center overflow-hidden transition-opacity duration-200 ease-in-out",
           collapsed
             ? "opacity-0 pointer-events-none select-none"
             : "opacity-100",
         )}
       >
-        <span className="text-2xl font-bold uppercase text-text-50 font-brand">
+        <span
+          className={cn(
+            "font-bold uppercase text-text-50 font-brand",
+            isMobileVariant ? "text-base" : "text-2xl",
+          )}
+        >
           {sidebarConfig.branding.name}
         </span>
       </div>
@@ -150,10 +186,12 @@ function NavigationItemComponent({
   item,
   collapsed,
   isActive,
+  onNavigate,
 }: {
   item: NavigationItem;
   collapsed: boolean;
   isActive: boolean;
+  onNavigate?: (href: string) => void;
 }) {
   const [isMounted, setIsMounted] = React.useState(false);
   const IconComponent = iconMap[item.icon || "settings"] || Settings;
@@ -182,7 +220,14 @@ function NavigationItemComponent({
       )}
       size={effectiveCollapsed ? "icon" : "md"}
     >
-      <Link href={item.href}>
+      <Link
+        href={item.href}
+        onClick={() => {
+          if (onNavigate) {
+            onNavigate(item.href);
+          }
+        }}
+      >
         <IconComponent
           className={cn(
             "h-5 w-5 flex-shrink-0 transition-colors duration-200",
@@ -217,29 +262,55 @@ export function DashboardSidebar({
   user,
   navigationItems,
   onNavigate,
+  variant = "desktop",
 }: SidebarProps) {
   const [isMounted, setIsMounted] = React.useState(false);
+  const isMobileVariant = variant === "mobile";
 
   React.useEffect(() => {
     setIsMounted(true);
   }, []);
 
   // Ensure consistent SSR rendering - always render in expanded state initially
-  const effectiveCollapsed = isMounted ? collapsed : false;
+  // Untuk varian mobile di dalam Sheet, kita paksa tidak collapsed
+  const effectiveCollapsed = isMounted
+    ? isMobileVariant
+      ? false
+      : collapsed
+    : false;
 
   return (
     <div
       className={cn(
         "flex flex-col h-full bg-background-900 border-r border-border-800",
-        effectiveCollapsed ? "w-20" : "w-56",
+        isMobileVariant ? "w-full" : effectiveCollapsed ? "w-20" : "w-56",
       )}
     >
       {/* Sidebar Header dengan Logo */}
-      <div className="flex h-20 items-center px-4">
-        <SidebarLogo collapsed={effectiveCollapsed} />
+      <div
+        className={cn(
+          "flex items-center px-4",
+          isMobileVariant ? "h-20 justify-between" : "h-20",
+        )}
+      >
+        <SidebarLogo collapsed={effectiveCollapsed} variant={variant} />
+        {isMobileVariant && (
+          <SheetClose asChild>
+            <button
+              type="button"
+              aria-label="Tutup menu dashboard"
+              className="grid h-10 w-10 place-items-center text-text-50 hover:text-brand-100 hover:bg-hover-overlay-700 rounded-lg transition-colors"
+            >
+              <PanelLeftClose
+                className="h-8 w-8 md:h-10 md:w-10 text-text-100"
+                strokeWidth={1.5}
+              />
+            </button>
+          </SheetClose>
+        )}
       </div>
 
-      <Separator className="bg-border-800" />
+      {!isMobileVariant && <Separator className="bg-border-800" />}
 
       {/*
       📋 MENU NAVIGATION LENGKAP - RENDER SEMUA MENU SESUAI ROLE:
@@ -267,6 +338,7 @@ export function DashboardSidebar({
             item={item}
             collapsed={effectiveCollapsed}
             isActive={item.isActive || false}
+            onNavigate={onNavigate}
           />
         ))}
       </nav>
