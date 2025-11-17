@@ -302,7 +302,7 @@ export function DashboardSidebar({
             >
               <PanelLeftClose
                 className="h-8 w-8 md:h-10 md:w-10 text-text-100"
-                strokeWidth={1.5}
+                strokeWidth={1}
               />
             </button>
           </SheetClose>

@@ -178,11 +178,11 @@ export const MobileMenu = ({
           variant="ghost"
           size="icon"
           aria-label="Buka menu navigasi"
-          className="lg:hidden h-11 w-11 md:h-20 md:px-4 text-text-50 hover:bg-transparent hover:text-brand-100"
+          className="lg:hidden h-10 w-10 md:h-20 md:px-4 text-text-50 hover:bg-transparent hover:text-brand-100"
         >
           <PanelLeftClose
             className="h-8 w-8 md:h-10 md:w-10 text-text-100"
-            strokeWidth={1.5}
+            strokeWidth={1}
           />
         </Button>
       </SheetTrigger>
@@ -200,7 +200,7 @@ export const MobileMenu = ({
               >
                 <PanelLeftOpen
                   className="h-8 w-8 md:h-10 md:w-10 text-text-100"
-                  strokeWidth={1.5}
+                  strokeWidth={1}
                 />
               </button>
             </SheetClose>
@@ -214,7 +214,7 @@ export const MobileMenu = ({
                     <Button
                       asChild
                       variant="ghost"
-                      className="w-full justify-between px-3 py-3 min-h-[44px] md:min-h-[60px] text-left text-lg md:text-2xl font-manrope font-thin uppercase tracking-wide text-text-50 hover:bg-hover-overlay-700 hover:text-text-50 focus:bg-hover-overlay-700 focus:text-text-50"
+                      className="w-full justify-between px-3 py-3 min-h-[44px] md:min-h-[60px] text-left text-md md:text-xl font-manrope font-thin uppercase tracking-wide text-text-50 hover:bg-hover-overlay-700 hover:text-text-50 focus:bg-hover-overlay-700 focus:text-text-50"
                     >
                       <Link
                         href={item.href}
@@ -233,7 +233,7 @@ export const MobileMenu = ({
               {!profile ? (
                 <Button
                   asChild
-                  className="w-full font-button font-medium text-lg md:text-2xl bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide rounded-lg transition-all duration-500 ease-out mb-4 min-h-[44px] md:min-h-[60px]"
+                  className="w-full font-button font-medium text-md md:text-xl bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide rounded-lg transition-all duration-500 ease-out mb-4 min-h-[44px] md:min-h-[60px]"
                 >
                   <Link href="/auth">Login</Link>
                 </Button>
@@ -243,7 +243,7 @@ export const MobileMenu = ({
                     <Button
                       ref={userTriggerRef}
                       style={userSyncedWidth ? { width: `${userSyncedWidth}px` } : undefined}
-                      className="group w-full min-h-[44px] md:min-h-[60px] justify-between font-button font-medium text-lg md:text-2xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active mb-4 overflow-hidden transition-all duration-200"
+                      className="group w-full min-h-[44px] md:min-h-[60px] justify-between font-button font-medium text-md md:text-xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active mb-4 overflow-hidden transition-all duration-200"
                     >
                       <span className="flex items-center gap-2 min-w-0">
                         <Avatar className="h-6 w-6 md:h-8 md:w-8">
@@ -265,7 +265,7 @@ export const MobileMenu = ({
                             </svg>
                           </AvatarFallback>
                         </Avatar>
-                        <span className="text-lg md:text-2xl text-text-50">
+                        <span className="text-md md:text-xl text-text-50">
                           {profile.firstName}
                         </span>
                       </span>
@@ -288,7 +288,7 @@ export const MobileMenu = ({
                         onClick={() => setOpen(false)}
                       >
                         <LayoutDashboard className="h-5 w-5 md:h-6 md:w-6" />
-                        <span className="font-button font-medium text-lg md:text-2xl">
+                        <span className="font-button font-medium text-md md:text-xl">
                           Dashboard
                         </span>
                       </Link>
@@ -311,7 +311,7 @@ export const MobileMenu = ({
                         ) : (
                           <LogOut className="h-5 w-5 md:h-6 md:w-6" />
                         )}
-                        <span className="font-button font-medium text-lg md:text-2xl">
+                        <span className="font-button font-medium text-md md:text-xl">
                           {loggingOut ? "Keluar..." : "Logout"}
                         </span>
                       </button>
