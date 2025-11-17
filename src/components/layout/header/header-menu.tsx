@@ -377,11 +377,9 @@ export const HeaderMenu = ({
     <nav className="flex items-center gap-2 w-full">
       {/* Desktop: center main menu, auth at right */}
       <div className="hidden lg:flex items-center w-full relative">
-        {/* Full-width overlay to center menu against entire page width */}
-        <div className="pointer-events-none fixed left-0 right-0 top-0 h-16 z-[1] flex items-center justify-center">
-          <div className="pointer-events-auto flex items-center">
-            <DesktopMenu items={items} />
-          </div>
+        {/* Desktop menu mengikuti header (tidak fixed) */}
+        <div className="flex flex-1 items-center justify-center">
+          <DesktopMenu items={items} />
         </div>
         <div className="ml-auto flex items-center mt-3">
           {loading ? (
