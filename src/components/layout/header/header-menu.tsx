@@ -375,12 +375,8 @@ export const HeaderMenu = ({
 
   return (
     <nav className="flex items-center gap-2 w-full">
-      {/* Desktop: center main menu, auth at right */}
-      <div className="hidden lg:flex items-center w-full relative">
-        {/* Desktop menu mengikuti header (tidak fixed) */}
-        <div className="flex flex-1 items-center justify-center">
-          <DesktopMenu items={items} />
-        </div>
+      {/* Desktop: hanya area profil di sisi kanan, navigasi utama di-handle di Header */}
+      <div className="hidden lg:flex items-center w-full">
         <div className="ml-auto flex items-center mt-3">
           {loading ? (
             <div className="flex items-center gap-3 px-3 py-3">

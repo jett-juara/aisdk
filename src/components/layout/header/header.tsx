@@ -16,7 +16,7 @@ function debounce<T extends (...args: any[]) => any>(
 import { useRouter } from "next/navigation";
 // dynamic import not needed here; handled inside HeaderMenu
 import { HeaderLogo } from "./logo";
-import { HeaderMenu } from "./header-menu";
+import { HeaderMenu, DesktopMenu } from "./header-menu";
 import { HEADER_MENU_ITEMS } from "./config";
 import type { HeaderUserProfile } from "./header-menu";
 import { useToast } from "@/components/hooks/use-toast";
@@ -159,7 +159,14 @@ export const Header = () => {
 
   return (
     <header className="relative bg-transparent">
-      <div className="mx-auto flex h-20 md:h-20 lg:h-20 items-center justify-between px-4 md:px-4 lg:px-4 w-full">
+      <div className="relative mx-auto flex h-20 md:h-20 lg:h-20 items-center justify-between px-4 md:px-4 lg:px-4 w-full">
+        {/* Navigasi utama: center horizontally terhadap seluruh header */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-full hidden lg:flex items-center justify-center">
+          <div className="pointer-events-auto flex items-center">
+            <DesktopMenu items={HEADER_MENU_ITEMS} />
+          </div>
+        </div>
+
         <HeaderLogo size="sm" className="md:hidden" />
         <HeaderLogo size="md" className="hidden md:flex lg:hidden" />
         <HeaderLogo size="lg" className="hidden lg:flex" />
