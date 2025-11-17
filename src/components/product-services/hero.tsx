@@ -2,7 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-interface Hero47Props {
+interface ProductServicesHeroProps {
   heading?: string;
   subheading?: string;
   description?: string;
@@ -22,7 +22,7 @@ interface Hero47Props {
   };
 }
 
-const Hero47 = ({
+const ProductServicesHero = ({
   heading = "Epic Blocks",
   subheading = " built with shadcn/ui & Tailwind",
   description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
@@ -40,9 +40,9 @@ const Hero47 = ({
     src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-7-tall.svg",
     alt: "Placeholder",
   },
-}: Hero47Props) => {
+}: ProductServicesHeroProps) => {
   return (
-    <section className="bg-background py-20 lg:py-32">
+    <section className="bg-background min-h-[calc(100dvh-5rem)] flex items-center">
       <div className="container flex flex-col items-center gap-10 lg:my-0 lg:flex-row">
         <div className="flex flex-col gap-7 lg:w-2/3">
           <h2 className="text-foreground text-5xl font-semibold md:text-5xl lg:text-8xl">
@@ -63,25 +63,18 @@ const Hero47 = ({
                 </span>
               </a>
             </Button>
-            <Button asChild variant="link" className="underline">
-              <a href={buttons.secondary?.url}>{buttons.secondary?.text}</a>
-            </Button>
           </div>
         </div>
-        <div className="relative z-10">
-          <div className="left-1/2! h-[92%]! w-[69%]! absolute top-2.5 -translate-x-[52%] overflow-hidden rounded-[35px]">
-            <img
-              src={image.src}
-              alt={image.alt}
-              className="size-full object-cover object-[50%_0%]"
-            />
-          </div>
-          <img
-            className="relative z-10"
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/mockups/phone-2.png"
-            width={450}
-            height={889}
-            alt="iphone"
+        <div className="relative z-10 flex items-center justify-center">
+          <div
+            aria-hidden="true"
+            className="rounded-[35px] w-full"
+            style={{
+              height: 'min(80vh, calc(100dvh - 5rem))',
+              aspectRatio: '450 / 889',
+              backgroundColor: 'transparent',
+              border: '1px solid var(--color-border-700)'
+            }}
           />
         </div>
       </div>
@@ -89,4 +82,4 @@ const Hero47 = ({
   );
 };
 
-export { Hero47 };
+export { ProductServicesHero };
