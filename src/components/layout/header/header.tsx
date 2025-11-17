@@ -159,7 +159,7 @@ export const Header = () => {
 
   return (
     <header className="relative bg-transparent">
-      <div className="mx-auto flex h-20 md:h-18 lg:h-20 items-center justify-between px-4 md:px-6 lg:px-4 w-full">
+      <div className="mx-auto flex h-20 md:h-20 lg:h-20 items-center justify-between px-4 md:px-4 lg:px-4 w-full">
         <HeaderLogo size="sm" className="md:hidden" />
         <HeaderLogo size="md" className="hidden md:flex lg:hidden" />
         <HeaderLogo size="lg" className="hidden lg:flex" />

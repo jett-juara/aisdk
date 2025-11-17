@@ -182,18 +182,18 @@ export const MobileMenu = ({
             </div>
 
             {/* Auth actions for mobile inside sheet footer */}
-            <div className="border-t border-border-800 px-4 py-3">
+            <div className="px-4 py-3">
               {!profile ? (
                 <Button
                   asChild
-                  className="w-full font-button font-medium text-lg md:text-2xl bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide rounded-lg transition-all duration-500 ease-out h-10 md:h-12 mb-4 mt-4"
+                  className="w-full font-button font-medium text-lg md:text-2xl bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide rounded-lg transition-all duration-500 ease-out mb-4 min-h-[44px] md:min-h-[60px]"
                 >
                   <Link href="/auth">Login</Link>
                 </Button>
               ) : (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button className="group w-full h-11 justify-between font-button font-medium text-lg md:text-2xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active md:min-h-[60px]">
+                    <Button className="group w-full min-h-[44px] md:min-h-[60px] justify-between font-button font-medium text-lg md:text-2xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active mb-4">
                       <span className="flex items-center gap-2">
                         <Avatar className="h-6 w-6 md:h-8 md:w-8">
                           <AvatarFallback className="text-text-50 font-bold bg-brand-50">
@@ -238,13 +238,13 @@ export const MobileMenu = ({
                         </span>
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-border-800" />
+                    <DropdownMenuSeparator className="bg-border-800 my-0 mx-1" />
                     <DropdownMenuItem
                       asChild
-                      className="cursor-pointer text-text-50 hover:bg-hover-overlay-700 hover:text-text-50 focus:bg-hover-overlay-700 focus:text-text-50"
+                      className="min-h-[44px] md:min-h-[60px] cursor-pointer text-text-50 hover:bg-hover-overlay-700 hover:text-text-50 focus:bg-hover-overlay-700 focus:text-text-50"
                     >
                       <button
-                        className="flex items-center gap-3 w-full px-3 py-2 min-h-[44px] md:min-h-[60px] text-left"
+                        className="flex items-center gap-3 w-full px-3 py-2 text-left"
                         onClick={async (event) => {
                           event.preventDefault();
                           if (loggingOut) return;
@@ -342,10 +342,10 @@ export const HeaderMenu = ({
                   style={
                     expandedWidth ? { width: `${expandedWidth}px` } : undefined
                   }
-                  className="group h-11 font-button font-medium text-sm px-4 overflow-hidden transition-all duration-200 font-semibold tracking-wide bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none"
+                  className="group h-11 justify-between font-button font-medium text-sm px-0 has-[>svg]:px-0 overflow-hidden transition-all duration-200 font-semibold tracking-wide bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none"
                 >
-                  <div className="flex items-center gap-2 min-w-0">
-                    <Avatar className="h-8 w-8">
+                  <div className="flex items-center gap-3 min-w-0 pl-4">
+                    <Avatar className="h-6 w-6">
                       <AvatarFallback className="text-text-50 font-bold bg-brand-50">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -357,18 +357,18 @@ export const HeaderMenu = ({
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="lucide lucide-user-icon lucide-user h-5 w-5 text-[var(--color-button-primary)]"
+                          className="lucide lucide-user-icon lucide-user h-6 w-6 text-[var(--color-button-primary)]"
                         >
                           <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                           <circle cx="12" cy="7" r="4" />
                         </svg>
                       </AvatarFallback>
                     </Avatar>
-                    <span className="text-sm text-text-50 truncate max-w-[10rem]">
+                    <span className="font-button font-medium text-sm text-text-50 truncate max-w-[10rem]">
                       {profile.firstName}
                     </span>
                   </div>
-                  <ChevronDown className="h-4 w-4 text-text-50 flex-shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                  <ChevronDown className="mr-4 h-4 w-4 text-text-50 flex-shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -378,21 +378,21 @@ export const HeaderMenu = ({
               >
                 <DropdownMenuItem
                   asChild
-                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-3 py-2 min-h-[44px]"
+                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-4 py-2 min-h-[44px]"
                 >
                   <Link
                     href="/dashboard"
                     className="flex items-center gap-3 w-full"
                   >
-                    <LayoutDashboard className="h-4 w-4" />
-                    <span className="font-button font-medium text-sm">
+                    <LayoutDashboard className="h-6 w-6" />
+                    <span className="font-button font-medium text-sm text-text-50">
                       Dashboard
                     </span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-border-800" />
                 <DropdownMenuItem
-                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-3 py-2 min-h-[44px]"
+                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-4 py-2 min-h-[44px]"
                   onSelect={async (event) => {
                     event.preventDefault();
                     if (loggingOut) return;
@@ -400,11 +400,11 @@ export const HeaderMenu = ({
                   }}
                 >
                   {loggingOut ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 className="h-6 w-6 animate-spin" />
                   ) : (
-                    <LogOut className="h-4 w-4" />
+                    <LogOut className="h-6 w-6" />
                   )}
-                  <span className="font-button font-medium text-sm">
+                  <span className="font-button font-medium text-sm text-text-50">
                     {loggingOut ? "Keluar..." : "Logout"}
                   </span>
                 </DropdownMenuItem>

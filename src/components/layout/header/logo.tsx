@@ -9,15 +9,15 @@ interface HeaderLogoProps {
 
 const SIZE_CLASSES = {
   sm: {
-    container: "h-6 w-6 rounded-sm",
-    icon: "h-4 w-4",
-    text: "text-md font-bold uppercase text-text-50",
+    container: "h-10 w-10 rounded-sm",
+    icon: "h-6 w-6",
+    text: "text-xl font-bold uppercase text-text-50",
     gap: "gap-2",
   },
   md: {
-    container: "h-7 w-7 rounded-sm",
+    container: "h-10 w-10 rounded-sm",
     icon: "h-6 w-6",
-    text: "text-lg font-bold uppercase text-text-50",
+    text: "text-xl font-bold uppercase text-text-50",
     gap: "gap-2",
   },
   lg: {

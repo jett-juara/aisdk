@@ -69,7 +69,31 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 /**
- * Logo component untuk sidebar - modified dari header logo
+ * Logo size classes - sama persis dengan header/logo.tsx
+ */
+const SIZE_CLASSES = {
+  sm: {
+    container: "h-10 w-10 rounded-sm",
+    icon: "h-6 w-6",
+    text: "text-xl font-bold uppercase text-text-50",
+    gap: "gap-2",
+  },
+  md: {
+    container: "h-10 w-10 rounded-sm",
+    icon: "h-6 w-6",
+    text: "text-xl font-bold uppercase text-text-50",
+    gap: "gap-2",
+  },
+  lg: {
+    container: "h-10 w-10 rounded-sm",
+    icon: "h-6 w-6",
+    text: "text-xl font-bold uppercase lg:text-2xl text-text-50 lg:text-text-50",
+    gap: "gap-3",
+  },
+} as const;
+
+/**
+ * Logo component untuk sidebar - menggunakan pattern yang sama dengan header/logo.tsx
  */
 function SidebarLogo({
   collapsed,
@@ -81,6 +105,10 @@ function SidebarLogo({
   const [isMounted, setIsMounted] = React.useState(false);
   const isMobileVariant = variant === "mobile";
 
+  // Determine size berdasarkan variant - sama seperti header.tsx pattern
+  const size = isMobileVariant ? "sm" : collapsed ? "sm" : "lg";
+  const sizeClasses = SIZE_CLASSES[size];
+
   React.useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -88,18 +116,12 @@ function SidebarLogo({
   // Return consistent placeholder during SSR to prevent hydration mismatch
   if (!isMounted) {
     return (
-      <div className="flex items-center transition-all duration-200 ease-in-out">
+      <div className={`flex items-center ${sizeClasses.gap} transition-all duration-200 ease-in-out`}>
         <div
-          className={cn(
-            "flex-shrink-0 flex items-center justify-center bg-button-primary rounded-sm transition-all duration-200",
-            isMobileVariant ? "h-8 w-8" : "h-10 w-10",
-          )}
+          className={`flex flex-shrink-0 items-center justify-center ${sizeClasses.container} bg-button-primary transition-all duration-200 transform-gpu`}
         >
           <svg
-            className={cn(
-              "text-text-50",
-              isMobileVariant ? "h-5 w-5" : "h-6 w-6",
-            )}
+            className={`${sizeClasses.icon} text-text-50 transition-all duration-200 transform-gpu`}
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -110,21 +132,9 @@ function SidebarLogo({
             />
           </svg>
         </div>
-        <div
-          className={cn(
-            "flex items-center ml-3",
-            isMobileVariant ? "h-8" : "h-10",
-          )}
-        >
-          <span
-            className={cn(
-              "font-bold uppercase text-text-50 font-brand",
-              isMobileVariant ? "text-base" : "text-2xl",
-            )}
-          >
-            {sidebarConfig.branding.name}
-          </span>
-        </div>
+        <span className={`font-brand ${sizeClasses.text} text-text-50 transition-all duration-200 transform-gpu`}>
+          {sidebarConfig.branding.name}
+        </span>
       </div>
     );
   }
@@ -132,20 +142,14 @@ function SidebarLogo({
   return (
     <Link
       href="/"
-      className="flex w-full items-center gap-3 transition-colors duration-200 ease-in-out"
+      className={`flex w-full items-center ${sizeClasses.gap} transition-all duration-200 ease-in-out transform-gpu motion-reduce:transition-none`}
     >
-      {/* Logo Icon - gunakan SVG yang sama dengan HeaderLogo */}
+      {/* Logo Icon - gunakan SIZE_CLASSES yang sama dengan HeaderLogo */}
       <div
-        className={cn(
-          "flex-shrink-0 flex items-center justify-center bg-button-primary rounded-sm transition-colors duration-200",
-          isMobileVariant ? "h-8 w-8" : "h-10 w-10",
-        )}
+        className={`flex flex-shrink-0 items-center justify-center ${sizeClasses.container} bg-button-primary transition-all duration-200 transform-gpu`}
       >
         <svg
-          className={cn(
-            "text-text-50",
-            isMobileVariant ? "h-5 w-5" : "h-6 w-6",
-          )}
+          className={`${sizeClasses.icon} text-text-50 transition-all duration-200 transform-gpu`}
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -160,18 +164,13 @@ function SidebarLogo({
       {/* Logo Text - selalu dirender, center terhadap logo, di-fade saat collapsed */}
       <div
         className={cn(
-          "flex items-center overflow-hidden transition-opacity duration-200 ease-in-out",
+          "flex items-center overflow-hidden transition-all duration-200 ease-in-out transform-gpu",
           collapsed
             ? "opacity-0 pointer-events-none select-none"
             : "opacity-100",
         )}
       >
-        <span
-          className={cn(
-            "font-bold uppercase text-text-50 font-brand",
-            isMobileVariant ? "text-base" : "text-2xl",
-          )}
-        >
+        <span className={`font-brand ${sizeClasses.text} transition-all duration-200 transform-gpu`}>
           {sidebarConfig.branding.name}
         </span>
       </div>

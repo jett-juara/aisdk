@@ -75,12 +75,12 @@ function MobileMenuToggle({
       {open ? (
         <PanelLeftClose
           className="h-8 w-8 md:h-10 md:w-10 text-text-100"
-          strokeWidth={1.5}
+          strokeWidth={1}
         />
       ) : (
         <PanelLeftOpen
-          className="h-8 w-8 md:h-10 md:w-10 text-text-100"
-          strokeWidth={1.5}
+          className="h-8 w-8 md:h-10 md:w-10 md:h-10 lg:w-10 text-text-100"
+          strokeWidth={1}
         />
       )}
     </Button>
@@ -100,9 +100,10 @@ function UserProfileDropdown({
   loading?: boolean;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const triggerRef = React.useRef<HTMLButtonElement>(null);
-  const contentRef = React.useRef<HTMLDivElement>(null);
-  const [expandedWidth, setExpandedWidth] = useState<number | null>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [baseWidth, setBaseWidth] = useState<number | null>(null);
+  const [syncedWidth, setSyncedWidth] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
 
   // Mount gate untuk mencegah hydration mismatch dengan Radix DropdownMenu
@@ -111,23 +112,33 @@ function UserProfileDropdown({
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  // Sync dropdown width saat terbuka
+  // Hitung lebar dasar tombol setelah mount (saat dropdown tertutup)
   useEffect(() => {
-    let raf: number;
-    if (!menuOpen) {
-      raf = requestAnimationFrame(() => {
-        setExpandedWidth(null);
-      });
-    } else {
-      raf = requestAnimationFrame(() => {
-        const width = contentRef.current?.offsetWidth;
-        if (width && width > 0) {
-          setExpandedWidth(width);
-        }
-      });
-    }
+    if (!mounted) return;
+    const raf = requestAnimationFrame(() => {
+      const width = triggerRef.current?.offsetWidth ?? 0;
+      if (width > 0) {
+        setBaseWidth((prev) => prev ?? width);
+        setSyncedWidth((prev) => prev ?? width);
+      }
+    });
     return () => cancelAnimationFrame(raf);
-  }, [menuOpen]);
+  }, [mounted]);
+
+  // Saat menu dibuka, sinkronkan lebar tombol dan konten ke nilai maksimum
+  useEffect(() => {
+    if (!menuOpen) return;
+    const raf = requestAnimationFrame(() => {
+      const triggerWidth = triggerRef.current?.offsetWidth ?? 0;
+      const contentWidth = contentRef.current?.offsetWidth ?? 0;
+      const base = baseWidth ?? triggerWidth;
+      const width = Math.max(base, triggerWidth, contentWidth);
+      if (width > 0) {
+        setSyncedWidth(width);
+      }
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [menuOpen, baseWidth]);
 
   if (!user) return null;
 
@@ -148,11 +159,11 @@ function UserProfileDropdown({
       <DropdownMenuTrigger asChild>
         <Button
           ref={triggerRef}
-          style={expandedWidth ? { width: `${expandedWidth}px` } : undefined}
-          className="group h-11 justify-between font-button font-medium text-sm px-4 overflow-hidden transition-all duration-200 font-semibold tracking-wide bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none"
+          style={syncedWidth ? { width: `${syncedWidth}px` } : undefined}
+          className="group h-10 md:h-12 lg:h-10 justify-between font-button font-medium text-sm px-4 overflow-hidden transition-colors duration-200 font-semibold tracking-wide bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none"
         >
           <div className="flex items-center gap-2 min-w-0">
-            <Avatar className="h-8 w-8">
+            <Avatar className="h-6 w-6 md:h-8 md:w-8 lg:h-6 lg:w-6">
               <AvatarFallback className="text-text-50 font-bold bg-brand-50">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -164,29 +175,30 @@ function UserProfileDropdown({
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="lucide lucide-user-icon lucide-user h-5 w-5 text-[var(--color-button-primary)]"
+                  className="lucide lucide-user-icon lucide-user h-5 w-5 md:h-5 md:w-5 text-[var(--color-button-primary)]"
                 >
                   <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                   <circle cx="12" cy="7" r="4" />
                 </svg>
               </AvatarFallback>
             </Avatar>
-            <span className="text-sm text-text-50 truncate max-w-[10rem]">
+            <span className="text-sm md:text-xl lg:text-sm text-text-50">
               {firstName}
             </span>
           </div>
-          <ChevronDown className="h-4 w-4 text-text-50 flex-shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+          <ChevronDown className="h-5 w-5 md:h-6 md:w-6 lg:h-5 lg:w-5 text-text-50 flex-shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         ref={contentRef}
         align="end"
+        style={syncedWidth ? { width: `${syncedWidth}px` } : undefined}
         className="w-auto border-border-900 bg-background-900 p-0"
       >
-        <DropdownMenuSeparator className="bg-border-800" />
+      
 
         <DropdownMenuItem
-          className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-3 py-2 min-h-[44px]"
+          className="cursor-pointer text-text-50 lg:focus:text-brand-100 h-12 lg:h-10 lg:hover:text-brand-100 lg:hover:bg-transparent lg:focus:bg-transparent flex items-center gap-3 w-full px-3 py-2 min-h-[40px] focus:text-text-50 hover:bg-button-primary-hover"
           onSelect={async (event) => {
             event.preventDefault();
             if (loading) return;
@@ -194,11 +206,11 @@ function UserProfileDropdown({
           }}
         >
           {loading ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <Loader2 className="h-5 w-5 md:h-6 md:w-6 lg:h-5 lg:w-5 animate-spin" />
           ) : (
-            <LogOut className="h-4 w-4" />
+            <LogOut className="h-5 w-5 md:h-6 md:w-6 lg:h-5 lg:w-5 " />
           )}
-          <span className="font-button font-medium text-sm">
+          <span className="font-button font-medium text-sm md:text-xl lg:text-sm">
             {loading ? "Keluar..." : "Logout"}
           </span>
         </DropdownMenuItem>
@@ -237,9 +249,10 @@ export function DashboardHeader({
           className="hidden lg:flex h-10 w-10"
         >
           {sidebarCollapsed ? (
-            <PanelLeftOpen className="h-5 w-5 text-text-50" />
+            <PanelLeftOpen className="h-8 w-8 text-text-50"
+            strokeWidth={1} />
           ) : (
-            <PanelLeftClose className="h-5 w-5 text-text-50" />
+            <PanelLeftClose className="h-8 w-8 text-text-50" strokeWidth={1} />
           )}
         </Button>
 
