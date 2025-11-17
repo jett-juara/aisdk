@@ -105,6 +105,8 @@ function UserProfileDropdown({
   const [baseWidth, setBaseWidth] = useState<number | null>(null);
   const [syncedWidth, setSyncedWidth] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
+  const resizeObserverRef = useRef<ResizeObserver | null>(null);
+  const EXPANSION_DELTA = 24;
 
   // Mount gate untuk mencegah hydration mismatch dengan Radix DropdownMenu
   useEffect(() => {
@@ -132,12 +134,45 @@ function UserProfileDropdown({
       const triggerWidth = triggerRef.current?.offsetWidth ?? 0;
       const contentWidth = contentRef.current?.offsetWidth ?? 0;
       const base = baseWidth ?? triggerWidth;
-      const width = Math.max(base, triggerWidth, contentWidth);
+      const width = contentWidth > base
+        ? Math.max(contentWidth, triggerWidth)
+        : base + EXPANSION_DELTA;
       if (width > 0) {
         setSyncedWidth(width);
       }
     });
     return () => cancelAnimationFrame(raf);
+  }, [menuOpen, baseWidth]);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      if (resizeObserverRef.current) {
+        resizeObserverRef.current.disconnect();
+        resizeObserverRef.current = null;
+      }
+      return;
+    }
+    const el = contentRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => {
+      const rect = entries[0]?.contentRect;
+      const currentWidth = rect?.width ?? el.offsetWidth;
+      const base = baseWidth ?? (triggerRef.current?.offsetWidth ?? 0);
+      const width = currentWidth > base ? currentWidth : base + EXPANSION_DELTA;
+      if (width > 0) setSyncedWidth(width);
+    });
+    resizeObserverRef.current = ro;
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+      resizeObserverRef.current = null;
+    };
+  }, [menuOpen, baseWidth]);
+
+  useEffect(() => {
+    if (menuOpen) return;
+    const w = baseWidth ?? (triggerRef.current?.offsetWidth ?? 0);
+    if (w > 0) setSyncedWidth(w);
   }, [menuOpen, baseWidth]);
 
   if (!user) return null;

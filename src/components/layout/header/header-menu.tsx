@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import type { HeaderMenuItem } from "./config";
 import { cn } from "@/lib/utils";
@@ -104,6 +104,53 @@ export const MobileMenu = ({
 }) => {
   const [open, setOpen] = useState(false);
 
+  // Width sync logic dari dashboard header untuk konsistensi behavior
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userTriggerRef = useRef<HTMLButtonElement>(null);
+  const userContentRef = useRef<HTMLDivElement>(null);
+  const [userBaseWidth, setUserBaseWidth] = useState<number | null>(null);
+  const [userSyncedWidth, setUserSyncedWidth] = useState<number | null>(null);
+  const [userMounted, setUserMounted] = useState(false);
+
+  // Mount gate untuk mencegah hydration mismatch
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => setUserMounted(true));
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  // Hitung lebar dasar tombol setelah mount (saat dropdown tertutup)
+  useEffect(() => {
+    if (!userMounted) return;
+    const raf = requestAnimationFrame(() => {
+      const width = userTriggerRef.current?.offsetWidth ?? 0;
+      if (width > 0) {
+        setUserBaseWidth((prev) => prev ?? width);
+        setUserSyncedWidth((prev) => prev ?? width);
+      }
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [userMounted]);
+
+  // Saat menu dibuka/ditutup, sinkronkan lebar tombol dan konten (desktop behavior)
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => {
+      if (userMenuOpen) {
+        // Menu dibuka: expand ke lebar maksimum (desktop pattern)
+        const triggerWidth = userTriggerRef.current?.offsetWidth ?? 0;
+        const contentWidth = userContentRef.current?.offsetWidth ?? 0;
+        const base = userBaseWidth ?? triggerWidth;
+        const width = Math.max(base, triggerWidth, contentWidth);
+        if (width > 0) {
+          setUserSyncedWidth(width);
+        }
+      } else {
+        // Menu ditutup: kembali ke ukuran dasar
+        setUserSyncedWidth(userBaseWidth);
+      }
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [userMenuOpen, userBaseWidth]);
+
   const emitAboutReset = useCallback((href: string) => {
     if (href === "/about" && typeof window !== "undefined") {
       window.dispatchEvent(new Event(ABOUT_RESET_EVENT));
@@ -191,10 +238,14 @@ export const MobileMenu = ({
                   <Link href="/auth">Login</Link>
                 </Button>
               ) : (
-                <DropdownMenu>
+                <DropdownMenu onOpenChange={setUserMenuOpen}>
                   <DropdownMenuTrigger asChild>
-                    <Button className="group w-full min-h-[44px] md:min-h-[60px] justify-between font-button font-medium text-lg md:text-2xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active mb-4">
-                      <span className="flex items-center gap-2">
+                    <Button
+                      ref={userTriggerRef}
+                      style={userSyncedWidth ? { width: `${userSyncedWidth}px` } : undefined}
+                      className="group w-full min-h-[44px] md:min-h-[60px] justify-between font-button font-medium text-lg md:text-2xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active mb-4 overflow-hidden transition-all duration-200"
+                    >
+                      <span className="flex items-center gap-2 min-w-0">
                         <Avatar className="h-6 w-6 md:h-8 md:w-8">
                           <AvatarFallback className="text-text-50 font-bold bg-brand-50">
                             <svg
@@ -214,14 +265,18 @@ export const MobileMenu = ({
                             </svg>
                           </AvatarFallback>
                         </Avatar>
-                        {profile.firstName}
+                        <span className="text-lg md:text-2xl text-text-50">
+                          {profile.firstName}
+                        </span>
                       </span>
-                      <ChevronDown className="h-5 w-5 md:h-6 md:w-6 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                      <ChevronDown className="h-5 w-5 md:h-6 md:w-6 text-text-50 flex-shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
+                    ref={userContentRef}
                     align="end"
-                    className="w-[var(--radix-dropdown-menu-trigger-width)] bg-background-900 border-border-900 p-0"
+                    style={userSyncedWidth ? { width: `${userSyncedWidth}px` } : undefined}
+                    className="w-auto border-border-900 bg-background-900 p-0"
                   >
                     <DropdownMenuItem
                       asChild
