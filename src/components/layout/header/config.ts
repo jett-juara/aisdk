@@ -10,7 +10,6 @@ export interface HeaderMenuItem {
 
 export const HEADER_MENU_ITEMS: HeaderMenuItem[] = [
   { label: "About", href: "/about" },
-  { label: "Products", href: "#product" },
-  { label: "Services", href: "#services" },
+  { label: "Product & Services", href: "/product-services" },
   { label: "Collaboration", href: "#contact" },
 ];
