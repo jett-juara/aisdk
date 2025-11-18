@@ -1,7 +1,7 @@
 "use client"
 
-import CompaniesGrid from "@/components/about-page/companies-grid";
+import { Hero } from "@/components/about";
 
 export default function AboutPage() {
-  return <CompaniesGrid />
+  return <Hero />
 }

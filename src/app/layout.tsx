@@ -11,7 +11,7 @@ import {
   Instrument_Sans,
 } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
-import { ThemeProvider } from "@/components/about-page/theme-provider";
+import { ThemeProvider } from "@/components/about/theme-provider";
 import { ThemePreload } from "@/components/theme-preload";
 
 import "./globals.css";

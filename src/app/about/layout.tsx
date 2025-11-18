@@ -2,7 +2,7 @@
 
 import { Header } from "@/components/layout/header"
 import Footer from "@/components/layout/footer"
-import { ThemeProvider } from "@/components/about-page/theme-provider"
+import { ThemeProvider } from "@/components/about"
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {
   return (

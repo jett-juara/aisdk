@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import CompanyCard from "@/components/about-page/company-card"
+import type { LucideIcon } from "lucide-react"
 import { Package, Cog } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Trophy, Award, Lightbulb, HeartHandshake, Users, Leaf, ArrowRight } from "lucide-react"
@@ -55,13 +55,24 @@ export default function ServicesPage() {
                   className={`transition-all duration-500 ease-out aspect-square lg:aspect-[32/9] transform-gpu ${cardScaleClass} ${cardHighlightClass}`}
                   style={{ transitionDelay: cascadeActive ? (isSelected ? "80ms" : "0ms") : "0ms" }}
                 >
-                  <CompanyCard
-                    name={item.name}
-                    description={item.description}
-                    icon={item.icon}
-                    showDescription={false}
-                    onSelect={() => router.push(`/product-services/${item.id}`)}
-                  />
+              {(() => {
+                const Icon = item.icon as LucideIcon
+                return (
+                  <div
+                    className="group relative rounded-[var(--radius-none)] overflow-hidden cursor-pointer border border-button-border transition-all duration-300 h-full hover:brightness-110 transform-gpu shadow-none hover:-translate-y-[6px] hover:shadow-[0_20px_45px_rgba(0,0,0,0.45)]"
+                    onClick={() => router.push(`/product-services/${item.id}`)}
+                  >
+                    <div className="absolute inset-0 auth-bg-hover opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
+                    <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+                      <div className="flex items-center gap-2 justify-start">
+                        <Icon className="h-9 w-9 text-auth-text-primary drop-shadow-[0_8px_16px_rgba(0,0,0,0.45)]" aria-hidden="true" />
+                        <span className="sr-only">{item.id}</span>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })()}
                 </div>
               )
             })}
@@ -113,12 +124,12 @@ export default function ServicesPage() {
                     })}
                   </ul>
                 </div>
-              </div>
-              <div className="order-2 lg:basis-[40%] flex flex-col w-full cursor-pointer" onClick={() => router.push('/product-services')}>
-                <div className={`w-full h-full min-h-[200px] rounded-[var(--radius-none)] border border-dashed border-white/20 bg-black/20 transition-all duration-700 ease-out ${detailStage === "content" ? "opacity-100 blur-0" : "opacity-60 blur-[3px]"}`} aria-hidden="true" />
-              </div>
-            </div>
-          </div>
+               </div>
+               <div className="order-2 lg:basis-[40%] flex flex-col w-full cursor-pointer" onClick={() => router.push('/product-services')}>
+                 <div className={`w-full h-full min-h-[200px] rounded-[var(--radius-none)] border border-dashed border-white/20 bg-black/20 transition-all duration-700 ease-out ${detailStage === "content" ? "opacity-100 blur-0" : "opacity-60 blur-[3px]"}`} aria-hidden="true" />
+               </div>
+             </div>
+           </div>
         </div>
     )
 }

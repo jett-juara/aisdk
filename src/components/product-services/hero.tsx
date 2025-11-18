@@ -69,7 +69,7 @@ const ProductServicesHero = ({
     return "scale-90 opacity-80 shadow-none"
   }
   return (
-    <section className="bg-background-900 min-h-full h-full w-full flex items-center">
+    <section className="bg-background-900 flex-1 min-h-0 w-full flex items-center">
       <div className="container flex flex-col items-center gap-10 lg:my-0 lg:flex-row">
         <div className="left-container w-full lg:w-3/5 flex flex-col gap-7">
           <h1 className={`font-heading font-semibold text-3xl md:text-5xl lg:text-7xl tracking-tighter text-text-200 transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}>

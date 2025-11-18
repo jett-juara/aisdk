@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import CompanyCard from "@/components/about-page/company-card"
+import type { LucideIcon } from "lucide-react"
 import { CalendarCheck, UsersRound, Cpu, ChartBarBig } from "lucide-react"
 
 export default function AboutEventsPage() {
@@ -16,7 +16,7 @@ export default function AboutEventsPage() {
   }, [])
 
   const items = [
-    { id: 1, slug: "events", name: "Events", description: "Premium event experiences", icon: CalendarCheck },
+    { id: 1, slug: "event", name: "Event", description: "Premium event experiences", icon: CalendarCheck },
     { id: 2, slug: "community", name: "Community", description: "Community-driven innovation", icon: UsersRound },
     { id: 3, slug: "tech", name: "Tech", description: "Next-generation experiences", icon: Cpu },
     { id: 4, slug: "analytics", name: "Analytics", description: "Data-driven insights", icon: ChartBarBig },
@@ -46,31 +46,31 @@ export default function AboutEventsPage() {
               className={`transition-all duration-500 ease-out aspect-square lg:aspect-[32/9] transform-gpu ${cardScaleClass} ${cardHighlightClass}`}
               style={{ transitionDelay: cascadeActive ? (isSelected ? "80ms" : "0ms") : "0ms" }}
             >
-              <CompanyCard
-                name={item.name}
-                description={item.description}
-                icon={item.icon}
-                showDescription={false}
-                onSelect={() => router.push(`/about/${item.slug}`)}
-              />
+              {(() => {
+                const Icon = item.icon as LucideIcon
+                return (
+                  <div
+                    className="group relative rounded-[var(--radius-none)] overflow-hidden cursor-pointer border border-button-border transition-all duration-300 h-full hover:brightness-110 transform-gpu shadow-none hover:-translate-y-[6px] hover:shadow-[0_20px_45px_rgba(0,0,0,0.45)]"
+                    onClick={() => router.push(`/about/${item.slug}`)}
+                  >
+                    <div className="absolute inset-0 auth-bg-hover opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
+                    <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+                      <div className="flex items-center gap-2 justify-start">
+                        <Icon className="h-9 w-9 text-auth-text-primary drop-shadow-[0_8px_16px_rgba(0,0,0,0.45)]" aria-hidden="true" />
+                        <span className="sr-only">{item.name}</span>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })()}
             </div>
           )
         })}
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 py-6 lg:py-8">
-        <div className="order-1 lg:basis-[40%] flex flex-col w-full">
-          <div className={`w-full h-full min-h-[200px] rounded-[var(--radius-none)] border border-dashed border-white/20 bg-black/20 transition-all duration-700 ease-out ${detailStage === "content" ? "opacity-100 blur-0" : "opacity-60 blur-[3px]"}`} aria-hidden="true" />
-        </div>
-        <div className="order-2 lg:basis-[60%] p-4 lg:p-8 flex flex-col gap-4 pr-0 lg:pr-10 cursor-pointer" onClick={() => router.push('/about')}>
-          <h2 className="text-2xl font-heading font-semibold">Premium event experiences</h2>
-          {paragraphs.map((p, idx) => (
-            <p key={idx} className={`auth-text-secondary leading-relaxed transition-opacity duration-600 ease-out ${detailStage === "content" ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: detailStage === "content" ? `${0.25 + idx * 0.08}s` : "0ms" }}>
-              {p}
-            </p>
-          ))}
-        </div>
-      </div>
+      <Event stage={detailStage} />
     </div>
   )
 }
+import { Event } from "@/components/about"
