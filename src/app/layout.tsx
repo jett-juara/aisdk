@@ -1,5 +1,6 @@
 import type React from "react";
 import type { Metadata } from "next";
+import Script from "next/script";
 import {
   Montserrat,
   Rubik,
@@ -116,6 +117,14 @@ export default function RootLayout({
     >
       <head>
         <ThemePreload />
+        {process.env.NODE_ENV === "development" && (
+          <Script
+            src="//unpkg.com/react-grab/dist/index.global.js"
+            crossOrigin="anonymous"
+            strategy="beforeInteractive"
+            data-enabled="true"
+          />
+        )}
       </head>
       <body className="bg-background font-rubik antialiased">
         <ThemeProvider
