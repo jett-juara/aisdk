@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { CalendarCheck, UsersRound, Cpu, ChartBarBig } from "lucide-react"
-import Image from "next/image"
 import type { LucideIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
 import { ABOUT_RESET_EVENT } from "@/lib/constants/events"
 
 const layoutConfigs = {
@@ -14,6 +15,7 @@ const layoutConfigs = {
 } as const
 
 const Hero = () => {
+  const router = useRouter()
   const companies = [
     { id: 1, name: "Events", description: "Premium event experiences", icon: CalendarCheck, fullDescription: [
       "JUARA Events menghadirkan pengalaman acara premium yang tak terlupakan. Kami menggabungkan kreativitas, teknologi, dan eksekusi sempurna untuk menciptakan momen yang berkesan bagi audiences Anda.",
@@ -112,15 +114,14 @@ const Hero = () => {
   }
 
   const selectedCompany = companies.find((c) => c.id === selectedId)
-  const headlineSvg = "/images/about-page/headline-outline.svg"
-  const svgFiles = { 1: "/images/about-page/event-outline.svg", 2: "/images/about-page/community-outline.svg", 3: "/images/about-page/tech-outline.svg", 4: "/images/about-page/analytics-outline.svg" }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w mx-auto">
+    <section className="bg-background-900 flex-1 min-h-0 w-full flex items-center">
+    <div className="flex flex-col items-center justify-center w-full max-w-screen-xl mx-auto">
       {!selectedId && (
         <div className="flex flex-col lg:flex-row lg:items-center w-full">
           <div className="w-full lg:max-w-[30vw]">
-            <div className="grid grid-cols-2 grid-rows-2">
+            <div className="grid grid-cols-2 grid-rows-2 gap-3 md:gap-4">
               {companies.map((company, index) => {
                 const isStateOne = selectedId === null
                 const isIntroActive = introStep <= index
@@ -133,17 +134,19 @@ const Hero = () => {
                       const Icon = company.icon as LucideIcon
                       return (
                         <div
-                          className="group relative rounded-[var(--radius-none)] overflow-hidden cursor-pointer border border-button-border transition-all duration-300 h-full hover:brightness-110 transform-gpu shadow-none hover:-translate-y-[6px] hover:shadow-[0_20px_45px_rgba(0,0,0,0.45)]"
+                          className="group relative rounded-2xl overflow-hidden cursor-pointer border border-button-border transition-all duration-300 h-full hover:brightness-110 transform-gpu shadow-none hover:-translate-y-[6px] hover:shadow-[0_20px_45px_rgba(0,0,0,0.45)]"
                           onClick={() => handleCardClick(company.id)}
                         >
                           <div className="absolute inset-0 auth-bg-hover opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
-                          <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-                            <div className="flex items-center gap-2 justify-start">
-                              <Icon className="h-9 w-9 text-auth-text-primary drop-shadow-[0_8px_16px_rgba(0,0,0,0.45)]" aria-hidden="true" />
-                              <span className="sr-only">{company.name}</span>
+                          <div className="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+                            <div className="flex items-center gap-2">
+                              <Icon className="h-6 w-6 text-auth-text-primary drop-shadow-[0_8px_16px_rgba(0,0,0,0.45)]" aria-hidden="true" />
+                              <span className="text-[0.60rem] font-medium text-auth-text-primary">
+                                {company.name}
+                              </span>
                             </div>
-                            <p className="auth-text-secondary text-xs">{company.description}</p>
+                            <span className="sr-only">{company.name}</span>
                           </div>
                         </div>
                       )
@@ -155,11 +158,17 @@ const Hero = () => {
           </div>
           <div className="lg:flex-1 flex items-left justify-left lg:ml-5 mt-8 lg:mt-0">
             <div className={`w-full max-w transition-all duration-700 ease-out ${introStep < companies.length ? "opacity-0 translate-y-12 blur-md" : "opacity-100 translate-y-0 blur-0"}`} style={{ visibility: introStep < companies.length ? "hidden" : "visible" }}>
-              <div className="relative w-full" style={{ paddingTop: `${(644.37 / 1418.77) * 100}%` }}>
-                {introStep > 0 && (
-                  <Image src={headlineSvg} alt="JUARA headline divisions" width={1418} height={644} className="absolute inset-0 h-full w-full object-contain" />
-                )}
-              </div>
+              {introStep > 0 && (
+                <div className="w-full p-6 lg:p-8">
+                  <div className="flex flex-col gap-7">
+                    <h1 className="font-heading font-semibold text-3xl md:text-5xl lg:text-7xl tracking-tighter text-text-200 transition-all duration-700 ease-out transform-gpu">Kreativitas × Teknologi</h1>
+                    <p className="font-body text-lg md:text-2xl lg:text-[1.2rem] text-text-50 leading-relaxed transition-all duration-700 ease-out">Kami menggabungkan kreativitas, teknologi, dan eksekusi presisi untuk menghadirkan pengalaman acara yang imersif, aman, dan berdampak. Berbasis governance, data, dan playbook operasional yang jelas, setiap momen dirancang untuk mencapai tujuan bisnis sekaligus memukau audiens.</p>
+                    <div className="flex items-start">
+                      <Button className="font-button font-medium text-md md:text-xl lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10 transform-gpu" onClick={() => router.push("/contact")}>Contact Us</Button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -184,11 +193,14 @@ const Hero = () => {
                       >
                         <div className="absolute inset-0 auth-bg-hover opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
-                        <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+                        <div className="absolute inset-0 flex items-end p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
                           <div className="flex items-center gap-2 justify-start">
                             <Icon className="h-9 w-9 text-auth-text-primary drop-shadow-[0_8px_16px_rgba(0,0,0,0.45)]" aria-hidden="true" />
-                            <span className="sr-only">{company.name}</span>
+                            <span className="text-[0.60rem] font-medium text-auth-text-primary">
+                              {company.name}
+                            </span>
                           </div>
+                          <span className="sr-only">{company.name}</span>
                         </div>
                       </div>
                     )
@@ -198,16 +210,7 @@ const Hero = () => {
             })}
           </div>
 
-          <div className="flex justify-left w-full py-6 lg:py-8">
-            {(() => {
-              const svgStage = detailStage === "content" ? "content" : "cards"
-              const svgClass = svgStage === "content" ? "opacity-100 scale-100 translate-y-0 blur-0 drop-shadow-[0_28px_58px_rgba(0,0,0,0.45)]" : "opacity-0 scale-90 translate-y-16 blur-[12px] drop-shadow-none"
-              const svgStyle: React.CSSProperties = { transitionProperty: "transform, filter, opacity", transitionDuration: svgStage === "content" ? "550ms" : "260ms", transitionDelay: svgStage === "content" ? "90ms" : "0ms", transitionTimingFunction: "cubic-bezier(0.32, 0.96, 0.33, 1)" }
-              return (
-                <Image src={svgFiles[selectedId as keyof typeof svgFiles]} alt={`${companies.find(c => c.id === selectedId)?.name} visualization`} width={400} height={200} className={svgClass} style={svgStyle} />
-              )
-            })()}
-          </div>
+          
 
           <div className="w-full py-6 lg:py-8">
             {(() => {
@@ -238,6 +241,7 @@ const Hero = () => {
         </>
       )}
     </div>
+  </section>
   )
 }
 

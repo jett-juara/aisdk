@@ -1,5 +1,6 @@
 export { default as AudienceFlowManagement } from "./audience-flow-management"
 export { default as CreativeAgency } from "./creative-agency"
-export { default as MusicConcertAndSportEventManagement } from "./music-concert-and-sport-event-management"
+export { default as MusicConcertManagement } from "./music-concert-management"
+export { default as SportEventManagement } from "./sport-event-management"
 export { default as EventActivation } from "./event-activation"
 export { default as MiceEvent } from "./mice-event"
