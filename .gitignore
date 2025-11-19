@@ -126,3 +126,8 @@ CLAUDE.md
 import.env
 test-reports/
 test-screenshots/
+.tmp-vitest-cache/
+.trae/
+.tmp-vitest-cache/vitest/
+.test-reports/
+.test-screenshots/

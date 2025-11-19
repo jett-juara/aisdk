@@ -4,11 +4,8 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { MobileMenu } from '@/components/layout/header/header-menu'
 
 const ITEMS = [
-  {
-    label: 'Product & Services',
-    href: '/product-services',
-    children: [{ label: 'Design', href: '#design' }],
-  },
+  { label: 'Product', href: '/product' },
+  { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
 ]
 
@@ -21,13 +18,14 @@ describe('MobileMenu – sheet interactions & touch targets', () => {
     fireEvent.click(trigger)
 
     // Links visible
-    expect(await screen.findByText('Product & Services')).toBeInTheDocument()
+    expect(await screen.findByText('Product')).toBeInTheDocument()
+    expect(screen.getByText('Services')).toBeInTheDocument()
     expect(screen.getByText('About')).toBeInTheDocument()
 
-    // Check that Product & Services element exists and is clickable (asChild makes Link the button)
-    const productServicesLink = screen.getByText('Product & Services')
-    expect(productServicesLink).toBeInTheDocument()
-    expect(productServicesLink.closest('a')).toBeInTheDocument()
+    // Check that Product element exists and is clickable
+    const productLink = screen.getByText('Product')
+    expect(productLink).toBeInTheDocument()
+    expect(productLink.closest('a')).toBeInTheDocument()
 
     // Alternative: Check if any element in the navigation has min-h-[44px]
     const nav = screen.getByRole('navigation') || document.querySelector('nav')
