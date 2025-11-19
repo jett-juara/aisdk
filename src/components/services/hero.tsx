@@ -1,7 +1,6 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { useHomepageAnimations } from "@/hooks/use-homepage-animations"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import type { LucideIcon } from "lucide-react"
@@ -20,98 +19,16 @@ interface ServicesHeroProps {
 }
 
 export function ServicesHero({
-  heading = "Layanan end‑to‑end yang presisi",
-  subheading = "Dari perencanaan hingga eksekusi, terukur, aman, dan tepat waktu.",
-  description = "Kami mengelola strategi, eksekusi lapangan, talent & logistik, serta liaison otoritas setempat dengan SOP dan playbook operasional yang jelas. Fokus pada governance, compliance, dan pengalaman audiens yang mulus.",
+  heading = "End-to-End Services",
+  subheading = "From planning to execution—measured, secure, and on time.",
+  description = "We manage strategy, field execution, logistics, and authority liaison with clear SOPs. Our focus is on governance, compliance, and delivering a seamless audience experience.",
 }: ServicesHeroProps) {
   const router = useRouter()
   const [introStep, setIntroStep] = useState(0)
-  const [hovered, setHovered] = useState<number | null>(null)
+  const [hoveredId, setHoveredId] = useState<number | null>(null)
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [detailStage, setDetailStage] = useState<"idle" | "cards" | "content">("idle")
-  const { getClasses } = useHomepageAnimations()
-  const animationClasses = getClasses()
-
-  const baseClasses = "rounded-2xl border border-button-border bg-background transition-all duration-600 ease-out transform-gpu"
   const [introReady, setIntroReady] = useState(false)
-  const totalIntroSteps = 4 + 1
-  const introClass = (index: number) => (introStep <= index ? "opacity-0 translate-y-10 blur-md" : "opacity-100 translate-y-0 blur-0")
-  const introDone = introStep >= totalIntroSteps
-  const getScaleClasses = (index: number) => {
-    if (introStep < totalIntroSteps) return "scale-100 shadow-none"
-    if (selectedId === null) {
-      if (hovered === index) return "scale-110 z-10 shadow-[0_24px_48px_rgba(0,0,0,0.45)]"
-      if (hovered === null) return "scale-100 shadow-none"
-      return "scale-90 opacity-80 shadow-none"
-    }
-    const item = items[index]
-    const isSelected = item && item.id === selectedId
-    const cascadeActive = detailStage !== "idle"
-    if (!cascadeActive) {
-      return isSelected ? "scale-100 opacity-100" : "scale-100 opacity-80"
-    }
-    return isSelected ? "scale-110 opacity-100" : "scale-70 opacity-40"
-  }
-
-  const timeoutsRef = useRef<NodeJS.Timeout[]>([])
-  const frameRef = useRef<number | null>(null)
-  const resetIntroTimers = useCallback(() => {
-    if (frameRef.current !== null) { cancelAnimationFrame(frameRef.current); frameRef.current = null }
-    timeoutsRef.current.forEach((t) => clearTimeout(t))
-    timeoutsRef.current = []
-  }, [])
-
-  useEffect(() => { return () => resetIntroTimers() }, [resetIntroTimers])
-  useEffect(() => {
-    const timer = setTimeout(() => { setIntroReady(true) }, 100)
-    return () => { clearTimeout(timer) }
-  }, [])
-  useEffect(() => {
-    if (!introReady) return
-    resetIntroTimers()
-    const initId = setTimeout(() => { setIntroStep(0) }, 0)
-    timeoutsRef.current.push(initId)
-    const run = (index: number) => {
-      const timeoutId = setTimeout(() => {
-        setIntroStep(index + 1)
-        if (index < totalIntroSteps - 1) { frameRef.current = requestAnimationFrame(() => run(index + 1)) }
-      }, index === 0 ? 160 : 240)
-      timeoutsRef.current.push(timeoutId)
-    }
-    frameRef.current = requestAnimationFrame(() => run(0))
-  }, [introReady, totalIntroSteps, resetIntroTimers])
-
-  useEffect(() => {
-    if (selectedId === null) {
-      const t = setTimeout(() => setDetailStage("idle"), 0)
-      return () => clearTimeout(t)
-    }
-    const t = setTimeout(() => {
-      setDetailStage("cards")
-      const t2 = setTimeout(() => setDetailStage("content"), 220)
-      return () => clearTimeout(t2)
-    }, 0)
-    return () => { clearTimeout(t) }
-  }, [selectedId])
-
-  const handleCloseDetail = () => {
-    if (!selectedId) return
-    handleCardClick(selectedId)
-  }
-
-  const handleCardClick = (id: number) => {
-    if (!introDone) return
-    if (selectedId === id) {
-      setSelectedId(null)
-      setDetailStage("idle")
-      setIntroStep(0)
-      setIntroReady(false)
-      const timer = setTimeout(() => setIntroReady(true), 600)
-      timeoutsRef.current.push(timer)
-      return
-    }
-    setSelectedId(id)
-  }
 
   const items: { id: number; slug: string; label: string; icon: LucideIcon; imagePosition: "left" | "right" }[] = [
     { id: 1, slug: "creative-and-plan-development", label: "Creative & Plan Development", icon: Wand2, imagePosition: "left" },
@@ -120,8 +37,69 @@ export function ServicesHero({
     { id: 4, slug: "local-authority-liaison", label: "Local Authority Liaison", icon: Landmark, imagePosition: "right" },
   ]
 
+  const totalIntroSteps = items.length + 1
+  const introDone = introStep >= totalIntroSteps
+  const timeoutsRef = useRef<NodeJS.Timeout[]>([])
+  const frameRef = useRef<number | null>(null)
+  const detailTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const introStartTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+  const resetIntroTimers = useCallback(() => {
+    if (frameRef.current !== null) { cancelAnimationFrame(frameRef.current); frameRef.current = null }
+    if (timeoutsRef.current.length) { timeoutsRef.current.forEach(clearTimeout); timeoutsRef.current = [] }
+  }, [])
+
+  useEffect(() => {
+    const timer = setTimeout(() => { setIntroReady(true) }, 100)
+    return () => { clearTimeout(timer); if (introStartTimerRef.current) { clearTimeout(introStartTimerRef.current) } }
+  }, [])
+
+  useEffect(() => { return () => resetIntroTimers() }, [resetIntroTimers])
+
+  useEffect(() => {
+    if (selectedId !== null) { return }
+    if (!introReady) { return }
+    resetIntroTimers()
+    const timer = setTimeout(() => { setIntroStep(0) }, 0)
+    const run = (index: number) => {
+      const timeoutId = setTimeout(() => {
+        setIntroStep(index + 1)
+        if (index < totalIntroSteps - 1) { frameRef.current = requestAnimationFrame(() => run(index + 1)) }
+      }, index === 0 ? 160 : 240)
+      timeoutsRef.current.push(timeoutId)
+    }
+    frameRef.current = requestAnimationFrame(() => run(0))
+    return () => { clearTimeout(timer); resetIntroTimers() }
+  }, [resetIntroTimers, selectedId, totalIntroSteps, introReady])
+
+  useEffect(() => { if (selectedId !== null) { const t = setTimeout(() => setHoveredId(null), 0); return () => clearTimeout(t) } }, [selectedId])
+
+  useEffect(() => {
+    if (detailTimerRef.current) { clearTimeout(detailTimerRef.current); detailTimerRef.current = null }
+    if (selectedId === null) { const t = setTimeout(() => setDetailStage("idle"), 0); return () => clearTimeout(t) }
+    const t = setTimeout(() => {
+      setDetailStage("cards")
+      detailTimerRef.current = setTimeout(() => { setDetailStage("content"); detailTimerRef.current = null }, 400)
+    }, 0)
+    return () => { clearTimeout(t); if (detailTimerRef.current) { clearTimeout(detailTimerRef.current); detailTimerRef.current = null } }
+  }, [selectedId])
+
+  const handleCardClick = (id: number) => {
+    if (selectedId === id) {
+      setSelectedId(null); setHoveredId(null); setIntroStep(0); setDetailStage("idle"); resetIntroTimers(); setIntroReady(false)
+      if (introStartTimerRef.current) { clearTimeout(introStartTimerRef.current) }
+      introStartTimerRef.current = setTimeout(() => { setIntroReady(true) }, 600)
+    } else { setSelectedId(id) }
+  }
+
+  const handleCloseDetail = () => {
+    if (!selectedId) return
+    handleCardClick(selectedId)
+  }
+
+  const selectedItem = items.find((item) => item.id === selectedId)
+
   const renderDetailContent = () => {
-    const selectedItem = items.find((item) => item.id === selectedId)
     const slug = selectedItem?.slug
     const imagePosition = selectedItem?.imagePosition
     if (!slug) return null
@@ -141,121 +119,111 @@ export function ServicesHero({
   }
 
   return (
-    <section className="bg-background-900 flex-1 min-h-0 w-full flex items-center">
-      <div className="flex flex-col items-center justify-center w-full max-w-screen-xl mx-auto">
+    <section className="relative flex-1 min-h-0 w-full flex items-center overflow-hidden">
+      <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         {!selectedId && (
-          <div className="flex flex-col lg:flex-row lg:items-center w-full">
-            <div className="w-full lg:max-w-[30vw]">
-              <div className="grid grid-cols-2 grid-rows-2 gap-3 md:gap-4 w-full">
-                {items.map((item, idx) => {
-                  const Icon = item.icon
+          <div className="flex flex-col lg:flex-row lg:items-center w-full gap-12 lg:gap-20">
+            {/* Hero Text Section */}
+            <div className="lg:flex-1 flex flex-col justify-center">
+              <div className={`w-full transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
+                {introStep > 0 && (
+                  <div className="flex flex-col gap-8">
+                    <div>
+                      <h1 className="font-heading font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter text-premium-gradient leading-[0.9]">
+                        {heading}
+                      </h1>
+                    </div>
+                    <div className="space-y-4 max-w-2xl border-l border-white/10 pl-6">
+                      <p className="font-medium text-xl md:text-2xl text-white/90 leading-relaxed">
+                        {subheading}
+                      </p>
+                      <p className="font-light text-lg text-white/60 leading-relaxed">
+                        {description}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-6 pt-4">
+                      <Button
+                        className="h-12 px-8 rounded-full bg-white text-black hover:bg-white/90 font-medium tracking-wide transition-all duration-300 hover:scale-105"
+                        onClick={() => router.push("/contact")}
+                      >
+                        Let&apos;s Talk
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Grid Section */}
+            <div className="w-full lg:max-w-[35vw]">
+              <div className="grid grid-cols-2 gap-4 md:gap-6">
+                {items.map((item, index) => {
+                  const isStateOne = selectedId === null
+                  const isIntroActive = introStep <= index
+                  const introClass = isIntroActive ? "opacity-0 translate-y-12 blur-lg" : "opacity-100 translate-y-0 blur-0"
+                  const scaleClass = !isStateOne || introStep < totalIntroSteps ? "scale-100" : hoveredId === item.id ? "scale-[1.02]" : hoveredId === null ? "scale-100" : "scale-95 opacity-60 blur-[1px]"
+
                   return (
-                    <div
-                      key={item.slug}
-                      aria-hidden="true"
-                      role="button"
-                      tabIndex={introDone ? 0 : -1}
-                      aria-label={item.label}
-                      className={`${baseClasses} ${introClass(idx)} ${getScaleClasses(idx)} ${
-                        introStep < totalIntroSteps ? "pointer-events-none" : "cursor-pointer"
-                      } group relative overflow-hidden hover:brightness-110 hover:-translate-y-[6px] hover:shadow-[0_20px_45px_rgba(0,0,0,0.45)]`}
-                      style={{ aspectRatio: "1 / 1" }}
-                      onMouseEnter={() => introDone && !selectedId && setHovered(idx)}
-                      onMouseLeave={() => setHovered(null)}
-                      onClick={() => handleCardClick(item.id)}
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
-                      <div className="absolute inset-0 flex items-end p-4">
-                        <div className="flex items-center gap-2">
-                          <Icon
-                            className="h-5 w-5 text-auth-text-primary drop-shadow-[0_8px_16px_rgba(0,0,0,0.45)]"
-                            aria-hidden="true"
-                          />
-                          <span className="text-[0.60rem] font-medium text-auth-text-primary">
-                            {item.label}
-                          </span>
-                        </div>
-                        <span className="sr-only">{item.label}</span>
-                      </div>
+                    <div key={item.id}
+                      className={`transition-all duration-700 ease-premium transform-gpu w-full aspect-square ${introClass} ${scaleClass} ${introStep < totalIntroSteps ? "pointer-events-none" : ""}`}
+                      onMouseEnter={() => introDone && setHoveredId(item.id)}
+                      onMouseLeave={() => introDone && setHoveredId(null)}>
+                      {(() => {
+                        const Icon = item.icon as LucideIcon
+                        return (
+                          <div
+                            className="group relative rounded-3xl overflow-hidden cursor-pointer h-full glass-card shadow-2xl"
+                            onClick={() => handleCardClick(item.id)}
+                          >
+                            {/* Hover Glow */}
+                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-white/10 to-transparent" />
+
+                            {/* Content */}
+                            <div className="absolute inset-0 flex flex-col justify-between p-6">
+                              <div className="flex justify-end">
+                                <div className="p-3 rounded-full bg-white/5 border border-white/10 group-hover:bg-white/10 transition-colors duration-300">
+                                  <Icon className="h-6 w-6 text-white/80 group-hover:text-white transition-colors duration-300" strokeWidth={1.5} />
+                                </div>
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-medium text-white/90 tracking-wide group-hover:text-white transition-colors duration-300 leading-tight">{item.label}</h3>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })()}
                     </div>
                   )
                 })}
               </div>
             </div>
-
-            <div className="lg:flex-1 flex items-left justify-left lg:ml-5 mt-8 lg:mt-0">
-              <div className="w-full p-6 lg:p-8">
-                <div className="flex flex-col gap-7">
-                  <h1
-                    className={`font-heading font-semibold text-3xl md:text-5xl lg:text-7xl tracking-tighter text-text-200 transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}
-                  >
-                    <span>{heading}</span>
-                  </h1>
-                  <p
-                    className={`font-subheading text-lg md:text-2xl md:mt-2 lg:text-3xl lg:mt-0 text-text-50 transition-all duration-700 ease-out ${animationClasses.text}`}
-                  >
-                    <span>{subheading}</span>
-                  </p>
-                  <p
-                    className={`font-body text-lg md:text-2xl md:mt-2 lg:text-[1.2rem] lg:mt-0 text-text-50 transition-all duration-700 ease-out ${animationClasses.text}`}
-                  >
-                    {description}
-                  </p>
-                  <div className="flex items-start">
-                    <Button
-                      className={`font-button font-medium text-md md:text-xl lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10 transform-gpu ${animationClasses.button1}`}
-                      onClick={() => router.push("/contact")}
-                    >
-                      Let’s Talk
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         )}
+
         {selectedId && (
           <>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full">
+            {/* Detail View Grid (Top) */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full mb-8 lg:mb-12">
               {items.map((item) => {
-                const isSelected = item.id === selectedId
+                const isSelected = selectedId === item.id
                 const cascadeActive = detailStage !== "idle"
-                const cardScaleClass = !cascadeActive
-                  ? isSelected
-                    ? "scale-100 opacity-100"
-                    : "scale-100 opacity-80"
-                  : isSelected
-                    ? "scale-110 opacity-100"
-                    : "scale-70 opacity-40"
-                const cardHighlightClass =
-                  isSelected && cascadeActive ? "ring-1 ring-white/40 shadow-[0_24px_56px_rgba(0,0,0,0.40)]" : "shadow-none"
+                const cardScaleClass = !cascadeActive ? (isSelected ? "scale-100 opacity-100" : "scale-100 opacity-80") : (isSelected ? "scale-105 opacity-100 ring-1 ring-white/20" : "scale-90 opacity-30 blur-[2px]")
 
                 return (
-                  <div
-                    key={item.slug}
-                    className={`transition-all duration-500 ease-out aspect-square lg:aspect-[32/9] transform-gpu ${cardScaleClass} ${cardHighlightClass}`}
-                    style={{ transitionDelay: cascadeActive ? (isSelected ? "80ms" : "0ms") : "0ms" }}
-                  >
+                  <div key={item.id}
+                    className={`transition-all duration-700 ease-premium transform-gpu aspect-square ${cardScaleClass}`}>
                     {(() => {
                       const Icon = item.icon as LucideIcon
                       return (
                         <div
-                          className="group relative rounded-[var(--radius-none)] overflow-hidden cursor-pointer border border-button-border transition-all duration-300 h-full hover:brightness-110 transform-gpu shadow-none hover:-translate-y-[6px] hover:shadow-[0_20px_45px_rgba(0,0,0,0.45)]"
+                          className={`group relative rounded-xl overflow-hidden cursor-pointer h-full glass-panel transition-all duration-300 hover:bg-white/10`}
                           onClick={() => handleCardClick(item.id)}
                         >
-                          <div className="absolute inset-0 auth-bg-hover opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
-                          <div className="absolute inset-0 flex items-end p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-                            <div className="flex items-center gap-2 justify-start">
-                              <Icon
-                                className="h-9 w-9 text-auth-text-primary drop-shadow-[0_8px_16px_rgba(0,0,0,0.45)]"
-                                aria-hidden="true"
-                              />
-                              <span className="text-[0.60rem] font-medium text-auth-text-primary">
-                                {item.label}
-                              </span>
-                            </div>
-                            <span className="sr-only">{item.label}</span>
+                          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-2 text-center">
+                            <Icon className={`h-5 w-5 ${isSelected ? "text-white" : "text-white/50"} transition-colors`} strokeWidth={1.5} />
+                            <span className={`text-[10px] font-medium ${isSelected ? "text-white" : "text-white/50"} leading-tight tracking-wide`}>
+                              {item.label}
+                            </span>
                           </div>
                         </div>
                       )
@@ -264,7 +232,9 @@ export function ServicesHero({
                 )
               })}
             </div>
-            <div className="w-full py-6 lg:py-8">
+
+            {/* Detail Content Area */}
+            <div className="w-full min-h-[50vh]">
               {renderDetailContent()}
             </div>
           </>

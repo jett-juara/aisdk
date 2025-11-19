@@ -158,7 +158,7 @@ export const Header = () => {
   }, [isLoggingOut, router, toast]);
 
   return (
-    <header className="relative bg-transparent">
+    <header className="relative top-0 left-0 right-0 z-50 bg-transparent py-0">
       <div className="relative mx-auto flex h-20 md:h-20 lg:h-20 items-center justify-between px-4 md:px-4 lg:px-4 w-full">
         {/* Navigasi utama: center horizontally terhadap seluruh header */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-full hidden lg:flex items-center justify-center">

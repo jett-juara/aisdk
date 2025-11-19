@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 interface DetailSectionProps {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
@@ -19,48 +21,55 @@ export function DetailSection({
   const isImageLeft = imagePosition === "left"
 
   return (
-    <div className="w-full py-6 lg:py-8">
-      <div
-        className={`flex flex-col lg:flex-row gap-6 ${
-          isContent ? "lg:translate-x-0 translate-y-0 opacity-100" : "lg:translate-x-0 translate-y-12 opacity-0"
-        }`}
-        style={{
-          transitionProperty: "transform, opacity",
-          transitionDuration: isContent ? "800ms" : "260ms",
-          transitionDelay: isContent ? "150ms" : "0ms",
-          transitionTimingFunction: "cubic-bezier(0.32, 0.96, 0.33, 1)",
-        }}
-      >
+    <div className={`flex flex-col lg:flex-row gap-8 lg:gap-16 ease-premium ${isContent ? "lg:translate-x-0 translate-y-0 opacity-100" : "lg:translate-x-0 translate-y-12 opacity-0"}`}
+      style={{ transitionProperty: "transform, opacity", transitionDuration: "1000ms" }}>
+
+      {/* Image/Visual Area */}
+      <div className={`order-1 ${isImageLeft ? "lg:order-1" : "lg:order-2"} lg:basis-[40%] flex flex-col w-full`}>
         <div
-          className={`${
-            isImageLeft ? "order-2 lg:order-2" : "order-2 lg:order-1"
-          } lg:basis-[60%] p-4 lg:p-8 flex flex-col gap-4 pr-0 lg:pr-10`}
-        >
-          <h2 className="text-2xl font-heading font-semibold">{title}</h2>
-          {paragraphs.map((p, idx) => (
-            <p
-              key={idx}
-              className={`auth-text-secondary leading-relaxed transition-opacity duration-600 ease-out ${
-                isContent ? "opacity-100" : "opacity-0"
-              }`}
-              style={{ transitionDelay: isContent ? `${0.25 + idx * 0.08}s` : "0ms" }}
-            >
-              {p}
-            </p>
-          ))}
-        </div>
-        <div
-          className={`${
-            isImageLeft ? "order-1 lg:order-1" : "order-1 lg:order-2"
-          } lg:basis-[40%] flex flex-col w-full cursor-pointer`}
+          className={`relative w-full h-[300px] lg:h-full min-h-[400px] rounded-3xl overflow-hidden border border-white/10 bg-black/40 backdrop-blur-sm transition-all duration-1000 cursor-pointer group ${isContent ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
           onClick={() => onClose?.()}
         >
-          <div
-            className={`w-full h-full min-h-[200px] rounded-[var(--radius-none)] border border-dashed border-white/20 bg-black/20 transition-all duration-700 ease-out ${
-              isContent ? "opacity-100 blur-0" : "opacity-60 blur-[3px]"
-            }`}
-            aria-hidden="true"
-          />
+          {/* Placeholder for future immersive content */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center group-hover:scale-105 transition-transform duration-500 ease-premium">
+              <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-white/10 transition-colors">
+                <span className="text-3xl">✨</span>
+              </div>
+              <span className="text-white/20 font-mono text-sm uppercase tracking-widest group-hover:text-white/40 transition-colors">Visual Asset</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Text Content Area */}
+      <div className={`order-2 ${isImageLeft ? "lg:order-2" : "lg:order-1"} lg:basis-[60%] flex flex-col justify-center`}>
+        <div className="space-y-8">
+          <div>
+            <h2 className="text-4xl lg:text-6xl font-heading font-bold text-white tracking-tight mb-2">{title}</h2>
+            <div className="h-1 w-20 bg-gradient-to-r from-white/30 to-transparent rounded-full" />
+          </div>
+
+          <div className="space-y-6">
+            {paragraphs.map((paragraph, idx) => (
+              <p key={idx}
+                className={`text-white/80 leading-relaxed text-lg font-light transition-all duration-700 ${isContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+                style={{ transitionDelay: `${200 + idx * 100}ms` }}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          <div className={`pt-6 transition-all duration-700 ${isContent ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "600ms" }}>
+            <Button
+              variant="outline"
+              className="border-white/20 text-white hover:bg-white/10 hover:text-white rounded-full px-8"
+              onClick={() => onClose?.()}
+            >
+              Back to Overview
+            </Button>
+          </div>
         </div>
       </div>
     </div>

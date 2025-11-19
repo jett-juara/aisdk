@@ -51,7 +51,7 @@ export interface HeaderUserProfile {
 
 // Desktop navigation menu (inline from previous desktop-menu.tsx)
 const baseLinkClass =
-  "font-heading text-sm uppercase tracking-wide text-50 transition-all duration-base hover:text-brand-100 focus-visible:text-brand-100 hover:underline hover:decoration-dotted hover:underline-offset-4 hover:decoration-1";
+  "font-heading text-sm uppercase tracking-wide text-white/80 transition-all duration-300 hover:text-premium-gradient focus-visible:text-white hover:scale-105 transform-gpu";
 
 export const DesktopMenu = ({ items }: { items: HeaderMenuItem[] }) => {
   const emitAboutReset = React.useCallback((href: string) => {
@@ -76,6 +76,7 @@ export const DesktopMenu = ({ items }: { items: HeaderMenuItem[] }) => {
                 <Link
                   href={item.href}
                   onClick={() => emitAboutReset(item.href)}
+                  className="text-sm"
                 >
                   {item.label}
                 </Link>
@@ -188,7 +189,7 @@ export const MobileMenu = ({
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="border-none bg-background-900 w-[74vw] max-w-[340px] p-0"
+        className="border-l border-white/10 bg-background-deep/95 backdrop-blur-xl w-[74vw] max-w-[340px] p-0 shadow-2xl"
       >
         <SheetTitle className="sr-only">Menu</SheetTitle>
         <div className="flex h-full flex-col">
@@ -206,8 +207,10 @@ export const MobileMenu = ({
             </SheetClose>
           </div>
 
-          <nav className="flex-1 flex flex-col bg-background-900 text-text-50 min-h-0">
-            <div className="flex-1 overflow-y-auto pt-0 px-2 pb-5 min-h-0">
+          <nav className="flex-1 flex flex-col bg-transparent text-text-50 min-h-0 relative">
+            {/* Noise Overlay for Mobile Menu */}
+            <div className="absolute inset-0 bg-noise-overlay z-0 pointer-events-none" />
+            <div className="flex-1 overflow-y-auto pt-0 px-2 pb-5 min-h-0 relative z-10">
               <ul className="space-y-1">
                 {items.map((item) => (
                   <li key={item.label}>
@@ -391,7 +394,7 @@ export const HeaderMenu = ({
                   style={
                     expandedWidth ? { width: `${expandedWidth}px` } : undefined
                   }
-                  className="group h-11 justify-between font-button font-medium text-sm px-0 has-[>svg]:px-0 overflow-hidden transition-all duration-200 font-semibold tracking-wide bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none"
+                  className="group justify-between font-button font-medium px-0 has-[>svg]:px-0 overflow-hidden transition-all duration-500 ease-premium font-semibold tracking-wide bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none h-11 text-sm"
                 >
                   <div className="flex items-center gap-3 min-w-0 pl-4">
                     <Avatar className="h-6 w-6">
@@ -413,7 +416,7 @@ export const HeaderMenu = ({
                         </svg>
                       </AvatarFallback>
                     </Avatar>
-                    <span className="font-button font-medium text-sm text-text-50 truncate max-w-[10rem]">
+                    <span className="font-button font-medium text-text-50 truncate max-w-[10rem] text-sm">
                       {profile.firstName}
                     </span>
                   </div>
@@ -462,7 +465,7 @@ export const HeaderMenu = ({
           ) : (
             <Button
               asChild
-              className="font-button font-medium text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10"
+              className="font-button font-medium bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-premium h-10 text-sm"
             >
               <Link href="/auth">Login</Link>
             </Button>

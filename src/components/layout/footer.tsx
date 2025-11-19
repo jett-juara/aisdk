@@ -19,11 +19,11 @@ interface FooterProps {
 
 const Footer = ({ className = "" }: FooterProps) => {
   return (
-    <footer className={`${className} bg-transparent`}>
+    <footer className={`${className} bg-transparent relative`}>
       <div className="mx-auto max-w-6xl px-4 lg:px-8 py-6">
         <div className="flex flex-col items-center gap-3 text-text-50 lg:flex-row lg:justify-between lg:gap-4 lg:text-left text-center">
           {/* Copyright */}
-          <div className="text-xs font-heading text-text-400">
+          <div className="text-xs font-heading text-white/40 tracking-wider uppercase">
             © {new Date().getFullYear()} JUARA Events. All rights reserved.
           </div>
 
@@ -36,7 +36,7 @@ const Footer = ({ className = "" }: FooterProps) => {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={label}
-                className="group flex h-8 w-8 items-center justify-center border-none bg-transparent text-text-400 hover:bg-transparent hover:text-brand-100 focus-visible:outline-none transition-colors duration-200 ease-out hover:scale-105 active:scale-95"
+                className="group flex h-8 w-8 items-center justify-center border-none bg-transparent text-white/40 hover:bg-transparent hover:text-white focus-visible:outline-none transition-all duration-300 ease-premium hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
               >
                 <Icon className="h-8 w-8 lg:h-6 lg:w-6 transition-transform duration-200 group-hover:scale-110" />
               </a>

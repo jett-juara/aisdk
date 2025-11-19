@@ -3,34 +3,34 @@
 @tailwind utilities;
 
 :root {
-  /* existing variables... */
+    /* existing variables... */
 }
 
 /* Dashboard scroll area - custom vertical scrollbar */
 .dashboard-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
 }
 
 .dashboard-scroll:hover {
-  scrollbar-color: var(--color-border-700) transparent;
+    scrollbar-color: var(--color-border-700) transparent;
 }
 
 .dashboard-scroll::-webkit-scrollbar {
-  width: 6px;
+    width: 6px;
 }
 
 .dashboard-scroll::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
 
 .dashboard-scroll::-webkit-scrollbar-thumb {
-  background-color: transparent;
-  border-radius: 9999px;
+    background-color: transparent;
+    border-radius: 9999px;
 }
 
 .dashboard-scroll:hover::-webkit-scrollbar-thumb {
-  background-color: var(--color-border-700);
+    background-color: var(--color-border-700);
 }
 
 :root {
@@ -38,98 +38,142 @@
     /* Based on Sophisticated Dark Theme with Warm Accents */
 
     /* REQUIRED BASE COLORS (10) */
-    --color-background-900: #0c151a;  /* Dark blue-gray - main app background */
-    --color-text-50: #dedede;         /* Light gray - primary text */
-    --color-text-error-500: #f98e5f;  /* Orange - error messages */
-    --color-text-success-500: #a2d360; /* Light green - success messages */
-    --color-text-warning-500: #ff4e20; /* Red-orange - warning messages */
-    --color-text-info-500: #dbd1a6;    /* Light yellow - info messages */
-    --color-brand-500: #87139b;        /* Burgundy - brand primary */
-    --color-border-800: #414e58;       /* Dark slate - default borders */
-    --color-border-900: #313c42;       /* Very Dark slate - default borders */
-    --color-input-bg-900: #343e46;     /* Dark slate - input background */
-    --color-hover-overlay-700: #1e3442; /* Dark blue-gray - hover effects */
-    --color-text-grafy-500: #840804;      /* Optional color Grafy (base) */
-    --color-text-otan-500: #B83312;       /* Optional color Otan (base) */
+    --color-background-900: #0c151a;
+    /* Dark blue-gray - main app background */
+    --color-text-50: #dedede;
+    /* Light gray - primary text */
+    --color-text-error-500: #f98e5f;
+    /* Orange - error messages */
+    --color-text-success-500: #a2d360;
+    /* Light green - success messages */
+    --color-text-warning-500: #ff4e20;
+    /* Red-orange - warning messages */
+    --color-text-info-500: #dbd1a6;
+    /* Light yellow - info messages */
+    --color-brand-500: #87139b;
+    /* Burgundy - brand primary */
+    --color-border-800: #414e58;
+    /* Dark slate - default borders */
+    --color-border-900: #313c42;
+    /* Very Dark slate - default borders */
+    --color-input-bg-900: #343e46;
+    /* Dark slate - input background */
+    --color-hover-overlay-700: #1e3442;
+    /* Dark blue-gray - hover effects */
+    --color-text-grafy-500: #840804;
+    /* Optional color Grafy (base) */
+    --color-text-otan-500: #B83312;
+    /* Optional color Otan (base) */
     /* Provide -500 tokens to match Tailwind mapping */
     --color-text-grafy-500: var(--color-text-grafy);
     --color-text-otan-500: var(--color-text-otan);
 
     /* OPTIONAL DESTRUCTIVE BUTTON COLORS (2) */
-    --color-button-destructive-hover: #840804;  /* Dark red - destructive hover */
-    --color-button-destructive-active: #B83312; /* Red - destructive active */
+    --color-button-destructive-hover: #840804;
+    /* Dark red - destructive hover */
+    --color-button-destructive-active: #B83312;
+    /* Red - destructive active */
 
     /* ===== AUTO-GENERATED VARIANTS (45+ total colors) ===== */
 
     /* Background variants (4) */
-    --color-background-800: #121f28; 
-    --color-background-700: #182a35;  
+    --color-background-800: #121f28;
+    --color-background-700: #182a35;
     --color-background-600: #1e3442;
     --color-background-brand-800: #5a2a5a;
-    --color-background-otan:#B83312;
+    --color-background-otan: #B83312;
 
-      /* Background toast */
+    /* Background toast */
     --color-background-success: #06562a;
     --color-background-error: #500000;
     --color-background-warning: #904424;
     --color-background-info: #cfc872;
-    --color-background-destructive:#8c1e02;
+    --color-background-destructive: #8c1e02;
 
     /* Text variants (5) */
-    --color-text-100: #d4d4d4;  /* Secondary text */
-    --color-text-200: #a4a4a4;  /* Muted text */
-    --color-text-400: #777777;  /* Muted text */
-    --color-text-500: #6a6a6a;  /* Disabled text */
-    --color-text-900: #1d2328;  /* Text on light background */
+    --color-text-100: #d4d4d4;
+    /* Secondary text */
+    --color-text-200: #a4a4a4;
+    /* Muted text */
+    --color-text-400: #777777;
+    /* Muted text */
+    --color-text-500: #6a6a6a;
+    /* Disabled text */
+    --color-text-900: #1d2328;
+    /* Text on light background */
 
     /* Brand variants (4) */
-    --color-brand-50: #e6c8dd;   /* Light burgundy - hover light */
-    --color-brand-100: #cc87b8;   /* Light burgundy - hover light */
-    --color-brand-600: #ab1e7e;  /* Hover state */
-    --color-brand-700: #760f54;  /* Active state */
-    --color-brand-800: #5a2a5a;  /* Secondary brand */
+    --color-brand-50: #e6c8dd;
+    /* Light burgundy - hover light */
+    --color-brand-100: #cc87b8;
+    /* Light burgundy - hover light */
+    --color-brand-600: #ab1e7e;
+    /* Hover state */
+    --color-brand-700: #760f54;
+    /* Active state */
+    --color-brand-800: #5a2a5a;
+    /* Secondary brand */
 
     /* Border variants (2) */
-    --color-border-700: #5a6a74;  /* Light borders */
+    --color-border-700: #5a6a74;
+    /* Light borders */
 
     /* Input variants (3) */
-    --color-input-border-800: #414e58;   /* Input border */
-    --color-input-focus-700: #5a6a74;    /* Focus ring */
-    --color-input-placeholder-600: #1c2124; /* Placeholder text */
+    --color-input-border-800: #414e58;
+    /* Input border */
+    --color-input-focus-700: #5a6a74;
+    /* Focus ring */
+    --color-input-placeholder-600: #1c2124;
+    /* Placeholder text */
 
     /* Interactive variants (2) */
-    --color-ring-500: #70139b;  /* Focus rings - uses brand */
+    --color-ring-500: #70139b;
+    /* Focus rings - uses brand */
 
     /* ===== BUTTON COLORS (12 tokens) ===== */
 
     /* Primary Button - from brand-500 (3) */
-    --color-button-primary: #741055;         /* Base brand */
-    --color-button-primary-hover: #4e0c39;   /* Hover */
-    --color-button-primary-active: #630a45;  /* Active */
-    --color-button-secondary: #652f65;       /* Secondary brand */
-    --color-button-secondary-hover: #3f1532; /* Hover */
+    --color-button-primary: #741055;
+    /* Base brand */
+    --color-button-primary-hover: #4e0c39;
+    /* Hover */
+    --color-button-primary-active: #630a45;
+    /* Active */
+    --color-button-secondary: #652f65;
+    /* Secondary brand */
+    --color-button-secondary-hover: #3f1532;
+    /* Hover */
     --color-button-secondary-active: #5d1f49;
-    
+
     /* Custom Button */
-    --color-button-orange: #a13901;   /* Orange */
+    --color-button-orange: #a13901;
+    /* Orange */
     --color-button-orange-hover: #772a00;
     --color-button-orange-active: #b46f00;
-    --color-button-blue: #163b7c;   /* Blue */
+    --color-button-blue: #163b7c;
+    /* Blue */
     --color-button-blue-hover: #102a56;
     --color-button-blue-active: #102e62;
-    --color-button-green: #05641a;   /* Green */
+    --color-button-green: #05641a;
+    /* Green */
     --color-button-green-hover: #022a0b;
     --color-button-green-active: #044b15;
 
     /* Outline Button - combine text-50 + border-800 + hover-700 (3) */
-    --color-button-outline-text: #ededed;      /* Text color */
-    --color-button-outline-border: #414e58;   /* Border */
-    --color-button-outline-hover: #1e3442;    /* Hover bg */
+    --color-button-outline-text: #ededed;
+    /* Text color */
+    --color-button-outline-border: #414e58;
+    /* Border */
+    --color-button-outline-hover: #1e3442;
+    /* Hover bg */
 
     /* Destructive Button - from error-500 + custom (3) */
-    --color-button-destructive: #f98e5f;          /* Error color */
-    --color-button-destructive-hover: #840804;    /* Custom hover */
-    --color-button-destructive-active: #B83312;   /* Custom active */
+    --color-button-destructive: #f98e5f;
+    /* Error color */
+    --color-button-destructive-hover: #840804;
+    /* Custom hover */
+    --color-button-destructive-active: #B83312;
+    /* Custom active */
 
     /* ===== SHADCN UI CORE VARIABLES ===== */
     /* Standard shadcn variables (mapped to new system) */
@@ -169,6 +213,16 @@
     --sidebar-accent-foreground: #ededed;
     --sidebar-border: #414e58;
     --sidebar-ring: #9b1371;
+
+    /* ===== PREMIUM THEME TOKENS ===== */
+    --color-background-deep: #050a0d;
+    --color-glass-border: rgba(255, 255, 255, 0.1);
+    --color-glass-bg: rgba(255, 255, 255, 0.05);
+    --color-glass-bg-hover: rgba(255, 255, 255, 0.1);
+    --color-glow-primary: rgba(88, 28, 135, 0.2);
+    /* purple-900/20 */
+    --color-glow-secondary: rgba(30, 58, 138, 0.1);
+    /* blue-900/10 */
 
     /* ===== NON-COLOR SETTINGS (Keep All) ===== */
 
@@ -219,15 +273,21 @@
     --font-instrument-sans: "Instrument Sans", sans-serif;
 
     /* BUTTON SIZE TOKENS */
-    --button-height-sm: 32px;    /* h-8 */
-    --button-height-md: 40px;    /* h-10 */
-    --button-height-lg: 48px;    /* h-12 */
+    --button-height-sm: 32px;
+    /* h-8 */
+    --button-height-md: 40px;
+    /* h-10 */
+    --button-height-lg: 48px;
+    /* h-12 */
     --home-button-height: var(--button-height-lg);
 
     /* Icon button sizes */
-    --icon-button-size-sm: 32px;  /* w-8 h-8 */
-    --icon-button-size-md: 40px;  /* w-10 h-10 */
-    --icon-button-size-lg: 48px;  /* w-12 h-12 */
+    --icon-button-size-sm: 32px;
+    /* w-8 h-8 */
+    --icon-button-size-md: 40px;
+    /* w-10 h-10 */
+    --icon-button-size-lg: 48px;
+    /* w-12 h-12 */
 
     /* MAIN MENU TOKENS */
     --main-menu-font-family: var(--font-albert-sans);
@@ -243,10 +303,12 @@
 }
 
 @layer utilities {
+
     /* Paksa optical sizing ON untuk semua elemen dengan font-heading */
     .font-heading {
         font-optical-sizing: auto;
     }
+
     /* ===== HOMEPAGE ANIMATION UTILITIES ===== */
     /* Animation State Classes */
     .homepage-svg-hidden {
@@ -304,6 +366,7 @@
             opacity: 0;
             transform: translateY(20px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
@@ -320,6 +383,7 @@
             opacity: 0;
             transform: translateX(-100%);
         }
+
         to {
             opacity: 1;
             transform: translateX(0);
@@ -375,28 +439,39 @@
         }
     }
 
-    /* Reduced Motion Support */
-    @media (prefers-reduced-motion: reduce) {
-        .homepage-svg-animation,
-        .homepage-text-animation,
-        .homepage-button-animation {
-            transition: none;
-        }
+    .homepage-svg-hidden,
+    .homepage-text-hidden,
+    .homepage-button-hidden {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+    }
 
-        .homepage-svg-hidden,
-        .homepage-text-hidden,
-        .homepage-button-hidden {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            filter: blur(0);
-        }
+    /* ===== PREMIUM DESIGN UTILITIES ===== */
+    .bg-noise-overlay {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.03;
+        pointer-events: none;
+        mix-blend-mode: overlay;
+    }
+
+    .glass-panel {
+        @apply border border-white/10 bg-white/5 backdrop-blur-md;
+    }
+
+    .glass-card {
+        @apply glass-panel transition-all duration-500 hover:bg-white/10 hover:shadow-2xl;
+    }
+
+    .text-premium-gradient {
+        @apply text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40;
     }
 }
 
 
 
 @layer base {
-  :root {
+    :root {
         --sidebar-background: 0 0% 98%;
         --sidebar-foreground: 240 5.3% 26.1%;
         --sidebar-primary: 240 5.9% 10%;
@@ -406,7 +481,8 @@
         --sidebar-border: 220 13% 91%;
         --sidebar-ring: 217.2 91.2% 59.8%;
     }
-  .dark {
+
+    .dark {
         --sidebar-background: 240 5.9% 10%;
         --sidebar-foreground: 240 4.8% 95.9%;
         --sidebar-primary: 224.3 76.3% 48%;
@@ -421,11 +497,12 @@
 
 
 @layer base {
-  * {
-    @apply border-border-800;
+    * {
+        @apply border-border-800;
     }
-  body {
-    @apply bg-background-900 text-text-50;
+
+    body {
+        @apply bg-background-900 text-text-50;
     }
 }
 
@@ -436,10 +513,11 @@
 
 
 @layer base {
-  * {
-    @apply border-border-800;
+    * {
+        @apply border-border-800;
     }
-  body {
-    @apply bg-background-900 text-text-50;
+
+    body {
+        @apply bg-background-900 text-text-50;
     }
 }
