@@ -393,7 +393,7 @@ export function DashboardOverview({ user }: DashboardContentProps) {
           Welcome back, {user.firstName || 'User'}!
         </h1>
         <p className="text-text-400 mt-2">
-          Here's what's happening with your event management system today.
+          Here&apos;s what&apos;s happening with your event management system today.
         </p>
       </div>
 

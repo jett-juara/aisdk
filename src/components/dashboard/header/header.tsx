@@ -172,7 +172,11 @@ function UserProfileDropdown({
   useEffect(() => {
     if (menuOpen) return;
     const w = baseWidth ?? (triggerRef.current?.offsetWidth ?? 0);
-    if (w > 0 && w !== syncedWidth) setSyncedWidth(w);
+    if (w > 0 && w !== syncedWidth) {
+      const raf = requestAnimationFrame(() => setSyncedWidth(w));
+      return () => cancelAnimationFrame(raf);
+    }
+    return;
   }, [menuOpen, baseWidth, syncedWidth]);
 
   if (!user) return null;

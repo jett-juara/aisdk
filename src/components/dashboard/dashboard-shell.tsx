@@ -31,7 +31,7 @@ interface DashboardShellProps {
  * DashboardShell - Main dashboard container dengan sidebar dan header
  * Mengikuti shadcn-block pattern seperti Hero47
  */
-	export function DashboardShell({
+export function DashboardShell({
   user,
   loading = false,
   className,
@@ -86,100 +86,6 @@ interface DashboardShellProps {
     loading,
   };
 
-  /**
-   * Sidebar Component - Internal sub-component
-   */
-  const Sidebar = () => (
-    <DashboardSidebar
-      collapsed={sidebarCollapsed}
-      onToggle={handleSidebarToggle}
-      user={user}
-      navigationItems={navigationItems}
-      onNavigate={() => handleMobileSidebarClose()}
-      variant="desktop"
-    />
-  );
-
-  /**
-   * Header Component - Internal sub-component
-   */
-  const Header = () => (
-    <DashboardHeader
-      user={user}
-      loading={loading}
-      onLogout={onLogout || (() => Promise.resolve())}
-      onSidebarToggle={handleSidebarToggle}
-      sidebarCollapsed={sidebarCollapsed}
-      mobileSidebarOpen={mobileSidebarOpen}
-      onMobileSidebarToggle={handleMobileSidebarToggle}
-    />
-  );
-
-  /**
-   * Main Layout Component - Internal sub-component
-   */
-	  const MainLayout = () => (
-	    <div className="flex flex-1 overflow-hidden">
-      {/* Desktop Sidebar - Fixed */}
-      <div className="hidden lg:block">
-        <Sidebar />
-      </div>
-
-	      {/* Main Content Area */}
-	      <div className="flex flex-1 flex-col overflow-hidden">
-	        <Header />
-
-	        {/* Horizontal separator aligned with sidebar header */}
-	        <Separator className="bg-border-800" />
-
-	        {/* Page Content */}
-	        <main
-	          className={cn(
-	            "dashboard-scroll flex-1 overflow-auto p-6 lg:p-8",
-	            "bg-background-900 text-text-50",
-	            // Smooth transition untuk sidebar toggle
-	            "transition-all duration-200 ease-in-out"
-	          )}
-	        >
-          <div className="mx-auto max-w-7xl">
-            {children}
-          </div>
-        </main>
-      </div>
-    </div>
-  );
-
-  /**
-   * Mobile Sidebar Overlay - Internal sub-component
-   */
-  const MobileSidebar = () => {
-    if (!mounted) return null;
-
-    return (
-      <div className="lg:hidden">
-        <Sheet open={mobileSidebarOpen} onOpenChange={setMobileSidebarOpen}>
-          <SheetContent
-            side="left"
-            className="border-none bg-background-900 w-[74vw] max-w-[340px] p-0"
-          >
-            <SheetTitle className="sr-only">Menu dashboard</SheetTitle>
-            <div className="flex h-full flex-col">
-              <DashboardSidebar
-                collapsed={false}
-                onToggle={handleSidebarToggle}
-                user={user}
-                navigationItems={navigationItems}
-                onNavigate={() => handleMobileSidebarClose()}
-                variant="mobile"
-              />
-            </div>
-          </SheetContent>
-        </Sheet>
-      </div>
-    );
-  };
-
-  // Render main dashboard shell
   return (
     <div
       className={cn(
@@ -188,11 +94,61 @@ interface DashboardShellProps {
         className
       )}
     >
-      {/* Main Layout */}
-      <MainLayout />
-
-      {/* Mobile Sidebar Overlay */}
-      <MobileSidebar />
+      <div className="flex flex-1 overflow-hidden">
+        <div className="hidden lg:block">
+          <DashboardSidebar
+            collapsed={sidebarCollapsed}
+            onToggle={handleSidebarToggle}
+            user={user}
+            navigationItems={navigationItems}
+            onNavigate={() => handleMobileSidebarClose()}
+            variant="desktop"
+          />
+        </div>
+        <div className="flex flex-1 flex-col overflow-hidden">
+          <DashboardHeader
+            user={user}
+            loading={loading}
+            onLogout={onLogout || (() => Promise.resolve())}
+            onSidebarToggle={handleSidebarToggle}
+            sidebarCollapsed={sidebarCollapsed}
+            mobileSidebarOpen={mobileSidebarOpen}
+            onMobileSidebarToggle={handleMobileSidebarToggle}
+          />
+          <Separator className="bg-border-800" />
+          <main
+            className={cn(
+              "dashboard-scroll flex-1 overflow-auto p-6 lg:p-8",
+              "bg-background-900 text-text-50",
+              "transition-all duration-200 ease-in-out"
+            )}
+          >
+            <div className="mx-auto max-w-7xl">{children}</div>
+          </main>
+        </div>
+      </div>
+      {mounted && (
+        <div className="lg:hidden">
+          <Sheet open={mobileSidebarOpen} onOpenChange={setMobileSidebarOpen}>
+            <SheetContent
+              side="left"
+              className="border-none bg-background-900 w-[74vw] max-w-[340px] p-0"
+            >
+              <SheetTitle className="sr-only">Menu dashboard</SheetTitle>
+              <div className="flex h-full flex-col">
+                <DashboardSidebar
+                  collapsed={false}
+                  onToggle={handleSidebarToggle}
+                  user={user}
+                  navigationItems={navigationItems}
+                  onNavigate={() => handleMobileSidebarClose()}
+                  variant="mobile"
+                />
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      )}
     </div>
   );
 }
