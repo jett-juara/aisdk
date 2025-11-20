@@ -196,7 +196,7 @@ const Hero = () => {
             </div>
           </div>
           {/* Client Logo Section */}
-          <div className={`w-full mt-24 py-16 bg-transparent transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
+          <div className={`w-full mt-8 py-16 bg-transparent transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
             <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col items-center text-center mb-12 px-4">
                 <h2 className="text-3xl md:text-4xl font-headingSecondary font-bold text-premium-gradient mb-6">
