@@ -464,7 +464,8 @@
     }
 
     .text-premium-gradient {
-        @apply text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40;
+        @apply text-transparent bg-clip-text;
+        background-image: linear-gradient(to bottom, var(--color-text-50), var(--color-text-50), color-mix(in srgb, var(--color-text-50) 40%, transparent));
     }
 }
 

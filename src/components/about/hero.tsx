@@ -139,17 +139,19 @@ const Hero = () => {
                         <span className="text-white/20">×</span> Teknologi
                       </h1>
                     </div>
-                    <p className="font-light text-lg md:text-xl text-white/60 leading-relaxed max-w-2xl border-l border-white/10 pl-6">
-                      Kami menggabungkan kreativitas, teknologi, dan eksekusi presisi untuk menghadirkan pengalaman acara yang imersif. Berbasis data dan inovasi, setiap momen dirancang untuk melampaui ekspektasi.
-                    </p>
+                    <div className="relative pl-8">
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
+                      <p className="font-light text-lg md:text-xl text-white/60 leading-relaxed max-w-2xl">
+                        Kami menggabungkan kreativitas, teknologi, dan eksekusi presisi untuk menghadirkan pengalaman acara yang imersif. Berbasis data dan inovasi, setiap momen dirancang untuk melampaui ekspektasi.
+                      </p>
+                    </div>
                     <div className="flex items-center gap-6 pt-4">
                       <Button
-                        className="h-12 px-8 rounded-full bg-white text-black hover:bg-white/90 font-medium tracking-wide transition-all duration-300 hover:scale-105"
+                        className="h-12 px-8 rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
                         onClick={() => router.push("/contact")}
                       >
                         Start Project
                       </Button>
-                      <span className="text-sm text-white/30 font-mono tracking-widest uppercase">Est. 2025</span>
                     </div>
                   </div>
                 )}

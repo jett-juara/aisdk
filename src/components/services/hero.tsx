@@ -133,17 +133,20 @@ export function ServicesHero({
                         {heading}
                       </h1>
                     </div>
-                    <div className="space-y-4 max-w-2xl border-l border-white/10 pl-6">
-                      <p className="font-medium text-xl md:text-2xl text-white/90 leading-relaxed">
-                        {subheading}
-                      </p>
-                      <p className="font-light text-lg text-white/60 leading-relaxed">
-                        {description}
-                      </p>
+                    <div className="relative pl-8">
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
+                      <div className="space-y-4 max-w-2xl">
+                        <p className="font-medium text-xl md:text-2xl text-white/90 leading-relaxed">
+                          {subheading}
+                        </p>
+                        <p className="font-light text-lg text-white/60 leading-relaxed">
+                          {description}
+                        </p>
+                      </div>
                     </div>
                     <div className="flex items-center gap-6 pt-4">
                       <Button
-                        className="h-12 px-8 rounded-full bg-white text-black hover:bg-white/90 font-medium tracking-wide transition-all duration-300 hover:scale-105"
+                        className="h-12 px-8 rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
                         onClick={() => router.push("/contact")}
                       >
                         Let&apos;s Talk

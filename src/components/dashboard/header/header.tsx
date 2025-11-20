@@ -172,8 +172,8 @@ function UserProfileDropdown({
   useEffect(() => {
     if (menuOpen) return;
     const w = baseWidth ?? (triggerRef.current?.offsetWidth ?? 0);
-    if (w > 0) setSyncedWidth(w);
-  }, [menuOpen, baseWidth]);
+    if (w > 0 && w !== syncedWidth) setSyncedWidth(w);
+  }, [menuOpen, baseWidth, syncedWidth]);
 
   if (!user) return null;
 
@@ -230,7 +230,7 @@ function UserProfileDropdown({
         style={syncedWidth ? { width: `${syncedWidth}px` } : undefined}
         className="w-auto border-border-900 bg-background-900 p-0"
       >
-      
+
 
         <DropdownMenuItem
           className="cursor-pointer text-text-50 lg:focus:text-brand-100 h-12 lg:h-10 lg:hover:text-brand-100 lg:hover:bg-transparent lg:focus:bg-transparent flex items-center gap-3 w-full px-3 py-2 min-h-[40px] focus:text-text-50 hover:bg-button-primary-hover"
@@ -285,7 +285,7 @@ export function DashboardHeader({
         >
           {sidebarCollapsed ? (
             <PanelLeftOpen className="h-8 w-8 text-text-50"
-            strokeWidth={1} />
+              strokeWidth={1} />
           ) : (
             <PanelLeftClose className="h-8 w-8 text-text-50" strokeWidth={1} />
           )}
@@ -303,7 +303,7 @@ export function DashboardHeader({
         </div>
       </div>
 
-	      {/* Right Section */}
+      {/* Right Section */}
       <div className="flex items-center gap-4">
         {/* Notifications */}
         <NotificationBell />
