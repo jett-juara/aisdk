@@ -222,9 +222,9 @@ const Hero = () => {
               <div className="flex gap-12 w-max animate-marquee-right group-hover/logos:[animation-play-state:paused]">
                 {[...logos.slice(0, 9), ...logos.slice(0, 9)].map((logo, idx) => (
                   <div key={`row1-${idx}`} className="group relative w-32 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-125">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/95 to-white/75 backdrop-blur-md border border-white/50 shadow-lg opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
-                    <Image src={`/client-logo/gray/${logo}-gray.png`} alt={logo} fill sizes="128px" className="object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                    <Image src={`/client-logo/color/${logo}-color.png`} alt={logo} fill sizes="128px" className="object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
+                    <Image src={`/client-logo/gray/${logo}-gray.png`} alt={logo} fill sizes="128px" className="object-contain p-3 opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+                    <Image src={`/client-logo/color/${logo}-color.png`} alt={logo} fill sizes="128px" className="object-contain p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 ))}
               </div>
@@ -233,9 +233,9 @@ const Hero = () => {
               <div className="flex gap-12 w-max animate-marquee-left group-hover/logos:[animation-play-state:paused]">
                 {[...logos.slice(9, 18), ...logos.slice(9, 18)].map((logo, idx) => (
                   <div key={`row2-${idx}`} className="group relative w-32 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-125">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/95 to-white/75 backdrop-blur-md border border-white/50 shadow-lg opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
-                    <Image src={`/client-logo/gray/${logo}-gray.png`} alt={logo} fill sizes="128px" className="object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                    <Image src={`/client-logo/color/${logo}-color.png`} alt={logo} fill sizes="128px" className="object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
+                    <Image src={`/client-logo/gray/${logo}-gray.png`} alt={logo} fill sizes="128px" className="object-contain p-3 opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+                    <Image src={`/client-logo/color/${logo}-color.png`} alt={logo} fill sizes="128px" className="object-contain p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 ))}
               </div>
@@ -244,9 +244,9 @@ const Hero = () => {
               <div className="flex gap-12 w-max animate-marquee-right group-hover/logos:[animation-play-state:paused]">
                 {[...logos.slice(18, 28), ...logos.slice(18, 28)].map((logo, idx) => (
                   <div key={`row3-${idx}`} className="group relative w-32 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-125">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/95 to-white/75 backdrop-blur-md border border-white/50 shadow-lg opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
-                    <Image src={`/client-logo/gray/${logo}-gray.png`} alt={logo} fill sizes="128px" className="object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                    <Image src={`/client-logo/color/${logo}-color.png`} alt={logo} fill sizes="128px" className="object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
+                    <Image src={`/client-logo/gray/${logo}-gray.png`} alt={logo} fill sizes="128px" className="object-contain p-3 opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+                    <Image src={`/client-logo/color/${logo}-color.png`} alt={logo} fill sizes="128px" className="object-contain p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 ))}
               </div>
