@@ -9,6 +9,7 @@ import {
   Montagu_Slab,
   Albert_Sans,
   Instrument_Sans,
+  Funnel_Display,
 } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/about/theme-provider";
@@ -88,6 +89,12 @@ const instrumentSans = Instrument_Sans({
   display: "swap",
 });
 
+const funnelDisplay = Funnel_Display({
+  subsets: ["latin"],
+  variable: "--font-funnel-display",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "JETT – AI Event Management Assistant",
   description: "Professional event management with AI technology.",
@@ -112,7 +119,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${rubik.variable} ${manrope.variable} ${jetbrainsMono.variable} ${montaguSlab.variable} ${albertSans.variable} ${instrumentSans.variable}`}
+      className={`${montserrat.variable} ${rubik.variable} ${manrope.variable} ${jetbrainsMono.variable} ${montaguSlab.variable} ${albertSans.variable} ${instrumentSans.variable} ${funnelDisplay.variable}`}
       suppressHydrationWarning
     >
       <head>

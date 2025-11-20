@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { HeaderMenuItem } from "./config";
 import { cn } from "@/lib/utils";
 import { ABOUT_RESET_EVENT } from "@/lib/constants/events";
@@ -51,9 +52,10 @@ export interface HeaderUserProfile {
 
 // Desktop navigation menu (inline from previous desktop-menu.tsx)
 const baseLinkClass =
-  "font-heading text-sm uppercase tracking-wide text-white/80 transition-all duration-300 hover:text-premium-gradient focus-visible:text-white hover:scale-105 transform-gpu";
+  "font-button text-sm uppercase tracking-wide text-navigation-menu transition-all duration-300 hover:text-premium-gradient focus-visible:text-white hover:scale-105 transform-gpu hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4";
 
 export const DesktopMenu = ({ items }: { items: HeaderMenuItem[] }) => {
+  const pathname = usePathname();
   const emitAboutReset = React.useCallback((href: string) => {
     if (href === "/about" && typeof window !== "undefined") {
       window.dispatchEvent(new Event(ABOUT_RESET_EVENT));
@@ -71,6 +73,9 @@ export const DesktopMenu = ({ items }: { items: HeaderMenuItem[] }) => {
                 className={cn(
                   baseLinkClass,
                   "p-0 mt-6 rounded-none bg-transparent hover:bg-transparent focus:bg-transparent data-[active=true]:bg-transparent ring-0 focus-visible:ring-0 outline-none focus-visible:outline-0",
+                  pathname && item.href !== "#" && pathname.startsWith(item.href)
+                    ? "text-navigation-active underline decoration-dotted decoration-navigation-active underline-offset-4"
+                    : ""
                 )}
               >
                 <Link
@@ -104,6 +109,7 @@ export const MobileMenu = ({
   loading?: boolean;
 }) => {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   // Width sync logic dari dashboard header untuk konsistensi behavior
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -217,7 +223,12 @@ export const MobileMenu = ({
                     <Button
                       asChild
                       variant="ghost"
-                      className="w-full justify-between px-3 py-3 min-h-[44px] md:min-h-[60px] text-left text-md md:text-xl font-manrope font-thin uppercase tracking-wide text-text-50 hover:bg-hover-overlay-700 hover:text-text-50 focus:bg-hover-overlay-700 focus:text-text-50"
+                      className={cn(
+                        "w-full justify-between px-3 py-3 min-h-[44px] md:min-h-[60px] text-left text-md md:text-xl font-button font-thin uppercase tracking-wide text-navigation-menu hover:bg-hover-overlay-700 hover:text-text-50 focus:bg-hover-overlay-700 focus:text-text-50 hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4",
+                        pathname && item.href !== "#" && pathname.startsWith(item.href)
+                          ? "text-navigation-active underline decoration-dotted decoration-navigation-active underline-offset-4"
+                          : ""
+                      )}
                     >
                       <Link
                         href={item.href}
@@ -287,7 +298,12 @@ export const MobileMenu = ({
                     >
                       <Link
                         href="/dashboard"
-                        className="flex items-center gap-3 w-full px-3 py-2 min-h-[44px] md:min-h-[60px] text-left"
+                        className={cn(
+                          "flex items-center gap-3 w-full px-3 py-2 min-h-[44px] md:min-h-[60px] text-left hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4",
+                          pathname === "/dashboard"
+                            ? "text-navigation-active underline decoration-dotted decoration-navigation-active underline-offset-4"
+                            : ""
+                        )}
                         onClick={() => setOpen(false)}
                       >
                         <LayoutDashboard className="h-5 w-5 md:h-6 md:w-6" />
@@ -302,7 +318,7 @@ export const MobileMenu = ({
                       className="min-h-[44px] md:min-h-[60px] cursor-pointer text-text-50 hover:bg-hover-overlay-700 hover:text-text-50 focus:bg-hover-overlay-700 focus:text-text-50"
                     >
                       <button
-                        className="flex items-center gap-3 w-full px-3 py-2 text-left"
+                        className="flex items-center gap-3 w-full px-3 py-2 text-left hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4"
                         onClick={async (event) => {
                           event.preventDefault();
                           if (loggingOut) return;
@@ -347,6 +363,7 @@ export const HeaderMenu = ({
 }: HeaderMenuProps) => {
   // Mount gate to mimic ssr: false for mobile section to avoid hydration issues
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
   useEffect(() => {
     const raf = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(raf);
@@ -434,17 +451,25 @@ export const HeaderMenu = ({
                 >
                   <Link
                     href="/dashboard"
-                    className="flex items-center gap-3 w-full"
+                    className={cn(
+                      "flex items-center gap-3 w-full hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4",
+                      pathname === "/dashboard"
+                        ? "text-navigation-active underline decoration-dotted decoration-navigation-active underline-offset-4"
+                        : ""
+                    )}
                   >
                     <LayoutDashboard className="h-6 w-6" />
-                    <span className="font-button font-medium text-sm text-text-50">
+                    <span className={cn(
+                      "font-button font-medium text-sm text-text-50",
+                      pathname === "/dashboard" ? "text-navigation-active" : ""
+                    )}>
                       Dashboard
                     </span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-border-800" />
                 <DropdownMenuItem
-                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-4 py-2 min-h-[44px]"
+                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-4 py-2 min-h-[44px] hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4"
                   onSelect={async (event) => {
                     event.preventDefault();
                     if (loggingOut) return;

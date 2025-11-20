@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { DetailSection } from "@/components/shared/detail-section"
 
-export default function Event({ stage }: { stage: "idle" | "cards" | "content" }) {
+export default function Event({ stage, onClose }: { stage: "idle" | "cards" | "content"; onClose?: () => void }) {
   const router = useRouter()
   const paragraphs = [
     "JUARA Events menghadirkan pengalaman acara premium yang tak terlupakan. Kami menggabungkan kreativitas, teknologi, dan eksekusi sempurna untuk menciptakan momen yang berkesan bagi audiences Anda.",
@@ -15,7 +15,7 @@ export default function Event({ stage }: { stage: "idle" | "cards" | "content" }
   return (
     <DetailSection
       stage={stage}
-      onClose={() => router.push("/about")}
+      onClose={onClose ?? (() => router.push("/about"))}
       title="Premium event experiences"
       paragraphs={paragraphs}
       imagePosition="left"

@@ -119,7 +119,7 @@ export function ServicesHero({
   }
 
   return (
-    <section className="relative flex-1 min-h-0 w-full flex items-center overflow-hidden">
+    <section className="relative flex-1 min-h-0 w-full flex items-center overflow-visible">
       <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         {!selectedId && (
           <div className="flex flex-col lg:flex-row lg:items-center w-full gap-12 lg:gap-20">
@@ -129,17 +129,17 @@ export function ServicesHero({
                 {introStep > 0 && (
                   <div className="flex flex-col gap-8">
                     <div>
-                      <h1 className="font-heading font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter text-premium-gradient leading-[0.9]">
+                      <h1 className="font-headingSecondary font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
                         {heading}
                       </h1>
                     </div>
                     <div className="relative pl-8">
                       <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
                       <div className="space-y-4 max-w-2xl">
-                        <p className="font-medium text-xl md:text-2xl text-white/90 leading-relaxed">
+                        <p className="font-medium text-xl md:text-2xl text-text-50 leading-relaxed">
                           {subheading}
                         </p>
-                        <p className="font-light text-lg text-white/60 leading-relaxed">
+                        <p className="font-light text-lg text-text-200 leading-relaxed">
                           {description}
                         </p>
                       </div>
@@ -175,21 +175,22 @@ export function ServicesHero({
                         const Icon = item.icon as LucideIcon
                         return (
                           <div
-                            className="group relative rounded-3xl overflow-hidden cursor-pointer h-full glass-card shadow-2xl"
+                            className="group relative rounded-3xl overflow-hidden cursor-pointer h-full glass-card shadow-2xl focus:outline-none focus-visible:outline-none"
                             onClick={() => handleCardClick(item.id)}
+                            tabIndex={-1}
                           >
                             {/* Hover Glow */}
-                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-white/10 to-transparent" />
+                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-glass-bg-hover to-transparent" />
 
                             {/* Content */}
                             <div className="absolute inset-0 flex flex-col justify-between p-6">
                               <div className="flex justify-end">
-                                <div className="p-3 rounded-full bg-white/5 border border-white/10 group-hover:bg-white/10 transition-colors duration-300">
-                                  <Icon className="h-6 w-6 text-white/80 group-hover:text-white transition-colors duration-300" strokeWidth={1.5} />
+                                <div className="p-3 rounded-full bg-glass-bg border border-glass-border group-hover:bg-glass-bg-hover transition-colors duration-300">
+                                  <Icon className="h-6 w-6 text-text-50 opacity-80 group-hover:text-text-50 group-hover:opacity-100 transition-colors duration-300" strokeWidth={1.5} />
                                 </div>
                               </div>
                               <div>
-                                <h3 className="text-lg font-medium text-white/90 tracking-wide group-hover:text-white transition-colors duration-300 leading-tight">{item.label}</h3>
+                                <h3 className="text-lg font-medium text-text-50 tracking-wide group-hover:text-text-50 transition-colors duration-300 leading-tight">{item.label}</h3>
                               </div>
                             </div>
                           </div>
@@ -210,21 +211,23 @@ export function ServicesHero({
               {items.map((item) => {
                 const isSelected = selectedId === item.id
                 const cascadeActive = detailStage !== "idle"
-                const cardScaleClass = !cascadeActive ? (isSelected ? "scale-100 opacity-100" : "scale-100 opacity-80") : (isSelected ? "scale-105 opacity-100 ring-1 ring-white/20" : "scale-90 opacity-30 blur-[2px]")
+                const cardScaleClass = !cascadeActive ? (isSelected ? "scale-100 opacity-100" : "scale-100 opacity-80") : (isSelected ? "scale-105 opacity-100 ring-1 ring-ring-50/20" : "scale-90 opacity-30 blur-[2px]")
 
                 return (
                   <div key={item.id}
-                    className={`transition-all duration-700 ease-premium transform-gpu aspect-square ${cardScaleClass}`}>
+                    className={`transition-all duration-700 ease-premium transform-gpu aspect-square ${cardScaleClass} focus:outline-none focus-visible:outline-none`}
+                    tabIndex={-1}>
                     {(() => {
                       const Icon = item.icon as LucideIcon
                       return (
                         <div
-                          className={`group relative rounded-xl overflow-hidden cursor-pointer h-full glass-panel transition-all duration-300 hover:bg-white/10`}
+                          className={`group relative rounded-xl overflow-hidden cursor-pointer h-full glass-panel transition-all duration-300 hover:bg-glass-bg-hover focus:outline-none focus-visible:outline-none`}
                           onClick={() => handleCardClick(item.id)}
+                          tabIndex={-1}
                         >
                           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-2 text-center">
-                            <Icon className={`h-5 w-5 ${isSelected ? "text-white" : "text-white/50"} transition-colors`} strokeWidth={1.5} />
-                            <span className={`text-[10px] font-medium ${isSelected ? "text-white" : "text-white/50"} leading-tight tracking-wide`}>
+                            <Icon className={`h-5 w-5 ${isSelected ? "text-text-50" : "text-text-200"} transition-colors`} strokeWidth={1.5} />
+                            <span className={`text-[10px] font-medium ${isSelected ? "text-text-50" : "text-text-200"} leading-tight tracking-wide`}>
                               {item.label}
                             </span>
                           </div>

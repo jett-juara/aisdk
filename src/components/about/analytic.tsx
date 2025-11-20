@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { DetailSection } from "@/components/shared/detail-section"
 
-export default function Analytic({ stage }: { stage: "idle" | "cards" | "content" }) {
+export default function Analytic({ stage, onClose }: { stage: "idle" | "cards" | "content"; onClose?: () => void }) {
   const router = useRouter()
   const paragraphs = [
     "Data memberikan pemahaman mendalam. JUARA Analytics menggunakan insights berbasis data untuk mengoptimalkan strategi dan memaksimalkan ROI dari setiap kampanye, memberikan competitive advantage yang measurable dan actionable.",
@@ -15,7 +15,7 @@ export default function Analytic({ stage }: { stage: "idle" | "cards" | "content
   return (
     <DetailSection
       stage={stage}
-      onClose={() => router.push("/about")}
+      onClose={onClose ?? (() => router.push("/about"))}
       title="Data-driven insights"
       paragraphs={paragraphs}
       imagePosition="right"

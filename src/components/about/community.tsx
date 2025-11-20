@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { DetailSection } from "@/components/shared/detail-section"
 
-export default function Community({ stage }: { stage: "idle" | "cards" | "content" }) {
+export default function Community({ stage, onClose }: { stage: "idle" | "cards" | "content"; onClose?: () => void }) {
   const router = useRouter()
   const paragraphs = [
     "Kami percaya pada kekuatan komunitas untuk mendorong inovasi. JUARA Community mengubah kreator, profesional, dan visioner untuk berkolaborasi dan saling menginspirasi dalam ekosistem yang saling mendukung.",
@@ -15,7 +15,7 @@ export default function Community({ stage }: { stage: "idle" | "cards" | "conten
   return (
     <DetailSection
       stage={stage}
-      onClose={() => router.push("/about")}
+      onClose={onClose ?? (() => router.push("/about"))}
       title="Community-driven innovation"
       paragraphs={paragraphs}
       imagePosition="right"

@@ -47,6 +47,7 @@
     --color-text-success-500: #a2d360;
     /* Light green - success messages */
     --color-text-warning-500: #ff4e20;
+    --color-navigation-active: #dbd1a6;
     /* Red-orange - warning messages */
     --color-text-info-500: #dbd1a6;
     /* Light yellow - info messages */
@@ -116,6 +117,7 @@
 
     /* Border variants (2) */
     --color-border-700: #5a6a74;
+    --color-border-50: #c3e0f2;
     /* Light borders */
 
     /* Input variants (3) */
@@ -128,6 +130,8 @@
 
     /* Interactive variants (2) */
     --color-ring-500: #70139b;
+    --color-ring-50: #ffd4f1;
+    
     /* Focus rings - uses brand */
 
     /* ===== BUTTON COLORS (12 tokens) ===== */
@@ -271,6 +275,8 @@
     --font-jetbrains-mono: "JetBrains Mono", monospace;
     --font-montagu-slab: "Montagu Slab", serif;
     --font-instrument-sans: "Instrument Sans", sans-serif;
+    --font-funnel-display: "Funnel Display", sans-serif;
+    --font-heading-secondary: var(--font-funnel-display);
 
     /* BUTTON SIZE TOKENS */
     --button-height-sm: 32px;
@@ -455,13 +461,26 @@
         mix-blend-mode: overlay;
     }
 
-    .glass-panel {
-        @apply border border-white/10 bg-white/5 backdrop-blur-md;
-    }
+.glass-panel {
+    @apply border border-white/10 bg-white/5 backdrop-blur-md;
+}
 
-    .glass-card {
-        @apply glass-panel transition-all duration-500 hover:bg-white/10 hover:shadow-2xl;
-    }
+.glass-card {
+    @apply glass-panel transition-all duration-500 hover:bg-white/10 hover:shadow-2xl;
+}
+
+.glass-panel:focus,
+.glass-panel:focus-visible,
+.glass-card:focus,
+.glass-card:focus-visible {
+    outline: none !important;
+}
+
+/* Safety: remove default outline globally for non-form elements to avoid blue ring */
+div:focus, div:focus-visible,
+section:focus, section:focus-visible {
+    outline: none !important;
+}
 
     .text-premium-gradient {
         @apply text-transparent bg-clip-text;

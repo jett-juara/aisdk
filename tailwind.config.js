@@ -15,9 +15,10 @@ const config = {
 			center: true,
 			padding: '2rem'
 		},
-		extend: {
-			colors: {
+			extend: {
+				colors: {
 				border: {
+					'50': 'var(--color-border-50)',
 					'700': 'var(--color-border-700)',
 					'800': 'var(--color-border-800)',
 					'900': 'var(--color-border-900)'
@@ -37,7 +38,8 @@ const config = {
 					}
 				},
 				ring: {
-					'500': 'var(--color-ring-500)'
+					'500': 'var(--color-ring-500)',
+					'50': 'var(--color-ring-50)'
 				},
 				background: {
 					'600': 'var(--color-background-600)',
@@ -160,9 +162,11 @@ const config = {
 				'glass-bg': 'var(--color-glass-bg)',
 				'glass-bg-hover': 'var(--color-glass-bg-hover)',
 				'glow-primary': 'var(--color-glow-primary)',
-				'glow-secondary': 'var(--color-glow-secondary)'
-			},
-			borderRadius: {
+				'glow-secondary': 'var(--color-glow-secondary)',
+				'navigation-active': 'var(--color-navigation-active)',
+				'navigation-menu': 'var(--color-navigation-menu)'
+				},
+				borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)',
@@ -184,8 +188,8 @@ const config = {
 				'10': 'var(--space-10)',
 				'12': 'var(--space-12)',
 				'16': 'var(--space-16)'
-			},
-			fontFamily: {
+				},
+				fontFamily: {
 				sans: [
 					'var(--font-rubik)',
 					'var(--font-manrope)',
@@ -203,14 +207,18 @@ const config = {
 					'var(--font-montserrat)',
 					'sans-serif'
 				],
-				heading: [
-					'var(--font-albert-sans)',
-					'sans-serif'
-				],
-				subheading: [
-					'var(--font-rubik)',
-					'sans-serif'
-				],
+					heading: [
+						'var(--font-albert-sans)',
+						'sans-serif'
+					],
+					headingSecondary: [
+						'var(--font-funnel-display)',
+						'sans-serif'
+					],
+					subheading: [
+						'var(--font-rubik)',
+						'sans-serif'
+					],
 				body: [
 					'var(--font-manrope)',
 					'sans-serif'
