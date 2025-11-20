@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    html {
+        scrollbar-gutter: stable;
+    }
+}
+
 :root {
     /* existing variables... */
 }

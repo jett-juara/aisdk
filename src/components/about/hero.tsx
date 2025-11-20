@@ -24,6 +24,12 @@ const Hero = () => {
     { id: 4, slug: "analytic", label: "Analytics", labelLine1: "Data-driven", labelLine2: "Insights", icon: BarChart3, imagePosition: "right" },
   ]
 
+  const logos = [
+    "abc", "angkasapura", "axa", "belfoods", "bintangtoedjoe", "bkkbn", "bukalapak", "cocacola", "danone",
+    "djarum", "duakelinci", "dunhill", "gudanggaram", "haan", "honda", "indosat", "injourney", "kemenag",
+    "kemnaker", "kimbo", "komdigi", "mayora", "mgpa", "nugreentea", "pwc", "sariroti", "telkom", "umc"
+  ]
+
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [hoveredId, setHoveredId] = useState<number | null>(null)
   const [introStep, setIntroStep] = useState(0)
@@ -98,105 +104,159 @@ const Hero = () => {
   const handleCloseDetail = () => { if (!selectedId) return; handleCardClick(selectedId) }
 
   return (
-    <section className={`relative flex-1 min-h-0 w-full flex items-start ${selectedId ? "pt-8" : "pt-8"} overflow-visible transition-all duration-500`}>
-      <div className={`relative z-10 flex flex-col items-center justify-start w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8`}>
-        {!selectedId && (
-          <div className="flex flex-col lg:flex-row lg:items-start w-full gap-12 lg:gap-20">
-            {/* Hero Text Section */}
-            <div className="lg:flex-1 flex flex-col justify-start">
-              <div className={`w-full transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
-                {introStep > 0 && (
-                  <div className="flex flex-col gap-8">
-                    <div>
-                      <h1 className="font-headingSecondary font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
-                        Kreativitas<br />
-                        <span className="text-text-50/20">×</span> Teknologi
-                      </h1>
-                    </div>
-                    <div className="relative pl-8">
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
-                      <p className="font-light text-lg md:text-xl text-50/60 leading-relaxed max-w-2xl">
-                        Kami menggabungkan kreativitas, teknologi, dan eksekusi presisi untuk menghadirkan pengalaman acara yang imersif. Berbasis data dan inovasi, setiap momen dirancang untuk melampaui ekspektasi.
-                      </p>
-                    </div>
-                    <div className="pt-4 flex justify-center lg:justify-start w-full">
-                      <div className="w-full flex justify-center">
-                        <AboutStats />
+    <section className={`relative flex-1 min-h-screen w-full flex flex-col items-center justify-center ${selectedId ? "pt-8" : "pt-8"} overflow-visible transition-all duration-500`}>
+      {!selectedId && (
+        <div className="w-full flex flex-col items-center">
+          <div className={`relative z-10 flex flex-col items-center justify-start w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8`}>
+            <div className="flex flex-col lg:flex-row lg:items-start w-full gap-12 lg:gap-20">
+              {/* Hero Text Section */}
+              <div className="lg:flex-1 flex flex-col justify-start">
+                <div className={`w-full transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
+                  {introStep > 0 && (
+                    <div className="flex flex-col gap-8">
+                      <div>
+                        <h1 className="font-headingSecondary font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
+                          Kreativitas<br />
+                          <span className="text-text-50/20">×</span> Teknologi
+                        </h1>
+                      </div>
+                      <div className="relative pl-8">
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
+                        <p className="font-light text-lg md:text-xl text-50/60 leading-relaxed max-w-2xl">
+                          Kami menggabungkan kreativitas, teknologi, dan eksekusi presisi untuk menghadirkan pengalaman acara yang imersif. Berbasis data dan inovasi, setiap momen dirancang untuk melampaui ekspektasi.
+                        </p>
+                      </div>
+                      <div className="pt-4 flex justify-center lg:justify-start w-full">
+                        <div className="w-full flex justify-center">
+                          <AboutStats />
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-center gap-6 pt-8 w-full">
+                        <Button
+                          className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
+                          onClick={() => window.open("/documents/company-profile.pdf", "_blank")}
+                        >
+                          Company Profile
+                        </Button>
                       </div>
                     </div>
-                    <div className="flex items-center justify-center gap-6 pt-8 w-full">
-                      <Button
-                        className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
-                        onClick={() => window.open("/documents/company-profile.pdf", "_blank")}
-                      >
-                        Company Profile
-                      </Button>
-                      <Button
-                        className="h-12 w-[200px] rounded-full bg-white/5 text-text-50 hover:bg-white/10 border border-white/10 backdrop-blur-md font-medium tracking-wide transition-all duration-300 hover:scale-105"
-                        onClick={() => router.push("/contact")}
-                      >
-                        Contact Us
-                      </Button>
-                    </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
 
-            {/* Grid Section */}
-            <div className="w-full lg:max-w-[35vw]">
-              <div className="grid grid-cols-2 gap-4 md:gap-4 auto-rows-[minmax(100px,auto)]">
-                {items.map((item, index) => {
-                  const isStateOne = selectedId === null
-                  const isIntroActive = introStep <= index
-                  const introClass = isIntroActive ? "opacity-0 translate-y-12 blur-lg" : "opacity-100 translate-y-0 blur-0"
-                  const scaleClass = !isStateOne || introStep < totalIntroSteps ? "scale-100" : hoveredId === item.id ? "scale-[1.02]" : hoveredId === null ? "scale-100" : "scale-95 opacity-60 blur-[1px]"
+              {/* Grid Section */}
+              <div className="w-full lg:max-w-[35vw]">
+                <div className="grid grid-cols-2 gap-4 md:gap-4 auto-rows-[minmax(100px,auto)]">
+                  {items.map((item, index) => {
+                    const isStateOne = selectedId === null
+                    const isIntroActive = introStep <= index
+                    const introClass = isIntroActive ? "opacity-0 translate-y-12 blur-lg" : "opacity-100 translate-y-0 blur-0"
+                    const scaleClass = !isStateOne || introStep < totalIntroSteps ? "scale-100" : hoveredId === item.id ? "scale-[1.02]" : hoveredId === null ? "scale-100" : "scale-95 opacity-60 blur-[1px]"
 
-                  // Bento Grid Classes
-                  let bentoClass = ""
-                  if (index === 0) bentoClass = "md:col-span-1 md:row-span-2 aspect-[1/2] md:aspect-auto"
-                  else if (index === 1) bentoClass = "md:col-span-1 md:row-span-1 aspect-square"
-                  else if (index === 2) bentoClass = "md:col-span-1 md:row-span-1 aspect-square"
-                  else if (index === 3) bentoClass = "md:col-span-2 md:row-span-1 aspect-[2/1]"
+                    // Bento Grid Classes
+                    let bentoClass = ""
+                    if (index === 0) bentoClass = "md:col-span-1 md:row-span-2 aspect-[1/2] md:aspect-auto"
+                    else if (index === 1) bentoClass = "md:col-span-1 md:row-span-1 aspect-square"
+                    else if (index === 2) bentoClass = "md:col-span-1 md:row-span-1 aspect-square"
+                    else if (index === 3) bentoClass = "md:col-span-2 md:row-span-1 aspect-[2/1]"
 
-                  return (
-                    <div key={item.id}
-                      className={`transition-all duration-700 ease-premium transform-gpu w-full ${bentoClass} ${introClass} ${scaleClass} ${introStep < totalIntroSteps ? "pointer-events-none" : ""}`}
-                      onMouseEnter={() => introDone && setHoveredId(item.id)}
-                      onMouseLeave={() => introDone && setHoveredId(null)}>
-                      {(() => {
-                        const Icon = item.icon as LucideIcon
-                        return (
-                          <div
-                            className="group relative rounded-3xl overflow-hidden cursor-pointer h-full glass-card shadow-2xl focus:outline-none focus-visible:outline-none"
-                            onClick={() => handleCardClick(item.id)}
-                            tabIndex={-1}
-                          >
-                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-glass-bg-hover to-transparent" />
+                    return (
+                      <div key={item.id}
+                        className={`transition-all duration-700 ease-premium transform-gpu w-full ${bentoClass} ${introClass} ${scaleClass} ${introStep < totalIntroSteps ? "pointer-events-none" : ""}`}
+                        onMouseEnter={() => introDone && setHoveredId(item.id)}
+                        onMouseLeave={() => introDone && setHoveredId(null)}>
+                        {(() => {
+                          const Icon = item.icon as LucideIcon
+                          return (
+                            <div
+                              className="group relative rounded-3xl overflow-hidden cursor-pointer h-full glass-card shadow-2xl focus:outline-none focus-visible:outline-none"
+                              onClick={() => handleCardClick(item.id)}
+                              tabIndex={-1}
+                            >
+                              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-glass-bg-hover to-transparent" />
 
-                            <div className="absolute inset-0 flex flex-col justify-between p-6">
-                              <div className="flex justify-end">
-                                <div className="p-3 rounded-full bg-glass-bg border border-glass-border group-hover:bg-glass-bg-hover transition-colors duration-300">
-                                  <Icon className="h-6 w-6 text-text-50 opacity-80 group-hover:text-text-50 group-hover:opacity-100 transition-colors duration-300" strokeWidth={1.5} />
+                              <div className="absolute inset-0 flex flex-col justify-between p-6">
+                                <div className="flex justify-end">
+                                  <div className="p-3 rounded-full bg-glass-bg border border-glass-border group-hover:bg-glass-bg-hover transition-colors duration-300">
+                                    <Icon className="h-6 w-6 text-text-50 opacity-80 group-hover:text-text-50 group-hover:opacity-100 transition-colors duration-300" strokeWidth={1.5} />
+                                  </div>
+                                </div>
+                                <div>
+                                  <h3 className="text-lg font-medium text-text-50 tracking-wide group-hover:text-text-50 transition-colors duration-300 leading-tight">{item.label}</h3>
                                 </div>
                               </div>
-                              <div>
-                                <h3 className="text-lg font-medium text-text-50 tracking-wide group-hover:text-text-50 transition-colors duration-300 leading-tight">{item.label}</h3>
-                              </div>
                             </div>
-                          </div>
-                        )
-                      })()}
-                    </div>
-                  )
-                })}
+                          )
+                        })()}
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
             </div>
           </div>
-        )}
+          {/* Client Logo Section */}
+          <div className={`w-full mt-24 py-16 bg-transparent transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
+            <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex flex-col items-center text-center mb-12 px-4">
+                <h2 className="text-3xl md:text-4xl font-headingSecondary font-bold text-premium-gradient mb-6">
+                  Jejak Kolaborasi
+                </h2>
+                <p className="text-text-200 max-w-3xl leading-relaxed text-lg font-light">
+                  Kepercayaan adalah fondasi dari setiap karya luar biasa. Kami bangga menjadi mitra strategis bagi berbagai institusi dan jenama terkemuka, menghadirkan solusi kreatif yang tidak hanya menjawab tantangan, tetapi juga menciptakan standar baru.
+                </p>
+                <div className="mt-10">
+                  <Button
+                    className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105 shadow-lg"
+                    onClick={() => router.push("/contact")}
+                  >
+                    Contact Us
+                  </Button>
+                </div>
+              </div>
+            </div>
 
-        {selectedId && (
-          <>
+            <div className="flex flex-col gap-12 overflow-hidden group/logos py-10 w-full [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
+              {/* Row 1: Left to Right */}
+              <div className="flex gap-12 w-max animate-marquee-right group-hover/logos:[animation-play-state:paused]">
+                {[...logos.slice(0, 9), ...logos.slice(0, 9)].map((logo, idx) => (
+                  <div key={`row1-${idx}`} className="group relative w-32 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-125">
+                    <div className="absolute inset-0 bg-text-50 opacity-0 group-hover:opacity-90 rounded-xl transition-opacity duration-300" />
+                    <img src={`/client-logo/gray/${logo}-gray.png`} alt={logo} className="absolute w-[80%] h-[80%] object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+                    <img src={`/client-logo/color/${logo}-color.png`} alt={logo} className="absolute w-[80%] h-[80%] object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                ))}
+              </div>
+
+              {/* Row 2: Right to Left */}
+              <div className="flex gap-12 w-max animate-marquee-left group-hover/logos:[animation-play-state:paused]">
+                {[...logos.slice(9, 18), ...logos.slice(9, 18)].map((logo, idx) => (
+                  <div key={`row2-${idx}`} className="group relative w-32 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-125">
+                    <div className="absolute inset-0 bg-text-50 opacity-0 group-hover:opacity-90 rounded-xl transition-opacity duration-300" />
+                    <img src={`/client-logo/gray/${logo}-gray.png`} alt={logo} className="absolute w-[80%] h-[80%] object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+                    <img src={`/client-logo/color/${logo}-color.png`} alt={logo} className="absolute w-[80%] h-[80%] object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                ))}
+              </div>
+
+              {/* Row 3: Left to Right */}
+              <div className="flex gap-12 w-max animate-marquee-right group-hover/logos:[animation-play-state:paused]">
+                {[...logos.slice(18, 28), ...logos.slice(18, 28)].map((logo, idx) => (
+                  <div key={`row3-${idx}`} className="group relative w-32 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-125">
+                    <div className="absolute inset-0 bg-text-50 opacity-0 group-hover:opacity-90 rounded-xl transition-opacity duration-300" />
+                    <img src={`/client-logo/gray/${logo}-gray.png`} alt={logo} className="absolute w-[80%] h-[80%] object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+                    <img src={`/client-logo/color/${logo}-color.png`} alt={logo} className="absolute w-[80%] h-[80%] object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>)
+      }
+
+      {
+        selectedId && (
+          <div className={`relative z-10 flex flex-col items-center justify-start w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8`}>
             {/* Detail Content Area */}
             <div className="w-full min-h-[50vh]">
               {(() => {
@@ -219,10 +279,10 @@ const Hero = () => {
                 return null
               })()}
             </div>
-          </>
-        )}
-      </div>
-    </section>
+          </div>
+        )
+      }
+    </section >
   )
 }
 

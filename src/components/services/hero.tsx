@@ -103,9 +103,9 @@ export function ServicesHero({
     <section className={`relative flex-1 min-h-0 w-full flex items-start ${selectedId ? "pt-8" : "pt-8"} overflow-visible transition-all duration-500`}>
       <div className={`relative z-10 flex flex-col items-center justify-start w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8`}>
         {!selectedId && (
-          <div className="flex flex-col lg:flex-row lg:items-center w-full gap-12 lg:gap-20">
+          <div className="flex flex-col lg:flex-row lg:items-start w-full gap-12 lg:gap-20">
             {/* Hero Text Section */}
-            <div className="lg:flex-1 flex flex-col justify-center">
+            <div className="lg:flex-1 flex flex-col justify-start">
               <div className={`w-full transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
                 {introStep > 0 && (
                   <div className="flex flex-col gap-8">
