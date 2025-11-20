@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { CalendarCheck, UsersRound, Cpu, ChartBarBig } from "lucide-react"
+import { CalendarCheck, UsersRound, Cpu, ChartBarBig, Sparkles, Users, BarChart3 } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
@@ -17,11 +17,11 @@ const layoutConfigs = {
 
 const Hero = () => {
   const router = useRouter()
-  const items: { id: number; slug: string; label: string; icon: LucideIcon; imagePosition: "left" | "right" }[] = [
-    { id: 1, slug: "event", label: "Events", icon: CalendarCheck, imagePosition: "left" },
-    { id: 2, slug: "community", label: "Community", icon: UsersRound, imagePosition: "right" },
-    { id: 3, slug: "tech", label: "Tech", icon: Cpu, imagePosition: "left" },
-    { id: 4, slug: "analytic", label: "Analytics", icon: ChartBarBig, imagePosition: "right" },
+  const items: { id: number; slug: string; label: string; labelLine1: string; labelLine2: string; icon: LucideIcon; imagePosition: "left" | "right" }[] = [
+    { id: 1, slug: "event", label: "Events", labelLine1: "Premium Event", labelLine2: "Experiences", icon: Sparkles, imagePosition: "left" },
+    { id: 2, slug: "community", label: "Community", labelLine1: "Community-driven", labelLine2: "Innovation", icon: Users, imagePosition: "right" },
+    { id: 3, slug: "tech", label: "Tech", labelLine1: "Cutting-edge", labelLine2: "Technology", icon: Cpu, imagePosition: "left" },
+    { id: 4, slug: "analytic", label: "Analytics", labelLine1: "Data-driven", labelLine2: "Insights", icon: BarChart3, imagePosition: "right" },
   ]
 
   const [selectedId, setSelectedId] = useState<number | null>(null)
@@ -96,20 +96,10 @@ const Hero = () => {
 
   const selectedItem = items.find((i) => i.id === selectedId)
   const handleCloseDetail = () => { if (!selectedId) return; handleCardClick(selectedId) }
-  const renderDetailContent = () => {
-    const slug = selectedItem?.slug
-    const imagePosition = selectedItem?.imagePosition
-    if (!slug) return null
-    if (slug === "event") return <EventContent stage={detailStage} onClose={handleCloseDetail} />
-    if (slug === "community") return <CommunityContent stage={detailStage} onClose={handleCloseDetail} />
-    if (slug === "tech") return <TechContent stage={detailStage} onClose={handleCloseDetail} />
-    if (slug === "analytic") return <AnalyticContent stage={detailStage} onClose={handleCloseDetail} />
-    return null
-  }
 
   return (
-    <section className="relative flex-1 min-h-0 w-full flex items-center overflow-visible">
-      <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={`relative flex-1 min-h-0 w-full flex ${selectedId ? "items-start pt-8" : "items-center"} overflow-visible transition-all duration-500`}>
+      <div className={`relative z-10 flex flex-col items-center ${selectedId ? "justify-start" : "justify-center"} w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8`}>
         {!selectedId && (
           <div className="flex flex-col lg:flex-row lg:items-center w-full gap-12 lg:gap-20">
             {/* Hero Text Section */}
@@ -164,7 +154,7 @@ const Hero = () => {
                             onClick={() => handleCardClick(item.id)}
                             tabIndex={-1}
                           >
-                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-glass-bg-hover to-transparent" />
+                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-glass-bg-hover to-transparent" />
 
                             <div className="absolute inset-0 flex flex-col justify-between p-6">
                               <div className="flex justify-end">
@@ -189,38 +179,27 @@ const Hero = () => {
 
         {selectedId && (
           <>
-            {/* Detail View Grid (Top) */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full mb-8 lg:mb-12">
-              {items.map((item) => {
-                const isSelected = selectedId === item.id
-                const cascadeActive = detailStage !== "idle"
-                const cardScaleClass = !cascadeActive ? (isSelected ? "scale-100 opacity-100" : "scale-100 opacity-80") : (isSelected ? "scale-105 opacity-100 ring-1 ring-ring-50/20" : "scale-90 opacity-30 blur-[2px]")
-
-                return (
-                  <div key={item.id}
-                    className={`transition-all duration-700 ease-premium transform-gpu aspect-square ${cardScaleClass} focus:outline-none focus-visible:outline-none`}
-                    tabIndex={-1}>
-                    {(() => {
-                      const Icon = item.icon as LucideIcon
-                      return (
-                        <div className="group relative rounded-xl overflow-hidden cursor-pointer h-full glass-panel transition-all duration-300 hover:bg-glass-bg-hover focus:outline-none focus-visible:outline-none" onClick={() => handleCardClick(item.id)} tabIndex={-1}>
-                          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-2 text-center">
-                            <Icon className={`h-5 w-5 ${isSelected ? "text-text-50" : "text-text-200"} transition-colors`} strokeWidth={1.5} />
-                            <span className={`text-[10px] font-medium ${isSelected ? "text-text-50" : "text-text-200"} leading-tight tracking-wide`}>
-                              {item.label}
-                            </span>
-                          </div>
-                        </div>
-                      )
-                    })()}
-                  </div>
-                )
-              })}
-            </div>
-
             {/* Detail Content Area */}
             <div className="w-full min-h-[50vh]">
-              {renderDetailContent()}
+              {(() => {
+                const slug = selectedItem?.slug
+                const imagePosition = selectedItem?.imagePosition
+                if (!slug) return null
+
+                const commonProps = {
+                  stage: detailStage,
+                  onClose: handleCloseDetail,
+                  navigationItems: items,
+                  currentId: selectedId,
+                  onNavigate: handleCardClick
+                }
+
+                if (slug === "event") return <EventContent {...commonProps} />
+                if (slug === "community") return <CommunityContent {...commonProps} />
+                if (slug === "tech") return <TechContent {...commonProps} />
+                if (slug === "analytic") return <AnalyticContent {...commonProps} />
+                return null
+              })()}
             </div>
           </>
         )}

@@ -3,7 +3,19 @@
 import { useRouter } from "next/navigation"
 import { DetailSection } from "@/components/shared/detail-section"
 
-export default function Tech({ stage, onClose }: { stage: "idle" | "cards" | "content"; onClose?: () => void }) {
+export default function Tech({
+  stage,
+  onClose,
+  navigationItems,
+  currentId,
+  onNavigate
+}: {
+  stage: "idle" | "cards" | "content"
+  onClose?: () => void
+  navigationItems?: any[]
+  currentId?: number
+  onNavigate?: (id: number) => void
+}) {
   const router = useRouter()
   const paragraphs = [
     "Teknologi adalah jantung dari apa yang kami lakukan. JUARA Tech menghadirkan solusi inovatif yang mengubah visi menjadi kenyataan dengan kepercayaan diri, mengintegrasikan cutting-edge technology untuk menciptakan experiences yang truly revolutionary.",
@@ -19,6 +31,9 @@ export default function Tech({ stage, onClose }: { stage: "idle" | "cards" | "co
       title="Next-generation experiences"
       paragraphs={paragraphs}
       imagePosition="left"
+      navigationItems={navigationItems}
+      currentId={currentId}
+      onNavigate={onNavigate}
     />
   )
 }

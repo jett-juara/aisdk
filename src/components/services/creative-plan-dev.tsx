@@ -6,10 +6,16 @@ export default function CreativePlanDev({
   stage,
   onClose,
   imagePosition,
+  navigationItems,
+  currentId,
+  onNavigate
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
   imagePosition?: "left" | "right"
+  navigationItems?: any[]
+  currentId?: number
+  onNavigate?: (id: number) => void
 }) {
   const paragraphs = [
     "Kami merancang strategi acara berbasis data dan insight audiens untuk memastikan konsep tepat sasaran dan berdaya jual.",
@@ -24,6 +30,9 @@ export default function CreativePlanDev({
       title="Creative & Plan Development"
       paragraphs={paragraphs}
       imagePosition={imagePosition}
+      navigationItems={navigationItems}
+      currentId={currentId}
+      onNavigate={onNavigate}
     />
   )
 }

@@ -6,10 +6,16 @@ export default function CreativeAgency({
   stage,
   onClose,
   imagePosition,
+  navigationItems,
+  currentId,
+  onNavigate
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
   imagePosition?: "left" | "right"
+  navigationItems?: any[]
+  currentId?: number
+  onNavigate?: (id: number) => void
 }) {
   const paragraphs = [
     "Kami menggabungkan kreativitas dan data untuk membangun konsep yang relevan, bernilai jual, dan beda di industri event.",
@@ -21,9 +27,12 @@ export default function CreativeAgency({
     <DetailSection
       stage={stage}
       onClose={onClose}
-      title="Data-Driven Creative Concepting"
+      title="Creative Agency"
       paragraphs={paragraphs}
       imagePosition={imagePosition}
+      navigationItems={navigationItems}
+      currentId={currentId}
+      onNavigate={onNavigate}
     />
   )
 }

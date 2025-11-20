@@ -6,10 +6,16 @@ export default function EventActivation({
   stage,
   onClose,
   imagePosition,
+  navigationItems,
+  currentId,
+  onNavigate
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
   imagePosition?: "left" | "right"
+  navigationItems?: any[]
+  currentId?: number
+  onNavigate?: (id: number) => void
 }) {
   const paragraphs = [
     "Mengubah pesan brand menjadi pengalaman interaktif yang menciptakan percakapan luas dan memori kolektif.",
@@ -21,9 +27,12 @@ export default function EventActivation({
     <DetailSection
       stage={stage}
       onClose={onClose}
-      title="Experiential Brand Activation"
+      title="Event Activation"
       paragraphs={paragraphs}
       imagePosition={imagePosition}
+      navigationItems={navigationItems}
+      currentId={currentId}
+      onNavigate={onNavigate}
     />
   )
 }

@@ -70,7 +70,7 @@ export default function ProductLayout({ children }: { children: React.ReactNode 
       </svg>
 
       <Header />
-      <main className="flex-1 relative z-10 py-6 lg:py-0 flex items-center justify-center">
+      <main className="flex-1 relative z-10 py-6 lg:py-0 flex flex-col">
         <div className="container mx-auto px-4">
           {children}
         </div>

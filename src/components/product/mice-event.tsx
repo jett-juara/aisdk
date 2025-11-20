@@ -6,10 +6,16 @@ export default function MiceEvent({
   stage,
   onClose,
   imagePosition,
+  navigationItems,
+  currentId,
+  onNavigate
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
   imagePosition?: "left" | "right"
+  navigationItems?: any[]
+  currentId?: number
+  onNavigate?: (id: number) => void
 }) {
   const paragraphs = [
     "Mendefinisikan ulang MICE: meeting, incentive, conference, exhibition dengan pendekatan dinamis dan audience-centric.",
@@ -21,9 +27,12 @@ export default function MiceEvent({
     <DetailSection
       stage={stage}
       onClose={onClose}
-      title="Reimagined MICE Experiences"
+      title="MICE Event"
       paragraphs={paragraphs}
       imagePosition={imagePosition}
+      navigationItems={navigationItems}
+      currentId={currentId}
+      onNavigate={onNavigate}
     />
   )
 }

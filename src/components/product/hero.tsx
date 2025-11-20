@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import type { LucideIcon } from "lucide-react"
-import { Route, Rocket, PartyPopper, ClipboardList, Users } from "lucide-react"
+import { Route, Rocket, PartyPopper, ClipboardList, Users, Footprints, Palette, Music, Trophy, Zap, Briefcase } from "lucide-react"
 import {
   AudienceFlowManagement as AudienceFlowManagementContent,
   CreativeAgency as CreativeAgencyContent,
@@ -32,13 +32,13 @@ export function ProductHero({
   const [detailStage, setDetailStage] = useState<"idle" | "cards" | "content">("idle")
   const [introReady, setIntroReady] = useState(false)
 
-  const items: { id: number; slug: string; label: string; icon: LucideIcon; imagePosition: "left" | "right" }[] = [
-    { id: 1, slug: "audience-flow-management", label: "Audience Flow Management", icon: Route, imagePosition: "left" },
-    { id: 2, slug: "creative-agency", label: "Creative Agency", icon: Rocket, imagePosition: "right" },
-    { id: 3, slug: "music-concert-management", label: "Music Concert Management", icon: PartyPopper, imagePosition: "left" },
-    { id: 4, slug: "sport-event-management", label: "Sport Event Management", icon: Users, imagePosition: "right" },
-    { id: 5, slug: "event-activation", label: "Event Activation", icon: ClipboardList, imagePosition: "left" },
-    { id: 6, slug: "mice-event", label: "Mice Event", icon: Users, imagePosition: "right" },
+  const items: { id: number; slug: string; label: string; labelLine1: string; labelLine2: string; icon: LucideIcon; imagePosition: "left" | "right" }[] = [
+    { id: 1, slug: "audience-flow-management", label: "Audience Flow Management", labelLine1: "Audience Flow", labelLine2: "Management", icon: Footprints, imagePosition: "left" },
+    { id: 2, slug: "creative-agency", label: "Creative Agency", labelLine1: "Creative", labelLine2: "Agency", icon: Palette, imagePosition: "right" },
+    { id: 3, slug: "music-concert-management", label: "Music Concert Management", labelLine1: "Music Concert", labelLine2: "Management", icon: Music, imagePosition: "left" },
+    { id: 4, slug: "sport-event-management", label: "Sport Event Management", labelLine1: "Sport Event", labelLine2: "Management", icon: Trophy, imagePosition: "right" },
+    { id: 5, slug: "event-activation", label: "Event Activation", labelLine1: "Event", labelLine2: "Activation", icon: Zap, imagePosition: "left" },
+    { id: 6, slug: "mice-event", label: "Mice Event", labelLine1: "Mice", labelLine2: "Event", icon: Briefcase, imagePosition: "right" },
   ]
 
   const totalIntroSteps = items.length + 1
@@ -103,34 +103,9 @@ export function ProductHero({
 
   const selectedItem = items.find((item) => item.id === selectedId)
 
-  const renderDetailContent = () => {
-    const slug = selectedItem?.slug
-    const imagePosition = selectedItem?.imagePosition
-    if (!slug) return null
-    if (slug === "audience-flow-management") {
-      return <AudienceFlowManagementContent stage={detailStage} onClose={handleCloseDetail} imagePosition={imagePosition} />
-    }
-    if (slug === "creative-agency") {
-      return <CreativeAgencyContent stage={detailStage} onClose={handleCloseDetail} imagePosition={imagePosition} />
-    }
-    if (slug === "music-concert-management") {
-      return <MusicConcertManagementContent stage={detailStage} onClose={handleCloseDetail} imagePosition={imagePosition} />
-    }
-    if (slug === "sport-event-management") {
-      return <SportEventManagementContent stage={detailStage} onClose={handleCloseDetail} imagePosition={imagePosition} />
-    }
-    if (slug === "event-activation") {
-      return <EventActivationContent stage={detailStage} onClose={handleCloseDetail} imagePosition={imagePosition} />
-    }
-    if (slug === "mice-event") {
-      return <MiceEventContent stage={detailStage} onClose={handleCloseDetail} imagePosition={imagePosition} />
-    }
-    return null
-  }
-
   return (
-    <section className="relative flex-1 min-h-0 w-full flex items-center overflow-visible">
-      <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={`relative flex-1 min-h-0 w-full flex ${selectedId ? "items-start pt-8" : "items-center"} overflow-visible transition-all duration-500`}>
+      <div className={`relative z-10 flex flex-col items-center ${selectedId ? "justify-start" : "justify-center"} w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8`}>
         {!selectedId && (
           <div className="flex flex-col lg:flex-row lg:items-center w-full gap-12 lg:gap-20">
             {/* Hero Text Section */}
@@ -216,42 +191,30 @@ export function ProductHero({
 
         {selectedId && (
           <>
-            {/* Detail View Grid (Top) */}
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-4 w-full mb-8 lg:mb-12">
-              {items.map((item) => {
-                const isSelected = selectedId === item.id
-                const cascadeActive = detailStage !== "idle"
-                const cardScaleClass = !cascadeActive ? (isSelected ? "scale-100 opacity-100" : "scale-100 opacity-80") : (isSelected ? "scale-105 opacity-100 ring-1 ring-ring-50/20" : "scale-90 opacity-30 blur-[2px]")
-
-                return (
-                  <div key={item.id}
-                    className={`transition-all duration-700 ease-premium transform-gpu aspect-square ${cardScaleClass} focus:outline-none focus-visible:outline-none`}
-                    tabIndex={-1}>
-                    {(() => {
-                      const Icon = item.icon as LucideIcon
-                      return (
-                        <div
-                          className={`group relative rounded-xl overflow-hidden cursor-pointer h-full glass-panel transition-all duration-300 hover:bg-glass-bg-hover focus:outline-none focus-visible:outline-none`}
-                          onClick={() => handleCardClick(item.id)}
-                          tabIndex={-1}
-                        >
-                          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-2 text-center">
-                            <Icon className={`h-5 w-5 ${isSelected ? "text-text-50" : "text-text-200"} transition-colors`} strokeWidth={1.5} />
-                            <span className={`text-[10px] font-medium ${isSelected ? "text-text-50" : "text-text-200"} leading-tight tracking-wide`}>
-                              {item.label}
-                            </span>
-                          </div>
-                        </div>
-                      )
-                    })()}
-                  </div>
-                )
-              })}
-            </div>
-
             {/* Detail Content Area */}
             <div className="w-full min-h-[50vh]">
-              {renderDetailContent()}
+              {(() => {
+                const slug = selectedItem?.slug
+                const imagePosition = selectedItem?.imagePosition
+                if (!slug) return null
+
+                const commonProps = {
+                  stage: detailStage,
+                  onClose: handleCloseDetail,
+                  navigationItems: items,
+                  currentId: selectedId,
+                  onNavigate: handleCardClick,
+                  imagePosition
+                }
+
+                if (slug === "audience-flow-management") return <AudienceFlowManagementContent {...commonProps} />
+                if (slug === "creative-agency") return <CreativeAgencyContent {...commonProps} />
+                if (slug === "music-concert-management") return <MusicConcertManagementContent {...commonProps} />
+                if (slug === "sport-event-management") return <SportEventManagementContent {...commonProps} />
+                if (slug === "event-activation") return <EventActivationContent {...commonProps} />
+                if (slug === "mice-event") return <MiceEventContent {...commonProps} />
+                return null
+              })()}
             </div>
           </>
         )}

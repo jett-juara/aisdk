@@ -3,7 +3,19 @@
 import { useRouter } from "next/navigation"
 import { DetailSection } from "@/components/shared/detail-section"
 
-export default function Event({ stage, onClose }: { stage: "idle" | "cards" | "content"; onClose?: () => void }) {
+export default function Event({
+  stage,
+  onClose,
+  navigationItems,
+  currentId,
+  onNavigate
+}: {
+  stage: "idle" | "cards" | "content"
+  onClose?: () => void
+  navigationItems?: any[]
+  currentId?: number
+  onNavigate?: (id: number) => void
+}) {
   const router = useRouter()
   const paragraphs = [
     "JUARA Events menghadirkan pengalaman acara premium yang tak terlupakan. Kami menggabungkan kreativitas, teknologi, dan eksekusi sempurna untuk menciptakan momen yang berkesan bagi audiences Anda.",
@@ -19,6 +31,9 @@ export default function Event({ stage, onClose }: { stage: "idle" | "cards" | "c
       title="Premium event experiences"
       paragraphs={paragraphs}
       imagePosition="left"
+      navigationItems={navigationItems}
+      currentId={currentId}
+      onNavigate={onNavigate}
     />
   )
 }

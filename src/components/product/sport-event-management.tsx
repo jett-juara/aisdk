@@ -6,10 +6,16 @@ export default function SportEventManagement({
   stage,
   onClose,
   imagePosition,
+  navigationItems,
+  currentId,
+  onNavigate
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
   imagePosition?: "left" | "right"
+  navigationItems?: any[]
+  currentId?: number
+  onNavigate?: (id: number) => void
 }) {
   const paragraphs = [
     "Kami mengelola event olahraga dari sisi operasional dan experience: mengatur alur atlet, official, dan penonton agar pertandingan terasa tertib namun tetap penuh adrenalin.",
@@ -25,6 +31,9 @@ export default function SportEventManagement({
       title="Sport Event Management"
       paragraphs={paragraphs}
       imagePosition={imagePosition}
+      navigationItems={navigationItems}
+      currentId={currentId}
+      onNavigate={onNavigate}
     />
   )
 }

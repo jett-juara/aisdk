@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import type { LucideIcon } from "lucide-react"
-import { Wand2, Workflow, Ship, Landmark } from "lucide-react"
+import { Wand2, Workflow, Ship, Landmark, Lightbulb, Settings, Truck, ShieldCheck } from "lucide-react"
 import {
   CreativePlanDev as CreativePlanDevContent,
   ExecutionHandling as ExecutionHandlingContent,
@@ -30,11 +30,11 @@ export function ServicesHero({
   const [detailStage, setDetailStage] = useState<"idle" | "cards" | "content">("idle")
   const [introReady, setIntroReady] = useState(false)
 
-  const items: { id: number; slug: string; label: string; icon: LucideIcon; imagePosition: "left" | "right" }[] = [
-    { id: 1, slug: "creative-and-plan-development", label: "Creative & Plan Development", icon: Wand2, imagePosition: "left" },
-    { id: 2, slug: "execution-handling", label: "Execution Handling", icon: Workflow, imagePosition: "right" },
-    { id: 3, slug: "talent-and-logistic-management", label: "Talent & Logistic Management", icon: Ship, imagePosition: "left" },
-    { id: 4, slug: "local-authority-liaison", label: "Local Authority Liaison", icon: Landmark, imagePosition: "right" },
+  const items: { id: number; slug: string; label: string; labelLine1: string; labelLine2: string; icon: LucideIcon; imagePosition: "left" | "right" }[] = [
+    { id: 1, slug: "creative-and-plan-development", label: "Creative & Plan Development", labelLine1: "Creative & Plan", labelLine2: "Development", icon: Lightbulb, imagePosition: "left" },
+    { id: 2, slug: "execution-handling", label: "Execution Handling", labelLine1: "Execution", labelLine2: "Handling", icon: Settings, imagePosition: "right" },
+    { id: 3, slug: "talent-and-logistic-management", label: "Talent & Logistic Management", labelLine1: "Talent & Logistic", labelLine2: "Management", icon: Truck, imagePosition: "left" },
+    { id: 4, slug: "local-authority-liaison", label: "Local Authority Liaison", labelLine1: "Local Authority", labelLine2: "Liaison", icon: ShieldCheck, imagePosition: "right" },
   ]
 
   const totalIntroSteps = items.length + 1
@@ -99,28 +99,9 @@ export function ServicesHero({
 
   const selectedItem = items.find((item) => item.id === selectedId)
 
-  const renderDetailContent = () => {
-    const slug = selectedItem?.slug
-    const imagePosition = selectedItem?.imagePosition
-    if (!slug) return null
-    if (slug === "creative-and-plan-development") {
-      return <CreativePlanDevContent stage={detailStage} onClose={handleCloseDetail} imagePosition={imagePosition} />
-    }
-    if (slug === "execution-handling") {
-      return <ExecutionHandlingContent stage={detailStage} onClose={handleCloseDetail} imagePosition={imagePosition} />
-    }
-    if (slug === "talent-and-logistic-management") {
-      return <TalentLogMngContent stage={detailStage} onClose={handleCloseDetail} imagePosition={imagePosition} />
-    }
-    if (slug === "local-authority-liaison") {
-      return <LocalAuthLiaisonContent stage={detailStage} onClose={handleCloseDetail} imagePosition={imagePosition} />
-    }
-    return null
-  }
-
   return (
-    <section className="relative flex-1 min-h-0 w-full flex items-center overflow-visible">
-      <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={`relative flex-1 min-h-0 w-full flex ${selectedId ? "items-start pt-8" : "items-center"} overflow-visible transition-all duration-500`}>
+      <div className={`relative z-10 flex flex-col items-center ${selectedId ? "justify-start" : "justify-center"} w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8`}>
         {!selectedId && (
           <div className="flex flex-col lg:flex-row lg:items-center w-full gap-12 lg:gap-20">
             {/* Hero Text Section */}
@@ -206,42 +187,28 @@ export function ServicesHero({
 
         {selectedId && (
           <>
-            {/* Detail View Grid (Top) */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full mb-8 lg:mb-12">
-              {items.map((item) => {
-                const isSelected = selectedId === item.id
-                const cascadeActive = detailStage !== "idle"
-                const cardScaleClass = !cascadeActive ? (isSelected ? "scale-100 opacity-100" : "scale-100 opacity-80") : (isSelected ? "scale-105 opacity-100 ring-1 ring-ring-50/20" : "scale-90 opacity-30 blur-[2px]")
-
-                return (
-                  <div key={item.id}
-                    className={`transition-all duration-700 ease-premium transform-gpu aspect-square ${cardScaleClass} focus:outline-none focus-visible:outline-none`}
-                    tabIndex={-1}>
-                    {(() => {
-                      const Icon = item.icon as LucideIcon
-                      return (
-                        <div
-                          className={`group relative rounded-xl overflow-hidden cursor-pointer h-full glass-panel transition-all duration-300 hover:bg-glass-bg-hover focus:outline-none focus-visible:outline-none`}
-                          onClick={() => handleCardClick(item.id)}
-                          tabIndex={-1}
-                        >
-                          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-2 text-center">
-                            <Icon className={`h-5 w-5 ${isSelected ? "text-text-50" : "text-text-200"} transition-colors`} strokeWidth={1.5} />
-                            <span className={`text-[10px] font-medium ${isSelected ? "text-text-50" : "text-text-200"} leading-tight tracking-wide`}>
-                              {item.label}
-                            </span>
-                          </div>
-                        </div>
-                      )
-                    })()}
-                  </div>
-                )
-              })}
-            </div>
-
             {/* Detail Content Area */}
             <div className="w-full min-h-[50vh]">
-              {renderDetailContent()}
+              {(() => {
+                const slug = selectedItem?.slug
+                const imagePosition = selectedItem?.imagePosition
+                if (!slug) return null
+
+                const commonProps = {
+                  stage: detailStage,
+                  onClose: handleCloseDetail,
+                  navigationItems: items,
+                  currentId: selectedId,
+                  onNavigate: handleCardClick,
+                  imagePosition
+                }
+
+                if (slug === "creative-and-plan-development") return <CreativePlanDevContent {...commonProps} />
+                if (slug === "execution-handling") return <ExecutionHandlingContent {...commonProps} />
+                if (slug === "talent-and-logistic-management") return <TalentLogMngContent {...commonProps} />
+                if (slug === "local-authority-liaison") return <LocalAuthLiaisonContent {...commonProps} />
+                return null
+              })()}
             </div>
           </>
         )}

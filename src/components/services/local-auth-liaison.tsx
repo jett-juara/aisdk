@@ -6,10 +6,16 @@ export default function LocalAuthLiaison({
   stage,
   onClose,
   imagePosition,
+  navigationItems,
+  currentId,
+  onNavigate
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
   imagePosition?: "left" | "right"
+  navigationItems?: any[]
+  currentId?: number
+  onNavigate?: (id: number) => void
 }) {
   const paragraphs = [
     "Pengurusan perizinan, regulasi, dan koordinasi dengan otoritas setempat untuk memastikan acara berjalan lancar dan patuh aturan.",
@@ -24,6 +30,9 @@ export default function LocalAuthLiaison({
       title="Local Authority Liaison"
       paragraphs={paragraphs}
       imagePosition={imagePosition}
+      navigationItems={navigationItems}
+      currentId={currentId}
+      onNavigate={onNavigate}
     />
   )
 }

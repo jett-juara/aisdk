@@ -6,10 +6,16 @@ export default function ExecutionHandling({
   stage,
   onClose,
   imagePosition,
+  navigationItems,
+  currentId,
+  onNavigate
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
   imagePosition?: "left" | "right"
+  navigationItems?: any[]
+  currentId?: number
+  onNavigate?: (id: number) => void
 }) {
   const paragraphs = [
     "Eksekusi presisi tinggi dengan koordinasi lintas-stakeholder, memastikan setiap detail berjalan sesuai rencana.",
@@ -24,6 +30,9 @@ export default function ExecutionHandling({
       title="Execution Handling"
       paragraphs={paragraphs}
       imagePosition={imagePosition}
+      navigationItems={navigationItems}
+      currentId={currentId}
+      onNavigate={onNavigate}
     />
   )
 }
