@@ -6,7 +6,7 @@ import type { LucideIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { ABOUT_RESET_EVENT } from "@/lib/constants/events"
-import { Event as EventContent, Community as CommunityContent, Tech as TechContent, Analytic as AnalyticContent } from "@/components/about"
+import { Event as EventContent, Community as CommunityContent, Tech as TechContent, Analytic as AnalyticContent, AboutStats } from "@/components/about"
 
 const layoutConfigs = {
   1: { desktopTextOrder: "lg:order-1", desktopImageOrder: "lg:order-2", textBasis: "lg:basis-[60%]", imageBasis: "lg:basis-[40%]" },
@@ -98,12 +98,12 @@ const Hero = () => {
   const handleCloseDetail = () => { if (!selectedId) return; handleCardClick(selectedId) }
 
   return (
-    <section className={`relative flex-1 min-h-0 w-full flex ${selectedId ? "items-start pt-8" : "items-center"} overflow-visible transition-all duration-500`}>
-      <div className={`relative z-10 flex flex-col items-center ${selectedId ? "justify-start" : "justify-center"} w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8`}>
+    <section className={`relative flex-1 min-h-0 w-full flex items-start ${selectedId ? "pt-8" : "pt-8"} overflow-visible transition-all duration-500`}>
+      <div className={`relative z-10 flex flex-col items-center justify-start w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8`}>
         {!selectedId && (
-          <div className="flex flex-col lg:flex-row lg:items-center w-full gap-12 lg:gap-20">
+          <div className="flex flex-col lg:flex-row lg:items-start w-full gap-12 lg:gap-20">
             {/* Hero Text Section */}
-            <div className="lg:flex-1 flex flex-col justify-center">
+            <div className="lg:flex-1 flex flex-col justify-start">
               <div className={`w-full transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
                 {introStep > 0 && (
                   <div className="flex flex-col gap-8">
@@ -119,12 +119,23 @@ const Hero = () => {
                         Kami menggabungkan kreativitas, teknologi, dan eksekusi presisi untuk menghadirkan pengalaman acara yang imersif. Berbasis data dan inovasi, setiap momen dirancang untuk melampaui ekspektasi.
                       </p>
                     </div>
-                    <div className="flex items-center gap-6 pt-4">
+                    <div className="pt-4 flex justify-center lg:justify-start w-full">
+                      <div className="w-full flex justify-center">
+                        <AboutStats />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-center gap-6 pt-8 w-full">
                       <Button
-                        className="h-12 px-8 rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
+                        className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
+                        onClick={() => window.open("/documents/company-profile.pdf", "_blank")}
+                      >
+                        Company Profile
+                      </Button>
+                      <Button
+                        className="h-12 w-[200px] rounded-full bg-white/5 text-text-50 hover:bg-white/10 border border-white/10 backdrop-blur-md font-medium tracking-wide transition-all duration-300 hover:scale-105"
                         onClick={() => router.push("/contact")}
                       >
-                        Start Project
+                        Contact Us
                       </Button>
                     </div>
                   </div>
@@ -134,16 +145,23 @@ const Hero = () => {
 
             {/* Grid Section */}
             <div className="w-full lg:max-w-[35vw]">
-              <div className="grid grid-cols-2 gap-4 md:gap-6">
+              <div className="grid grid-cols-2 gap-4 md:gap-4 auto-rows-[minmax(100px,auto)]">
                 {items.map((item, index) => {
                   const isStateOne = selectedId === null
                   const isIntroActive = introStep <= index
                   const introClass = isIntroActive ? "opacity-0 translate-y-12 blur-lg" : "opacity-100 translate-y-0 blur-0"
                   const scaleClass = !isStateOne || introStep < totalIntroSteps ? "scale-100" : hoveredId === item.id ? "scale-[1.02]" : hoveredId === null ? "scale-100" : "scale-95 opacity-60 blur-[1px]"
 
+                  // Bento Grid Classes
+                  let bentoClass = ""
+                  if (index === 0) bentoClass = "md:col-span-1 md:row-span-2 aspect-[1/2] md:aspect-auto"
+                  else if (index === 1) bentoClass = "md:col-span-1 md:row-span-1 aspect-square"
+                  else if (index === 2) bentoClass = "md:col-span-1 md:row-span-1 aspect-square"
+                  else if (index === 3) bentoClass = "md:col-span-2 md:row-span-1 aspect-[2/1]"
+
                   return (
                     <div key={item.id}
-                      className={`transition-all duration-700 ease-premium transform-gpu w-full aspect-square ${introClass} ${scaleClass} ${introStep < totalIntroSteps ? "pointer-events-none" : ""}`}
+                      className={`transition-all duration-700 ease-premium transform-gpu w-full ${bentoClass} ${introClass} ${scaleClass} ${introStep < totalIntroSteps ? "pointer-events-none" : ""}`}
                       onMouseEnter={() => introDone && setHoveredId(item.id)}
                       onMouseLeave={() => introDone && setHoveredId(null)}>
                       {(() => {

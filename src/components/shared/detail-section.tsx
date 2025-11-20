@@ -35,8 +35,7 @@ export function DetailSection({
   const isImageLeft = imagePosition === "left"
 
   return (
-    <div className={`flex flex-col gap-8 ease-premium ${isContent ? "lg:translate-x-0 translate-y-0 opacity-100" : "lg:translate-x-0 translate-y-12 opacity-0"}`}
-      style={{ transitionProperty: "transform, opacity", transitionDuration: "1000ms" }}>
+    <div className="flex flex-col gap-8">
 
       {/* Icon-Text Board Navigation */}
       {navigationItems && (
@@ -52,7 +51,7 @@ export function DetailSection({
                   className={`
                     flex-1 flex items-center justify-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-left group min-w-[180px]
                     ${isActive
-                      ? "bg-brand-500 text-text-50 shadow-lg scale-[1.02]"
+                      ? "bg-brand-500 text-text-50 shadow-lg"
                       : "text-text-200 hover:bg-glass-bg hover:text-text-50"
                     }
                   `}
@@ -74,7 +73,8 @@ export function DetailSection({
         </div>
       )}
 
-      <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+      <div className={`flex flex-col lg:flex-row gap-12 lg:gap-20 ease-premium ${isContent ? "lg:translate-x-0 translate-y-0 opacity-100" : "lg:translate-x-0 translate-y-12 opacity-0"}`}
+        style={{ transitionProperty: "transform, opacity", transitionDuration: "1000ms" }}>
         {/* Visual Area */}
         <div className={`order-1 ${isImageLeft ? "lg:order-1" : "lg:order-2"} lg:basis-[45%] flex flex-col w-full`}>
           <div

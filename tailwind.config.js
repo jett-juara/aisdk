@@ -15,8 +15,8 @@ const config = {
 			center: true,
 			padding: '2rem'
 		},
-			extend: {
-				colors: {
+		extend: {
+			colors: {
 				border: {
 					'50': 'var(--color-border-50)',
 					'700': 'var(--color-border-700)',
@@ -138,7 +138,16 @@ const config = {
 				button: {
 					primary: 'var(--color-button-primary)',
 					'primary-hover': 'var(--color-button-primary-hover)',
-					'primary-active': 'var(--color-button-primary-active)'
+					'primary-active': 'var(--color-button-primary-active)',
+					orange: 'var(--color-button-orange)',
+					'orange-hover': 'var(--color-button-orange-hover)',
+					'orange-active': 'var(--color-button-orange-active)',
+					blue: 'var(--color-button-blue)',
+					'blue-hover': 'var(--color-button-blue-hover)',
+					'blue-active': 'var(--color-button-blue-active)',
+					green: 'var(--color-button-green)',
+					'green-hover': 'var(--color-button-green-hover)',
+					'green-active': 'var(--color-button-green-active)'
 				},
 				'secondary-hover': 'var(--color-button-secondary-hover)',
 				'outline-text': 'var(--color-button-outline-text)',
@@ -146,15 +155,6 @@ const config = {
 				'outline-hover': 'var(--color-button-outline-hover)',
 				'destructive-hover': 'var(--color-button-destructive-hover)',
 				'destructive-active': 'var(--color-button-destructive-active)',
-				orange: 'var(--color-button-orange)',
-				'orange-hover': 'var(--color-button-orange-hover)',
-				'orange-active': 'var(--color-button-orange-active)',
-				blue: 'var(--color-button-blue)',
-				'blue-hover': 'var(--color-button-blue-hover)',
-				'blue-active': 'var(--color-button-blue-active)',
-				green: 'var(--color-button-green)',
-				'green-hover': 'var(--color-button-green-hover)',
-				'green-active': 'var(--color-button-green-active)',
 
 				// Premium Theme Colors
 				'background-deep': 'var(--color-background-deep)',
@@ -165,8 +165,8 @@ const config = {
 				'glow-secondary': 'var(--color-glow-secondary)',
 				'navigation-active': 'var(--color-navigation-active)',
 				'navigation-menu': 'var(--color-navigation-menu)'
-				},
-				borderRadius: {
+			},
+			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)',
@@ -188,8 +188,8 @@ const config = {
 				'10': 'var(--space-10)',
 				'12': 'var(--space-12)',
 				'16': 'var(--space-16)'
-				},
-				fontFamily: {
+			},
+			fontFamily: {
 				sans: [
 					'var(--font-rubik)',
 					'var(--font-manrope)',
@@ -207,18 +207,18 @@ const config = {
 					'var(--font-montserrat)',
 					'sans-serif'
 				],
-					heading: [
-						'var(--font-albert-sans)',
-						'sans-serif'
-					],
-					headingSecondary: [
-						'var(--font-funnel-display)',
-						'sans-serif'
-					],
-					subheading: [
-						'var(--font-rubik)',
-						'sans-serif'
-					],
+				heading: [
+					'var(--font-albert-sans)',
+					'sans-serif'
+				],
+				headingSecondary: [
+					'var(--font-funnel-display)',
+					'sans-serif'
+				],
+				subheading: [
+					'var(--font-rubik)',
+					'sans-serif'
+				],
 				body: [
 					'var(--font-manrope)',
 					'sans-serif'

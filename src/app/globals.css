@@ -131,7 +131,7 @@
     /* Interactive variants (2) */
     --color-ring-500: #70139b;
     --color-ring-50: #ffd4f1;
-    
+
     /* Focus rings - uses brand */
 
     /* ===== BUTTON COLORS (12 tokens) ===== */
@@ -154,9 +154,9 @@
     /* Orange */
     --color-button-orange-hover: #772a00;
     --color-button-orange-active: #b46f00;
-    --color-button-blue: #163b7c;
+    --color-button-blue: #10326e;
     /* Blue */
-    --color-button-blue-hover: #102a56;
+    --color-button-blue-hover: #031a42;
     --color-button-blue-active: #102e62;
     --color-button-green: #05641a;
     /* Green */
@@ -461,26 +461,28 @@
         mix-blend-mode: overlay;
     }
 
-.glass-panel {
-    @apply border border-white/10 bg-white/5 backdrop-blur-md;
-}
+    .glass-panel {
+        @apply border border-white/10 bg-white/5 backdrop-blur-md;
+    }
 
-.glass-card {
-    @apply glass-panel transition-all duration-500 hover:bg-white/10 hover:shadow-2xl;
-}
+    .glass-card {
+        @apply glass-panel transition-all duration-500 hover:bg-white/10 hover:shadow-2xl;
+    }
 
-.glass-panel:focus,
-.glass-panel:focus-visible,
-.glass-card:focus,
-.glass-card:focus-visible {
-    outline: none !important;
-}
+    .glass-panel:focus,
+    .glass-panel:focus-visible,
+    .glass-card:focus,
+    .glass-card:focus-visible {
+        outline: none !important;
+    }
 
-/* Safety: remove default outline globally for non-form elements to avoid blue ring */
-div:focus, div:focus-visible,
-section:focus, section:focus-visible {
-    outline: none !important;
-}
+    /* Safety: remove default outline globally for non-form elements to avoid blue ring */
+    div:focus,
+    div:focus-visible,
+    section:focus,
+    section:focus-visible {
+        outline: none !important;
+    }
 
     .text-premium-gradient {
         @apply text-transparent bg-clip-text;
