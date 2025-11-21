@@ -147,7 +147,13 @@ const config = {
 					'blue-active': 'var(--color-button-blue-active)',
 					green: 'var(--color-button-green)',
 					'green-hover': 'var(--color-button-green-hover)',
-					'green-active': 'var(--color-button-green-active)'
+					'green-active': 'var(--color-button-green-active)',
+					glass: {
+						start: 'var(--color-button-glass-start)',
+						end: 'var(--color-button-glass-end)',
+						border: 'var(--color-button-glass-border)',
+						glow: 'var(--color-button-glass-glow)',
+					}
 				},
 				'secondary-hover': 'var(--color-button-secondary-hover)',
 				'outline-text': 'var(--color-button-outline-text)',

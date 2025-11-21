@@ -4,10 +4,10 @@ import Footer from "@/components/layout/footer";
 
 export default function HomePage() {
   return (
-    <div className="relative isolate flex min-h-screen min-h-dvh flex-col overflow-hidden bg-black">
+    <div className="relative isolate flex flex-col overflow-hidden bg-black md:h-dvh lg:h-dvh [&_*]:focus:outline-none [&_*]:focus-visible:outline-none [&_*]:focus-visible:ring-0 [&_*]:focus-visible:ring-offset-0">
       {/* Background Image - covers full viewport */}
       <div
-        className="pointer-events-none absolute inset-0 z-0 bg-[url('/images/home-hero/hero_03-mobile.webp')] bg-cover bg-center sm:bg-[url('/images/home-hero/hero_03-tablet.webp')] lg:bg-[url('/images/home-hero/hero_03-desktop.webp')] 2xl:bg-[url('/images/home-hero/hero_03-desktop.webp')]"
+        className="pointer-events-none absolute inset-0 z-0 bg-[url('/images/home-hero/dark-hero-home.webp')] bg-cover bg-center"
         aria-hidden="true"
       />
 
@@ -20,8 +20,8 @@ export default function HomePage() {
       </div>
 
       {/* Main Content - Centered */}
-      <main className="relative z-20 flex flex-1 items-center justify-center">
-        <div className="w-full">
+      <main className="relative z-20 flex flex-1 items-center justify-center overflow-hidden">
+        <div className="w-full h-full">
           <HomepageSection />
         </div>
       </main>

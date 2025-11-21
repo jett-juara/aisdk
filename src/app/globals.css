@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-    html {
+    /* html {
         scrollbar-gutter: stable;
-    }
+    } */
 }
 
 :root {
@@ -184,6 +184,12 @@
     /* Custom hover */
     --color-button-destructive-active: #B83312;
     /* Custom active */
+
+    /* Premium Glass Button */
+    --color-button-glass-start: #ededed;
+    --color-button-glass-end: #1e3442;
+    --color-button-glass-border: rgba(237, 237, 237, 0.3);
+    --color-button-glass-glow: rgba(237, 237, 237, 0.1);
 
     /* ===== SHADCN UI CORE VARIABLES ===== */
     /* Standard shadcn variables (mapped to new system) */
@@ -493,6 +499,52 @@
     .text-premium-gradient {
         @apply text-transparent bg-clip-text;
         background-image: linear-gradient(to bottom, var(--color-text-50), var(--color-text-50), color-mix(in srgb, var(--color-text-50) 40%, transparent));
+    }
+
+    .btn-glass-premium {
+        @apply relative overflow-hidden transition-all duration-500 rounded-full font-medium tracking-wide text-text-50;
+        background: linear-gradient(135deg, rgba(242, 178, 255, 0.1) 0%, rgba(45, 30, 66, 0.2) 100%);
+        border: 1px solid var(--color-button-glass-border);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 15px var(--color-button-glass-glow);
+    }
+
+    .btn-glass-premium:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(40, 30, 66, 0.3) 100%);
+        box-shadow: 0 0 25px var(--color-button-glass-glow), inset 0 0 10px rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px) scale(1.05);
+        border-color: rgba(237, 237, 237, 0.5);
+    }
+
+    .hero-headline-creative {
+        /* Visual Effects Only - Sizing handled in component */
+
+        /* The Gradient Fill: White -> Transparent White -> Brand Purple */
+        background: linear-gradient(180deg,
+                #17284d 0%,
+                #d4d4d4 40%,
+                #B83312 100%);
+
+        /* The Mask: Cuts the gradient into the shape of the text */
+        mask-image: url('/images/home-hero/off-the-grid-headline.svg');
+        -webkit-mask-image: url('/images/home-hero/off-the-grid-headline.svg');
+        mask-size: 100% 100%;
+        -webkit-mask-size: 100% 100%;
+        mask-repeat: no-repeat;
+        -webkit-mask-repeat: no-repeat;
+        mask-position: center;
+        -webkit-mask-position: center;
+
+        /* The Glow: Adds depth and atmosphere */
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3)) drop-shadow(0 0 40px rgba(135, 19, 155, 0.4));
+
+        /* Animation: Subtle pulse or shimmer could be added here */
+        transition: all 0.5s ease-out;
+    }
+
+    .hero-headline-creative:hover {
+        filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 50px rgba(135, 19, 155, 0.6));
+        transform: scale(1.02);
     }
 }
 

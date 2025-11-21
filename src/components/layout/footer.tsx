@@ -1,4 +1,4 @@
-import { Instagram, Linkedin } from "lucide-react";
+import { Instagram, Linkedin, Mail } from "lucide-react";
 
 const SOCIAL_LINKS = [
   {
@@ -11,6 +11,11 @@ const SOCIAL_LINKS = [
     label: "LinkedIn",
     href: "https://linkedin.com/company/juara",
   },
+  {
+    icon: Mail,
+    label: "Email",
+    href: "mailto:contact@juaraevent.id",
+  },
 ];
 
 interface FooterProps {
@@ -22,9 +27,14 @@ const Footer = ({ className = "" }: FooterProps) => {
     <footer className={`${className} bg-transparent relative`}>
       <div className="mx-auto max-w-6xl px-4 lg:px-8 py-6">
         <div className="flex flex-col items-center gap-3 text-text-50 lg:flex-row lg:justify-between lg:gap-4 lg:text-left text-center">
-          {/* Copyright */}
-          <div className="text-xs font-heading text-white/40 tracking-wider uppercase">
-            © {new Date().getFullYear()} JUARA Events. All rights reserved.
+          {/* Copyright & Address */}
+          <div className="flex flex-col gap-1">
+            <div className="text-xs font-heading text-white/60 tracking-wider uppercase">
+              Jl. Gudang Peluru Timur V Blok K No. 257, Tebet, Jakarta Selatan
+            </div>
+            <div className="text-xs font-heading text-white/40 tracking-wider uppercase">
+              © {new Date().getFullYear()} JUARA Events. All rights reserved.
+            </div>
           </div>
 
           {/* Social Links */}

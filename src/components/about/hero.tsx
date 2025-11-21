@@ -116,23 +116,29 @@ const Hero = () => {
                   {introStep > 0 && (
                     <div className="flex flex-col gap-8">
                       <div>
-                        <h1 className="font-headingSecondary font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
-                          Creativity<br />
-                          <span className="text-text-50/20">×</span> Technology
+                        <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
+                          Who We Are
                         </h1>
                       </div>
                       <div className="relative pl-8">
                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
                         <p className="font-light text-lg md:text-xl text-50/60 leading-relaxed max-w-2xl">
-                          We combine creativity, technology, and precise execution to deliver immersive event experiences. Powered by data and innovation, every moment is designed to exceed expectations.
+                          Juara is a full-service event organizer with more than 15 years of experience based in Indonesia. Led by passionate and talented individuals who have mastered the art of providing top-notch event services from planning to completion. We take a thoughtful approach in understanding client’s objectives before meticulously bringing the ideas into life.
                         </p>
                       </div>
-                      <div className="pt-4 flex justify-center lg:justify-start w-full">
-                        <div className="w-full flex justify-center">
-                          <AboutStats />
-                        </div>
+                      <div>
+                        <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
+                          What We Value
+                        </h1>
                       </div>
-                      <div className="flex items-center justify-center gap-6 pt-8 w-full">
+                      <div className="relative pl-8">
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
+                        <p className="font-light text-lg md:text-xl text-50/60 leading-relaxed max-w-2xl">
+                          We strive for excellence, do our utmost to provide the best, and aim for success. We value excellence and integrity to deliver remarkable experiences to the guest with an emphasis on bringing innovation to the table. Putting our highest endeavor in executing ideas is our foundation to bring together the client’s visions.
+                        </p>
+                      </div>
+
+                      <div className="pt-8 flex justify-start w-full">
                         <Button
                           className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
                           onClick={() => window.open("/documents/company-profile.pdf", "_blank")}
@@ -140,11 +146,12 @@ const Hero = () => {
                           Company Profile
                         </Button>
                       </div>
+
                     </div>
                   )}
                 </div>
-              </div>
 
+              </div>
               {/* Grid Section */}
               <div className="w-full lg:max-w-[35vw]">
                 <div className="grid grid-cols-2 gap-4 md:gap-4 auto-rows-[minmax(100px,auto)]">
@@ -196,6 +203,24 @@ const Hero = () => {
               </div>
             </div>
           </div>
+
+          {/* Stats Section */}
+          <div className={`w-full mt-20 mb-12 py-16 bg-white/5 backdrop-blur-sm rounded-3xl transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
+            <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-12">
+              <div className="flex flex-col items-center text-center max-w-3xl mx-auto gap-6">
+                <h2 className="text-3xl md:text-4xl font-headingSecondary font-bold text-premium-gradient">
+                  Growing with Impact
+                </h2>
+                <p className="text-text-200 text-lg font-light leading-relaxed">
+                  We take pride in our journey of continuous growth and the meaningful connections we've built along the way.
+                </p>
+              </div>
+              <div className="w-full flex justify-center">
+                <AboutStats />
+              </div>
+            </div>
+          </div>
+
           {/* Client Logo Section */}
           <div className={`w-full mt-8 py-8 bg-transparent transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
             <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -252,7 +277,8 @@ const Hero = () => {
               </div>
             </div>
           </div>
-        </div>)
+
+        </div >)
       }
 
       {

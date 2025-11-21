@@ -1,91 +1,113 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { useHomepageAnimations } from "@/hooks/use-homepage-animations";
 import Image from "next/image";
+import Link from "next/link";
+import { Users, Handshake, MessageSquare } from "lucide-react";
 
-interface Hero47Props {
-  heading?: {
-    src: string;
-    alt?: string;
-  };
-  subheading?: string;
-  buttons?: {
-    primary?: {
-      text: string;
-      url: string;
-    };
-    secondary?: {
-      text: string;
-      url: string;
-    };
-  };
-}
-
-const Hero47 = ({
-  heading = {
-    src: "/images/home-hero/off-the-grid.svg",
-    alt: "Off The Grid",
-  },
-  subheading = "Extraordinary events beyond boundaries",
-  buttons = {
-    primary: {
-      text: "Chat with JETT",
-      url: "#",
-    },
-    secondary: {
-      text: "Getting Started",
-      url: "/about",
-    },
-  },
-}: Hero47Props) => {
+const Hero47 = () => {
   // Initialize homepage animations
   const { getClasses } = useHomepageAnimations()
   const animationClasses = getClasses()
+  const [hoveredId, setHoveredId] = useState<number | null>(null)
+
+  const ctaItems = [
+    {
+      id: 1,
+      label: "Who We Are",
+      href: "/about",
+      icon: Users,
+    },
+    {
+      id: 2,
+      label: "Collaborate",
+      href: "#",
+      icon: Handshake,
+    },
+    {
+      id: 3,
+      label: "Chat JETT",
+      href: "#",
+      icon: MessageSquare,
+    },
+  ];
 
   return (
-    <section className="relative w-full">
-      {/* Single responsive container: mobile → md (tablet) → lg (desktop) */}
-      <div className="flex items-center lg:min-h-[calc(100dvh-10rem)]">
-        <div className="flex flex-col gap-3 md:gap-4 w-full max-w-[50%] md:max-w-[50%] lg:max-w-[50%] justify-end lg:justify-center py-2">
-          {/* SVG Title */}
-          <div className="flex justify-end">
-            <Image
-              src={heading.src}
-              alt={heading.alt || ""}
-              width={350}
-              height={120}
-              sizes="(min-width:1024px) 330px, (min-width:768px) 350px, 160px"
-              className={`h-auto object-contain w-[160px] md:w-[350px] lg:w-[330px] transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}
-            />
-          </div>
+    <section className="relative w-full h-full flex items-center justify-center overflow-hidden">
+      <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center lg:items-stretch h-full gap-8 lg:gap-16">
 
-          {/* Subheading & Buttons CTA - dalam 1 container */}
-          <div className="flex justify-end md:justify-end lg:justify-end">
-            <div className="flex flex-col gap-3 md:gap-4 max-w-[70%] md:max-w-[80%] lg:max-w-[65%] md:px-4 md:py-2 lg:px-0 items-center">
-              <p className={`text-text-info-500 text-md md:text-2xl lg:text-sm font-heading uppercase text-center  transition-all duration-700 ease-out ${animationClasses.text}`}>
-                {subheading}
+        {/* Left Section (50%) - SVG Headline */}
+        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center lg:items-center lg:pr-16">
+          <div className={`relative w-[280px] md:w-[400px] lg:w-[50vh] flex-shrink-0 transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}>
+            {/* Spacer Image - Invisible but sets the size correctly */}
+            <Image
+              src="/images/home-hero/off-the-grid-headline.svg"
+              alt="Off The Grid"
+              width={500}
+              height={200}
+              className="w-full h-auto opacity-0 pointer-events-none"
+              priority
+            />
+
+            {/* Creative Gradient Mask Layer - Absolutely positioned over the spacer */}
+            <div className="absolute inset-0 hero-headline-creative" role="img" aria-label="Off The Grid" />
+          </div>
+        </div>
+
+        {/* Right Section (50%) - Content */}
+        <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start lg:justify-center text-center lg:text-left gap-10">
+
+          {/* Combined Content Block */}
+          <div className={`flex flex-col gap-8 w-[80%] lg:pl-24  transition-all duration-700 ease-out delay-100 ${animationClasses.text}`}>
+            <div className="flex flex-col gap-2">
+              <h2 className="font-subheading font-medium text-text-100 text-lg md:text-lg lg:text-md leading-tight">
+                We are forged by challenges and struggles for a long period of time to become a skilled and trained team to reach the highest peaks.
+              </h2>
+              <p className="font-body font-medium text-text-100 text-lg md:text-lg lg:text-sm leading-tight">
+                Meet JETT, our AI agent that complements our technology and is ready to discuss everything about Juara. Be part of our ecosystem by joining our network of excellence—we invite vendors and talents to collaborate by creating an account.
               </p>
-              <div className="mt-2 flex flex-wrap items-center gap-6 md:gap-8 lg:gap-6 justify-center">
-                <Button
-                  asChild
-                  className={`font-button font-medium text-xs md:text-lg lg:text-sm bg-transparent text-text-100 border border-outline-text hover:bg-brand-50 hover:text-text-900 tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10 transform-gpu ${animationClasses.button1}`}
-                >
-                  <a href={buttons.primary?.url}>
-                    {buttons.primary?.text}
-                  </a>
-                </Button>
-                <Button
-                  asChild
-                  className={`font-button font-medium text-xs md:text-lg lg:text-sm bg-transparent text-text-100 border border-outline-text hover:bg-brand-50 hover:text-text-900 tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10 transform-gpu ${animationClasses.button2}`}
-                >
-                  <a href={buttons.secondary?.url}>
-                    {buttons.secondary?.text}
-                  </a>
-                </Button>
-              </div>
+            </div>
+
+            {/* Card CTAs */}
+            <div className="grid grid-cols-3 gap-4 w-full">
+              {ctaItems.map((item) => {
+                const isHovered = hoveredId === item.id
+                const isAnyHovered = hoveredId !== null
+                const scaleClass = isHovered
+                  ? "scale-105 opacity-100 z-10"
+                  : isAnyHovered
+                    ? "scale-95 opacity-60 blur-[1px]"
+                    : "scale-100 opacity-100"
+
+                return (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    className={`group relative rounded-2xl overflow-hidden cursor-pointer h-32 glass-card shadow-xl focus:outline-none focus-visible:outline-none transition-all duration-500 ease-out transform-gpu ${scaleClass}`}
+                    onMouseEnter={() => setHoveredId(item.id)}
+                    onMouseLeave={() => setHoveredId(null)}
+                  >
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-glass-bg-hover to-transparent" />
+
+                    <div className="absolute inset-0 flex flex-col justify-between p-4">
+                      <div className="flex justify-end">
+                        <div className="p-2 rounded-full bg-glass-bg border border-glass-border group-hover:bg-glass-bg-hover transition-colors duration-300">
+                          <item.icon className="h-5 w-5 text-text-50 opacity-80 group-hover:text-text-50 group-hover:opacity-100 transition-colors duration-300" strokeWidth={1.5} />
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-sm md:text-sm lg:text-xs font-medium text-text-50 tracking-wide group-hover:text-text-50 transition-colors duration-300 leading-tight">
+                          {item.label}
+                        </h3>
+                      </div>
+                    </div>
+                  </Link>
+                )
+              })}
             </div>
           </div>
+
         </div>
       </div>
     </section>
