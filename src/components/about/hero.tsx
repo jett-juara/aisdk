@@ -117,14 +117,14 @@ const Hero = () => {
                     <div className="flex flex-col gap-8">
                       <div>
                         <h1 className="font-headingSecondary font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
-                          Kreativitas<br />
-                          <span className="text-text-50/20">×</span> Teknologi
+                          Creativity<br />
+                          <span className="text-text-50/20">×</span> Technology
                         </h1>
                       </div>
                       <div className="relative pl-8">
                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
                         <p className="font-light text-lg md:text-xl text-50/60 leading-relaxed max-w-2xl">
-                          Kami menggabungkan kreativitas, teknologi, dan eksekusi presisi untuk menghadirkan pengalaman acara yang imersif. Berbasis data dan inovasi, setiap momen dirancang untuk melampaui ekspektasi.
+                          We combine creativity, technology, and precise execution to deliver immersive event experiences. Powered by data and innovation, every moment is designed to exceed expectations.
                         </p>
                       </div>
                       <div className="pt-4 flex justify-center lg:justify-start w-full">
@@ -197,16 +197,16 @@ const Hero = () => {
             </div>
           </div>
           {/* Client Logo Section */}
-          <div className={`w-full mt-8 py-16 bg-transparent transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
+          <div className={`w-full mt-8 py-8 bg-transparent transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
             <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col items-center text-center mb-12 px-4">
                 <h2 className="text-3xl md:text-4xl font-headingSecondary font-bold text-premium-gradient mb-6">
-                  Jejak Kolaborasi
+                  Trusted by Leading Brands
                 </h2>
                 <p className="text-text-200 max-w-3xl leading-relaxed text-lg font-light">
-                  Kepercayaan adalah fondasi dari setiap karya luar biasa. Kami bangga menjadi mitra strategis bagi berbagai institusi dan jenama terkemuka, menghadirkan solusi kreatif yang tidak hanya menjawab tantangan, tetapi juga menciptakan standar baru.
+                  Trust is the foundation of every exceptional work. We are proud to be a strategic partner to leading institutions and brands, delivering creative solutions that not only address challenges but also set new standards.
                 </p>
-                <div className="mt-10">
+                <div className="mt-8">
                   <Button
                     className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105 shadow-lg"
                     onClick={() => router.push("/contact")}
@@ -217,7 +217,7 @@ const Hero = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-12 overflow-hidden group/logos py-10 w-full [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
+            <div className="flex flex-col gap-12 overflow-hidden group/logos py-8 w-full [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
               {/* Row 1: Left to Right */}
               <div className="flex gap-12 w-max animate-marquee-right group-hover/logos:[animation-play-state:paused]">
                 {[...logos.slice(0, 9), ...logos.slice(0, 9)].map((logo, idx) => (
