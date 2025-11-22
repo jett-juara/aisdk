@@ -105,11 +105,11 @@ const Hero = () => {
   const handleCloseDetail = () => { if (!selectedId) return; handleCardClick(selectedId) }
 
   return (
-    <section className={`relative flex-1 min-h-screen w-full flex flex-col items-center justify-center ${selectedId ? "pt-8" : "pt-8"} overflow-visible transition-all duration-500`}>
+    <section className={`relative flex-1 min-h-screen w-full flex flex-col items-center justify-start -mt-8 lg:mt-0 ${selectedId ? "pt-0 lg:pt-32" : "pt-0 lg:pt-32"} overflow-visible transition-all duration-500`}>
       {!selectedId && (
         <div className="w-full flex flex-col items-center">
-          <div className={`relative z-10 flex flex-col items-center justify-start w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8`}>
-            <div className="flex flex-col lg:flex-row lg:items-start w-full gap-12 lg:gap-20">
+          <div className={`relative z-10 flex flex-col items-center justify-start w-full max-w-screen-xl mx-auto lg:px-8`}>
+            <div className="flex flex-col-reverse lg:flex-row lg:items-start w-full gap-12 lg:gap-20">
               {/* Hero Text Section */}
               <div className="lg:flex-1 flex flex-col justify-start">
                 <div className={`w-full transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
@@ -163,10 +163,10 @@ const Hero = () => {
 
                     // Bento Grid Classes
                     let bentoClass = ""
-                    if (index === 0) bentoClass = "md:col-span-1 md:row-span-2 aspect-[1/2] md:aspect-auto"
-                    else if (index === 1) bentoClass = "md:col-span-1 md:row-span-1 aspect-square"
-                    else if (index === 2) bentoClass = "md:col-span-1 md:row-span-1 aspect-square"
-                    else if (index === 3) bentoClass = "md:col-span-2 md:row-span-1 aspect-[2/1]"
+                    if (index === 0) bentoClass = "col-span-2 aspect-[2/1] md:col-span-1 md:row-span-2 md:aspect-auto"
+                    else if (index === 1) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-span-1"
+                    else if (index === 2) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-span-1"
+                    else if (index === 3) bentoClass = "col-span-2 aspect-[2/1] md:col-span-2 md:row-span-1"
 
                     return (
                       <div key={item.id}
@@ -212,7 +212,7 @@ const Hero = () => {
                   Growing with Impact
                 </h2>
                 <p className="text-text-200 text-lg font-light leading-relaxed">
-                  We take pride in our journey of continuous growth and the meaningful connections we've built along the way.
+                  We take pride in our journey of continuous growth and the meaningful connections we&apos;ve built along the way.
                 </p>
               </div>
               <div className="w-full flex justify-center">

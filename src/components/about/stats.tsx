@@ -22,7 +22,6 @@ function Counter({ end, suffix, duration = 2500 }: { end: number; suffix: string
 
     useEffect(() => {
         startTimeRef.current = null
-        setCount(0)
         countRef.current = 0
 
         const animate = (timestamp: number) => {
