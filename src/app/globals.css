@@ -516,14 +516,25 @@
         border-color: rgba(237, 237, 237, 0.5);
     }
 
+    @keyframes shimmer {
+        0% {
+            background-position: 200% center;
+        }
+
+        100% {
+            background-position: -200% center;
+        }
+    }
+
     .hero-headline-creative {
         /* Visual Effects Only - Sizing handled in component */
 
-        /* The Gradient Fill: White -> Transparent White -> Brand Purple */
-        background: linear-gradient(180deg,
-                #17284d 0%,
-                #d4d4d4 40%,
-                #B83312 100%);
+        /* Premium Glass Gradient: White Shine with Transparency (Static State) */
+        background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(255, 255, 255, 0.4) 45%,
+                rgba(255, 255, 255, 0.2) 55%,
+                rgba(255, 255, 255, 0.9) 100%);
 
         /* The Mask: Cuts the gradient into the shape of the text */
         mask-image: url('/images/home-hero/off-the-grid-headline.svg');
@@ -536,15 +547,41 @@
         -webkit-mask-position: center;
 
         /* The Glow: Adds depth and atmosphere */
-        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3)) drop-shadow(0 0 40px rgba(135, 19, 155, 0.4));
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
 
         /* Animation: Subtle pulse or shimmer could be added here */
         transition: all 0.5s ease-out;
     }
 
+    /* Shimmer Overlay using Pseudo-element */
+    .hero-headline-creative::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(110deg,
+                rgba(255, 255, 255, 0.0) 0%,
+                rgba(255, 255, 255, 0.0) 30%,
+                rgba(255, 255, 255, 0.8) 45%,
+                rgba(255, 255, 255, 1.0) 50%,
+                rgba(255, 255, 255, 0.8) 55%,
+                rgba(255, 255, 255, 0.0) 70%,
+                rgba(255, 255, 255, 0.0) 100%);
+        background-size: 200% auto;
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+        z-index: 1;
+        mix-blend-mode: overlay;
+        /* Optional: blends nicely with base */
+    }
+
     .hero-headline-creative:hover {
-        filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 50px rgba(135, 19, 155, 0.6));
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
         transform: scale(1.02);
+    }
+
+    .hero-headline-creative:hover::before {
+        opacity: 1;
+        animation: shimmer 2s linear infinite;
     }
 }
 
