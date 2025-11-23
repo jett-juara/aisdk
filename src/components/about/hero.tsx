@@ -307,8 +307,24 @@ const Hero = () => {
                 {[...logos.slice(0, 9), ...logos.slice(0, 9)].map((logo, idx) => (
                   <div key={`row1-${idx}`} className="group relative w-auto h-16 flex items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none">
                     <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
-                    <img src={`/client-logo/gray/${logo}-gray.png`} alt={logo} className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                    <img src={`/client-logo/color/${logo}-color.png`} alt={logo} className="absolute z-20 inset-0 m-auto h-10 w-auto object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <Image
+                      src={`/client-logo/gray/${logo}-gray.png`}
+                      alt={logo}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300"
+                      unoptimized
+                    />
+                    <Image
+                      src={`/client-logo/color/${logo}-color.png`}
+                      alt={logo}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      className="absolute z-20 inset-0 m-auto h-10 w-auto object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      unoptimized
+                    />
                   </div>
                 ))}
               </div>
@@ -318,8 +334,24 @@ const Hero = () => {
                 {[...logos.slice(9, 18), ...logos.slice(9, 18)].map((logo, idx) => (
                   <div key={`row2-${idx}`} className="group relative w-auto h-16 flex items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none">
                     <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
-                    <img src={`/client-logo/gray/${logo}-gray.png`} alt={logo} className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                    <img src={`/client-logo/color/${logo}-color.png`} alt={logo} className="absolute z-20 inset-0 m-auto h-10 w-auto object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <Image
+                      src={`/client-logo/gray/${logo}-gray.png`}
+                      alt={logo}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300"
+                      unoptimized
+                    />
+                    <Image
+                      src={`/client-logo/color/${logo}-color.png`}
+                      alt={logo}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      className="absolute z-20 inset-0 m-auto h-10 w-auto object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      unoptimized
+                    />
                   </div>
                 ))}
               </div>
@@ -329,8 +361,24 @@ const Hero = () => {
                 {[...logos.slice(18, 28), ...logos.slice(18, 28)].map((logo, idx) => (
                   <div key={`row3-${idx}`} className="group relative w-auto h-16 flex items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none">
                     <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
-                    <img src={`/client-logo/gray/${logo}-gray.png`} alt={logo} className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                    <img src={`/client-logo/color/${logo}-color.png`} alt={logo} className="absolute z-20 inset-0 m-auto h-10 w-auto object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <Image
+                      src={`/client-logo/gray/${logo}-gray.png`}
+                      alt={logo}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300"
+                      unoptimized
+                    />
+                    <Image
+                      src={`/client-logo/color/${logo}-color.png`}
+                      alt={logo}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      className="absolute z-20 inset-0 m-auto h-10 w-auto object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      unoptimized
+                    />
                   </div>
                 ))}
               </div>
