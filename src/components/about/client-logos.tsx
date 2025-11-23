@@ -40,7 +40,7 @@ export function AboutClientLogos() {
   }, [])
 
   return (
-    <div className="flex flex-col gap-8 overflow-hidden group/logos py-2 w-full [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
+    <div className="flex flex-col gap-4 overflow-hidden group/logos py-2 w-full [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
       <div className={`flex items-center gap-2 md:gap-3 lg:gap-3 w-max ${reduceMotion ? "" : "animate-marquee-right group-hover/logos:[animation-play-state:paused]"}`}>
         {[...logos.slice(0, 9), ...logos.slice(0, 9)].map((logo, idx) => (
           <div
