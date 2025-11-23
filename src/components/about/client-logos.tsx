@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react"
 import Image from "next/image"
-import { motion, useAnimation, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion, useMotionValue, useTransform, useAnimationFrame } from "framer-motion"
 
 const logos = [
   "abc", "angkasapura", "axa", "belfoods", "bintangtoedjoe", "bkkbn", "bukalapak", "cocacola", "danone",
@@ -36,9 +36,9 @@ export function AboutClientLogos() {
 
   return (
     <div className="flex flex-col gap-4 overflow-hidden py-2 w-full" style={maskStyle}>
-      <MarqueeRow logos={row1Logos} direction="right" speed={30} isCoarse={isCoarse} />
-      <MarqueeRow logos={row2Logos} direction="left" speed={30} isCoarse={isCoarse} />
-      <MarqueeRow logos={row3Logos} direction="right" speed={30} isCoarse={isCoarse} />
+      <MarqueeRow logos={row1Logos} direction="right" speed={15} isCoarse={isCoarse} />
+      <MarqueeRow logos={row2Logos} direction="left" speed={15} isCoarse={isCoarse} />
+      <MarqueeRow logos={row3Logos} direction="right" speed={15} isCoarse={isCoarse} />
     </div>
   )
 }
@@ -51,69 +51,67 @@ interface MarqueeRowProps {
 }
 
 function MarqueeRow({ logos, direction, speed, isCoarse }: MarqueeRowProps) {
-  const [isPaused, setIsPaused] = useState(false)
-  const controls = useAnimation()
+  const [activeLogoKey, setActiveLogoKey] = useState<string | null>(null)
+  const [isHovered, setIsHovered] = useState(false)
   const shouldReduceMotion = useReducedMotion()
 
+  // Pause if:
+  // 1. Desktop: Mouse is hovering the row
+  // 2. Mobile: A specific logo is active (tapped)
+  const isPaused = activeLogoKey !== null || isHovered
+
   // Duplicate logos to ensure seamless loop
-  // We need enough copies to fill the screen width + buffer
-  // 4 copies should be plenty for most screens given the logo width
   const repeatedLogos = [...logos, ...logos, ...logos, ...logos]
 
-  useEffect(() => {
-    if (shouldReduceMotion) return
+  // Animation state
+  // We use a motion value to drive the X position manually
+  // 0% is start, -50% is the loop point (since we duplicated logos 4x, moving 50% shows the first half)
+  const x = useMotionValue(0)
+  const xPercent = useTransform(x, (v) => `${v}%`)
+  const containerRef = useRef<HTMLDivElement>(null)
 
-    const startAnimation = async () => {
-      // If moving left, we start at 0 and move to -50%
-      // If moving right, we start at -50% and move to 0%
-      await controls.start({
-        x: direction === "left" ? "0%" : "-50%",
-        transition: {
-          duration: 0, // Set initial position instantly
-        }
-      })
+  useAnimationFrame((t, delta) => {
+    if (shouldReduceMotion || isPaused) return
 
-      controls.start({
-        x: direction === "left" ? "-50%" : "0%",
-        transition: {
-          duration: speed,
-          ease: "linear",
-          repeat: Infinity,
-          repeatType: "loop",
-        },
-      })
-    }
+    // Calculate movement based on speed (seconds per loop)
+    // Total distance to travel is 50% (0 to -50 or -50 to 0)
+    // Speed is seconds to travel 50%
+    // Delta is ms since last frame
+    const movePercent = (delta / 1000) * (50 / speed)
 
-    startAnimation()
-  }, [controls, direction, speed, shouldReduceMotion])
+    let newX = x.get()
 
-  // Handle pause state
-  useEffect(() => {
-    if (isPaused) {
-      controls.stop()
+    if (direction === "left") {
+      newX -= movePercent
+      // Wrap around: if we go past -50%, reset to 0%
+      if (newX <= -50) {
+        newX = 0
+      }
     } else {
-      if (!shouldReduceMotion) {
-        controls.start({
-          x: direction === "left" ? "-50%" : "0%",
-          transition: {
-            duration: speed,
-            ease: "linear",
-            repeat: Infinity,
-            repeatType: "loop",
-          },
-        })
+      newX += movePercent
+      // Wrap around: if we go past 0%, reset to -50%
+      if (newX >= 0) {
+        newX = -50
       }
     }
-  }, [isPaused, controls, direction, speed, shouldReduceMotion])
 
-  const handleInteractionStart = () => setIsPaused(true)
-  const handleInteractionEnd = () => setIsPaused(false)
+    x.set(newX)
+  })
 
-  // On mobile (coarse pointer), tap toggles pause
-  const handleTap = () => {
-    if (isCoarse) {
-      setIsPaused(prev => !prev)
+  // Initialize position based on direction
+  useEffect(() => {
+    if (direction === "right") {
+      x.set(-50)
+    } else {
+      x.set(0)
     }
+  }, [direction, x])
+
+  const handleInteractionStart = () => setIsHovered(true)
+  const handleInteractionEnd = () => setIsHovered(false)
+
+  const handleLogoToggle = (key: string) => {
+    setActiveLogoKey(prev => prev === key ? null : key)
   }
 
   return (
@@ -121,22 +119,25 @@ function MarqueeRow({ logos, direction, speed, isCoarse }: MarqueeRowProps) {
       className="relative flex w-full overflow-hidden"
       onMouseEnter={!isCoarse ? handleInteractionStart : undefined}
       onMouseLeave={!isCoarse ? handleInteractionEnd : undefined}
-      onClick={handleTap}
+      ref={containerRef}
     >
       <motion.div
         className="flex items-center gap-2 md:gap-3 lg:gap-3 w-max min-w-full"
-        animate={controls}
-        initial={{ x: direction === "left" ? "0%" : "-50%" }}
+        style={{ x: xPercent }}
       >
-        {repeatedLogos.map((logo, idx) => (
-          <LogoItem
-            key={`${logo}-${idx}`}
-            logo={logo}
-            isRowPaused={isPaused}
-            isCoarse={isCoarse}
-            priority={idx < 10}
-          />
-        ))}
+        {repeatedLogos.map((logo, idx) => {
+          const key = `${logo}-${idx}`
+          return (
+            <LogoItem
+              key={key}
+              logo={logo}
+              isActive={activeLogoKey === key}
+              isCoarse={isCoarse}
+              priority={idx < 10}
+              onToggle={() => handleLogoToggle(key)}
+            />
+          )
+        })}
       </motion.div>
     </div>
   )
@@ -144,18 +145,18 @@ function MarqueeRow({ logos, direction, speed, isCoarse }: MarqueeRowProps) {
 
 interface LogoItemProps {
   logo: string
-  isRowPaused: boolean
+  isActive: boolean
   isCoarse: boolean
   priority: boolean
+  onToggle: () => void
 }
 
-function LogoItem({ logo, isRowPaused, isCoarse, priority }: LogoItemProps) {
+function LogoItem({ logo, isActive, isCoarse, priority, onToggle }: LogoItemProps) {
   const [aspectRatio, setAspectRatio] = useState(1)
   const [isHovered, setIsHovered] = useState(false)
 
   const handleImageLoad = (img: HTMLImageElement) => {
     const ratio = img.naturalWidth / img.naturalHeight
-    // Snap to Square (1) or Landscape (1.6) based on threshold
     setAspectRatio(ratio < 1.3 ? 1 : 1.6)
   }
 
@@ -163,15 +164,21 @@ function LogoItem({ logo, isRowPaused, isCoarse, priority }: LogoItemProps) {
   const IMG_INSET = "inset-4 md:inset-5 lg:inset-5"
 
   // Determine if color should be shown
-  // 1. Desktop: Show on hover
-  // 2. Mobile: Show if row is paused (tapped)
-  const showColor = isCoarse ? isRowPaused : isHovered
+  const showColor = isCoarse ? isActive : isHovered
+  // Determine if we should scale up
+  const shouldScale = isCoarse ? isActive : isHovered
 
   return (
-    <div
-      className="group relative h-20 md:h-24 lg:h-28 w-[140px] md:w-[180px] lg:w-[200px] flex items-center justify-center select-none"
+    <motion.div
+      className="group relative h-20 md:h-24 lg:h-28 w-[140px] md:w-[180px] lg:w-[200px] flex items-center justify-center select-none cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={(e) => {
+        e.stopPropagation() // Prevent bubbling
+        onToggle()
+      }}
+      animate={{ scale: shouldScale ? 1.1 : 1 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <div
         className="relative h-full transition-all duration-300"
@@ -215,7 +222,6 @@ function LogoItem({ logo, isRowPaused, isCoarse, priority }: LogoItemProps) {
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
-
