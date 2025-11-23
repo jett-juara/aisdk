@@ -36,9 +36,9 @@ export function AboutClientLogos() {
 
   return (
     <div className="flex flex-col gap-4 overflow-hidden py-2 w-full" style={maskStyle}>
-      <MarqueeRow logos={row1Logos} direction="right" speed={isCoarse ? 4 : 15} isCoarse={isCoarse} />
-      <MarqueeRow logos={row2Logos} direction="left" speed={isCoarse ? 4 : 15} isCoarse={isCoarse} />
-      <MarqueeRow logos={row3Logos} direction="right" speed={isCoarse ? 4 : 15} isCoarse={isCoarse} />
+      <MarqueeRow logos={row1Logos} direction="right" speed={isCoarse ? 2 : 15} isCoarse={isCoarse} />
+      <MarqueeRow logos={row2Logos} direction="left" speed={isCoarse ? 2 : 15} isCoarse={isCoarse} />
+      <MarqueeRow logos={row3Logos} direction="right" speed={isCoarse ? 2 : 15} isCoarse={isCoarse} />
     </div>
   )
 }
@@ -84,14 +84,16 @@ function MarqueeRow({ logos, direction, speed, isCoarse }: MarqueeRowProps) {
     if (direction === "left") {
       newX -= movePercent
       // Wrap around: if we go past -50%, reset to 0%
+      // IMPORTANT: We must add 50 instead of setting to 0 to preserve the overshoot
+      // This ensures we don't lose the sub-frame movement, preventing the "jump"
       if (newX <= -50) {
-        newX = 0
+        newX += 50
       }
     } else {
       newX += movePercent
       // Wrap around: if we go past 0%, reset to -50%
       if (newX >= 0) {
-        newX = -50
+        newX -= 50
       }
     }
 
@@ -127,9 +129,9 @@ function MarqueeRow({ logos, direction, speed, isCoarse }: MarqueeRowProps) {
 
     // Apply wrapping logic manually
     if (newX > 0) {
-      newX = -50 + newX // Wrap to end
+      newX -= 50 // Wrap to end
     } else if (newX < -50) {
-      newX = 0 + (newX + 50) // Wrap to start
+      newX += 50 // Wrap to start
     }
 
     x.set(newX)
@@ -144,7 +146,7 @@ function MarqueeRow({ logos, direction, speed, isCoarse }: MarqueeRowProps) {
       onPan={handlePan}
     >
       <motion.div
-        className="flex items-center gap-2 md:gap-3 lg:gap-3 w-max min-w-full"
+        className="flex items-center gap-2 md:gap-3 lg:gap-3 w-max min-w-full will-change-transform"
         style={{ x: xPercent }}
       >
         {repeatedLogos.map((logo, idx) => {
@@ -155,7 +157,7 @@ function MarqueeRow({ logos, direction, speed, isCoarse }: MarqueeRowProps) {
               logo={logo}
               isActive={activeLogoKey === key}
               isCoarse={isCoarse}
-              priority={idx < 10}
+              priority={true}
               onToggle={() => handleLogoToggle(key)}
             />
           )
@@ -199,6 +201,7 @@ function LogoItem({ logo, isActive, isCoarse, priority, onToggle }: LogoItemProp
         e.stopPropagation() // Prevent bubbling
         onToggle()
       }}
+      onDragStart={(e) => e.preventDefault()} // Prevent native drag
       animate={{ scale: shouldScale ? 1.1 : 1 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
@@ -228,6 +231,7 @@ function LogoItem({ logo, isActive, isCoarse, priority, onToggle }: LogoItemProp
             loading={priority ? "eager" : "lazy"}
             priority={priority}
             onLoad={(e) => handleImageLoad(e.currentTarget)}
+            draggable={false}
           />
         </div>
 
