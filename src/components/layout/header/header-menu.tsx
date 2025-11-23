@@ -80,7 +80,13 @@ export const DesktopMenu = ({ items }: { items: HeaderMenuItem[] }) => {
               >
                 <Link
                   href={item.href}
-                  onClick={() => emitAboutReset(item.href)}
+                  onClick={(e) => {
+                    if (item.href === "#") {
+                      e.preventDefault()
+                      return
+                    }
+                    emitAboutReset(item.href)
+                  }}
                   className="text-sm"
                 >
                   {item.label}
@@ -232,7 +238,14 @@ export const MobileMenu = ({
                     >
                       <Link
                         href={item.href}
-                        onClick={() => handleNavigate(item.href)}
+                        onClick={(e) => {
+                          if (item.href === "#") {
+                            e.preventDefault()
+                            setOpen(false)
+                            return
+                          }
+                          handleNavigate(item.href)
+                        }}
                       >
                         {item.label}
                       </Link>

@@ -35,7 +35,7 @@ export default function HomePage() {
         alt="Background"
         width={1280}
         height={800}
-        className="hidden lg:block absolute top-0 left-0 w-full h-auto -z-10 object-cover"
+        className="hidden lg:block lg:absolute lg:left-0 lg:w-full lg:h-full lg:-z-10 lg:top-0 lg:object-cover lg:object-[50%_-80px]"
         priority
       />
 
