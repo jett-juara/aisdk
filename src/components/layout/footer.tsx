@@ -29,10 +29,7 @@ const Footer = ({ className = "" }: FooterProps) => {
         <div className="flex flex-col items-center gap-3 text-text-50 lg:flex-row lg:justify-between lg:gap-4 lg:text-left text-center">
           {/* Copyright & Address */}
           <div className="flex flex-col gap-1">
-            <div className="text-xs font-heading text-white/60 tracking-wider uppercase">
-              Jl. Gudang Peluru Timur V Blok K No. 257, Tebet, Jakarta Selatan
-            </div>
-            <div className="text-xs font-heading text-white/40 tracking-wider uppercase">
+            <div className="text-xs font-body text-white/40 tracking-tight">
               © {new Date().getFullYear()} JUARA Events. All rights reserved.
             </div>
           </div>
