@@ -206,8 +206,8 @@ const Hero = () => {
 
               </div>
               {/* Grid Section */}
-              <div className="w-full lg:max-w-[35vw]">
-                <div className="grid grid-cols-2 gap-4 md:gap-4 auto-rows-[minmax(100px,auto)]">
+              <div className="w-full lg:max-w-[30vw]">
+                <div className="grid grid-cols-2 lg:grid-cols-2 gap-4 md:gap-4 auto-rows-[minmax(100px,auto)]">
                   {items.map((item, index) => {
                     const isStateOne = selectedId === null
                     const isIntroActive = introStep <= index
@@ -216,10 +216,10 @@ const Hero = () => {
 
                     // Bento Grid Classes
                     let bentoClass = ""
-                    if (index === 0) bentoClass = "col-span-2 aspect-[2/1] md:col-span-1 md:row-span-2 md:aspect-auto"
-                    else if (index === 1) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-span-1"
-                    else if (index === 2) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-span-1"
-                    else if (index === 3) bentoClass = "col-span-2 aspect-[2/1] md:col-span-2 md:row-span-1"
+                    if (index === 0) bentoClass = "col-span-2 aspect-[2/1] lg:col-span-2 lg:row-span-1"
+                    else if (index === 1) bentoClass = "col-span-1 aspect-square lg:col-span-1 lg:row-span-1"
+                    else if (index === 2) bentoClass = "col-span-1 aspect-[1/2] lg:col-span-1 lg:row-span-2"
+                    else if (index === 3) bentoClass = "col-span-2 aspect-square lg:col-span-1 lg:row-span-1"
 
                     return (
                       <div key={item.id}
