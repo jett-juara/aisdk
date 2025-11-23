@@ -38,8 +38,8 @@ const Hero47 = () => {
       <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-8 lg:px-8 flex flex-col lg:flex-row items-start lg:items-stretch h-full gap-8 lg:gap-16">
 
         {/* Left Section (50%) - SVG Headline */}
-        <div className="lg:w-1/2 flex justify-start lg:justify-end items-center lg:items-center lg:pr-48 pt-2 md:pt-0 lg:pt-0">
-          <div className={`w-[45vh] min-[375px]:w-[35vh] md:w-[40vh] px-4 relative lg:w-[50vh] flex-shrink-0 transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}>
+        <div className="lg:w-1/2 flex justify-start lg:justify-end items-center lg:pr-12 lg:items-center pt-2 md:pt-0 lg:pt-0">
+          <div className={`w-[45vh] min-[375px]:w-[35vh] md:w-[40vh] px-4 relative lg:w-[55vh] flex-shrink-0 transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}>
             {/* Spacer Image - Invisible but sets the size correctly */}
             <Image
               src="/images/home-hero/off-the-grid-headline.svg"
@@ -59,7 +59,7 @@ const Hero47 = () => {
         <div className="w-full lg:w-1/2 flex flex-col items-start lg:justify-center text-left gap-10 lg:gap-10 px-4 lg:px-0 pt-8 md:pt-2 pb-4 lg:pb-0 lg:pt-0">
 
           {/* Combined Content Block */}
-          <div className={`flex flex-col gap-10 lg:gap-8 w-full lg:pl-48 transition-all duration-700 ease-out delay-100 ${animationClasses.text}`}>
+          <div className={`flex flex-col gap-10 lg:gap-8 w-full lg:pl-32 lg:w-[90%] transition-all duration-700 ease-out delay-100 ${animationClasses.text}`}>
             <div className="flex flex-col gap-2 md:w-[60%] lg:w-full">
               {/* Mobile & Tablet Text (Shortened) */}
               <div className="block lg:hidden">
