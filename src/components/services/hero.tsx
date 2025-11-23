@@ -11,6 +11,12 @@ import {
   TalentLogMng as TalentLogMngContent,
   LocalAuthLiaison as LocalAuthLiaisonContent,
 } from "@/components/services"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 interface ServicesHeroProps {
   heading?: string
@@ -32,8 +38,8 @@ export function ServicesHero({
 
   const items: { id: number; slug: string; label: string; labelLine1: string; labelLine2: string; icon: LucideIcon; imagePosition: "left" | "right" }[] = [
     { id: 1, slug: "creative-and-plan-development", label: "Creative & Plan Development", labelLine1: "Creative & Plan", labelLine2: "Development", icon: Lightbulb, imagePosition: "left" },
-    { id: 2, slug: "execution-handling", label: "Execution Handling", labelLine1: "Execution", labelLine2: "Handling", icon: Settings, imagePosition: "right" },
     { id: 3, slug: "talent-and-logistic-management", label: "Talent & Logistic Management", labelLine1: "Talent & Logistic", labelLine2: "Management", icon: Truck, imagePosition: "left" },
+    { id: 2, slug: "execution-handling", label: "Execution Handling", labelLine1: "Execution", labelLine2: "Handling", icon: Settings, imagePosition: "right" },
     { id: 4, slug: "local-authority-liaison", label: "Local Authority Liaison", labelLine1: "Local Authority", labelLine2: "Liaison", icon: ShieldCheck, imagePosition: "right" },
   ]
 
@@ -100,38 +106,73 @@ export function ServicesHero({
   const selectedItem = items.find((item) => item.id === selectedId)
 
   return (
-    <section className={`relative flex-1 min-h-0 w-full flex items-start ${selectedId ? "pt-8" : "pt-8"} overflow-visible transition-all duration-500`}>
-      <div className={`relative z-10 flex flex-col items-center justify-start w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8`}>
+    <section className={`relative flex-1 min-h-0 w-full flex items-start -mt-8 lg:mt-0 ${selectedId ? "pt-0 lg:pt-32" : "pt-0 lg:pt-32"} overflow-visible transition-all duration-500`}>
+      <div className={`relative z-10 flex flex-col items-center justify-start w-full max-w-screen-xl mx-auto lg:px-8`}>
         {!selectedId && (
-          <div className="flex flex-col lg:flex-row lg:items-start w-full gap-12 lg:gap-20">
+          <div className="flex flex-col-reverse lg:flex-row lg:items-start w-full gap-12 lg:gap-20">
             {/* Hero Text Section */}
             <div className="lg:flex-1 flex flex-col justify-start">
               <div className={`w-full transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
                 {introStep > 0 && (
                   <div className="flex flex-col gap-8">
-                    <div>
-                      <h1 className="font-headingSecondary font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
-                        {heading}
-                      </h1>
-                    </div>
-                    <div className="relative pl-8">
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
-                      <div className="space-y-4 max-w-2xl">
-                        <p className="font-medium text-xl md:text-2xl text-text-50 leading-relaxed">
-                          {subheading}
-                        </p>
-                        <p className="font-light text-lg text-text-200 leading-relaxed">
-                          {description}
-                        </p>
+                    {/* Desktop View */}
+                    <div className="hidden lg:flex flex-col gap-8">
+                      <div>
+                        <h1 className="font-headingSecondary font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
+                          {heading}
+                        </h1>
+                      </div>
+                      <div className="relative pl-8">
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
+                        <div className="space-y-4 max-w-2xl">
+                          <p className="font-medium text-xl md:text-2xl text-text-50 leading-relaxed">
+                            {subheading}
+                          </p>
+                          <p className="font-light text-lg text-text-200 leading-relaxed">
+                            {description}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-6 pt-4">
+                        <Button
+                          className="h-12 px-8 rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
+                          onClick={() => router.push("/contact")}
+                        >
+                          Let&apos;s Talk
+                        </Button>
                       </div>
                     </div>
-                    <div className="flex items-center gap-6 pt-4">
-                      <Button
-                        className="h-12 px-8 rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
-                        onClick={() => router.push("/contact")}
-                      >
-                        Let&apos;s Talk
-                      </Button>
+
+                    {/* Mobile/Tablet View (Accordion) */}
+                    <div className="lg:hidden w-full">
+                      <Accordion type="single" collapsible className="w-full flex flex-col gap-4">
+                        <AccordionItem value="services" className="border-none">
+                          <AccordionTrigger className="hover:no-underline py-2">
+                            <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em] text-left">
+                              {heading}
+                            </h1>
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="relative pl-6 mt-2 flex flex-col gap-6">
+                              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
+                              <p className="font-medium text-lg text-text-50 leading-relaxed">
+                                {subheading}
+                              </p>
+                              <p className="font-light text-lg text-text-200 leading-relaxed">
+                                {description}
+                              </p>
+                              <div className="flex justify-start w-full pt-2">
+                                <Button
+                                  className="h-12 px-8 rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
+                                  onClick={() => router.push("/contact")}
+                                >
+                                  Let&apos;s Talk
+                                </Button>
+                              </div>
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
                     </div>
                   </div>
                 )}
@@ -149,10 +190,10 @@ export function ServicesHero({
 
                   // Bento Grid Classes
                   let bentoClass = ""
-                  if (index === 0) bentoClass = "md:col-span-2 md:row-span-1 aspect-[2/1]"
-                  else if (index === 1) bentoClass = "md:col-span-1 md:row-span-2 aspect-[1/2] md:aspect-auto"
-                  else if (index === 2) bentoClass = "md:col-span-1 md:row-span-1 aspect-square"
-                  else if (index === 3) bentoClass = "md:col-span-1 md:row-span-1 aspect-square"
+                  if (index === 0) bentoClass = "col-span-2 aspect-[2/1] md:col-span-2 md:row-span-1"
+                  else if (index === 1) bentoClass = "col-span-1 row-span-2 h-full md:col-span-1 md:row-span-2 md:aspect-auto"
+                  else if (index === 2) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-span-1"
+                  else if (index === 3) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-span-1"
 
                   return (
                     <div key={item.id}

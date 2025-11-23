@@ -4,7 +4,13 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { CalendarCheck, UsersRound, Cpu, ChartBarBig, Sparkles, Users, BarChart3 } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { useRouter } from "next/navigation"
 import { ABOUT_RESET_EVENT } from "@/lib/constants/events"
 import { Event as EventContent, Community as CommunityContent, Tech as TechContent, Analytic as AnalyticContent, AboutStats } from "@/components/about"
@@ -114,40 +120,87 @@ const Hero = () => {
               <div className="lg:flex-1 flex flex-col justify-start">
                 <div className={`w-full transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
                   {introStep > 0 && (
-                    <div className="flex flex-col gap-8">
-                      <div>
-                        <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
-                          Who We Are
-                        </h1>
-                      </div>
-                      <div className="relative pl-8">
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
-                        <p className="font-light text-lg md:text-xl text-50/60 leading-relaxed max-w-2xl">
-                          Juara is a full-service event organizer with more than 15 years of experience based in Indonesia. Led by passionate and talented individuals who have mastered the art of providing top-notch event services from planning to completion. We take a thoughtful approach in understanding client’s objectives before meticulously bringing the ideas into life.
-                        </p>
-                      </div>
-                      <div>
-                        <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
-                          What We Value
-                        </h1>
-                      </div>
-                      <div className="relative pl-8">
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
-                        <p className="font-light text-lg md:text-xl text-50/60 leading-relaxed max-w-2xl">
-                          We strive for excellence, do our utmost to provide the best, and aim for success. We value excellence and integrity to deliver remarkable experiences to the guest with an emphasis on bringing innovation to the table. Putting our highest endeavor in executing ideas is our foundation to bring together the client’s visions.
-                        </p>
+                    <>
+                      {/* Desktop View */}
+                      <div className="hidden lg:flex flex-col gap-8">
+                        <div>
+                          <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
+                            Who We Are
+                          </h1>
+                        </div>
+                        <div className="relative pl-8">
+                          <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
+                          <p className="font-light text-lg md:text-xl text-50/60 leading-relaxed max-w-2xl">
+                            Juara is a full-service event organizer with more than 15 years of experience based in Indonesia. Led by passionate and talented individuals who have mastered the art of providing top-notch event services from planning to completion. We take a thoughtful approach in understanding client’s objectives before meticulously bringing the ideas into life.
+                          </p>
+                        </div>
+                        <div>
+                          <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
+                            What We Value
+                          </h1>
+                        </div>
+                        <div className="relative pl-8">
+                          <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
+                          <p className="font-light text-lg md:text-xl text-50/60 leading-relaxed max-w-2xl">
+                            We strive for excellence, do our utmost to provide the best, and aim for success. We value excellence and integrity to deliver remarkable experiences to the guest with an emphasis on bringing innovation to the table. Putting our highest endeavor in executing ideas is our foundation to bring together the client’s visions.
+                          </p>
+                        </div>
+
+                        <div className="pt-8 flex justify-start w-full">
+                          <Button
+                            className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
+                            onClick={() => window.open("/documents/company-profile.pdf", "_blank")}
+                          >
+                            Company Profile
+                          </Button>
+                        </div>
                       </div>
 
-                      <div className="pt-8 flex justify-start w-full">
-                        <Button
-                          className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
-                          onClick={() => window.open("/documents/company-profile.pdf", "_blank")}
-                        >
-                          Company Profile
-                        </Button>
-                      </div>
+                      {/* Mobile/Tablet View (Accordion) */}
+                      <div className="lg:hidden w-full">
+                        <Accordion type="single" collapsible className="w-full flex flex-col gap-4">
+                          <AccordionItem value="who-we-are" className="border-none">
+                            <AccordionTrigger className="hover:no-underline py-2">
+                              <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em] text-left">
+                                Who We Are
+                              </h1>
+                            </AccordionTrigger>
+                            <AccordionContent>
+                              <div className="relative pl-6 mt-2">
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
+                                <p className="font-light text-lg text-50/60 leading-relaxed">
+                                  Juara is a full-service event organizer with more than 15 years of experience based in Indonesia. Led by passionate and talented individuals who have mastered the art of providing top-notch event services from planning to completion. We take a thoughtful approach in understanding client’s objectives before meticulously bringing the ideas into life.
+                                </p>
+                              </div>
+                            </AccordionContent>
+                          </AccordionItem>
 
-                    </div>
+                          <AccordionItem value="what-we-value" className="border-none">
+                            <AccordionTrigger className="hover:no-underline py-2">
+                              <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em] text-left">
+                                What We Value
+                              </h1>
+                            </AccordionTrigger>
+                            <AccordionContent>
+                              <div className="relative pl-6 mt-2 flex flex-col gap-6">
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
+                                <p className="font-light text-lg text-50/60 leading-relaxed">
+                                  We strive for excellence, do our utmost to provide the best, and aim for success. We value excellence and integrity to deliver remarkable experiences to the guest with an emphasis on bringing innovation to the table. Putting our highest endeavor in executing ideas is our foundation to bring together the client’s visions.
+                                </p>
+                                <div className="flex justify-start w-full pt-2">
+                                  <Button
+                                    className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
+                                    onClick={() => window.open("/documents/company-profile.pdf", "_blank")}
+                                  >
+                                    Company Profile
+                                  </Button>
+                                </div>
+                              </div>
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
+                      </div>
+                    </>
                   )}
                 </div>
 

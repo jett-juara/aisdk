@@ -38,8 +38,8 @@ const config = {
 					}
 				},
 				ring: {
-					'500': 'var(--color-ring-500)',
-					'50': 'var(--color-ring-50)'
+					'50': 'var(--color-ring-50)',
+					'500': 'var(--color-ring-500)'
 				},
 				background: {
 					'600': 'var(--color-background-600)',
@@ -152,7 +152,7 @@ const config = {
 						start: 'var(--color-button-glass-start)',
 						end: 'var(--color-button-glass-end)',
 						border: 'var(--color-button-glass-border)',
-						glow: 'var(--color-button-glass-glow)',
+						glow: 'var(--color-button-glass-glow)'
 					}
 				},
 				'secondary-hover': 'var(--color-button-secondary-hover)',
@@ -161,8 +161,6 @@ const config = {
 				'outline-hover': 'var(--color-button-outline-hover)',
 				'destructive-hover': 'var(--color-button-destructive-hover)',
 				'destructive-active': 'var(--color-button-destructive-active)',
-
-				// Premium Theme Colors
 				'background-deep': 'var(--color-background-deep)',
 				'glass-border': 'var(--color-glass-border)',
 				'glass-bg': 'var(--color-glass-bg)',
@@ -272,12 +270,20 @@ const config = {
 					}
 				},
 				'marquee-left': {
-					from: { transform: 'translateX(0)' },
-					to: { transform: 'translateX(-50%)' }
+					from: {
+						transform: 'translateX(0)'
+					},
+					to: {
+						transform: 'translateX(-50%)'
+					}
 				},
 				'marquee-right': {
-					from: { transform: 'translateX(-50%)' },
-					to: { transform: 'translateX(0)' }
+					from: {
+						transform: 'translateX(-50%)'
+					},
+					to: {
+						transform: 'translateX(0)'
+					}
 				}
 			},
 			animation: {
@@ -287,10 +293,10 @@ const config = {
 				'marquee-right': 'marquee-right 40s linear infinite'
 			},
 			transitionTimingFunction: {
-				'premium': 'cubic-bezier(0.22, 1, 0.36, 1)'
+				premium: 'cubic-bezier(0.22, 1, 0.36, 1)'
 			},
 			backgroundImage: {
-				'noise': 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+				noise: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
 				'glass-gradient': 'linear-gradient(to top right, rgba(255, 255, 255, 0.1) 0%, transparent 100%)'
 			}
 		}
