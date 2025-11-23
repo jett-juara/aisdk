@@ -36,9 +36,9 @@ export function AboutClientLogos() {
 
   return (
     <div className="flex flex-col gap-4 overflow-hidden py-2 w-full" style={maskStyle}>
-      <MarqueeRow logos={row1Logos} direction="right" speed={15} isCoarse={isCoarse} />
-      <MarqueeRow logos={row2Logos} direction="left" speed={15} isCoarse={isCoarse} />
-      <MarqueeRow logos={row3Logos} direction="right" speed={15} isCoarse={isCoarse} />
+      <MarqueeRow logos={row1Logos} direction="right" speed={isCoarse ? 4 : 15} isCoarse={isCoarse} />
+      <MarqueeRow logos={row2Logos} direction="left" speed={isCoarse ? 4 : 15} isCoarse={isCoarse} />
+      <MarqueeRow logos={row3Logos} direction="right" speed={isCoarse ? 4 : 15} isCoarse={isCoarse} />
     </div>
   )
 }
@@ -111,15 +111,37 @@ function MarqueeRow({ logos, direction, speed, isCoarse }: MarqueeRowProps) {
   const handleInteractionEnd = () => setIsHovered(false)
 
   const handleLogoToggle = (key: string) => {
+    // Allow toggling on any device to ensure it works
     setActiveLogoKey(prev => prev === key ? null : key)
   }
 
+  const handlePan = (event: any, info: any) => {
+    if (!isPaused || !containerRef.current) return
+
+    const containerWidth = containerRef.current.offsetWidth
+    // Convert pixel delta to percentage
+    // We are moving the content, so dragging right (positive delta) should move content right (increase x)
+    const deltaPercent = (info.delta.x / containerWidth) * 100
+
+    let newX = x.get() + deltaPercent
+
+    // Apply wrapping logic manually
+    if (newX > 0) {
+      newX = -50 + newX // Wrap to end
+    } else if (newX < -50) {
+      newX = 0 + (newX + 50) // Wrap to start
+    }
+
+    x.set(newX)
+  }
+
   return (
-    <div
-      className="relative flex w-full overflow-hidden"
+    <motion.div
+      className="relative flex w-full overflow-hidden touch-pan-y"
       onMouseEnter={!isCoarse ? handleInteractionStart : undefined}
       onMouseLeave={!isCoarse ? handleInteractionEnd : undefined}
       ref={containerRef}
+      onPan={handlePan}
     >
       <motion.div
         className="flex items-center gap-2 md:gap-3 lg:gap-3 w-max min-w-full"
@@ -139,7 +161,7 @@ function MarqueeRow({ logos, direction, speed, isCoarse }: MarqueeRowProps) {
           )
         })}
       </motion.div>
-    </div>
+    </motion.div>
   )
 }
 
