@@ -38,8 +38,8 @@ const Hero47 = () => {
       <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-8 lg:px-8 flex flex-col lg:flex-row items-start lg:items-stretch h-full gap-8 lg:gap-16">
 
         {/* Left Section (50%) - SVG Headline */}
-        <div className="lg:w-1/2 flex justify-start lg:justify-end items-center lg:pr-12 lg:items-center pt-2 md:pt-0 lg:pt-0">
-          <div className={`w-[45vh] min-[375px]:w-[35vh] md:w-[40vh] px-4 relative lg:w-[55vh] flex-shrink-0 transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}>
+        <div className="lg:w-1/2 flex justify-start lg:justify-end items-center lg:pr-12 lg:items-center pt-0 md:pt-0 lg:pt-0">
+          <div className={`w-[45vh] min-[375px]:w-[35vh] min-[360px]:w-[35vh] md:w-[40vh] px-4 relative lg:w-[55vh] flex-shrink-0 transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}>
             {/* Spacer Image - Invisible but sets the size correctly */}
             <Image
               src="/images/home-hero/off-the-grid-headline.svg"
@@ -56,24 +56,21 @@ const Hero47 = () => {
         </div>
 
         {/* Right Section (50%) - Content */}
-        <div className="w-full lg:w-1/2 flex flex-col items-start lg:justify-center text-left gap-10 lg:gap-10 px-4 lg:px-0 pt-8 md:pt-2 pb-4 lg:pb-0 lg:pt-0">
+        <div className="w-full lg:w-1/2 flex flex-col items-start lg:justify-center text-left gap-10 lg:gap-10 px-4 lg:px-0 pt-2 md:pt-2 pb-0 lg:pb-0 lg:pt-0">
 
           {/* Combined Content Block */}
           <div className={`flex flex-col gap-10 lg:gap-8 w-full lg:pl-32 lg:w-[90%] transition-all duration-700 ease-out delay-100 ${animationClasses.text}`}>
             <div className="flex flex-col gap-2 md:w-[60%] lg:w-full">
               {/* Mobile & Tablet Text (Shortened) */}
               <div className="block lg:hidden">
-                <h2 className="font-subheading font-medium text-text-100 text-lg md:text-2xl leading-tight mb-2">
+                <h2 className="font-subheading font-medium text-text-100 text-lg md:text-2xl leading-tight mb-0">
                   We are forged by challenges to reach the highest peaks.
                 </h2>
-                <p className="font-body md:text-lg font-medium text-text-100 text-sm leading-tight">
-                  Meet JETT, our AI agent. Join our ecosystem of excellence and collaborate with Juara.
-                </p>
               </div>
 
               {/* Desktop Text (Full) */}
               <div className="hidden lg:block lg:w-[100%]">
-                <h2 className="font-subheading font-medium text-text-100 text-lg md:text-lg lg:text-md mb-2 leading-tight ">
+                <h2 className="font-subheading font-medium text-text-100 text-lg md:text-lg lg:text-md mb-0 leading-tight ">
                   We are forged by challenges and struggles for a long period of time to become a skilled and trained team to reach the highest peaks.
                 </h2>
                 <p className="font-body font-medium text-text-100 text-lg md:text-lg lg:text-sm leading-tight">
@@ -83,7 +80,7 @@ const Hero47 = () => {
             </div>
 
             {/* Card CTAs */}
-            <div className="grid grid-cols-1 min-[380px]:grid-cols-3 gap-2 md:gap-4 w-full">
+            <div className="grid grid-cols-1 min-[480px]:grid-cols-3 gap-4 md:gap-4 w-full">
               {ctaItems.map((item) => {
                 const isHovered = hoveredId === item.id
                 const isAnyHovered = hoveredId !== null
