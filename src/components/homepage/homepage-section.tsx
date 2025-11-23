@@ -88,7 +88,7 @@ const Hero47 = () => {
                 const isHovered = hoveredId === item.id
                 const isAnyHovered = hoveredId !== null
                 const scaleClass = isHovered
-                  ? "scale-105 opacity-100 z-10"
+                  ? "scale-[1.09] opacity-100 z-10"
                   : isAnyHovered
                     ? "scale-95 opacity-60 blur-[1px]"
                     : "scale-100 opacity-100"

@@ -190,7 +190,7 @@ export function ProductHero({
                   const isStateOne = selectedId === null
                   const isIntroActive = introStep <= index
                   const introClass = isIntroActive ? "opacity-0 translate-y-12 blur-lg" : "opacity-100 translate-y-0 blur-0"
-                  const scaleClass = !isStateOne || introStep < totalIntroSteps ? "scale-100" : hoveredId === item.id ? "scale-[1.02]" : hoveredId === null ? "scale-100" : "scale-95 opacity-60 blur-[1px]"
+                  const scaleClass = !isStateOne || introStep < totalIntroSteps ? "scale-100" : hoveredId === item.id ? "scale-[1.09]" : hoveredId === null ? "scale-100" : "scale-95 opacity-60 blur-[1px]"
 
                   // Bento Grid Classes
                   let bentoClass = ""
