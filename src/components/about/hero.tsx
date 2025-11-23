@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/accordion";
 import { useRouter } from "next/navigation"
 import { ABOUT_RESET_EVENT } from "@/lib/constants/events"
-import { Event as EventContent, Community as CommunityContent, Tech as TechContent, Analytic as AnalyticContent, AboutStats } from "@/components/about"
+import { Event as EventContent, Community as CommunityContent, Tech as TechContent, Analytic as AnalyticContent, AboutStats, AboutClientLogos } from "@/components/about"
 
 const layoutConfigs = {
   1: { desktopTextOrder: "lg:order-1", desktopImageOrder: "lg:order-2", textBasis: "lg:basis-[60%]", imageBasis: "lg:basis-[40%]" },
@@ -31,11 +31,7 @@ const Hero = () => {
     { id: 4, slug: "analytic", label: "Analytics", labelLine1: "Data-driven", labelLine2: "Insights", icon: BarChart3, imagePosition: "right" },
   ]
 
-  const logos = [
-    "abc", "angkasapura", "axa", "belfoods", "bintangtoedjoe", "bkkbn", "bukalapak", "cocacola", "danone",
-    "djarum", "duakelinci", "dunhill", "gudanggaram", "haan", "honda", "indosat", "injourney", "kemenag",
-    "kemnaker", "kimbo", "komdigi", "mayora", "mgpa", "nugreentea", "pwc", "sariroti", "telkom", "umc"
-  ]
+  
 
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [hoveredId, setHoveredId] = useState<number | null>(null)
@@ -293,72 +289,14 @@ const Hero = () => {
                   </Button>
                   <Button
                     className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105 shadow-lg"
-                    onClick={() => window.open("https://wa.me/6281234567890", "_blank")} // Placeholder link, update if known
+                    onClick={() => window.open("https://wa.me/6281234567890", "_blank")}
                   >
                     Chat Jett
                   </Button>
                 </div>
               </div>
             </div>
-
-            <div className="flex flex-col gap-12 overflow-hidden group/logos py-8 w-full [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
-              {/* Row 1: Left to Right */}
-              <div className="flex gap-8 w-max animate-marquee-right group-hover/logos:[animation-play-state:paused]">
-                {[...logos.slice(0, 9), ...logos.slice(0, 9)].map((logo, idx) => (
-                  <div key={`row1-${idx}`} className="group relative w-auto h-16 flex flex-col items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none">
-                    <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 group-active:opacity-100 rounded-xl transition-all duration-300" />
-                    <img
-                      src={`/client-logo/gray/${logo}-gray.png`}
-                      alt={logo}
-                      className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
-                    />
-                    <img
-                      src={`/client-logo/color/${logo}-color.png`}
-                      alt={logo}
-                      className="relative z-10 h-full w-auto object-contain -mt-10 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {/* Row 2: Right to Left */}
-              <div className="flex gap-8 w-max animate-marquee-left group-hover/logos:[animation-play-state:paused]">
-                {[...logos.slice(9, 18), ...logos.slice(9, 18)].map((logo, idx) => (
-                  <div key={`row2-${idx}`} className="group relative w-auto h-16 flex flex-col items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none">
-                    <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 group-active:opacity-100 rounded-xl transition-all duration-300" />
-                    <img
-                      src={`/client-logo/gray/${logo}-gray.png`}
-                      alt={logo}
-                      className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
-                    />
-                    <img
-                      src={`/client-logo/color/${logo}-color.png`}
-                      alt={logo}
-                      className="relative z-10 h-full w-auto object-contain -mt-10 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {/* Row 3: Left to Right */}
-              <div className="flex gap-8 w-max animate-marquee-right group-hover/logos:[animation-play-state:paused]">
-                {[...logos.slice(18, 28), ...logos.slice(18, 28)].map((logo, idx) => (
-                  <div key={`row3-${idx}`} className="group relative w-auto h-16 flex flex-col items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none">
-                    <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 group-active:opacity-100 rounded-xl transition-all duration-300" />
-                    <img
-                      src={`/client-logo/gray/${logo}-gray.png`}
-                      alt={logo}
-                      className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
-                    />
-                    <img
-                      src={`/client-logo/color/${logo}-color.png`}
-                      alt={logo}
-                      className="relative z-10 h-full w-auto object-contain -mt-10 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
+            <AboutClientLogos />
           </div>
 
         </div >)
