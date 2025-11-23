@@ -218,7 +218,7 @@ const Hero = () => {
                     let bentoClass = ""
                     if (index === 0) bentoClass = "col-span-2 aspect-[2/1] lg:col-span-2 lg:row-span-1"
                     else if (index === 1) bentoClass = "col-span-1 aspect-square lg:col-span-1 lg:row-span-1"
-                    else if (index === 2) bentoClass = "col-span-1 row-span-2 aspect-[1/2] lg:col-span-1 lg:row-span-1 lg:aspect-square"
+                    else if (index === 2) bentoClass = "col-span-1 row-span-2 lg:col-span-1 lg:row-span-1 lg:aspect-square"
                     else if (index === 3) bentoClass = "col-span-1 aspect-square lg:col-span-2 lg:row-span-1 lg:aspect-[2/1]"
 
                     return (
@@ -305,10 +305,10 @@ const Hero = () => {
               {/* Row 1: Left to Right */}
               <div className="flex gap-8 w-max animate-marquee-right group-hover/logos:[animation-play-state:paused]">
                 {[...logos.slice(0, 9), ...logos.slice(0, 9)].map((logo, idx) => (
-                  <div key={`row1-${idx}`} className="group relative w-auto h-16 flex items-center justify-center p-3 transition-transform duration-300 hover:scale-125">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
-                    <img src={`/client-logo/gray/${logo}-gray.png`} alt={logo} className="relative h-full w-auto object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                    <img src={`/client-logo/color/${logo}-color.png`} alt={logo} className="absolute inset-0 m-auto h-10 w-auto object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div key={`row1-${idx}`} className="group relative w-auto h-16 flex items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none">
+                    <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
+                    <img src={`/client-logo/gray/${logo}-gray.png`} alt={logo} className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+                    <img src={`/client-logo/color/${logo}-color.png`} alt={logo} className="absolute z-20 inset-0 m-auto h-10 w-auto object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 ))}
               </div>
@@ -316,10 +316,10 @@ const Hero = () => {
               {/* Row 2: Right to Left */}
               <div className="flex gap-8 w-max animate-marquee-left group-hover/logos:[animation-play-state:paused]">
                 {[...logos.slice(9, 18), ...logos.slice(9, 18)].map((logo, idx) => (
-                  <div key={`row2-${idx}`} className="group relative w-auto h-16 flex items-center justify-center p-3 transition-transform duration-300 hover:scale-125">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
-                    <img src={`/client-logo/gray/${logo}-gray.png`} alt={logo} className="relative h-full w-auto object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                    <img src={`/client-logo/color/${logo}-color.png`} alt={logo} className="absolute inset-0 m-auto h-10 w-auto object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div key={`row2-${idx}`} className="group relative w-auto h-16 flex items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none">
+                    <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
+                    <img src={`/client-logo/gray/${logo}-gray.png`} alt={logo} className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+                    <img src={`/client-logo/color/${logo}-color.png`} alt={logo} className="absolute z-20 inset-0 m-auto h-10 w-auto object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 ))}
               </div>
@@ -327,10 +327,10 @@ const Hero = () => {
               {/* Row 3: Left to Right */}
               <div className="flex gap-8 w-max animate-marquee-right group-hover/logos:[animation-play-state:paused]">
                 {[...logos.slice(18, 28), ...logos.slice(18, 28)].map((logo, idx) => (
-                  <div key={`row3-${idx}`} className="group relative w-auto h-16 flex items-center justify-center p-3 transition-transform duration-300 hover:scale-125">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
-                    <img src={`/client-logo/gray/${logo}-gray.png`} alt={logo} className="relative h-full w-auto object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                    <img src={`/client-logo/color/${logo}-color.png`} alt={logo} className="absolute inset-0 m-auto h-10 w-auto object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div key={`row3-${idx}`} className="group relative w-auto h-16 flex items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none">
+                    <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-300" />
+                    <img src={`/client-logo/gray/${logo}-gray.png`} alt={logo} className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+                    <img src={`/client-logo/color/${logo}-color.png`} alt={logo} className="absolute z-20 inset-0 m-auto h-10 w-auto object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 ))}
               </div>
