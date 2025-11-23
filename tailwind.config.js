@@ -15,7 +15,7 @@ const config = {
 			center: true,
 			padding: '2rem'
 		},
-		extend: {
+			extend: {
 			colors: {
 				border: {
 					'50': 'var(--color-border-50)',
@@ -274,15 +274,15 @@ const config = {
 						transform: 'translateX(0)'
 					},
 					to: {
-						transform: 'translateX(-50%)'
+						transform: 'translateX(-33.3333%)'
 					}
 				},
 				'marquee-right': {
 					from: {
-						transform: 'translateX(-50%)'
+						transform: 'translateX(0)'
 					},
 					to: {
-						transform: 'translateX(0)'
+						transform: 'translateX(-33.3333%)'
 					}
 				}
 			},
@@ -290,7 +290,7 @@ const config = {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'marquee-left': 'marquee-left 40s linear infinite',
-				'marquee-right': 'marquee-right 40s linear infinite'
+				'marquee-right': 'marquee-left 40s linear infinite reverse'
 			},
 			transitionTimingFunction: {
 				premium: 'cubic-bezier(0.22, 1, 0.36, 1)'

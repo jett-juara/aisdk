@@ -39,111 +39,146 @@ export function AboutClientLogos() {
     return () => mq.removeEventListener("change", update)
   }, [])
 
+  const maskStyle = {
+    maskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
+    WebkitMaskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
+    maskRepeat: "no-repeat",
+    WebkitMaskRepeat: "no-repeat"
+  }
+
+  const row1 = [...logos.slice(0, 9), ...logos.slice(0, 9), ...logos.slice(0, 9)]
+  const row2 = [...logos.slice(9, 18), ...logos.slice(9, 18), ...logos.slice(9, 18)]
+  const row3 = [...logos.slice(18, 28), ...logos.slice(18, 28), ...logos.slice(18, 28)]
+
   return (
-    <div className="flex flex-col gap-4 overflow-hidden group/logos py-2 w-full [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
-      <div className={`flex items-center gap-2 md:gap-3 lg:gap-3 w-max ${reduceMotion ? "" : "animate-marquee-right group-hover/logos:[animation-play-state:paused]"}`}>
-        {[...logos.slice(0, 9), ...logos.slice(0, 9)].map((logo, idx) => (
-          <div
-            key={`row1-${idx}`}
-            className="group relative h-20 md:h-24 lg:h-28 w-auto flex items-center justify-center transition-transform duration-300 hover:scale-[1.05] select-none transform-gpu will-change-transform px-3 md:px-4 lg:px-5"
-          >
+    <div className="flex flex-col gap-4 overflow-hidden group/logos py-2 w-full" style={maskStyle}>
+      <div className={`flex items-center gap-2 md:gap-3 lg:gap-3 w-max min-w-full ${reduceMotion ? "" : "animate-marquee-right group-hover/logos:[animation-play-state:paused]"}`}>
+        {row1.map((logo, idx) => {
+          const isPrimary = idx < 9
+
+          return (
             <div
-              className="relative h-full w-auto max-w-full"
-              style={{ aspectRatio: getAspectRatio(logo) }}
+              key={`row1-${idx}`}
+              className="group relative h-20 md:h-24 lg:h-28 w-[140px] md:w-[180px] lg:w-[200px] flex items-center justify-center transition-transform duration-300 hover:scale-[1.05] select-none transform-gpu will-change-transform"
             >
-              <div className={`absolute z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 group-active:opacity-100 rounded-xl transition-all duration-300 ${BG_INSET}`} />
-              <div className={`absolute z-10 ${IMG_INSET}`}>
-                <Image
-                  src={`/client-logo/gray/${logo}-gray.png`}
-                  alt={logo}
-                  fill
-                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
-                  className="object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
-                  onLoadingComplete={(img) => handleImageLoad(logo, img)}
-                />
-              </div>
-              <div className={`absolute z-10 ${IMG_INSET}`}>
-                <Image
-                  src={`/client-logo/color/${logo}-color.png`}
-                  alt={logo}
-                  fill
-                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
-                  className="object-contain opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
-                />
+              <div
+                className="relative h-full w-full"
+                style={{ aspectRatio: getAspectRatio(logo) }}
+              >
+                <div className={`absolute z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 group-active:opacity-100 rounded-xl transition-all duration-300 ${BG_INSET}`} />
+                <div className={`absolute z-10 ${IMG_INSET}`}>
+                  <Image
+                    src={`/client-logo/gray/${logo}-gray.png`}
+                    alt={logo}
+                    fill
+                    sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
+                    className="object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
+                    loading={isPrimary ? "eager" : "lazy"}
+                    priority={isPrimary && idx < 3}
+                    onLoad={(event) => handleImageLoad(logo, event.currentTarget)}
+                  />
+                </div>
+                <div className={`absolute z-10 ${IMG_INSET}`}>
+                  <Image
+                    src={`/client-logo/color/${logo}-color.png`}
+                    alt={logo}
+                    fill
+                    sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
+                    className="object-contain opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
+                    loading={isPrimary ? "eager" : "lazy"}
+                    priority={isPrimary && idx < 3}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
-      <div className={`flex items-center gap-2 md:gap-3 lg:gap-3 w-max ${reduceMotion ? "" : "animate-marquee-left group-hover/logos:[animation-play-state:paused]"}`}>
-        {[...logos.slice(9, 18), ...logos.slice(9, 18)].map((logo, idx) => (
-          <div
-            key={`row2-${idx}`}
-            className="group relative h-20 md:h-24 lg:h-28 w-auto flex items-center justify-center transition-transform duration-300 hover:scale-[1.05] select-none transform-gpu will-change-transform px-3 md:px-4 lg:px-5"
-          >
+      <div className={`flex items-center gap-2 md:gap-3 lg:gap-3 w-max min-w-full ${reduceMotion ? "" : "animate-marquee-left group-hover/logos:[animation-play-state:paused]"}`}>
+        {row2.map((logo, idx) => {
+          const isPrimary = idx < 9
+
+          return (
             <div
-              className="relative h-full w-auto max-w-full"
-              style={{ aspectRatio: getAspectRatio(logo) }}
+              key={`row2-${idx}`}
+              className="group relative h-20 md:h-24 lg:h-28 w-[140px] md:w-[180px] lg:w-[200px] flex items-center justify-center transition-transform duration-300 hover:scale-[1.05] select-none transform-gpu will-change-transform"
             >
-              <div className={`absolute z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 group-active:opacity-100 rounded-xl transition-all duration-300 ${BG_INSET}`} />
-              <div className={`absolute z-10 ${IMG_INSET}`}>
-                <Image
-                  src={`/client-logo/gray/${logo}-gray.png`}
-                  alt={logo}
-                  fill
-                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
-                  className="object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
-                  onLoadingComplete={(img) => handleImageLoad(logo, img)}
-                />
-              </div>
-              <div className={`absolute z-10 ${IMG_INSET}`}>
-                <Image
-                  src={`/client-logo/color/${logo}-color.png`}
-                  alt={logo}
-                  fill
-                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
-                  className="object-contain opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
-                />
+              <div
+                className="relative h-full w-full"
+                style={{ aspectRatio: getAspectRatio(logo) }}
+              >
+                <div className={`absolute z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 group-active:opacity-100 rounded-xl transition-all duration-300 ${BG_INSET}`} />
+                <div className={`absolute z-10 ${IMG_INSET}`}>
+                  <Image
+                    src={`/client-logo/gray/${logo}-gray.png`}
+                    alt={logo}
+                    fill
+                    sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
+                    className="object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
+                    loading={isPrimary ? "eager" : "lazy"}
+                    priority={isPrimary && idx < 3}
+                    onLoad={(event) => handleImageLoad(logo, event.currentTarget)}
+                  />
+                </div>
+                <div className={`absolute z-10 ${IMG_INSET}`}>
+                  <Image
+                    src={`/client-logo/color/${logo}-color.png`}
+                    alt={logo}
+                    fill
+                    sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
+                    className="object-contain opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
+                    loading={isPrimary ? "eager" : "lazy"}
+                    priority={isPrimary && idx < 3}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
-      <div className={`flex items-center gap-2 md:gap-3 lg:gap-3 w-max ${reduceMotion ? "" : "animate-marquee-right group-hover/logos:[animation-play-state:paused]"}`}>
-        {[...logos.slice(18, 28), ...logos.slice(18, 28)].map((logo, idx) => (
-          <div
-            key={`row3-${idx}`}
-            className="group relative h-20 md:h-24 lg:h-28 w-auto flex items-center justify-center transition-transform duration-300 hover:scale-[1.05] select-none transform-gpu will-change-transform px-3 md:px-4 lg:px-5"
-          >
+      <div className={`flex items-center gap-2 md:gap-3 lg:gap-3 w-max min-w-full ${reduceMotion ? "" : "animate-marquee-right group-hover/logos:[animation-play-state:paused]"}`}>
+        {row3.map((logo, idx) => {
+          const isPrimary = idx < 10
+
+          return (
             <div
-              className="relative h-full w-auto max-w-full"
-              style={{ aspectRatio: getAspectRatio(logo) }}
+              key={`row3-${idx}`}
+              className="group relative h-20 md:h-24 lg:h-28 w-[140px] md:w-[180px] lg:w-[200px] flex items-center justify-center transition-transform duration-300 hover:scale-[1.05] select-none transform-gpu will-change-transform"
             >
-              <div className={`absolute z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 group-active:opacity-100 rounded-xl transition-all duration-300 ${BG_INSET}`} />
-              <div className={`absolute z-10 ${IMG_INSET}`}>
-                <Image
-                  src={`/client-logo/gray/${logo}-gray.png`}
-                  alt={logo}
-                  fill
-                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
-                  className="object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
-                  onLoadingComplete={(img) => handleImageLoad(logo, img)}
-                />
-              </div>
-              <div className={`absolute z-10 ${IMG_INSET}`}>
-                <Image
-                  src={`/client-logo/color/${logo}-color.png`}
-                  alt={logo}
-                  fill
-                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
-                  className="object-contain opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
-                />
+              <div
+                className="relative h-full w-full"
+                style={{ aspectRatio: getAspectRatio(logo) }}
+              >
+                <div className={`absolute z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 group-active:opacity-100 rounded-xl transition-all duration-300 ${BG_INSET}`} />
+                <div className={`absolute z-10 ${IMG_INSET}`}>
+                  <Image
+                    src={`/client-logo/gray/${logo}-gray.png`}
+                    alt={logo}
+                    fill
+                    sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
+                    className="object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
+                    loading={isPrimary ? "eager" : "lazy"}
+                    priority={isPrimary && idx < 3}
+                    onLoad={(event) => handleImageLoad(logo, event.currentTarget)}
+                  />
+                </div>
+                <div className={`absolute z-10 ${IMG_INSET}`}>
+                  <Image
+                    src={`/client-logo/color/${logo}-color.png`}
+                    alt={logo}
+                    fill
+                    sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
+                    className="object-contain opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
+                    loading={isPrimary ? "eager" : "lazy"}
+                    priority={isPrimary && idx < 3}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )
