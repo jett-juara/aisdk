@@ -20,8 +20,8 @@ export default function HomePage() {
       </div>
 
       {/* Main Content - Centered */}
-      <main className="flex-grow relative z-10 flex flex-col justify-start lg:justify-center overflow-hidden">
-        <div className="w-full h-full">
+      <main className="flex-grow relative z-10 flex flex-col justify-start lg:justify-center">
+        <div className="w-full">
           <HomepageSection />
         </div>
       </main>
