@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Image from "next/image"
 
 const logos = [
   "abc", "angkasapura", "axa", "belfoods", "bintangtoedjoe", "bkkbn", "bukalapak", "cocacola", "danone",
@@ -24,54 +25,78 @@ export function AboutClientLogos() {
     <div className="flex flex-col gap-12 overflow-hidden group/logos py-8 w-full [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
         <div className={`flex gap-8 w-max ${reduceMotion ? "" : "animate-marquee-right group-hover/logos:[animation-play-state:paused]"}`}>
           {[...logos.slice(0, 9), ...logos.slice(0, 9)].map((logo, idx) => (
-            <div key={`row1-${idx}`} className="group relative w-auto h-16 flex flex-col items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none transform-gpu will-change-transform">
+            <div key={`row1-${idx}`} className="group relative h-16 w-[160px] md:w-[180px] lg:w-[200px] flex items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none transform-gpu will-change-transform">
               <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 group-active:opacity-100 rounded-xl transition-all duration-300" />
-              <img
-                src={`/client-logo/gray/${logo}-gray.png`}
-                alt={logo}
-                className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
-              />
-              <img
-                src={`/client-logo/color/${logo}-color.png`}
-                alt={logo}
-                className="relative z-10 h-full w-auto object-contain -mt-10 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
-              />
+              <div className="absolute inset-0 z-10">
+                <Image
+                  src={`/client-logo/gray/${logo}-gray.png`}
+                  alt={logo}
+                  fill
+                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
+                  className="object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
+                />
+              </div>
+              <div className="absolute inset-0 z-10">
+                <Image
+                  src={`/client-logo/color/${logo}-color.png`}
+                  alt={logo}
+                  fill
+                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
+                  className="object-contain opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
+                />
+              </div>
             </div>
           ))}
         </div>
 
         <div className={`flex gap-8 w-max ${reduceMotion ? "" : "animate-marquee-left group-hover/logos:[animation-play-state:paused]"}`}>
           {[...logos.slice(9, 18), ...logos.slice(9, 18)].map((logo, idx) => (
-            <div key={`row2-${idx}`} className="group relative w-auto h-16 flex flex-col items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none transform-gpu will-change-transform">
+            <div key={`row2-${idx}`} className="group relative h-16 w-[160px] md:w-[180px] lg:w-[200px] flex items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none transform-gpu will-change-transform">
               <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 group-active:opacity-100 rounded-xl transition-all duration-300" />
-              <img
-                src={`/client-logo/gray/${logo}-gray.png`}
-                alt={logo}
-                className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
-              />
-              <img
-                src={`/client-logo/color/${logo}-color.png`}
-                alt={logo}
-                className="relative z-10 h-full w-auto object-contain -mt-10 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
-              />
+              <div className="absolute inset-0 z-10">
+                <Image
+                  src={`/client-logo/gray/${logo}-gray.png`}
+                  alt={logo}
+                  fill
+                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
+                  className="object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
+                />
+              </div>
+              <div className="absolute inset-0 z-10">
+                <Image
+                  src={`/client-logo/color/${logo}-color.png`}
+                  alt={logo}
+                  fill
+                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
+                  className="object-contain opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
+                />
+              </div>
             </div>
           ))}
         </div>
 
         <div className={`flex gap-8 w-max ${reduceMotion ? "" : "animate-marquee-right group-hover/logos:[animation-play-state:paused]"}`}>
           {[...logos.slice(18, 28), ...logos.slice(18, 28)].map((logo, idx) => (
-            <div key={`row3-${idx}`} className="group relative w-auto h-16 flex flex-col items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none transform-gpu will-change-transform">
+            <div key={`row3-${idx}`} className="group relative h-16 w-[160px] md:w-[180px] lg:w-[200px] flex items-center justify-center p-3 transition-transform duration-300 hover:scale-125 select-none transform-gpu will-change-transform">
               <div className="absolute inset-0 z-0 bg-gradient-to-br from-white via-white/90 to-white/50 backdrop-blur-xl border border-white/60 shadow-xl opacity-0 group-hover:opacity-100 group-active:opacity-100 rounded-xl transition-all duration-300" />
-              <img
-                src={`/client-logo/gray/${logo}-gray.png`}
-                alt={logo}
-                className="relative z-10 h-full w-auto object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
-              />
-              <img
-                src={`/client-logo/color/${logo}-color.png`}
-                alt={logo}
-                className="relative z-10 h-full w-auto object-contain -mt-10 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
-              />
+              <div className="absolute inset-0 z-10">
+                <Image
+                  src={`/client-logo/gray/${logo}-gray.png`}
+                  alt={logo}
+                  fill
+                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
+                  className="object-contain opacity-100 group-hover:opacity-0 group-active:opacity-0 transition-opacity duration-300"
+                />
+              </div>
+              <div className="absolute inset-0 z-10">
+                <Image
+                  src={`/client-logo/color/${logo}-color.png`}
+                  alt={logo}
+                  fill
+                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 180px, 200px"
+                  className="object-contain opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"
+                />
+              </div>
             </div>
           ))}
         </div>
