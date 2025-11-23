@@ -100,6 +100,11 @@ const Hero47 = () => {
                     className={`group relative rounded-xl lg:rounded-2xl overflow-hidden cursor-pointer h-16 min-[380px]:h-24 md:h-28 lg:h-32 glass-card shadow-xl focus:outline-none focus-visible:outline-none transition-all duration-500 ease-out transform-gpu ${scaleClass}`}
                     onMouseEnter={() => setHoveredId(item.id)}
                     onMouseLeave={() => setHoveredId(null)}
+                    onClick={(e) => {
+                      if (item.href === "#") {
+                        e.preventDefault()
+                      }
+                    }}
                   >
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-glass-bg-hover to-transparent" />
 
