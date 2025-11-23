@@ -106,7 +106,7 @@ export function ServicesHero({
   const selectedItem = items.find((item) => item.id === selectedId)
 
   return (
-    <section className={`relative flex-1 min-h-0 w-full flex items-start -mt-8 lg:mt-0 ${selectedId ? "pt-0 lg:pt-32" : "pt-0 lg:pt-32"} overflow-visible transition-all duration-500`}>
+    <section className={`relative flex-1 min-h-0 w-full flex items-start -mt-8 lg:mt-0 ${selectedId ? "pt-0 lg:pt-8" : "pt-0 lg:pt-8"} overflow-visible transition-all duration-500`}>
       <div className={`relative z-10 flex flex-col items-center justify-start w-full max-w-screen-xl mx-auto lg:px-8`}>
         {!selectedId && (
           <div className="flex flex-col-reverse lg:flex-row lg:items-start w-full gap-12 lg:gap-20">
@@ -138,7 +138,7 @@ export function ServicesHero({
                           className="h-12 px-8 rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
                           onClick={() => router.push("/contact")}
                         >
-                          Let&apos;s Talk
+                          Explore Our Services In Action
                         </Button>
                       </div>
                     </div>
@@ -161,12 +161,12 @@ export function ServicesHero({
                               <p className="font-light text-lg text-text-200 leading-relaxed">
                                 {description}
                               </p>
-                              <div className="flex justify-start w-full pt-2">
+                              <div className="flex justify-center w-full pt-2">
                                 <Button
                                   className="h-12 px-8 rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
                                   onClick={() => router.push("/contact")}
                                 >
-                                  Let&apos;s Talk
+                                  Explore Our Services In Action
                                 </Button>
                               </div>
                             </div>

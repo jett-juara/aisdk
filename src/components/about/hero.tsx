@@ -111,7 +111,7 @@ const Hero = () => {
   const handleCloseDetail = () => { if (!selectedId) return; handleCardClick(selectedId) }
 
   return (
-    <section className={`relative flex-1 min-h-screen w-full flex flex-col items-center justify-start -mt-8 lg:mt-0 ${selectedId ? "pt-0 lg:pt-32" : "pt-0 lg:pt-32"} overflow-visible transition-all duration-500`}>
+    <section className={`relative flex-1 min-h-screen w-full flex flex-col items-center justify-start -mt-8 lg:mt-0 ${selectedId ? "pt-0 lg:pt-8" : "pt-0 lg:pt-8"} overflow-visible transition-all duration-500`}>
       {!selectedId && (
         <div className="w-full flex flex-col items-center">
           <div className={`relative z-10 flex flex-col items-center justify-start w-full max-w-screen-xl mx-auto lg:px-8`}>
@@ -187,7 +187,7 @@ const Hero = () => {
                                 <p className="font-light text-lg text-50/60 leading-relaxed">
                                   We strive for excellence, do our utmost to provide the best, and aim for success. We value excellence and integrity to deliver remarkable experiences to the guest with an emphasis on bringing innovation to the table. Putting our highest endeavor in executing ideas is our foundation to bring together the client’s visions.
                                 </p>
-                                <div className="flex justify-start w-full pt-2">
+                                <div className="flex justify-center w-full pt-2">
                                   <Button
                                     className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
                                     onClick={() => window.open("/documents/company-profile.pdf", "_blank")}
@@ -284,12 +284,18 @@ const Hero = () => {
                 <p className="text-text-200 max-w-3xl leading-relaxed text-lg font-light">
                   Trust is the foundation of every exceptional work. We are proud to be a strategic partner to leading institutions and brands, delivering creative solutions that not only address challenges but also set new standards.
                 </p>
-                <div className="mt-8">
+                <div className="mt-8 flex flex-col lg:flex-row gap-4 justify-center items-center">
                   <Button
                     className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105 shadow-lg"
                     onClick={() => router.push("/contact")}
                   >
                     Contact Us
+                  </Button>
+                  <Button
+                    className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105 shadow-lg"
+                    onClick={() => window.open("https://wa.me/6281234567890", "_blank")} // Placeholder link, update if known
+                  >
+                    Chat Jett
                   </Button>
                 </div>
               </div>
