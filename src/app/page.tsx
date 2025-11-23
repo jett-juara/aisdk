@@ -5,7 +5,7 @@ import Footer from "@/components/layout/footer";
 
 export default function HomePage() {
   return (
-    <div className="relative isolate flex flex-col bg-black min-h-[max(100svh,179.25vw)] md:min-h-[100dvh] md:h-dvh lg:h-dvh md:overflow-hidden lg:overflow-hidden [&_*]:focus:outline-none [&_*]:focus-visible:outline-none [&_*]:focus-visible:ring-0 [&_*]:focus-visible:ring-offset-0">
+    <div className="relative isolate flex flex-col bg-black min-h-svh md:min-h-[100dvh] md:h-dvh lg:h-dvh md:overflow-hidden lg:overflow-hidden [&_*]:focus:outline-none [&_*]:focus-visible:outline-none [&_*]:focus-visible:ring-0 [&_*]:focus-visible:ring-offset-0">
 
       {/* Background Images - Responsive switching with Next.js Image */}
 
