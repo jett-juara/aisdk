@@ -126,11 +126,13 @@
     --color-border-50: #c3e0f2;
     /* Light borders */
 
-    /* Input variants (3) */
+    /* Input variants (4) */
     --color-input-border-800: #414e58;
     /* Input border */
     --color-input-focus-700: #5a6a74;
     /* Focus ring */
+    --color-input-focus-bg: #dedede;
+    /* Focus background */
     --color-input-placeholder-600: #1c2124;
     /* Placeholder text */
 
@@ -154,6 +156,8 @@
     --color-button-secondary-hover: #3f1532;
     /* Hover */
     --color-button-secondary-active: #5d1f49;
+    /* disabled */
+    --color-button-disabled: #451e39;
 
     /* Custom Button */
     --color-button-orange: #a13901;
@@ -514,6 +518,24 @@
         box-shadow: 0 0 25px var(--color-button-glass-glow), inset 0 0 10px rgba(255, 255, 255, 0.1);
         transform: translateY(-2px) scale(1.05);
         border-color: rgba(237, 237, 237, 0.5);
+    }
+
+    .glass-card-premium {
+        @apply relative rounded-xl backdrop-blur-xl border border-white/10 shadow-2xl transition-all duration-500;
+        background: linear-gradient(165deg,
+                rgba(255, 255, 255, 0.05) 0%,
+                rgba(255, 255, 255, 0.01) 60%,
+                rgba(135, 19, 155, 0.05) 100%);
+        box-shadow:
+            0 4px 24px -1px rgba(0, 0, 0, 0.2),
+            0 0 16px -1px rgba(255, 255, 255, 0.05) inset;
+    }
+
+    .glass-card-premium:hover {
+        box-shadow:
+            0 8px 32px -1px rgba(0, 0, 0, 0.3),
+            0 0 20px -1px rgba(255, 255, 255, 0.08) inset;
+        border-color: rgba(255, 255, 255, 0.15);
     }
 
     @keyframes shimmer {

@@ -15,7 +15,7 @@ const config = {
 			center: true,
 			padding: '2rem'
 		},
-			extend: {
+		extend: {
 			colors: {
 				border: {
 					'50': 'var(--color-border-50)',
@@ -31,7 +31,8 @@ const config = {
 						'800': 'var(--color-input-border-800)'
 					},
 					focus: {
-						'700': 'var(--color-input-focus-700)'
+						'700': 'var(--color-input-focus-700)',
+						bg: 'var(--color-input-focus-bg)'
 					},
 					placeholder: {
 						'600': 'var(--color-input-placeholder-600)'
@@ -153,7 +154,8 @@ const config = {
 						end: 'var(--color-button-glass-end)',
 						border: 'var(--color-button-glass-border)',
 						glow: 'var(--color-button-glass-glow)'
-					}
+					},
+					disabled: 'var(--color-button-disabled)'
 				},
 				'secondary-hover': 'var(--color-button-secondary-hover)',
 				'outline-text': 'var(--color-button-outline-text)',

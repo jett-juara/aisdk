@@ -70,7 +70,7 @@ const Hero47 = () => {
 
               {/* Desktop Text (Full) */}
               <div className="hidden lg:block lg:w-[100%]">
-                <h2 className="font-subheading font-medium text-text-100 text-lg md:text-lg lg:text-md mb-0 leading-tight ">
+                <h2 className="font-subheading font-medium text-text-100 text-lg md:text-lg lg:text-md lg:mb-4 leading-tight ">
                   We are forged by challenges and struggles for a long period of time to become a skilled and trained team to reach the highest peaks.
                 </h2>
                 <p className="font-body font-medium text-text-100 text-lg md:text-lg lg:text-sm leading-tight">

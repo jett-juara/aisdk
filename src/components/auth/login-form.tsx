@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/components/hooks/use-toast"
 import { Button } from "@/components/ui/button"
@@ -19,6 +19,20 @@ export default function LoginForm() {
 
   const router = useRouter()
   const { toast } = useToast()
+
+  // Check for verified query param
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get("verified") === "true") {
+      toast({
+        title: "Email Terverifikasi",
+        description: "Email Anda berhasil diverifikasi. Silakan login.",
+        variant: "success",
+      })
+      // Clean up URL
+      router.replace("/auth")
+    }
+  }, [router, toast])
 
   const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -90,6 +104,8 @@ export default function LoginForm() {
     }
   }, [email, password, router, toast])
 
+  const isValid = email.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && password.length >= 8;
+
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       {/* Email Field */}
@@ -102,7 +118,7 @@ export default function LoginForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={isLoading}
-          className="h-10 md:h-12 lg:h-10 px-4 bg-input-bg-900 border-input-border-800 text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed focus:bg-[var(--color-text-50)] focus:text-text-900 selection:bg-[var(--color-background-800)] selection:text-[var(--color-text-50)]"
+          className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-xl backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200"
         />
         {errorEmail && <p className="text-sm md:text-xl lg:text-sm text-text-error-500 px-4 ">{errorEmail}</p>}
       </div>
@@ -119,7 +135,7 @@ export default function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isLoading}
-            className="h-10 md:h-12 lg:h-10 px-4 pr-12 bg-input-bg-900 border-input-border-800 text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed focus:bg-[var(--color-text-50)] focus:text-text-900 selection:bg-[var(--color-background-800)] selection:text-[var(--color-text-50)]"
+            className="h-12 px-4 pr-12 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-xl backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200"
           />
           <Button
             type="button"
@@ -155,39 +171,39 @@ export default function LoginForm() {
 
       {/* Login Button */}
       <div className="flex justify-center">
-      <Button
-        type="submit"
-        disabled={isLoading}
-        className="w-full font-button font-medium text-md md:text-xl lg:text-sm bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-10 md:h-14 lg:h-10"
-      >
-        {isLoading ? (
-          <span className="flex items-center gap-2">
-            <svg
-              className="animate-spin -ml-1 mr-2 h-5 w-5 text-text-50"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
-            Memverifikasi...
-          </span>
-        ) : (
-          "Masuk"
-        )}
-      </Button>
+        <Button
+          type="submit"
+          disabled={!isValid || isLoading}
+          className="w-full font-button font-medium text-md md:text-xl lg:text-sm bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-12 rounded-full hover:scale-105 disabled:bg-button-disabled disabled:text-text-400 disabled:opacity-100 disabled:cursor-not-allowed disabled:hover:scale-100"
+        >
+          {isLoading ? (
+            <span className="flex items-center gap-2">
+              <svg
+                className="animate-spin -ml-1 mr-2 h-5 w-5 text-text-50"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Memverifikasi...
+            </span>
+          ) : (
+            "Masuk"
+          )}
+        </Button>
       </div>
 
       {generalError ? (

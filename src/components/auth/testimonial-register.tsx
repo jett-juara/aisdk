@@ -5,10 +5,10 @@ export default function TestimonialRegister() {
     <div className="flex flex-col gap-4">
       {/* Testimonial Text with Quote */}
       <div className="flex flex-col gap-4 w-full max-w-[50vw]">
-        <div className="font-serif text-9xl leading-[0] mb-0 text-text-50 opacity-20">
+        <div className="font-serif text-[12rem] leading-[0] mb-0 text-text-50 opacity-20">
           &quot;
         </div>
-        <p className="font-heading lg:text-xl leading-tight text-left text-text-info-500">
+        <p className="font-subheading font-thin lg:text-xl leading-tight text-left text-text-info-500">
           Platform JETT sangat membantu tim kami mengelola event dengan lebih efisien. Interface yang intuitif
           membuat semua proses jadi lebih cepat dan terorganisir.
         </p>

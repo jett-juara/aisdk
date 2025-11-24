@@ -201,7 +201,7 @@ export const MobileMenu = ({
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="border-l border-white/10 bg-background-deep/95 backdrop-blur-xl w-[74vw] max-w-[340px] p-0 shadow-2xl"
+        className="border-l border-glass-border bg-background-deep/95 backdrop-blur-xl w-[74vw] max-w-[340px] p-0 shadow-2xl"
       >
         <SheetTitle className="sr-only">Menu</SheetTitle>
         <div className="flex h-full flex-col">
@@ -260,7 +260,7 @@ export const MobileMenu = ({
               {!profile ? (
                 <Button
                   asChild
-                  className="w-full font-button font-medium text-md md:text-xl bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide rounded-lg transition-all duration-500 ease-out mb-4 min-h-[44px] md:min-h-[60px]"
+                  className="w-full font-button font-medium text-md md:text-xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide rounded-full transition-all duration-500 ease-out mb-4 min-h-[44px] md:min-h-[60px] hover:scale-105"
                 >
                   <Link href="/auth">Login</Link>
                 </Button>
@@ -270,7 +270,7 @@ export const MobileMenu = ({
                     <Button
                       ref={userTriggerRef}
                       style={userSyncedWidth ? { width: `${userSyncedWidth}px` } : undefined}
-                      className="group w-full min-h-[44px] md:min-h-[60px] justify-between font-button font-medium text-md md:text-xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active mb-4 overflow-hidden transition-all duration-200"
+                      className="group w-full min-h-[44px] md:min-h-[60px] justify-between font-button font-medium text-md md:text-xl bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active mb-4 overflow-hidden transition-all duration-200 rounded-full"
                     >
                       <span className="flex items-center gap-2 min-w-0">
                         <Avatar className="h-6 w-6 md:h-8 md:w-8">
@@ -303,11 +303,11 @@ export const MobileMenu = ({
                     ref={userContentRef}
                     align="end"
                     style={userSyncedWidth ? { width: `${userSyncedWidth}px` } : undefined}
-                    className="w-auto border-border-900 bg-background-900 p-0"
+                    className="w-auto border-glass-border bg-background-900/95 backdrop-blur-xl p-2 rounded-xl"
                   >
                     <DropdownMenuItem
                       asChild
-                      className="cursor-pointer text-text-50 hover:bg-hover-overlay-700 hover:text-text-50 focus:bg-hover-overlay-700 focus:text-text-50"
+                      className="cursor-pointer text-text-50 hover:bg-glass-bg hover:text-text-50 focus:bg-glass-bg focus:text-text-50 rounded-lg"
                     >
                       <Link
                         href="/dashboard"
@@ -328,7 +328,7 @@ export const MobileMenu = ({
                     <DropdownMenuSeparator className="bg-border-800 my-0 mx-1" />
                     <DropdownMenuItem
                       asChild
-                      className="min-h-[44px] md:min-h-[60px] cursor-pointer text-text-50 hover:bg-hover-overlay-700 hover:text-text-50 focus:bg-hover-overlay-700 focus:text-text-50"
+                      className="min-h-[44px] md:min-h-[60px] cursor-pointer text-text-50 hover:bg-glass-bg hover:text-text-50 focus:bg-glass-bg focus:text-text-50 rounded-lg"
                     >
                       <button
                         className="flex items-center gap-3 w-full px-3 py-2 text-left hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4"
@@ -424,7 +424,7 @@ export const HeaderMenu = ({
                   style={
                     expandedWidth ? { width: `${expandedWidth}px` } : undefined
                   }
-                  className="group justify-between font-button font-medium px-0 has-[>svg]:px-0 overflow-hidden transition-all duration-500 ease-premium font-semibold tracking-wide bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none h-11 text-sm"
+                  className="group justify-between font-button font-medium px-0 has-[>svg]:px-0 overflow-hidden transition-all duration-500 ease-premium font-semibold tracking-wide bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none h-11 text-sm rounded-full"
                 >
                   <div className="flex items-center gap-3 min-w-0 pl-4">
                     <Avatar className="h-6 w-6">
@@ -456,11 +456,11 @@ export const HeaderMenu = ({
               <DropdownMenuContent
                 ref={contentRef}
                 align="end"
-                className="w-auto border-border-900 bg-background-900 p-0"
+                className="w-auto border-glass-border bg-background-900/95 backdrop-blur-xl p-2 rounded-xl"
               >
                 <DropdownMenuItem
                   asChild
-                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-4 py-2 min-h-[44px]"
+                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] rounded-lg"
                 >
                   <Link
                     href="/dashboard"
@@ -480,9 +480,9 @@ export const HeaderMenu = ({
                     </span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-border-800" />
+                <DropdownMenuSeparator className="bg-border-800 my-1" />
                 <DropdownMenuItem
-                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-transparent focus:bg-transparent flex items-center gap-3 w-full px-4 py-2 min-h-[44px] hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4"
+                  className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4 rounded-lg"
                   onSelect={async (event) => {
                     event.preventDefault();
                     if (loggingOut) return;
@@ -503,7 +503,7 @@ export const HeaderMenu = ({
           ) : (
             <Button
               asChild
-              className="font-button font-medium bg-button-primary text-text-100 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-premium h-10 text-sm"
+              className="font-button font-medium bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-premium h-11 text-sm rounded-full hover:scale-105 px-8"
             >
               <Link href="/auth">Login</Link>
             </Button>
