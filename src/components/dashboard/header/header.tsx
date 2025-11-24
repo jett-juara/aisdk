@@ -8,6 +8,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,13 +33,36 @@ import {
  * Breadcrumb Navigation Component
  */
 function DashboardBreadcrumb() {
+  const pathname = usePathname();
+
+  // Map path segments to readable labels
+  const breadcrumbMap: Record<string, string> = {
+    overview: "Overview",
+    profile: "My Profile",
+    users: "User Management",
+    permissions: "Permissions",
+    system: "System Health",
+    invitations: "Invitations",
+    audit: "Audit Logs",
+    security: "Security",
+  };
+
+  // Get segments after /dashboard
+  const segments = pathname?.split("/").filter(Boolean).slice(1) || [];
+
+  // If we are at root /dashboard, show Overview
+  const isRoot = segments.length === 0;
+  const currentLabel = isRoot ? "Overview" : breadcrumbMap[segments[0]] || segments[0];
+
   return (
     <nav className="flex items-center space-x-2 text-sm text-text-400">
       <Link href="/dashboard" className="hover:text-text-50 transition-colors">
         Dashboard
       </Link>
       <span className="text-text-600">/</span>
-      <span className="text-text-50">Overview</span>
+      <span className="text-text-50 capitalize">
+        {currentLabel}
+      </span>
     </nav>
   );
 }
