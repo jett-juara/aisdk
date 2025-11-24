@@ -188,12 +188,14 @@ export function ServicesHero({
                   const introClass = isIntroActive ? "opacity-0 translate-y-12 blur-lg" : "opacity-100 translate-y-0 blur-0"
                   const scaleClass = !isStateOne || introStep < totalIntroSteps ? "scale-100" : hoveredId === item.id ? "scale-[1.09]" : hoveredId === null ? "scale-100" : "scale-95 opacity-60 blur-[1px]"
 
-                  // Bento Grid Classes
+                  // Bento Grid Classes - Mobile, Tablet (md), Desktop (lg) memiliki susunan berbeda
                   let bentoClass = ""
-                  if (index === 0) bentoClass = "col-span-1 aspect-square md:col-span-2 md:row-start-2 md:col-start-2"
-                  else if (index === 1) bentoClass = "col-span-1 row-span-2 h-full md:col-span-1 md:row-start-1 md:col-start-3 md:aspect-square md:h-auto"
-                  else if (index === 2) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-start-2 md:col-start-1 md:h-full md:aspect-auto"
-                  else if (index === 3) bentoClass = "col-span-2 aspect-[2/1] md:col-span-2 md:row-start-1 md:col-start-1"
+                  // Mobile: Creative 2x1 (baris 1), Execution square (baris 2 kiri), Talent portrait 1x2 (baris 2-3 kanan), Local Authority square (baris 3 kiri)
+                  // Tablet md & Desktop lg: Creative 2x2 (baris 1-2, col 1-2), Talent portrait 1x2 (baris 1-2, col 3), Execution square (baris 3, col 1), Local Authority 2x1 (baris 3, col 2-3)
+                  if (index === 0) bentoClass = "col-span-2 row-start-1 aspect-[2/1] md:col-span-2 md:row-span-2 md:row-start-1 md:col-start-1 md:aspect-square lg:col-span-2 lg:row-span-2 lg:row-start-1 lg:col-start-1 lg:aspect-square"
+                  else if (index === 1) bentoClass = "col-span-1 row-span-2 row-start-2 col-start-2 h-full md:col-span-1 md:row-span-2 md:row-start-1 md:col-start-3 md:h-full lg:col-span-1 lg:row-span-2 lg:row-start-1 lg:col-start-3 lg:h-full"
+                  else if (index === 2) bentoClass = "col-span-1 row-start-2 col-start-1 aspect-square md:col-span-1 md:row-span-1 md:row-start-3 md:col-start-1 md:h-full lg:col-span-1 lg:row-span-1 lg:row-start-3 lg:col-start-1 lg:h-full"
+                  else if (index === 3) bentoClass = "col-span-1 row-start-3 col-start-1 aspect-square md:col-span-2 md:row-start-3 md:col-start-2 md:aspect-[2/1] lg:col-span-2 lg:row-start-3 lg:col-start-2 lg:aspect-[2/1]"
 
                   return (
                     <div key={item.id}

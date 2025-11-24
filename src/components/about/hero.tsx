@@ -31,7 +31,7 @@ const Hero = () => {
     { id: 4, slug: "analytic", label: "Analytics", labelLine1: "Data-driven", labelLine2: "Insights", icon: BarChart3, imagePosition: "right" },
   ]
 
-  
+
 
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [hoveredId, setHoveredId] = useState<number | null>(null)
@@ -202,20 +202,22 @@ const Hero = () => {
 
               </div>
               {/* Grid Section */}
-              <div className="w-full lg:max-w-[30vw]">
-                <div className="grid grid-cols-2 lg:grid-cols-2 gap-4 md:gap-4 auto-rows-[minmax(100px,auto)]">
+              <div className="w-full lg:max-w-[35vw]">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-4 auto-rows-[minmax(100px,auto)]">
                   {items.map((item, index) => {
                     const isStateOne = selectedId === null
                     const isIntroActive = introStep <= index
                     const introClass = isIntroActive ? "opacity-0 translate-y-12 blur-lg" : "opacity-100 translate-y-0 blur-0"
                     const scaleClass = !isStateOne || introStep < totalIntroSteps ? "scale-100" : hoveredId === item.id ? "scale-[1.09]" : hoveredId === null ? "scale-100" : "scale-95 opacity-60 blur-[1px]"
 
-                    // Bento Grid Classes
+                    // Bento Grid Classes - Mobile, Tablet (md), Desktop (lg) memiliki susunan berbeda
                     let bentoClass = ""
-                    if (index === 0) bentoClass = "col-span-2 aspect-[2/1] lg:col-span-2 lg:row-span-1"
-                    else if (index === 1) bentoClass = "col-span-1 aspect-square lg:col-span-1 lg:row-span-1"
-                    else if (index === 2) bentoClass = "col-span-1 row-span-2 lg:col-span-1 lg:row-span-1 lg:aspect-square"
-                    else if (index === 3) bentoClass = "col-span-1 aspect-square lg:col-span-2 lg:row-span-1 lg:aspect-[2/1]"
+                    // Mobile: Events square (baris 1 kiri), Community square (baris 2 kiri), Tech portrait (baris 1-2 kanan), Analytics rectangle (baris 3 full)
+                    // Desktop lg: Events 2x2 (baris 1-2, col 1-2), Community portrait 1x2 (baris 1-2, col 3), Tech square (baris 3, col 1), Analytics 2x1 (baris 3, col 2-3)
+                    if (index === 0) bentoClass = "col-span-1 row-start-1 col-start-1 aspect-square md:col-span-2 md:aspect-[2/1] md:row-start-1 md:col-start-1 lg:col-span-2 lg:row-span-2 lg:row-start-1 lg:col-start-1 lg:aspect-square"
+                    else if (index === 1) bentoClass = "col-span-1 row-start-2 col-start-1 aspect-square md:col-span-1 md:row-start-1 md:col-start-3 lg:col-span-1 lg:row-span-2 lg:row-start-1 lg:col-start-3 lg:aspect-[1/2]"
+                    else if (index === 2) bentoClass = "col-span-1 row-span-2 row-start-1 col-start-2 h-full md:col-span-1 md:row-start-2 md:col-start-1 md:aspect-square md:row-span-1 md:h-auto lg:col-span-1 lg:row-span-1 lg:row-start-3 lg:col-start-1 lg:aspect-square"
+                    else if (index === 3) bentoClass = "col-span-2 row-start-3 aspect-[2/1] md:col-span-2 md:row-start-2 md:col-start-2 md:aspect-[2/1] lg:col-span-2 lg:row-start-3 lg:col-start-2 lg:aspect-[2/1]"
 
                     return (
                       <div key={item.id}
