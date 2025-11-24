@@ -111,7 +111,7 @@ const Hero = () => {
       {!selectedId && (
         <div className="w-full flex flex-col items-center">
           <div className={`relative z-10 flex flex-col items-center justify-start w-full max-w-screen-xl mx-auto lg:px-8`}>
-            <div className="flex flex-col-reverse lg:flex-row lg:items-start w-full gap-12 lg:gap-20">
+            <div className="flex flex-col lg:flex-row lg:items-start w-full gap-12 lg:gap-20">
               {/* Hero Text Section */}
               <div className="lg:flex-1 flex flex-col justify-start">
                 <div className={`w-full transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
@@ -282,7 +282,7 @@ const Hero = () => {
                 <p className="text-text-200 max-w-3xl leading-relaxed text-lg font-light">
                   Trust is the foundation of every exceptional work. We are proud to be a strategic partner to leading institutions and brands, delivering creative solutions that not only address challenges but also set new standards.
                 </p>
-                <div className="mt-8 flex flex-col lg:flex-row gap-4 justify-center items-center">
+                <div className="mt-8 flex flex-col md:flex-row gap-4 justify-center items-center">
                   <Button
                     className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105 shadow-lg"
                     onClick={() => router.push("/contact")}

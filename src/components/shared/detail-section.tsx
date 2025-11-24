@@ -104,8 +104,65 @@ export function DetailSection({
             </DropdownMenu>
           </div>
 
+          {/* Tablet Dropdown Navigation (MD only) */}
+          <div className="hidden md:flex lg:hidden gap-2 w-full">
+            {/* Back Button */}
+            <button
+              onClick={() => onClose?.()}
+              className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-glass-bg backdrop-blur-md border border-glass-border text-text-200 hover:text-text-50 transition-colors"
+            >
+              <Undo2 className="w-6 h-6" strokeWidth={1.5} />
+            </button>
+
+            {/* Dropdown Trigger */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex-1 flex items-center justify-between px-4 h-12 rounded-xl bg-glass-bg backdrop-blur-md border border-glass-border text-left">
+                  <div className="flex items-center gap-3">
+                    {(() => {
+                      const activeItem = navigationItems.find(item => item.id === currentId) || navigationItems[0]
+                      const Icon = activeItem.icon
+                      return (
+                        <>
+                          <Icon className="w-5 h-5 text-text-50" />
+                          <div className="flex flex-col leading-none">
+                            <span className="text-[10px] font-bold uppercase tracking-wider opacity-80">{activeItem.labelLine1}</span>
+                            <span className="text-xs font-bold uppercase tracking-widest text-text-50">{activeItem.labelLine2}</span>
+                          </div>
+                        </>
+                      )
+                    })()}
+                  </div>
+                  <ChevronDown className="w-5 h-5 text-text-200" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-[var(--radix-dropdown-menu-trigger-width)] bg-background-900/95 backdrop-blur-xl border-glass-border p-2 rounded-xl">
+                {navigationItems.map((item) => {
+                  const isActive = currentId === item.id
+                  const Icon = item.icon
+                  return (
+                    <DropdownMenuItem
+                      key={item.id}
+                      onClick={() => onNavigate?.(item.id)}
+                      className={`
+                        flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer mb-1 last:mb-0 focus:bg-glass-bg focus:text-text-50
+                        ${isActive ? "bg-brand-800 text-text-50" : "text-text-200 hover:text-text-50 hover:bg-glass-bg"}
+                      `}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <div className="flex flex-col leading-none">
+                        <span className="text-[10px] font-bold uppercase tracking-wider opacity-80">{item.labelLine1}</span>
+                        <span className="text-xs font-bold uppercase tracking-widest">{item.labelLine2}</span>
+                      </div>
+                    </DropdownMenuItem>
+                  )
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
           {/* Desktop Board Navigation */}
-          <div className="hidden md:flex flex-wrap gap-2 p-1.5 bg-glass-bg backdrop-blur-md border border-glass-border rounded-2xl w-full">
+          <div className="hidden lg:flex flex-wrap gap-2 p-1.5 bg-glass-bg backdrop-blur-md border border-glass-border rounded-2xl w-full">
             {/* Back Button */}
             <button
               onClick={() => onClose?.()}
