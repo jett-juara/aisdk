@@ -11,8 +11,18 @@ export default function ProductLayout({ children }: { children: React.ReactNode 
       <div className="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-glow-primary rounded-full blur-[120px] pointer-events-none z-0" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-glow-secondary rounded-full blur-[120px] pointer-events-none z-0" />
 
+      {/* Spotlight Stage Overlay - Specific for About Section */}
+      {/* Main spotlight from top center - adjusted for About theme (Purple/Blue) */}
+      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_50%_-20%,rgba(135,19,155,0.25)_0%,rgba(135,19,155,0.12)_30%,transparent_60%)]" />
+
+      {/* Secondary spotlight from top-right */}
+      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_80%_0%,rgba(99,102,241,0.18)_0%,rgba(99,102,241,0.08)_35%,transparent_55%)]" />
+
+      {/* Stage glow from bottom (like footlights) */}
+      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_50%_100%,rgba(171,30,126,0.15)_0%,transparent_40%)]" />
+
       {/* Blueprint Network Overlay - Specific for About Section */}
-      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+      <div className="absolute inset-0 z-0 opacity-30 pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)`,
           backgroundSize: '40px 40px'
