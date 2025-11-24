@@ -5,8 +5,9 @@ import { AuthGridBackground } from "@/components/auth/auth-grid-background";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function VerifyEmailPage() {
+function VerifyEmailContent() {
     const searchParams = useSearchParams();
     const email = searchParams.get("email");
     const title = "Periksa Email";
@@ -85,5 +86,17 @@ export default function VerifyEmailPage() {
                 </div>
             </div>
         </section>
+    );
+}
+
+export default function VerifyEmailPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center bg-background-900">
+                <div className="text-text-50">Loading...</div>
+            </div>
+        }>
+            <VerifyEmailContent />
+        </Suspense>
     );
 }
