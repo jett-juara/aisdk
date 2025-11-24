@@ -172,7 +172,7 @@ export function DashboardProfile({ user }: DashboardContentProps) {
         <CardHeader className="flex flex-row items-center justify-between gap-3">
           <div>
             <CardTitle className="flex items-center gap-2 text-text-50">
-              <UserIcon className="h-5 w-5 text-brand-500" />
+              <UserIcon className="h-5 w-5 text-text-50" />
               Profil User
             </CardTitle>
           </div>
@@ -273,7 +273,7 @@ export function DashboardProfile({ user }: DashboardContentProps) {
               <div className="text-xs text-text-400">Status</div>
               <Badge
                 variant={user.status === "active" ? "default" : "destructive"}
-                className="text-xs px-2 py-0.5"
+                className="text-xs px-2 py-0.5 rounded-full"
               >
                 {user.status}
               </Badge>
@@ -284,7 +284,7 @@ export function DashboardProfile({ user }: DashboardContentProps) {
             <p className="text-xs text-button-destructive mt-2">{error}</p>
           )}
           {message && !error && (
-            <p className="text-xs text-button-green mt-2">{message}</p>
+            <p className="text-xs text-text-50 mt-2">{message}</p>
           )}
         </CardContent>
       </Card>
@@ -356,7 +356,7 @@ export function DashboardUsers({ user }: DashboardContentProps) {
       <Card className="bg-background-800 border-border-700">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-text-50">
-            <Users className="h-5 w-5 text-brand-500" />
+            <Users className="h-5 w-5 text-text-50" />
             Daftar User
           </CardTitle>
           <CardDescription className="text-text-400">
@@ -400,7 +400,7 @@ export function DashboardUsers({ user }: DashboardContentProps) {
                               Dibuat
                             </th>
                             {user.role === "superadmin" && (
-                              <th className="py-2 pr-4 text-right">Aksi</th>
+                              <th className="py-2 pr-4">Aksi</th>
                             )}
                           </tr>
                         </thead>
@@ -432,7 +432,7 @@ export function DashboardUsers({ user }: DashboardContentProps) {
                                         ? "default"
                                         : "destructive"
                                     }
-                                    className="text-xs px-2 py-0.5 capitalize"
+                                    className="text-xs px-2 py-0.5 capitalize rounded-full"
                                   >
                                     {u.status}
                                   </Badge>
@@ -443,13 +443,13 @@ export function DashboardUsers({ user }: DashboardContentProps) {
                                     : "–"}
                                 </td>
                                 {user.role === "superadmin" && (
-                                  <td className="py-2 pr-4 text-right">
+                                  <td className="py-2 pr-4">
                                     {u.role === "user" && u.status === "active" ? (
                                       <Button
-                                        size="icon-sm"
+                                        size="sm"
                                         variant="outline"
                                         disabled={promotingId === u.id}
-                                        className="text-[11px] px-2"
+                                        className="h-7 text-xs px-3 rounded-full"
                                         onClick={async () => {
                                           try {
                                             const confirmed = window.confirm(
@@ -470,7 +470,7 @@ export function DashboardUsers({ user }: DashboardContentProps) {
                                             if (!res.ok) {
                                               setError(
                                                 payload?.error?.message ??
-                                                  "Gagal mempromosikan pengguna.",
+                                                "Gagal mempromosikan pengguna.",
                                               );
                                               setPromotingId(null);
                                               return;
@@ -584,7 +584,7 @@ export function DashboardPermissions({ user }: DashboardContentProps) {
       <Card className="bg-background-800 border-border-700">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-text-50">
-            <Shield className="h-5 w-5 text-brand-500" />
+            <Shield className="h-5 w-5 text-text-50" />
             Matrix Permissions
           </CardTitle>
           <CardDescription className="text-text-400">
@@ -779,7 +779,7 @@ export function DashboardSystem({ user }: DashboardContentProps) {
       <Card className="bg-background-800 border-border-700">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-text-50">
-            <Activity className="h-5 w-5 text-brand-500" />
+            <Activity className="h-5 w-5 text-text-50" />
             Ringkasan System Health
           </CardTitle>
           <CardDescription className="text-text-400">
@@ -803,30 +803,28 @@ export function DashboardSystem({ user }: DashboardContentProps) {
               {!loading && !error && health && (
                 <div className="space-y-6">
                   {/* Overall status */}
-	                  <div className="flex items-center justify-between">
-	                    <div>
-	                      <div className="text-xs uppercase tracking-wide text-text-400">
-	                        Overall Status
-	                      </div>
-                      <div className="text-sm text-text-200">
-                        Terakhir dicek:{" "}
-                        <span className="font-mono">
-                          {health.timestamp}
-                        </span>
-                      </div>
+                  <div className="flex flex-col gap-1">
+                    <div className="text-xs uppercase tracking-wide text-text-400">
+                      Overall Status
                     </div>
-	                    <span
+                    <span
                       className={
                         health.status === "healthy"
-                          ? "text-button-green font-semibold"
+                          ? "text-text-50 font-semibold text-lg capitalize"
                           : health.status === "degraded"
-                          ? "text-button-orange font-semibold"
-                          : "text-button-destructive font-semibold"
+                            ? "text-text-50 font-semibold text-lg capitalize"
+                            : "text-button-destructive font-semibold text-lg capitalize"
                       }
                     >
-	                      {health.status}
-	                    </span>
-	                  </div>
+                      {health.status}
+                    </span>
+                    <div className="text-sm text-text-200">
+                      Terakhir dicek:{" "}
+                      <span className="font-mono">
+                        {health.timestamp}
+                      </span>
+                    </div>
+                  </div>
 
                   {/* Snapshot uptime/errorRate dari dashboard_latest_snapshot */}
                   {snapshot && (
@@ -862,8 +860,8 @@ export function DashboardSystem({ user }: DashboardContentProps) {
                     </div>
                   )}
 
-	              {/* Users & invitations */}
-	              <div className="grid gap-4 md:grid-cols-3">
+                  {/* Users & invitations */}
+                  <div className="grid gap-4 md:grid-cols-3">
                     <div>
                       <div className="text-xs text-text-400 mb-1">Users</div>
                       <div className="text-sm text-text-200">
@@ -1067,7 +1065,7 @@ export function DashboardInvitations({ user }: DashboardContentProps) {
       <Card className="bg-background-800 border-border-700">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-text-50">
-            <Mail className="h-5 w-5 text-brand-500" />
+            <Mail className="h-5 w-5 text-text-50" />
             Undangan User
           </CardTitle>
           <CardDescription className="text-text-400">
@@ -1137,11 +1135,11 @@ export function DashboardInvitations({ user }: DashboardContentProps) {
                                   <Badge
                                     variant={
                                       inv.status === "pending" ||
-                                      inv.status === "sent"
+                                        inv.status === "sent"
                                         ? "default"
                                         : "destructive"
                                     }
-                                    className="text-xs px-2 py-0.5 capitalize"
+                                    className="text-xs px-2 py-0.5 capitalize rounded-full"
                                   >
                                     {inv.status}
                                   </Badge>
@@ -1149,8 +1147,8 @@ export function DashboardInvitations({ user }: DashboardContentProps) {
                                 <td className="py-2 pr-4 hidden md:table-cell text-text-500">
                                   {inv.expiresAt
                                     ? new Date(
-                                        inv.expiresAt,
-                                      ).toLocaleDateString()
+                                      inv.expiresAt,
+                                    ).toLocaleDateString()
                                     : "–"}
                                 </td>
                               </tr>
@@ -1240,7 +1238,7 @@ export function DashboardAudit({ user }: DashboardContentProps) {
       <Card className="bg-background-800 border-border-700">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-text-50">
-            <FileText className="h-5 w-5 text-brand-500" />
+            <FileText className="h-5 w-5 text-text-50" />
             Log Aktivitas
           </CardTitle>
           <CardDescription className="text-text-400">
@@ -1299,10 +1297,10 @@ export function DashboardAudit({ user }: DashboardContentProps) {
                                 <td className="py-2 pr-4 text-text-500 whitespace-nowrap">
                                   {log.createdAt
                                     ? new Date(log.createdAt).toLocaleTimeString("id-ID", {
-                                        hour: "2-digit",
-                                        minute: "2-digit",
-                                        second: "2-digit",
-                                      })
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                      second: "2-digit",
+                                    })
                                     : "–"}
                                 </td>
                                 <td className="py-2 pr-4 text-text-200">
@@ -1388,7 +1386,7 @@ export function DashboardSecurity({ user }: DashboardContentProps) {
       <Card className="bg-background-800 border-border-700">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-text-50">
-            <Lock className="h-5 w-5 text-brand-500" />
+            <Lock className="h-5 w-5 text-text-50" />
             Keamanan Sistem
           </CardTitle>
           <CardDescription className="text-text-400">
@@ -1484,8 +1482,8 @@ export function DashboardSecurity({ user }: DashboardContentProps) {
                                     e.severity === "high"
                                       ? "text-button-destructive"
                                       : e.severity === "medium"
-                                      ? "text-button-orange"
-                                      : "text-text-400"
+                                        ? "text-text-50"
+                                        : "text-text-400"
                                   }
                                 >
                                   {e.severity ?? "info"}

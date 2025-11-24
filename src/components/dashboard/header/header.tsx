@@ -74,12 +74,12 @@ function MobileMenuToggle({
     >
       {open ? (
         <PanelLeftClose
-          className="h-8 w-8 md:h-10 md:w-10 text-text-100"
+          className="h-8 w-8 text-text-100"
           strokeWidth={1}
         />
       ) : (
         <PanelLeftOpen
-          className="h-8 w-8 md:h-10 md:w-10 md:h-10 lg:w-10 text-text-100"
+          className="h-8 w-8 text-text-100"
           strokeWidth={1}
         />
       )}
@@ -199,10 +199,10 @@ function UserProfileDropdown({
         <Button
           ref={triggerRef}
           style={syncedWidth ? { width: `${syncedWidth}px` } : undefined}
-          className="group h-10 md:h-12 lg:h-10 justify-between font-button font-medium text-sm px-4 overflow-hidden transition-colors duration-200 font-semibold tracking-wide bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none"
+          className="group justify-between font-button font-medium px-0 has-[>svg]:px-0 overflow-hidden transition-all duration-500 ease-premium font-semibold tracking-wide bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active border-none h-11 text-sm rounded-full"
         >
-          <div className="flex items-center gap-2 min-w-0">
-            <Avatar className="h-6 w-6 md:h-8 md:w-8 lg:h-6 lg:w-6">
+          <div className="flex items-center gap-3 min-w-0 pl-4">
+            <Avatar className="h-6 w-6">
               <AvatarFallback className="text-text-50 font-bold bg-brand-50">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -214,30 +214,30 @@ function UserProfileDropdown({
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="lucide lucide-user-icon lucide-user h-5 w-5 md:h-5 md:w-5 text-[var(--color-button-primary)]"
+                  className="lucide lucide-user-icon lucide-user h-6 w-6 text-[var(--color-button-primary)]"
                 >
                   <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                   <circle cx="12" cy="7" r="4" />
                 </svg>
               </AvatarFallback>
             </Avatar>
-            <span className="text-sm md:text-xl lg:text-sm text-text-50">
+            <span className="font-button font-medium text-text-50 text-sm">
               {firstName}
             </span>
           </div>
-          <ChevronDown className="h-5 w-5 md:h-6 md:w-6 lg:h-5 lg:w-5 text-text-50 flex-shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+          <ChevronDown className="mr-4 h-4 w-4 text-text-50 flex-shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         ref={contentRef}
         align="end"
         style={syncedWidth ? { width: `${syncedWidth}px` } : undefined}
-        className="w-auto border-border-900 bg-background-900 p-0"
+        className="w-auto border-glass-border bg-background-900/95 backdrop-blur-xl p-2 rounded-xl"
       >
 
 
         <DropdownMenuItem
-          className="cursor-pointer text-text-50 lg:focus:text-brand-100 h-12 lg:h-10 lg:hover:text-brand-100 lg:hover:bg-transparent lg:focus:bg-transparent flex items-center gap-3 w-full px-3 py-2 min-h-[40px] focus:text-text-50 hover:bg-button-primary-hover"
+          className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4 rounded-lg"
           onSelect={async (event) => {
             event.preventDefault();
             if (loading) return;
@@ -245,11 +245,11 @@ function UserProfileDropdown({
           }}
         >
           {loading ? (
-            <Loader2 className="h-5 w-5 md:h-6 md:w-6 lg:h-5 lg:w-5 animate-spin" />
+            <Loader2 className="h-6 w-6 animate-spin" />
           ) : (
-            <LogOut className="h-5 w-5 md:h-6 md:w-6 lg:h-5 lg:w-5 " />
+            <LogOut className="h-6 w-6" />
           )}
-          <span className="font-button font-medium text-sm md:text-xl lg:text-sm">
+          <span className="font-button font-medium text-sm text-text-50">
             {loading ? "Keluar..." : "Logout"}
           </span>
         </DropdownMenuItem>
@@ -274,7 +274,7 @@ export function DashboardHeader({
     <header
       className={cn(
         "flex h-20 items-center justify-between px-6",
-        "bg-background-900 backdrop-blur-sm sticky top-0 z-30",
+        "bg-background-900/80 backdrop-blur-2xl border-b border-white/10 shadow-sm sticky top-0 z-30",
         "transition-all duration-200 ease-in-out",
       )}
     >

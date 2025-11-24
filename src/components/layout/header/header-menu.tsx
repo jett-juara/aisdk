@@ -328,10 +328,10 @@ export const MobileMenu = ({
                     <DropdownMenuSeparator className="bg-border-800 my-0 mx-1" />
                     <DropdownMenuItem
                       asChild
-                      className="min-h-[44px] md:min-h-[60px] cursor-pointer text-text-50 hover:bg-glass-bg hover:text-text-50 focus:bg-glass-bg focus:text-text-50 rounded-lg"
+                      className="min-h-[44px] cursor-pointer text-text-50 hover:bg-glass-bg hover:text-text-50 focus:bg-glass-bg focus:text-text-50 rounded-lg"
                     >
                       <button
-                        className="flex items-center gap-3 w-full px-3 py-2 text-left hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4"
+                        className="flex items-center gap-3 w-full px-4 py-2 text-left hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4"
                         onClick={async (event) => {
                           event.preventDefault();
                           if (loggingOut) return;
@@ -339,11 +339,11 @@ export const MobileMenu = ({
                         }}
                       >
                         {loggingOut ? (
-                          <Loader2 className="h-5 w-5 animate-spin md:h-6 md:w-6" />
+                          <Loader2 className="h-6 w-6 animate-spin" />
                         ) : (
-                          <LogOut className="h-5 w-5 md:h-6 md:w-6" />
+                          <LogOut className="h-6 w-6" />
                         )}
-                        <span className="font-button font-medium text-md md:text-xl">
+                        <span className="font-button font-medium text-sm">
                           {loggingOut ? "Keluar..." : "Logout"}
                         </span>
                       </button>

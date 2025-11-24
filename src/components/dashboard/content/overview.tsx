@@ -54,26 +54,21 @@ function StatsCard({
   variant?: "default" | "warning" | "error" | "success";
 }) {
   const variantStyles = {
-    default: "bg-background-800 border-border-700",
-    warning: "bg-background-800 border-button-orange",
-    error: "bg-background-800 border-button-destructive",
-    success: "bg-background-800 border-button-green",
+    default: "bg-white/5 border-white/10 shadow-lg backdrop-blur-sm",
+    warning: "bg-button-orange/10 border-button-orange/30 shadow-lg backdrop-blur-sm",
+    error: "bg-button-destructive/10 border-button-destructive/30 shadow-lg backdrop-blur-sm",
+    success: "bg-button-green/10 border-button-green/30 shadow-lg backdrop-blur-sm",
   };
 
-  const iconColors = {
-    default: "text-brand-500",
-    warning: "text-button-orange",
-    error: "text-button-destructive",
-    success: "text-button-green",
-  };
+
 
   return (
-    <Card className={cn("border", variantStyles[variant])}>
+    <Card className={cn("border rounded-2xl", variantStyles[variant])}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium text-text-200">
           {title}
         </CardTitle>
-        <Icon className={cn("h-4 w-4", iconColors[variant])} />
+        <Icon className="h-4 w-4 text-text-50" />
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold text-text-50">{value}</div>
@@ -83,7 +78,7 @@ function StatsCard({
             <span
               className={cn(
                 "flex items-center gap-1",
-                trend.isPositive ? "text-button-green" : "text-button-destructive"
+                trend.isPositive ? "text-text-50" : "text-button-destructive"
               )}
             >
               <TrendingUp className="h-3 w-3" />
@@ -121,7 +116,7 @@ function QuickActions({ userRole }: { userRole: string }) {
   const userActions = actions[userRole as keyof typeof actions] || actions.user;
 
   return (
-    <Card className="bg-background-800 border-border-700">
+    <Card className="glass-card shadow-lg border-white/10 bg-white/5 rounded-2xl">
       <CardHeader>
         <CardTitle className="text-text-50">Quick Actions</CardTitle>
         <CardDescription className="text-text-400">
@@ -134,10 +129,10 @@ function QuickActions({ userRole }: { userRole: string }) {
             key={action.href}
             asChild
             variant="ghost"
-            className="w-full justify-start h-auto p-4 hover:bg-hover-overlay-700 transition-all duration-200"
+            className="w-full justify-start min-h-[44px] h-auto p-4 hover:bg-white/5 transition-all duration-200"
           >
             <div className="flex items-start gap-3">
-              <action.icon className="h-5 w-5 text-brand-500 mt-0.5" />
+              <action.icon className="h-5 w-5 text-text-50 mt-0.5" />
               <div className="text-left">
                 <div className="font-medium text-text-50">{action.label}</div>
                 <div className="text-sm text-text-400">{action.description}</div>
@@ -180,7 +175,7 @@ function RecentActivity({ userRole }: { userRole: string }) {
   }, []);
 
   return (
-    <Card className="bg-background-800 border-border-700">
+    <Card className="glass-card shadow-lg border-white/10 bg-white/5">
       <CardHeader>
         <CardTitle className="text-text-50">Recent Activity</CardTitle>
         <CardDescription className="text-text-400">
@@ -202,7 +197,7 @@ function RecentActivity({ userRole }: { userRole: string }) {
                 <div
                   className={cn(
                     "w-2 h-2 rounded-full mt-2",
-                    activity.type === "success" && "bg-button-green",
+                    activity.type === "success" && "bg-white",
                     activity.type === "warning" && "bg-button-orange",
                     activity.type === "info" && "bg-brand-500",
                   )}
@@ -270,7 +265,7 @@ function SystemStatus() {
 
   if (loading || !systemHealth) {
     return (
-      <Card className="bg-background-800 border-border-700">
+      <Card className="glass-card shadow-lg border-white/10 bg-white/5 rounded-2xl">
         <CardHeader>
           <CardTitle className="text-text-50">System Health</CardTitle>
           <CardDescription className="text-text-400">
@@ -285,15 +280,15 @@ function SystemStatus() {
   }
 
   const statusColors = {
-    excellent: "text-button-green",
-    good: "text-brand-500",
+    excellent: "text-text-50",
+    good: "text-text-50",
     fair: "text-button-orange",
     poor: "text-button-destructive",
     critical: "text-button-destructive",
   };
 
   return (
-    <Card className="bg-background-800 border-border-700">
+    <Card className="glass-card shadow-lg border-white/10 bg-white/5">
       <CardHeader>
         <CardTitle className="text-text-50">System Health</CardTitle>
         <CardDescription className="text-text-400">
@@ -308,8 +303,8 @@ function SystemStatus() {
               variant="default"
               className={cn(
                 "capitalize",
-                systemHealth.status === 'excellent' && "bg-button-green/20 text-button-green border-button-green",
-                systemHealth.status === 'good' && "bg-brand-500/20 text-brand-500 border-brand-500",
+                systemHealth.status === 'excellent' && "bg-white/10 text-text-50 border-white/20",
+                systemHealth.status === 'good' && "bg-white/10 text-text-50 border-white/20",
                 systemHealth.status === 'fair' && "bg-button-orange/20 text-button-orange border-button-orange",
                 systemHealth.status === 'poor' && "bg-button-destructive/20 text-button-destructive border-button-destructive"
               )}
@@ -370,7 +365,7 @@ export function DashboardOverview({ user }: DashboardContentProps) {
       <div className="space-y-6">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {[...Array(4)].map((_, i) => (
-            <Card key={i} className="bg-background-800 border-border-700">
+            <Card key={i} className="glass-card shadow-lg border-white/10 bg-white/5 rounded-2xl">
               <CardContent className="p-6">
                 <div className="animate-pulse space-y-2">
                   <div className="h-4 bg-background-700 rounded w-1/2" />
@@ -389,7 +384,7 @@ export function DashboardOverview({ user }: DashboardContentProps) {
     <div className="space-y-6 animate-fade-in-up">
       {/* Page Title */}
       <div>
-        <h1 className="text-3xl font-bold text-text-50 font-heading">
+        <h1 className="text-3xl font-bold text-text-50 font-headingSecondary">
           Welcome back, {user.firstName || 'User'}!
         </h1>
         <p className="text-text-400 mt-2">
@@ -427,8 +422,8 @@ export function DashboardOverview({ user }: DashboardContentProps) {
           icon={Activity}
           variant={
             stats?.systemHealth === "excellent" ? "success" :
-            stats?.systemHealth === "good" ? "default" :
-            stats?.systemHealth === "fair" ? "warning" : "error"
+              stats?.systemHealth === "good" ? "default" :
+                stats?.systemHealth === "fair" ? "warning" : "error"
           }
         />
       </div>

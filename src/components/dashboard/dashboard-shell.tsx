@@ -15,6 +15,8 @@ import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { User, DashboardConfig } from "@/lib/dashboard/types";
 import { getNavigationItems, getActiveNavigation } from "@/lib/dashboard/navigation";
+import { TestimonialGridBackground } from "@/components/auth/testimonial-grid-background";
+import { DashboardFooter } from "./footer/footer";
 
 /**
  * Dashboard shell configuration interface
@@ -37,10 +39,10 @@ export function DashboardShell({
   className,
   children,
   onLogout,
-	}: DashboardShellProps) {
-	  const pathname = usePathname();
+}: DashboardShellProps) {
+  const pathname = usePathname();
 
-	  // Sidebar state management
+  // Sidebar state management
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   // Mobile sidebar state untuk Sheet
@@ -67,11 +69,11 @@ export function DashboardShell({
     setMobileSidebarOpen(false);
   }, []);
 
-	  // Get navigation items berdasarkan user role + current path
-	  const navigationItems = getActiveNavigation(
-	    getNavigationItems(user.role),
-	    pathname || "/dashboard",
-	  );
+  // Get navigation items berdasarkan user role + current path
+  const navigationItems = getActiveNavigation(
+    getNavigationItems(user.role),
+    pathname || "/dashboard",
+  );
 
   // Dashboard configuration object
   const dashboardConfig: DashboardConfig = {
@@ -105,7 +107,11 @@ export function DashboardShell({
             variant="desktop"
           />
         </div>
-        <div className="flex flex-1 flex-col overflow-hidden">
+        <div className="flex flex-1 flex-col overflow-hidden relative">
+          <div className="hidden lg:block absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            <TestimonialGridBackground />
+            <div className="absolute inset-0 bg-background-950/60 z-10" />
+          </div>
           <DashboardHeader
             user={user}
             loading={loading}
@@ -115,16 +121,16 @@ export function DashboardShell({
             mobileSidebarOpen={mobileSidebarOpen}
             onMobileSidebarToggle={handleMobileSidebarToggle}
           />
-          <Separator className="bg-border-800" />
           <main
             className={cn(
-              "dashboard-scroll flex-1 overflow-auto p-6 lg:p-8",
-              "bg-background-900 text-text-50",
+              "dashboard-scroll flex-1 overflow-auto p-6 lg:p-8 relative z-10",
+              "bg-transparent text-text-50",
               "transition-all duration-200 ease-in-out"
             )}
           >
             <div className="mx-auto max-w-7xl">{children}</div>
           </main>
+          <DashboardFooter />
         </div>
       </div>
       {mounted && (

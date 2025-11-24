@@ -73,19 +73,19 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
  */
 const SIZE_CLASSES = {
   sm: {
-    container: "h-10 w-10 rounded-sm",
+    container: "h-10 w-10 rounded-xl",
     icon: "h-6 w-6",
     text: "text-xl font-bold uppercase text-text-50",
     gap: "gap-2",
   },
   md: {
-    container: "h-10 w-10 rounded-sm",
+    container: "h-10 w-10 rounded-xl",
     icon: "h-6 w-6",
     text: "text-xl font-bold uppercase text-text-50",
     gap: "gap-2",
   },
   lg: {
-    container: "h-10 w-10 rounded-sm",
+    container: "h-10 w-10 rounded-xl",
     icon: "h-6 w-6",
     text: "text-xl font-bold uppercase lg:text-2xl text-text-50 lg:text-text-50",
     gap: "gap-3",
@@ -213,8 +213,8 @@ function NavigationItemComponent({
           : "w-full justify-start px-4",
         effectiveCollapsed ? "gap-0" : "gap-3",
         isActive
-          ? "bg-button-primary text-text-50 hover:bg-button-primary-hover"
-          : "text-text-50 hover:bg-hover-overlay-700 hover:text-text-50",
+          ? "bg-button-primary text-text-50 hover:bg-button-primary-hover shadow-lg shadow-brand-500/20 rounded-full"
+          : "text-text-50 hover:bg-white/5 hover:text-text-50 rounded-full",
         "group relative",
       )}
       size={effectiveCollapsed ? "icon" : "md"}
@@ -243,10 +243,7 @@ function NavigationItemComponent({
           {item.label}
         </span>
 
-        {/* Active indicator */}
-        {isActive && !effectiveCollapsed && (
-          <div className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 rounded-r-full bg-button-primary" />
-        )}
+
       </Link>
     </Button>
   );
@@ -281,7 +278,7 @@ export function DashboardSidebar({
   return (
     <div
       className={cn(
-        "flex flex-col h-full bg-background-900 border-r border-border-800",
+        "flex flex-col h-full bg-background-800",
         isMobileVariant ? "w-full" : effectiveCollapsed ? "w-20" : "w-56",
       )}
     >
@@ -296,12 +293,11 @@ export function DashboardSidebar({
         {isMobileVariant && (
           <SheetClose asChild>
             <button
-              type="button"
               aria-label="Tutup menu dashboard"
-              className="grid h-10 w-10 place-items-center text-text-50 hover:text-brand-100 hover:bg-hover-overlay-700 rounded-lg transition-colors"
+              className="grid h-10 w-10 place-items-center text-text-50 hover:text-brand-100 hover:bg-white/5 rounded-lg transition-colors"
             >
               <PanelLeftClose
-                className="h-8 w-8 md:h-10 md:w-10 text-text-100"
+                className="h-8 w-8 text-text-100"
                 strokeWidth={1}
               />
             </button>
@@ -309,7 +305,7 @@ export function DashboardSidebar({
         )}
       </div>
 
-      {!isMobileVariant && <Separator className="bg-border-800" />}
+
 
       {/*
       📋 MENU NAVIGATION LENGKAP - RENDER SEMUA MENU SESUAI ROLE:
