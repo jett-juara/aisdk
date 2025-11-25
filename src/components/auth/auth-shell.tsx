@@ -71,10 +71,10 @@ export function AuthShell({ title, subtitle, stepIndicator, left, right }: AuthS
         <div className="hidden lg:flex w-4/6 flex-col justify-between pb-16 bg-background-900 relative overflow-hidden">
           <TestimonialGridBackground />
           {/* Top bar on testimonial side, align with header spacing like logo */}
-          <div className="flex h-16 lg:h-20 items-center justify-end lg:px-8 relative z-10">
-            <Button className="gap-2 font-button font-medium text-sm bg-button-primary hover:bg-button-primary-hover active:bg-button-primary-active text-text-50 rounded-full h-11 hover:scale-105 transition-all duration-300">
+          <div className="flex h-16 lg:h-24 items-center justify-end lg:px-4 relative z-10">
+            <Button className="gap-2 w-[220px] font-button font-medium text-sm bg-button-primary hover:bg-button-primary-hover active:bg-button-primary-active text-text-50 rounded-full h-11 hover:scale-105 transition-all duration-300">
               <BookOpen className="h-4 w-4" aria-hidden="true" />
-              Company Profile
+              Partnership Guide
             </Button>
           </div>
           <div className="flex-1 flex items-center justify-center px-8 relative z-10">

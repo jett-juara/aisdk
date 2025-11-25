@@ -142,14 +142,7 @@ const Hero = () => {
                           </p>
                         </div>
 
-                        <div className="pt-8 flex justify-start w-full">
-                          <Button
-                            className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
-                            onClick={() => window.open("/documents/company-profile.pdf", "_blank")}
-                          >
-                            Company Profile
-                          </Button>
-                        </div>
+
                       </div>
 
                       {/* Mobile/Tablet View (Accordion) */}
@@ -183,14 +176,7 @@ const Hero = () => {
                                 <p className="font-light text-lg text-50/60 leading-relaxed">
                                   We strive for excellence, do our utmost to provide the best, and aim for success. We value excellence and integrity to deliver remarkable experiences to the guest with an emphasis on bringing innovation to the table. Putting our highest endeavor in executing ideas is our foundation to bring together the client’s visions.
                                 </p>
-                                <div className="flex justify-center w-full pt-2">
-                                  <Button
-                                    className="h-12 w-[200px] rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
-                                    onClick={() => window.open("/documents/company-profile.pdf", "_blank")}
-                                  >
-                                    Company Profile
-                                  </Button>
-                                </div>
+
                               </div>
                             </AccordionContent>
                           </AccordionItem>
@@ -266,8 +252,14 @@ const Hero = () => {
                   We take pride in our journey of continuous growth and the meaningful connections we&apos;ve built along the way.
                 </p>
               </div>
-              <div className="w-full flex justify-center">
+              <div className="w-full flex flex-col items-center gap-8">
                 <AboutStats />
+                <Button
+                  className="h-12 w-auto px-8 rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
+                  onClick={() => window.open("/documents/company-profile.pdf", "_blank")}
+                >
+                  Download Our Company Profile
+                </Button>
               </div>
             </div>
           </div>

@@ -133,14 +133,7 @@ export function ServicesHero({
                           </p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-6 pt-4">
-                        <Button
-                          className="h-12 px-8 rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
-                          onClick={() => router.push("/contact")}
-                        >
-                          Explore Our Services In Action
-                        </Button>
-                      </div>
+
                     </div>
 
                     {/* Mobile/Tablet View (Accordion) */}
@@ -161,14 +154,7 @@ export function ServicesHero({
                               <p className="font-light text-lg text-text-200 leading-relaxed">
                                 {description}
                               </p>
-                              <div className="flex justify-center w-full pt-2">
-                                <Button
-                                  className="h-12 px-8 rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover font-medium tracking-wide transition-all duration-300 hover:scale-105"
-                                  onClick={() => router.push("/contact")}
-                                >
-                                  Explore Our Services In Action
-                                </Button>
-                              </div>
+
                             </div>
                           </AccordionContent>
                         </AccordionItem>
