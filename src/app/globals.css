@@ -12,30 +12,30 @@
     /* existing variables... */
 }
 
-/* Dashboard scroll area - custom vertical scrollbar */
-.dashboard-scroll {
+/* setting scroll area - custom vertical scrollbar */
+.setting-scroll {
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
 }
 
-.dashboard-scroll:hover {
+.setting-scroll:hover {
     scrollbar-color: var(--color-border-700) transparent;
 }
 
-.dashboard-scroll::-webkit-scrollbar {
+.setting-scroll::-webkit-scrollbar {
     width: 6px;
 }
 
-.dashboard-scroll::-webkit-scrollbar-track {
+.setting-scroll::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.dashboard-scroll::-webkit-scrollbar-thumb {
+.setting-scroll::-webkit-scrollbar-thumb {
     background-color: transparent;
     border-radius: 9999px;
 }
 
-.dashboard-scroll:hover::-webkit-scrollbar-thumb {
+.setting-scroll:hover::-webkit-scrollbar-thumb {
     background-color: var(--color-border-700);
 }
 
@@ -382,7 +382,7 @@
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     }
 
-    /* Dashboard Animation Classes */
+    /* setting Animation Classes */
     @keyframes fade-in-up {
         from {
             opacity: 0;

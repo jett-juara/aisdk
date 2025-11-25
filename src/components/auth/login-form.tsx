@@ -86,7 +86,7 @@ export default function LoginForm() {
 
       // Add small delay to ensure user sees success state
       setTimeout(() => {
-        router.replace("/")
+        router.replace("/setting")
         router.refresh()
       }, 800)
 

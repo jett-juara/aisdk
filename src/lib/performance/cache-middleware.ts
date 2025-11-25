@@ -42,7 +42,7 @@ export class CacheMiddleware {
       cacheInvalidationRules: [
         {
           pattern: '/api/users/*',
-          invalidate: ['users:*', 'user:*', 'dashboard:*'],
+          invalidate: ['users:*', 'user:*', 'setting:*'],
           delay: 100
         },
         {
@@ -52,13 +52,13 @@ export class CacheMiddleware {
         },
         {
           pattern: '/api/analytics/*',
-          invalidate: ['analytics:*', 'dashboard:*'],
+          invalidate: ['analytics:*', 'setting:*'],
           delay: 500
         }
       ],
       warmingRules: [
         {
-          pattern: '/api/dashboard',
+          pattern: '/api/setting',
           queries: [
             { table: 'users', query: 'SELECT COUNT(*) as total_users FROM users WHERE status = $1', params: ['active'] },
             { table: 'analytics_summary', query: 'SELECT * FROM analytics_summary ORDER BY created_at DESC LIMIT 1' },
@@ -284,7 +284,7 @@ export class CacheMiddleware {
    * Clear all cache
    */
   async clearAllCache(): Promise<void> {
-    const layers = ['api_responses', 'query_results', 'user_data', 'dashboard_data', 'analytics_data']
+    const layers = ['api_responses', 'query_results', 'user_data', 'setting_data', 'analytics_data']
 
     for (const layer of layers) {
       await advancedCacheManager.invalidate(layer)
@@ -427,8 +427,8 @@ export class DatabaseCacheInvalidator {
     await advancedCacheManager.invalidate('user_data', 'users:')
     await advancedCacheManager.invalidate('query_results', 'users:')
 
-    // Invalidate dashboard cache
-    await advancedCacheManager.invalidate('dashboard_data', 'user_list')
+    // Invalidate setting cache
+    await advancedCacheManager.invalidate('setting_data', 'user_list')
   }
 
   private async invalidatePermissionCache(record: any, eventType: string): Promise<void> {
@@ -448,7 +448,7 @@ export class DatabaseCacheInvalidator {
 
     // Invalidate activity cache
     await advancedCacheManager.invalidate('user_data', `user:${userId}:activity`)
-    await advancedCacheManager.invalidate('dashboard_data', 'recent_activity')
+    await advancedCacheManager.invalidate('setting_data', 'recent_activity')
     await advancedCacheManager.invalidate('analytics_data', 'audit:')
   }
 

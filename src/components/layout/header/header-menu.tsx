@@ -37,7 +37,7 @@ import {
   ChevronDown,
   LogOut,
   Loader2,
-  LayoutDashboard,
+  Settings,
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 // Desktop layout now handled in header.tsx; this module renders only mobile/tablet
@@ -117,7 +117,7 @@ export const MobileMenu = ({
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Width sync logic dari dashboard header untuk konsistensi behavior
+  // Width sync logic dari setting header untuk konsistensi behavior
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const userTriggerRef = useRef<HTMLButtonElement>(null);
   const userContentRef = useRef<HTMLDivElement>(null);
@@ -310,18 +310,18 @@ export const MobileMenu = ({
                       className="cursor-pointer text-text-50 hover:bg-glass-bg hover:text-text-50 focus:bg-glass-bg focus:text-text-50 rounded-lg"
                     >
                       <Link
-                        href="/dashboard"
+                        href="/setting"
                         className={cn(
                           "flex items-center gap-3 w-full px-4 py-2 min-h-[44px] md:min-h-[60px] text-left hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4",
-                          pathname === "/dashboard"
+                          pathname === "/setting"
                             ? "text-navigation-active underline decoration-dotted decoration-navigation-active underline-offset-4"
                             : ""
                         )}
                         onClick={() => setOpen(false)}
                       >
-                        <LayoutDashboard className="h-6 w-6 md:h-8 md:w-8" />
+                        <Settings className="h-6 w-6 md:h-8 md:w-8" />
                         <span className="font-button font-medium text-md md:text-xl">
-                          Dashboard
+                          Setting
                         </span>
                       </Link>
                     </DropdownMenuItem>
@@ -462,20 +462,20 @@ export const HeaderMenu = ({
                   className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] rounded-lg"
                 >
                   <Link
-                    href="/dashboard"
+                    href="/setting"
                     className={cn(
                       "flex items-center gap-3 w-full hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4",
-                      pathname === "/dashboard"
+                      pathname === "/setting"
                         ? "text-navigation-active underline decoration-dotted decoration-navigation-active underline-offset-4"
                         : ""
                     )}
                   >
-                    <LayoutDashboard className="h-6 w-6" />
+                    <Settings className="h-6 w-6" />
                     <span className={cn(
                       "font-button font-medium text-sm text-text-50",
-                      pathname === "/dashboard" ? "text-navigation-active" : ""
+                      pathname === "/setting" ? "text-navigation-active" : ""
                     )}>
-                      Dashboard
+                      Setting
                     </span>
                   </Link>
                 </DropdownMenuItem>
