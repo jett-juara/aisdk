@@ -312,20 +312,19 @@ export const MobileMenu = ({
                       <Link
                         href="/dashboard"
                         className={cn(
-                          "flex items-center gap-3 w-full px-3 py-2 min-h-[44px] md:min-h-[60px] text-left hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4",
+                          "flex items-center gap-3 w-full px-4 py-2 min-h-[44px] md:min-h-[60px] text-left hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4",
                           pathname === "/dashboard"
                             ? "text-navigation-active underline decoration-dotted decoration-navigation-active underline-offset-4"
                             : ""
                         )}
                         onClick={() => setOpen(false)}
                       >
-                        <LayoutDashboard className="h-5 w-5 md:h-6 md:w-6" />
+                        <LayoutDashboard className="h-6 w-6 md:h-8 md:w-8" />
                         <span className="font-button font-medium text-md md:text-xl">
                           Dashboard
                         </span>
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-border-800 my-0 mx-1" />
                     <DropdownMenuItem
                       asChild
                       className="min-h-[44px] cursor-pointer text-text-50 hover:bg-glass-bg hover:text-text-50 focus:bg-glass-bg focus:text-text-50 rounded-lg"
@@ -339,11 +338,11 @@ export const MobileMenu = ({
                         }}
                       >
                         {loggingOut ? (
-                          <Loader2 className="h-6 w-6 animate-spin" />
+                          <Loader2 className="h-6 w-6 md:h-8 md:w-8 animate-spin" />
                         ) : (
-                          <LogOut className="h-6 w-6" />
+                          <LogOut className="h-6 w-6 md:h-8 md:w-8" />
                         )}
-                        <span className="font-button font-medium text-sm">
+                        <span className="font-button font-medium text-md md:text-xl">
                           {loggingOut ? "Keluar..." : "Logout"}
                         </span>
                       </button>
@@ -480,7 +479,6 @@ export const HeaderMenu = ({
                     </span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-border-800 my-1" />
                 <DropdownMenuItem
                   className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4 rounded-lg"
                   onSelect={async (event) => {

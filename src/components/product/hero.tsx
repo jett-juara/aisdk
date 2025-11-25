@@ -181,7 +181,7 @@ export function ProductHero({
                   // Bento Grid Classes
                   let bentoClass = ""
                   if (index === 0) bentoClass = "col-span-2 aspect-[2/1] md:col-span-2 md:row-start-1 md:col-start-1"
-                  else if (index === 1) bentoClass = "col-span-1 row-span-2 h-full md:col-span-1 md:row-start-1 md:col-start-3 md:row-span-1 md:aspect-square md:h-auto"
+                  else if (index === 1) bentoClass = "col-span-1 row-span-2 h-full lg:h-full md:col-span-1 md:row-start-1 md:col-start-3 md:row-span-1 md:aspect-square md:h-auto"
                   else if (index === 2) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-start-2 md:col-start-1"
                   else if (index === 3) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-start-2 md:col-start-2"
                   else if (index === 4) bentoClass = "col-span-2 aspect-[2/1] md:col-span-2 md:row-start-3 md:col-start-1"
