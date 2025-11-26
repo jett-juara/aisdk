@@ -10,6 +10,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PhoneInput } from "@/components/ui/phone-input";
 import { VendorFormValues } from "./form-schema";
 import { FileUpload } from "./file-upload";
 
@@ -35,7 +36,11 @@ export function Step2Company() {
                         <FormItem>
                             <FormLabel>Company Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="PT. Juara Abadi" {...field} />
+                                <Input
+                                    placeholder="PT. Juara Abadi"
+                                    {...field}
+                                    className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -52,7 +57,11 @@ export function Step2Company() {
                             <FormItem>
                                 <FormLabel>Street Address</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Jl. Sudirman No. 1, RT/RW 01/02" {...field} />
+                                    <Input
+                                        placeholder="Jl. Sudirman No. 1, RT/RW 01/02"
+                                        {...field}
+                                        className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -67,7 +76,11 @@ export function Step2Company() {
                                 <FormItem>
                                     <FormLabel>City / Regency</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Jakarta Selatan" {...field} />
+                                        <Input
+                                            placeholder="Jakarta Selatan"
+                                            {...field}
+                                            className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -80,7 +93,11 @@ export function Step2Company() {
                                 <FormItem>
                                     <FormLabel>Province / State</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="DKI Jakarta" {...field} />
+                                        <Input
+                                            placeholder="DKI Jakarta"
+                                            {...field}
+                                            className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -95,7 +112,11 @@ export function Step2Company() {
                             <FormItem>
                                 <FormLabel>Country</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Indonesia" {...field} />
+                                    <Input
+                                        placeholder="PT. Example Indonesia"
+                                        {...field}
+                                        className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -111,7 +132,11 @@ export function Step2Company() {
                             <FormItem>
                                 <FormLabel>Official Email</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="contact@company.com" {...field} />
+                                    <Input
+                                        placeholder="company@example.com"
+                                        {...field}
+                                        className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -124,7 +149,12 @@ export function Step2Company() {
                             <FormItem>
                                 <FormLabel>Company Phone</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="+6221..." {...field} />
+                                    <PhoneInput
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        placeholder="Enter phone number"
+                                        defaultCountry="ID"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -142,7 +172,11 @@ export function Step2Company() {
                             <FormItem>
                                 <FormLabel>NIB (Nomor Induk Berusaha)</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="812000..." {...field} />
+                                    <Input
+                                        placeholder="1234567890"
+                                        {...field}
+                                        className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

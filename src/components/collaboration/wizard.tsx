@@ -203,91 +203,71 @@ export function CollaborationWizard({ user }: CollaborationWizardProps) {
 
     return (
         <div className="max-w-5xl mx-auto">
-            {/* Progress Bar */}
-            <div className="mb-12 relative px-4">
-                <div className="flex justify-between items-center relative z-10">
-                    <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white/10 -z-10 rounded-full" />
-                    <div
-                        className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-brand-400 to-brand-600 -z-10 rounded-full transition-all duration-500 ease-premium shadow-[0_0_10px_rgba(255,107,0,0.5)]"
-                        style={{ width: `${((currentStep - 1) / (STEPS.length - 1)) * 100}%` }}
-                    />
-                    {STEPS.map((step) => (
-                        <div key={step.id} className="flex flex-col items-center group">
-                            <div
-                                className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-500 border-2 relative ${step.id <= currentStep
-                                    ? "bg-brand-600 border-brand-500 text-white shadow-[0_0_15px_rgba(255,107,0,0.6)] scale-110"
-                                    : "bg-background-900/80 border-white/10 text-text-400 backdrop-blur-sm"
-                                    }`}
-                            >
-                                {step.id < currentStep ? (
-                                    <Check className="h-5 w-5 drop-shadow-md" />
+            <div className="relative bg-background-800 border border-white/10 shadow-2xl rounded-xl overflow-hidden p-6 md:p-10 lg:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                {/* Diagonal Glass Effect Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none z-0" />
+
+                {/* Step Indicator Badge - Top Right */}
+                <div className="absolute top-6 right-6 md:top-10 md:right-10 lg:top-12 lg:right-12 z-20">
+                    <span className="text-text-200 text-sm md:text-base lg:text-sm font-medium px-3 py-1 rounded-full bg-glass-bg border border-glass-border backdrop-blur-md whitespace-nowrap">
+                        Phase: {currentStep}/6
+                    </span>
+                </div>
+
+                <div className="relative z-10">
+                    <FormProvider {...form}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="min-h-[400px]">
+                                {currentStep === 1 && <Step1Role />}
+                                {currentStep === 2 && (role === "company" ? <Step2Company /> : <Step2Individual />)}
+                                {currentStep === 3 && <Step3Specialization />}
+                                {currentStep === 4 && <Step4Finance />}
+                                {currentStep === 5 && <Step5NDA />}
+                                {currentStep === 6 && <Step6Review />}
+                            </div>
+
+                            <div className="flex justify-between mt-8">
+                                {currentStep > 1 ? (
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        onClick={handleBack}
+                                        disabled={isSubmitting}
+                                        className="text-text-300 hover:text-white hover:bg-white/5 transition-all duration-300"
+                                    >
+                                        <ChevronLeft className="mr-2 h-4 w-4" /> Back
+                                    </Button>
                                 ) : (
-                                    <span className="drop-shadow-md">{step.id}</span>
+                                    <div />
                                 )}
-                                {step.id === currentStep && (
-                                    <div className="absolute inset-0 rounded-full bg-brand-500/20 animate-ping" />
+
+                                {currentStep < STEPS.length ? (
+                                    <Button
+                                        type="button"
+                                        onClick={handleNext}
+                                        className="min-w-[140px] font-button font-medium text-md bg-transparent border border-border-700 text-text-50 hover:bg-white/5 active:bg-white/10 tracking-wide transition-all duration-500 ease-out h-12 rounded-full hover:scale-105 shadow-lg"
+                                    >
+                                        Next <ChevronRight className="ml-2 h-4 w-4" />
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="min-w-[160px] font-button font-medium text-md bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-12 rounded-full hover:scale-105 shadow-lg shadow-brand-900/20"
+                                    >
+                                        {isSubmitting ? (
+                                            <>
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...
+                                            </>
+                                        ) : (
+                                            "Submit Application"
+                                        )}
+                                    </Button>
                                 )}
                             </div>
-                            <span
-                                className={`text-xs mt-3 font-medium hidden sm:block tracking-wide uppercase transition-colors duration-300 ${step.id <= currentStep ? "text-brand-400 drop-shadow-[0_0_8px_rgba(255,107,0,0.4)]" : "text-text-500"
-                                    }`}
-                            >
-                                {step.title}
-                            </span>
-                        </div>
-                    ))}
+                        </form>
+                    </FormProvider>
                 </div>
-            </div>
-
-            <div className="glass-panel p-6 md:p-10 lg:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                <FormProvider {...form}>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="min-h-[400px]">
-                            {currentStep === 1 && <Step1Role />}
-                            {currentStep === 2 && (role === "company" ? <Step2Company /> : <Step2Individual />)}
-                            {currentStep === 3 && <Step3Specialization />}
-                            {currentStep === 4 && <Step4Finance />}
-                            {currentStep === 5 && <Step5NDA />}
-                            {currentStep === 6 && <Step6Review />}
-                        </div>
-
-                        <div className="flex justify-between mt-12 pt-8 border-t border-white/10">
-                            <Button
-                                type="button"
-                                variant="ghost"
-                                onClick={handleBack}
-                                disabled={currentStep === 1 || isSubmitting}
-                                className="text-text-300 hover:text-white hover:bg-white/5 transition-all duration-300"
-                            >
-                                <ChevronLeft className="mr-2 h-4 w-4" /> Back
-                            </Button>
-
-                            {currentStep < STEPS.length ? (
-                                <Button
-                                    type="button"
-                                    onClick={handleNext}
-                                    className="btn-glass-premium min-w-[140px]"
-                                >
-                                    Next <ChevronRight className="ml-2 h-4 w-4" />
-                                </Button>
-                            ) : (
-                                <Button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="btn-glass-premium min-w-[160px]"
-                                >
-                                    {isSubmitting ? (
-                                        <>
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...
-                                        </>
-                                    ) : (
-                                        "Submit Application"
-                                    )}
-                                </Button>
-                            )}
-                        </div>
-                    </form>
-                </FormProvider>
             </div>
         </div>
     );

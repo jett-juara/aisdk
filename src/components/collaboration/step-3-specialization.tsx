@@ -110,7 +110,11 @@ export function Step3Specialization() {
                             <FormItem>
                                 <FormLabel>Please specify &quot;Lain Lain&quot;</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Specify your specialization..." {...field} />
+                                    <Input
+                                        placeholder="Specify your specialization..."
+                                        {...field}
+                                        className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

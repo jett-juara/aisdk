@@ -125,7 +125,7 @@ export function CollaborationHero({
                                                     </p>
                                                     <div className="pt-4 flex gap-4">
                                                         <Button
-                                                            className="h-12 px-8 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-medium tracking-wide transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(255,107,0,0.3)]"
+                                                            className="h-12 px-8 rounded-full bg-button-primary hover:bg-button-primary-hover active:bg-button-primary-active text-text-50 font-medium tracking-wide transition-all duration-500 ease-out hover:scale-105 shadow-lg shadow-brand-900/20"
                                                             onClick={() => router.push("/collaboration/register")}
                                                         >
                                                             Register Now
@@ -155,7 +155,7 @@ export function CollaborationHero({
                                                             </p>
                                                             <div className="pt-2">
                                                                 <Button
-                                                                    className="w-full h-12 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-medium tracking-wide"
+                                                                    className="w-full h-12 rounded-full bg-button-primary hover:bg-button-primary-hover active:bg-button-primary-active text-text-50 font-medium tracking-wide transition-all duration-500 ease-out hover:scale-105 shadow-lg shadow-brand-900/20"
                                                                     onClick={() => router.push("/collaboration/register")}
                                                                 >
                                                                     Register Now
@@ -233,76 +233,80 @@ export function CollaborationHero({
 
                 {selectedId && selectedItem && (
                     <div className="w-full min-h-[50vh] animate-in fade-in slide-in-from-bottom-8 duration-500">
-                        <div className="w-full max-w-4xl mx-auto glass-panel p-8 md:p-12 rounded-3xl relative">
-                            <Button
-                                variant="ghost"
-                                className="absolute top-6 right-6 text-text-400 hover:text-white"
-                                onClick={handleCloseDetail}
-                            >
-                                Close
-                            </Button>
+                        <div className="w-full max-w-4xl mx-auto bg-background-800 border border-white/10 shadow-2xl rounded-3xl relative overflow-hidden p-8 md:p-12">
+                            {/* Diagonal Glass Effect Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none z-0" />
 
-                            <div className="flex flex-col gap-6">
-                                <div className="p-4 rounded-2xl bg-brand-500/10 w-fit">
-                                    <selectedItem.icon className="h-10 w-10 text-brand-500" />
+                            <div className="relative z-10">
+                                <Button
+                                    variant="ghost"
+                                    className="absolute top-6 right-6 text-text-400 hover:text-white"
+                                    onClick={handleCloseDetail}
+                                >
+                                    Close
+                                </Button>
+
+                                <div className="flex flex-col gap-6">
+                                    <div className="p-4 rounded-2xl bg-brand-500/10 w-fit">
+                                        <selectedItem.icon className="h-10 w-10 text-brand-500" />
+                                    </div>
+
+                                    <h2 className="text-3xl md:text-4xl font-headingSecondary font-bold text-text-50">
+                                        {selectedItem.label}
+                                    </h2>
+
+                                    <p className="text-xl text-text-200 leading-relaxed">
+                                        {selectedItem.description}
+                                    </p>
+
+                                    {selectedItem.slug === "partnership-guide" && (
+                                        <div className="pt-6 border-t border-white/10 mt-6">
+                                            <h3 className="text-lg font-bold text-text-50 mb-4">What&apos;s Inside</h3>
+                                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                {["Step-by-step Registration", "Required Documents Checklist", "Verification Process", "Benefits & Tiers"].map((req, i) => (
+                                                    <li key={i} className="flex items-center gap-3 text-text-200">
+                                                        <CheckCircle2 className="h-5 w-5 text-brand-500 flex-shrink-0" />
+                                                        <span>{req}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                            <div className="pt-8">
+                                                <Button
+                                                    className="h-12 px-8 rounded-full bg-button-primary hover:bg-button-primary-hover active:bg-button-primary-active text-text-50 font-medium tracking-wide transition-all duration-500 ease-out hover:scale-105 shadow-lg shadow-brand-900/20"
+                                                    onClick={() => window.open("/documents/partnership-guide.pdf", "_blank")}
+                                                >
+                                                    Download Guide PDF
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {selectedItem.slug === "chat-jett" && (
+                                        <div className="pt-6 border-t border-white/10 mt-6">
+                                            <h3 className="text-lg font-bold text-text-50 mb-4">Chat with JETT AI</h3>
+                                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                {["Instant answers about requirements", "Check application status", "Technical support", "General inquiries"].map((req, i) => (
+                                                    <li key={i} className="flex items-center gap-3 text-text-200">
+                                                        <CheckCircle2 className="h-5 w-5 text-brand-500 flex-shrink-0" />
+                                                        <span>{req}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                            <div className="pt-8 flex gap-4">
+                                                <Button
+                                                    className="h-12 px-8 rounded-full bg-button-primary hover:bg-button-primary-hover active:bg-button-primary-active text-text-50 font-medium tracking-wide transition-all duration-500 ease-out hover:scale-105 shadow-lg shadow-brand-900/20"
+                                                    onClick={() => window.open("https://wa.me/6281234567890", "_blank")}
+                                                >
+                                                    Start Chatting
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
-
-                                <h2 className="text-3xl md:text-4xl font-headingSecondary font-bold text-text-50">
-                                    {selectedItem.label}
-                                </h2>
-
-                                <p className="text-xl text-text-200 leading-relaxed">
-                                    {selectedItem.description}
-                                </p>
-
-                                {selectedItem.slug === "partnership-guide" && (
-                                    <div className="pt-6 border-t border-white/10 mt-6">
-                                        <h3 className="text-lg font-bold text-text-50 mb-4">What&apos;s Inside</h3>
-                                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                            {["Step-by-step Registration", "Required Documents Checklist", "Verification Process", "Benefits & Tiers"].map((req, i) => (
-                                                <li key={i} className="flex items-center gap-3 text-text-200">
-                                                    <CheckCircle2 className="h-5 w-5 text-brand-500 flex-shrink-0" />
-                                                    <span>{req}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        <div className="pt-8">
-                                            <Button
-                                                className="h-12 px-8 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-medium tracking-wide transition-all duration-300 hover:scale-105 shadow-lg"
-                                                onClick={() => window.open("/documents/partnership-guide.pdf", "_blank")}
-                                            >
-                                                Download Guide PDF
-                                            </Button>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {selectedItem.slug === "chat-jett" && (
-                                    <div className="pt-6 border-t border-white/10 mt-6">
-                                        <h3 className="text-lg font-bold text-text-50 mb-4">Chat with JETT AI</h3>
-                                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                            {["Instant answers about requirements", "Check application status", "Technical support", "General inquiries"].map((req, i) => (
-                                                <li key={i} className="flex items-center gap-3 text-text-200">
-                                                    <CheckCircle2 className="h-5 w-5 text-brand-500 flex-shrink-0" />
-                                                    <span>{req}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        <div className="pt-8 flex gap-4">
-                                            <Button
-                                                className="h-12 px-8 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-medium tracking-wide transition-all duration-300 hover:scale-105 shadow-lg"
-                                                onClick={() => window.open("https://wa.me/6281234567890", "_blank")}
-                                            >
-                                                Start Chatting
-                                            </Button>
-                                        </div>
-                                    </div>
-                                )}
                             </div>
                         </div>
-                    </div>
                 )}
-            </div>
+                    </div>
         </section >
     )
 }

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { createSupabaseRSCClient } from "@/lib/supabase/server";
 import { CollaborationWizard } from "@/components/collaboration/wizard";
 import { User } from "@/lib/setting/types";
 
@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default async function CollaborationPage() {
-    const supabase = await createClient();
+    const supabase = await createSupabaseRSCClient();
 
     const {
         data: { user },

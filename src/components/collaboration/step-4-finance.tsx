@@ -77,7 +77,11 @@ export function Step4Finance() {
                                 <FormItem>
                                     <FormLabel>Specify Bank Name</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Bank Name" {...field} />
+                                        <Input
+                                            placeholder="e.g. BCA, Mandiri"
+                                            {...field}
+                                            className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -93,7 +97,11 @@ export function Step4Finance() {
                                 <FormItem>
                                     <FormLabel>Account Number</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="1234567890" {...field} />
+                                        <Input
+                                            placeholder="1234567890"
+                                            {...field}
+                                            className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -106,7 +114,11 @@ export function Step4Finance() {
                                 <FormItem>
                                     <FormLabel>Account Holder Name</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Name on account" {...field} />
+                                        <Input
+                                            placeholder="Name as in bank account"
+                                            {...field}
+                                            className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -125,7 +137,11 @@ export function Step4Finance() {
                             <FormItem>
                                 <FormLabel>NPWP Number</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="00.000.000.0-000.000" {...field} />
+                                    <Input
+                                        placeholder="00.000.000.0-000.000"
+                                        {...field}
+                                        className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
