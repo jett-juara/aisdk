@@ -16,6 +16,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent } from "@/components/ui/card";
 import { Building2, User } from "lucide-react";
 import { VendorFormValues } from "./form-schema";
+import { AnimatedInput } from "@/components/ui/animated-input";
 
 export function Step1Role() {
     const { control, watch } = useFormContext<VendorFormValues>();
@@ -24,10 +25,10 @@ export function Step1Role() {
     return (
         <div className="space-y-6">
             <div className="text-start mb-8">
-                <h2 className="font-heading font-bold text-2xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-[1.1] pb-[0.1em]">
+                <h2 className="font-heading font-bold text-2xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-1 pb-3">
                     Welcome, Partner!
                 </h2>
-                <p className="text-text-200 text-xl mt-0">
+                <p className="text-text-200 text-xl">
                     Let&apos;s start by defining your role in the Juara ecosystem.
                 </p>
             </div>
@@ -85,7 +86,7 @@ export function Step1Role() {
             </div>
 
             <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-4">
-                <h3 className="text-lg border-b border-border-800 pb-2 mb-4">
+                <h3 className="text-lg border-b border-border-800 pb-2 mb-10">
                     Person In Charge Information
                 </h3>
 
@@ -95,10 +96,15 @@ export function Step1Role() {
                         name="picName"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Full Name</FormLabel>
-                                <div className="px-4 py-3 bg-background-900/50 border border-border-800 rounded-md text-text-200 cursor-not-allowed">
-                                    {field.value || "Loading..."}
-                                </div>
+                                <FormControl>
+                                    <AnimatedInput
+                                        label="Full Name"
+                                        placeholder="Full Name"
+                                        {...field}
+                                        value={field.value || "Loading..."}
+                                        disabled={true}
+                                    />
+                                </FormControl>
                                 <FormDescription>
                                     To change your name, please visit your <a href="/setting/profile" className="text-text-info-500 hover:underline">Profile Settings</a>.
                                 </FormDescription>
@@ -112,10 +118,15 @@ export function Step1Role() {
                         name="picEmail"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Email Address</FormLabel>
-                                <div className="px-4 py-3 bg-background-900/50 border border-border-800 rounded-md text-text-200 cursor-not-allowed">
-                                    {field.value || "Loading..."}
-                                </div>
+                                <FormControl>
+                                    <AnimatedInput
+                                        label="Email Address"
+                                        placeholder="Email Address"
+                                        {...field}
+                                        value={field.value || "Loading..."}
+                                        disabled={true}
+                                    />
+                                </FormControl>
                                 <FormDescription>
                                     Registered email address.
                                 </FormDescription>
@@ -129,12 +140,11 @@ export function Step1Role() {
                         name="picEmailAlt"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Alternative Email (Optional)</FormLabel>
                                 <FormControl>
-                                    <Input
+                                    <AnimatedInput
+                                        label="Alternative Email (Optional)"
                                         placeholder="alternative@email.com"
                                         {...field}
-                                        className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                                     />
                                 </FormControl>
                                 <FormDescription>
@@ -150,12 +160,11 @@ export function Step1Role() {
                         name="picPhone"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Mobile Phone <span className="text-red-500">*</span></FormLabel>
                                 <FormControl>
                                     <PhoneInput
                                         value={field.value}
                                         onChange={field.onChange}
-                                        placeholder="Enter phone number"
+                                        label="Mobile Phone *"
                                         defaultCountry="ID"
                                     />
                                 </FormControl>
@@ -170,12 +179,11 @@ export function Step1Role() {
                             name="picPosition"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Position / Job Title</FormLabel>
                                     <FormControl>
-                                        <Input
+                                        <AnimatedInput
+                                            label="Position / Job Title"
                                             placeholder="e.g. Marketing Manager"
                                             {...field}
-                                            className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                                         />
                                     </FormControl>
                                     <FormMessage />

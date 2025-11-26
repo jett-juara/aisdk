@@ -134,12 +134,12 @@ export function FileUpload({
                     <label
                         htmlFor={`file-upload-${label.replace(/\s+/g, "-")}`}
                         className={cn(
-                            "flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer transition-all",
+                            "flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer transition-all",
                             "border-border-700 bg-background-800 hover:bg-background-700 hover:border-brand-500/50",
                             isUploading && "opacity-50 cursor-not-allowed"
                         )}
                     >
-                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                        <div className="flex flex-col items-center justify-center py-8 text-center">
                             {isUploading ? (
                                 <Loader2 className="h-8 w-8 text-brand-500 animate-spin mb-2" />
                             ) : (
@@ -148,7 +148,7 @@ export function FileUpload({
                             <p className="mb-2 text-sm text-text-200">
                                 <span className="font-semibold">Click to upload</span> or drag and drop
                             </p>
-                            <p className="text-xs text-text-400">
+                            <p className="text-xs text-text-400 p-2">
                                 {accept.replace(/\./g, "").toUpperCase()} (MAX. {maxSizeMB}MB)
                             </p>
                         </div>

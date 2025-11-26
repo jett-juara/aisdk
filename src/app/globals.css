@@ -195,6 +195,8 @@
     --color-button-glass-border: rgba(237, 237, 237, 0.3);
     --color-button-glass-glow: rgba(237, 237, 237, 0.1);
 
+    /* Badge Input */
+    --color-badge-input: #2c4b02;
 
     /* ===== SHADCN UI CORE VARIABLES ===== */
     /* Standard shadcn variables (mapped to new system) */

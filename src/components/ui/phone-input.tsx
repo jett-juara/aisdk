@@ -39,7 +39,7 @@ const PhoneInputInternal = forwardRef<HTMLInputElement, any>(({ className, label
                 id={inputId}
                 value={value}
                 className={cn(
-                    "h-12 w-full px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold outline-none transition-all duration-200 focus:bg-input-focus-bg focus:text-text-900 focus:ring-1 focus:ring-brand-500 disabled:opacity-50 disabled:cursor-not-allowed rounded-md backdrop-blur-md border focus-visible:ring-0 focus-visible:ring-offset-0",
+                    "h-14 w-full px-4 pt-2 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold outline-none transition-all duration-200 focus:bg-input-focus-bg focus:text-text-900 focus:ring-1 focus:ring-brand-500 disabled:opacity-50 disabled:cursor-not-allowed rounded-md backdrop-blur-md border focus-visible:ring-0 focus-visible:ring-offset-0",
                     className
                 )}
                 onFocus={(e) => {
@@ -58,25 +58,18 @@ const PhoneInputInternal = forwardRef<HTMLInputElement, any>(({ className, label
             />
             {label && (
                 <motion.label
+                    initial={false}
                     animate={
-                        isFloating
-                            ? {
-                                y: -40,
-                                x: 10,
-                                scale: 0.85,
-                                color: "#ffffff",
-                            }
+                        hasContent || isFocused
+                            ? { y: -44, x: 0, scale: 0.85, color: "#ffffff" }
                             : { y: "-50%", x: 0, scale: 1, color: "var(--color-text-400)" }
                     }
-                    className={`absolute left-3 origin-left pointer-events-none top-1/2 ${isFloating
-                        ? "bg-brand-600 px-2 py-0.5 rounded-full shadow-md z-10"
-                        : ""
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className={`absolute left-4 origin-left pointer-events-none top-1/2 transition-all duration-200 ease-out ${hasContent || isFocused
+                        ? "bg-badge-input text-text-200 px-3 py-1 rounded-full border border-glass-border shadow-sm z-10"
+                        : "text-muted-foreground"
                         }`}
                     htmlFor={inputId}
-                    transition={{
-                        duration: 0.2,
-                        ease: "easeOut"
-                    }}
                 >
                     {label}
                 </motion.label>

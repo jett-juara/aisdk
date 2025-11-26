@@ -170,7 +170,8 @@ const config = {
 				'glow-primary': 'var(--color-glow-primary)',
 				'glow-secondary': 'var(--color-glow-secondary)',
 				'navigation-active': 'var(--color-navigation-active)',
-				'navigation-menu': 'var(--color-navigation-menu)'
+				'navigation-menu': 'var(--color-navigation-menu)',
+				'badge-input': 'var(--color-badge-input)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

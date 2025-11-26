@@ -78,7 +78,7 @@ const AnimatedInput = forwardRef<HTMLInputElement, AnimatedInputProps>(
                 )}
                 <input
                     ref={ref}
-                    className={`peer w-full h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold outline-none transition-all duration-200 focus:bg-input-focus-bg focus:text-text-900 focus:ring-1 focus:ring-brand-500 disabled:opacity-50 disabled:cursor-not-allowed rounded-md backdrop-blur-md border ${icon ? "pl-10" : ""
+                    className={`peer w-full h-14 px-4 pt-2 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold outline-none transition-all duration-200 focus:bg-input-focus-bg focus:text-text-900 focus:ring-1 focus:ring-brand-500 disabled:opacity-50 disabled:cursor-not-allowed rounded-md backdrop-blur-md border ${icon ? "pl-10" : ""
                         } ${inputClassName}`}
                     disabled={disabled}
                     id={inputId}
@@ -109,15 +109,17 @@ const AnimatedInput = forwardRef<HTMLInputElement, AnimatedInputProps>(
                     animate={
                         isFloating
                             ? {
-                                y: -40, // Move up from center (0 is center due to top-1/2)
-                                x: 10,
+                                y: -44, // Move up from center (0 is center due to top-1/2)
+                                x: 0,
                                 scale: 0.85,
                                 color: "#ffffff",
                             }
                             : { y: "-50%", x: 0, scale: 1, color: "var(--color-text-400)" }
                     }
-                    className={`absolute left-3 origin-left pointer-events-none top-1/2 ${isFloating
-                        ? "bg-brand-600 px-2 py-0.5 rounded-full shadow-md z-10"
+                    className={`absolute left-4 origin-left pointer-events-none top-1/2 transition-all duration-200 ease-out ${isFloating
+                        ? disabled
+                            ? "bg-badge-input text-text-400 px-3 py-1 rounded-full border border-border-700 shadow-sm z-10"
+                            : "bg-badge-input text-text-200 px-3 py-1 rounded-full border border-glass-border shadow-sm z-10"
                         : ""
                         } ${icon ? "left-10" : ""} ${labelClassName}`}
                     htmlFor={inputId}
