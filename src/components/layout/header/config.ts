@@ -12,5 +12,5 @@ export const HEADER_MENU_ITEMS: HeaderMenuItem[] = [
   { label: "About", href: "/about" },
   { label: "Product", href: "/product" },
   { label: "Services", href: "/services" },
-  { label: "Collaboration", href: "#" },
+  { label: "Collaboration", href: "/collaboration" },
 ];

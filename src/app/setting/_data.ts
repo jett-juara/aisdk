@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { createSupabaseRSCClient } from "@/lib/supabase/server";
 import type { User } from "@/lib/setting/types";
 
 /**
@@ -7,7 +7,7 @@ import type { User } from "@/lib/setting/types";
  * Kalau gagal / tidak ada user, akan redirect ke /auth.
  */
 export async function getSettingUserOrRedirect(): Promise<User> {
-  const supabase = await createClient();
+  const supabase = await createSupabaseRSCClient();
 
   try {
     const {

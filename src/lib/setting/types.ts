@@ -11,6 +11,7 @@ export interface User {
   role: UserRole;
   status: UserStatus;
   emailVerified: boolean;
+  vendorStatus: 'none' | 'pending' | 'approved' | 'rejected';
   createdAt: string;
   updatedAt: string;
 }

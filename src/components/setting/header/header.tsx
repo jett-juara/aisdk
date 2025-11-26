@@ -27,7 +27,10 @@ import {
   ChevronDown,
   PanelLeftOpen,
   PanelLeftClose,
+  LayoutDashboard,
+  Clock,
 } from "lucide-react";
+import { BecomeVendorModal } from "../become-vendor-modal";
 
 /**
  * Breadcrumb Navigation Component
@@ -294,6 +297,8 @@ export function SettingHeader({
   mobileSidebarOpen,
   onMobileSidebarToggle,
 }: SettingHeaderProps) {
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+
   return (
     <header
       className={cn(
@@ -336,6 +341,44 @@ export function SettingHeader({
         {/* Notifications */}
         <NotificationBell />
 
+        {/* Upgrade / Vendor Status Button */}
+        {user?.vendorStatus === "approved" ? (
+          <Button
+            asChild
+            variant="default"
+            className="bg-brand-600 hover:bg-brand-700 text-white transition-all duration-200 h-11 px-6 rounded-full"
+          >
+            <Link href="/collaboration/dashboard">
+              <LayoutDashboard className="h-4 w-4 mr-2" />
+              Vendor Dashboard
+            </Link>
+          </Button>
+        ) : user?.vendorStatus === "pending" ? (
+          <Button
+            variant="outline"
+            className="border-brand-500/30 text-brand-200 hover:bg-transparent cursor-not-allowed opacity-70 h-11 px-6 rounded-full"
+            disabled
+          >
+            <Clock className="h-4 w-4 mr-2" />
+            Verification Pending
+          </Button>
+        ) : (
+          <Button
+            onClick={() => setIsUpgradeModalOpen(true)}
+            variant="default"
+            className={cn(
+              "group relative overflow-hidden h-11 px-6",
+              "bg-[var(--color-button-green)] hover:bg-[var(--color-button-green-hover)] text-white transition-all duration-300",
+              "rounded-full",
+              "hover:scale-[1.02]"
+            )}
+          >
+            <span className="relative z-10 font-medium tracking-wide">
+              Upgrade to Vendor
+            </span>
+          </Button>
+        )}
+
         {/* User Profile Dropdown */}
         <UserProfileDropdown
           user={user}
@@ -343,6 +386,11 @@ export function SettingHeader({
           loading={loading}
         />
       </div>
+
+      <BecomeVendorModal
+        open={isUpgradeModalOpen}
+        onOpenChange={setIsUpgradeModalOpen}
+      />
     </header>
   );
 }

@@ -15,7 +15,7 @@ import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { User, SettingConfig } from "@/lib/setting/types";
 import { getNavigationItems, getActiveNavigation } from "@/lib/setting/navigation";
-import { TestimonialGridBackground } from "@/components/auth/testimonial-grid-background";
+import { SettingGridBackground } from "./setting-grid-background";
 import { SettingFooter } from "./footer/footer";
 
 /**
@@ -109,7 +109,7 @@ export function SettingShell({
         </div>
         <div className="flex flex-1 flex-col overflow-hidden relative">
           <div className="hidden lg:block absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <TestimonialGridBackground />
+            <SettingGridBackground />
             <div className="absolute inset-0 bg-background-950/60 z-10" />
           </div>
           <SettingHeader
