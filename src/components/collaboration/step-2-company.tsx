@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { VendorFormValues } from "./form-schema";
 import { FileUpload } from "./file-upload";
+import { AnimatedInput } from "@/components/ui/animated-input";
 
 export function Step2Company() {
     const { control } = useFormContext<VendorFormValues>();
@@ -28,18 +29,17 @@ export function Step2Company() {
                 </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-8">
                 <FormField
                     control={control}
                     name="companyName"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Company Name</FormLabel>
                             <FormControl>
-                                <Input
+                                <AnimatedInput
+                                    label="Company Name"
                                     placeholder="Your Company Name"
                                     {...field}
-                                    className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -47,7 +47,7 @@ export function Step2Company() {
                     )}
                 />
 
-                <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-4">
+                <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-6">
                     <h3 className="text-lg border-b border-border-800 pb-2 mb-4">Company Address</h3>
 
                     <FormField
@@ -55,12 +55,11 @@ export function Step2Company() {
                         name="companyAddressStreet"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Street Address</FormLabel>
                                 <FormControl>
-                                    <Input
+                                    <AnimatedInput
+                                        label="Street Address"
                                         placeholder="Company Street Address"
                                         {...field}
-                                        className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -68,18 +67,17 @@ export function Step2Company() {
                         )}
                     />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <FormField
                             control={control}
                             name="companyAddressCity"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>City / Regency</FormLabel>
                                     <FormControl>
-                                        <Input
+                                        <AnimatedInput
+                                            label="City / Regency"
                                             placeholder="City / Regency"
                                             {...field}
-                                            className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -91,12 +89,11 @@ export function Step2Company() {
                             name="companyAddressProvince"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Province / State</FormLabel>
                                     <FormControl>
-                                        <Input
-                                            placeholder="DKI Jakarta"
+                                        <AnimatedInput
+                                            label="Province / State"
+                                            placeholder="Province / State"
                                             {...field}
-                                            className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -110,12 +107,11 @@ export function Step2Company() {
                         name="companyAddressCountry"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Country</FormLabel>
                                 <FormControl>
-                                    <Input
-                                        placeholder="PT. Example Indonesia"
+                                    <AnimatedInput
+                                        label="Country"
+                                        placeholder="Country"
                                         {...field}
-                                        className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -124,18 +120,17 @@ export function Step2Company() {
                     />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <FormField
                         control={control}
                         name="companyEmail"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Official Email</FormLabel>
                                 <FormControl>
-                                    <Input
+                                    <AnimatedInput
+                                        label="Official Email"
                                         placeholder="company@example.com"
                                         {...field}
-                                        className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -147,12 +142,11 @@ export function Step2Company() {
                         name="companyPhone"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Company Phone</FormLabel>
                                 <FormControl>
                                     <PhoneInput
                                         value={field.value}
                                         onChange={field.onChange}
-                                        placeholder="Enter phone number"
+                                        label="Company Phone"
                                         defaultCountry="ID"
                                     />
                                 </FormControl>
@@ -162,7 +156,7 @@ export function Step2Company() {
                     />
                 </div>
 
-                <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-4">
+                <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-6">
                     <h3 className="text-lg border-b border-border-800 pb-2 mb-4">Legal Documents</h3>
 
                     <FormField
@@ -170,12 +164,11 @@ export function Step2Company() {
                         name="nibNumber"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>NIB (Nomor Induk Berusaha)</FormLabel>
                                 <FormControl>
-                                    <Input
+                                    <AnimatedInput
+                                        label="NIB (Nomor Induk Berusaha)"
                                         placeholder="1234567890"
                                         {...field}
-                                        className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                                     />
                                 </FormControl>
                                 <FormMessage />
