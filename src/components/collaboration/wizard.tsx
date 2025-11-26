@@ -74,14 +74,10 @@ export function CollaborationWizard({ user }: CollaborationWizardProps) {
                     ]);
                 } else {
                     isValid = await trigger([
-                        "individualName",
                         "individualAddressStreet",
                         "individualAddressCity",
                         "individualAddressProvince",
                         "individualAddressCountry",
-                        "individualEmail",
-                        "individualEmailAlt",
-                        "individualPhone",
                     ]);
                 }
                 break;
@@ -143,15 +139,15 @@ export function CollaborationWizard({ user }: CollaborationWizardProps) {
                 company_email: data.companyEmail,
                 company_phone: data.companyPhone,
                 nib_number: data.nibNumber,
-                individual_name: data.individualName,
+                individual_name: data.individualName || data.picName,
                 individual_address: data.role === "individual" ? {
                     street: data.individualAddressStreet,
                     city: data.individualAddressCity,
                     province: data.individualAddressProvince,
                     country: data.individualAddressCountry,
                 } : null,
-                individual_email: data.individualEmail,
-                individual_phone: data.individualPhone,
+                individual_email: data.individualEmail || data.picEmail,
+                individual_phone: data.individualPhone || data.picPhone,
                 specializations: data.specializations?.includes("Lain Lain")
                     ? [...(data.specializations?.filter(s => s !== "Lain Lain") || []), data.specializationOther || "Other"]
                     : data.specializations || [],

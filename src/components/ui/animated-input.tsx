@@ -78,7 +78,7 @@ const AnimatedInput = forwardRef<HTMLInputElement, AnimatedInputProps>(
                 )}
                 <input
                     ref={ref}
-                    className={`peer w-full h-14 px-4 pt-2 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold outline-none transition-all duration-200 focus:bg-input-focus-bg focus:text-text-900 focus:ring-1 focus:ring-brand-500 disabled:opacity-50 disabled:cursor-not-allowed rounded-md backdrop-blur-md border ${icon ? "pl-10" : ""
+                    className={`peer w-full h-14 px-4 pt-2 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold outline-none transition-all duration-200 focus:bg-input-focus-bg focus:text-text-900 disabled:opacity-50 disabled:cursor-not-allowed rounded-md backdrop-blur-md border ${icon ? "pl-10" : ""
                         } ${inputClassName}`}
                     disabled={disabled}
                     id={inputId}

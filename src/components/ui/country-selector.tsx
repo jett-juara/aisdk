@@ -55,7 +55,7 @@ export function CountrySelector({ value, onChange, labels = en, iconComponent: I
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-2 px-3 h-12 bg-glass-bg border border-glass-border rounded-md hover:bg-white/5 transition-all backdrop-blur-md"
+                className="flex items-center gap-2 px-3 h-14 bg-glass-bg border border-glass-border rounded-md hover:bg-white/5 transition-all backdrop-blur-md"
             >
                 {Icon && selectedCountry && (
                     <div className="w-6 h-4 overflow-hidden rounded-[2px]">
