@@ -305,8 +305,9 @@ export function CollaborationHero({
                                 </div>
                             </div>
                         </div>
-                )}
                     </div>
-        </section >
+                )}
+            </div>
+        </section>
     )
 }

@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 import { CountrySelector } from "./country-selector";
 
 export interface PhoneInputProps {
-    value?: Value;
-    onChange: (value?: Value) => void;
+    value?: string;
+    onChange: (value?: string) => void;
     placeholder?: string;
     disabled?: boolean;
     className?: string;

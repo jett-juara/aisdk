@@ -69,7 +69,7 @@ export function Step6Review() {
                     <div className="col-span-2">
                         <span className="block text-text-400 text-xs">Specializations</span>
                         <div className="flex flex-wrap gap-2 mt-1">
-                            {values.specializations.map((spec) => (
+                            {values.specializations?.map((spec) => (
                                 <span key={spec} className="px-2 py-1 bg-brand-500/10 text-brand-300 rounded text-xs border border-brand-500/20">
                                     {spec === "Lain Lain" ? values.specializationOther : spec}
                                 </span>

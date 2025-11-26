@@ -152,9 +152,9 @@ export function CollaborationWizard({ user }: CollaborationWizardProps) {
                 } : null,
                 individual_email: data.individualEmail,
                 individual_phone: data.individualPhone,
-                specializations: data.specializations.includes("Lain Lain")
-                    ? [...data.specializations.filter(s => s !== "Lain Lain"), data.specializationOther || "Other"]
-                    : data.specializations,
+                specializations: data.specializations?.includes("Lain Lain")
+                    ? [...(data.specializations?.filter(s => s !== "Lain Lain") || []), data.specializationOther || "Other"]
+                    : data.specializations || [],
                 bank_name: data.bankName === "Bank Lain" ? data.bankNameOther : data.bankName,
                 bank_account_number: data.bankAccountNumber,
                 bank_account_holder: data.bankAccountHolder,
