@@ -230,10 +230,9 @@ export function CollaborationWizard({ user }: CollaborationWizardProps) {
                                 {currentStep > 1 ? (
                                     <Button
                                         type="button"
-                                        variant="ghost"
                                         onClick={handleBack}
                                         disabled={isSubmitting}
-                                        className="text-text-300 hover:text-white hover:bg-white/5 transition-all duration-300"
+                                        className="min-w-[140px] font-button font-medium text-md bg-transparent border border-border-700 text-text-50 hover:bg-white/5 active:bg-white/10 tracking-wide transition-all duration-500 ease-out h-12 rounded-full hover:scale-105 shadow-lg"
                                     >
                                         <ChevronLeft className="mr-2 h-4 w-4" /> Back
                                     </Button>

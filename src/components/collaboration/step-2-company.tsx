@@ -19,11 +19,11 @@ export function Step2Company() {
 
     return (
         <div className="space-y-6">
-            <div className="text-center mb-8">
-                <h2 className="text-2xl font-heading font-bold text-text-50">
+            <div className="text-start mb-8">
+                <h2 className="font-heading font-bold text-2xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-[1.1] pb-[0.1em]">
                     Company Details
                 </h2>
-                <p className="text-text-200 mt-2">
+                <p className="text-text-200 text-xl mt-0">
                     Please provide your official company information.
                 </p>
             </div>
@@ -37,9 +37,9 @@ export function Step2Company() {
                             <FormLabel>Company Name</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="PT. Juara Abadi"
+                                    placeholder="Your Company Name"
                                     {...field}
-                                    className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200"
+                                    className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -47,8 +47,8 @@ export function Step2Company() {
                     )}
                 />
 
-                <div className="space-y-4 border border-border-800 rounded-xl p-4 bg-background-800/30">
-                    <h3 className="font-semibold text-text-100">Company Address</h3>
+                <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-4">
+                    <h3 className="text-lg border-b border-border-800 pb-2 mb-4">Company Address</h3>
 
                     <FormField
                         control={control}
@@ -58,7 +58,7 @@ export function Step2Company() {
                                 <FormLabel>Street Address</FormLabel>
                                 <FormControl>
                                     <Input
-                                        placeholder="Jl. Sudirman No. 1, RT/RW 01/02"
+                                        placeholder="Company Street Address"
                                         {...field}
                                         className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                                     />
@@ -77,7 +77,7 @@ export function Step2Company() {
                                     <FormLabel>City / Regency</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Jakarta Selatan"
+                                            placeholder="City / Regency"
                                             {...field}
                                             className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                                         />
@@ -162,8 +162,8 @@ export function Step2Company() {
                     />
                 </div>
 
-                <div className="space-y-4 border border-border-800 rounded-xl p-4 bg-background-800/30">
-                    <h3 className="font-semibold text-text-100">Legal Documents</h3>
+                <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-4">
+                    <h3 className="text-lg border-b border-border-800 pb-2 mb-4">Legal Documents</h3>
 
                     <FormField
                         control={control}
