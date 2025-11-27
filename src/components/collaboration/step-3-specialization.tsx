@@ -113,76 +113,84 @@ export function Step3Specialization() {
                     />
                 </div>
 
-                <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-6">
+                <div className="bg-background-800/50 p-6 rounded-xl border border-border-800">
                     <h3 className="text-lg border-b border-border-800 pb-2 mb-4">Documents</h3>
 
-                    {role === "company" ? (
-                        <FormField
-                            control={control}
-                            name="companyProfileDocument"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Company Profile / Pricelist / Catalog</FormLabel>
-                                    <FormControl>
-                                        <FileUpload
-                                            value={field.value}
-                                            onChange={field.onChange}
-                                            folderPath="company_profiles"
-                                            label="Upload Company Profile"
-                                        />
-                                    </FormControl>
-                                    <FormDescription>
-                                        PDF, PPTX, DOCX, or Spreadsheet (Max 5MB)
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    ) : (
-                        <FormField
-                            control={control}
-                            name="portfolioDocument"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Portfolio / Pricelist / Catalog</FormLabel>
-                                    <FormControl>
-                                        <FileUpload
-                                            value={field.value}
-                                            onChange={field.onChange}
-                                            folderPath="portfolios"
-                                            label="Upload Portfolio"
-                                        />
-                                    </FormControl>
-                                    <FormDescription>
-                                        PDF, PPTX, DOCX, or Spreadsheet (Max 5MB)
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    )}
-
-                    <FormField
-                        control={control}
-                        name="invoiceDocument"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Sample Invoice (Optional)</FormLabel>
-                                <FormControl>
-                                    <FileUpload
-                                        value={field.value}
-                                        onChange={field.onChange}
-                                        folderPath="invoices"
-                                        label="Upload Invoice"
-                                    />
-                                </FormControl>
-                                <FormDescription>
-                                    If you have worked with other EOs before.
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
+                    <div className="space-y-6 lg:grid lg:grid-cols-2 lg:gap-6 lg:space-y-0">
+                        {role === "company" ? (
+                            <div>
+                                <FormField
+                                    control={control}
+                                    name="companyProfileDocument"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Company Profile / Pricelist / Catalog</FormLabel>
+                                            <FormControl>
+                                                <FileUpload
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    folderPath="company_profiles"
+                                                    label="Upload Company Profile"
+                                                />
+                                            </FormControl>
+                                            <FormDescription>
+                                                PDF, PPTX, DOCX, or Spreadsheet (Max 5MB)
+                                            </FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                        ) : (
+                            <div>
+                                <FormField
+                                    control={control}
+                                    name="portfolioDocument"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Portfolio / Pricelist / Catalog</FormLabel>
+                                            <FormControl>
+                                                <FileUpload
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    folderPath="portfolios"
+                                                    label="Upload Portfolio"
+                                                />
+                                            </FormControl>
+                                            <FormDescription>
+                                                PDF, PPTX, DOCX, or Spreadsheet (Max 5MB)
+                                            </FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
                         )}
-                    />
+
+                        <div>
+                            <FormField
+                                control={control}
+                                name="invoiceDocument"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Sample Invoice (Optional)</FormLabel>
+                                        <FormControl>
+                                            <FileUpload
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                folderPath="invoices"
+                                                label="Upload Invoice"
+                                            />
+                                        </FormControl>
+                                        <FormDescription>
+                                            If you have worked with other EOs before.
+                                        </FormDescription>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

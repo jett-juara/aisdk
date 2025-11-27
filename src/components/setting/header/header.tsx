@@ -299,92 +299,119 @@ export function SettingHeader({
 }: SettingHeaderProps) {
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
 
+  const renderVendorButton = (mobile: boolean) => {
+    if (user?.vendorStatus === "approved") {
+      return (
+        <Button
+          asChild
+          variant="default"
+          className={cn(
+            "bg-brand-600 hover:bg-brand-700 text-white transition-all duration-200 h-11 px-6 rounded-full",
+            mobile ? "w-auto min-w-[200px]" : "hidden md:flex"
+          )}
+        >
+          <Link href="/collaboration/dashboard">
+            <LayoutDashboard className="h-4 w-4 mr-2" />
+            Vendor Dashboard
+          </Link>
+        </Button>
+      );
+    }
+
+    if (user?.vendorStatus === "pending") {
+      return (
+        <Button
+          variant="outline"
+          className={cn(
+            "border-brand-500/30 text-brand-200 hover:bg-transparent cursor-not-allowed opacity-70 h-11 px-6 rounded-full",
+            mobile ? "w-auto min-w-[200px]" : "hidden md:flex"
+          )}
+          disabled
+        >
+          <Clock className="h-4 w-4 mr-2" />
+          Verification Pending
+        </Button>
+      );
+    }
+
+    return (
+      <Button
+        onClick={() => setIsUpgradeModalOpen(true)}
+        variant="default"
+        className={cn(
+          "group relative overflow-hidden h-11 px-6",
+          "bg-[var(--color-button-green)] hover:bg-[var(--color-button-green-hover)] text-white transition-all duration-300",
+          "rounded-full",
+          "hover:scale-[1.02]",
+          mobile ? "w-auto min-w-[200px]" : "hidden md:flex"
+        )}
+      >
+        <span className="relative z-10 font-medium tracking-wide">
+          Upgrade to Vendor
+        </span>
+      </Button>
+    );
+  };
+
   return (
     <header
       className={cn(
-        "flex h-20 items-center justify-between px-6",
-        "bg-background-900/80 backdrop-blur-2xl border-b border-white/10 shadow-sm sticky top-0 z-30",
+        "flex flex-col",
+        "bg-background-900/80 backdrop-blur-2xl shadow-sm sticky top-0 z-30",
         "transition-all duration-200 ease-in-out",
       )}
     >
-      {/* Left Section */}
-      <div className="flex items-center gap-2">
-        {/* Desktop Sidebar Toggle */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onSidebarToggle}
-          className="hidden lg:flex h-10 w-10"
-        >
-          {sidebarCollapsed ? (
-            <PanelLeftOpen className="h-8 w-8 text-text-50"
-              strokeWidth={1} />
-          ) : (
-            <PanelLeftClose className="h-8 w-8 text-text-50" strokeWidth={1} />
-          )}
-        </Button>
+      {/* Main Header Row */}
+      <div className="flex h-20 items-center justify-between px-6 border-b border-white/10 w-full">
+        {/* Left Section */}
+        <div className="flex items-center gap-2">
+          {/* Desktop Sidebar Toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onSidebarToggle}
+            className="hidden lg:flex h-10 w-10"
+          >
+            {sidebarCollapsed ? (
+              <PanelLeftOpen className="h-8 w-8 text-text-50"
+                strokeWidth={1} />
+            ) : (
+              <PanelLeftClose className="h-8 w-8 text-text-50" strokeWidth={1} />
+            )}
+          </Button>
 
-        {/* Mobile Menu Toggle */}
-        <MobileMenuToggle
-          onClick={onMobileSidebarToggle}
-          open={mobileSidebarOpen}
-        />
+          {/* Mobile Menu Toggle */}
+          <MobileMenuToggle
+            onClick={onMobileSidebarToggle}
+            open={mobileSidebarOpen}
+          />
 
-        {/* Breadcrumb */}
-        <div className="hidden md:block">
-          <SettingBreadcrumb />
+          {/* Breadcrumb */}
+          <div className="hidden md:block">
+            <SettingBreadcrumb />
+          </div>
+        </div>
+
+        {/* Right Section */}
+        <div className="flex items-center gap-4">
+          {/* Notifications */}
+          <NotificationBell />
+
+          {/* Upgrade / Vendor Status Button (Desktop) */}
+          {renderVendorButton(false)}
+
+          {/* User Profile Dropdown */}
+          <UserProfileDropdown
+            user={user}
+            onLogout={onLogout}
+            loading={loading}
+          />
         </div>
       </div>
 
-      {/* Right Section */}
-      <div className="flex items-center gap-4">
-        {/* Notifications */}
-        <NotificationBell />
-
-        {/* Upgrade / Vendor Status Button */}
-        {user?.vendorStatus === "approved" ? (
-          <Button
-            asChild
-            variant="default"
-            className="bg-brand-600 hover:bg-brand-700 text-white transition-all duration-200 h-11 px-6 rounded-full"
-          >
-            <Link href="/collaboration/dashboard">
-              <LayoutDashboard className="h-4 w-4 mr-2" />
-              Vendor Dashboard
-            </Link>
-          </Button>
-        ) : user?.vendorStatus === "pending" ? (
-          <Button
-            variant="outline"
-            className="border-brand-500/30 text-brand-200 hover:bg-transparent cursor-not-allowed opacity-70 h-11 px-6 rounded-full"
-            disabled
-          >
-            <Clock className="h-4 w-4 mr-2" />
-            Verification Pending
-          </Button>
-        ) : (
-          <Button
-            onClick={() => setIsUpgradeModalOpen(true)}
-            variant="default"
-            className={cn(
-              "group relative overflow-hidden h-11 px-6",
-              "bg-[var(--color-button-green)] hover:bg-[var(--color-button-green-hover)] text-white transition-all duration-300",
-              "rounded-full",
-              "hover:scale-[1.02]"
-            )}
-          >
-            <span className="relative z-10 font-medium tracking-wide">
-              Upgrade to Vendor
-            </span>
-          </Button>
-        )}
-
-        {/* User Profile Dropdown */}
-        <UserProfileDropdown
-          user={user}
-          onLogout={onLogout}
-          loading={loading}
-        />
+      {/* Mobile Upgrade Button Row */}
+      <div className="flex md:hidden w-full justify-center items-center py-4 border-b border-white/10 px-6">
+        {renderVendorButton(true)}
       </div>
 
       <BecomeVendorModal

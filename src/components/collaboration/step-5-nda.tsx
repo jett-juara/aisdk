@@ -40,7 +40,7 @@ export function Step5NDA() {
                 </p>
             </div>
 
-            <div className="space-y-8">
+            <div className="space-y-8 lg:grid lg:grid-cols-2 lg:gap-6 lg:space-y-0">
                 <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-6">
                     <h3 className="text-lg border-b border-border-800 pb-2 mb-4">Download Template</h3>
                     <div className="flex flex-col items-center text-center space-y-4 py-4">
@@ -75,7 +75,7 @@ export function Step5NDA() {
                         name="ndaDocument"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Signed Document (PDF/JPG)</FormLabel>
+                                <FormLabel className="lg:mb-4">Signed Document (PDF/JPG)</FormLabel>
                                 <FormControl>
                                     <FileUpload
                                         value={field.value}

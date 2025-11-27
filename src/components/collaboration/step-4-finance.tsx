@@ -88,7 +88,7 @@ export function Step4Finance() {
                         />
                     )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <FormField
                             control={control}
                             name="bankAccountNumber"
@@ -144,7 +144,7 @@ export function Step4Finance() {
                         )}
                     />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <FormField
                             control={control}
                             name="npwpDocument"

@@ -213,8 +213,8 @@ export function CollaborationWizard({ user }: CollaborationWizardProps) {
     };
 
     return (
-        <div className="max-w-5xl mx-auto w-[calc(100%+2rem)] mx-[-1rem] md:w-full md:mx-auto">
-            <div className="relative bg-background-900 border border-700 rounded-2xl overflow-hidden p-4 md:p-10 lg:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="w-screen -mx-4 md:max-w-5xl md:mx-auto md:w-full">
+            <div className="relative lg:bg-background-900 lg:rounded-2xl overflow-hidden px-4 py-6 lg:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
                 {/* Diagonal Glass Effect Overlay */}
                 <div className="absolute inset-0 pointer-events-none z-0" />
 

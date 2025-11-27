@@ -14,21 +14,21 @@ export default function CollaborationLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="min-h-screen flex flex-col bg-background-deep relative overflow-hidden">
+        <div className="min-h-screen flex flex-col bg-background-900 lg:bg-background-deep relative overflow-hidden">
             {/* Noise Texture Overlay */}
             <div className="absolute inset-0 bg-noise-overlay z-0" />
 
             {/* Ambient Glows */}
-            <div className="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-glow-primary rounded-full blur-[120px] pointer-events-none z-0" />
-            <div className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-glow-secondary rounded-full blur-[120px] pointer-events-none z-0" />
+            <div className="hidden lg:block absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-glow-primary rounded-full blur-[120px] pointer-events-none z-0" />
+            <div className="hidden lg:block absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-glow-secondary rounded-full blur-[120px] pointer-events-none z-0" />
 
             {/* Spotlight Stage Overlay */}
-            <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_50%_-20%,rgba(135,19,155,0.25)_0%,rgba(135,19,155,0.12)_30%,transparent_60%)]" />
-            <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_80%_0%,rgba(249,142,95,0.18)_0%,rgba(249,142,95,0.08)_35%,transparent_55%)]" />
-            <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_50%_100%,rgba(171,30,126,0.15)_0%,transparent_40%)]" />
+            <div className="hidden lg:block absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_50%_-20%,rgba(135,19,155,0.25)_0%,rgba(135,19,155,0.12)_30%,transparent_60%)]" />
+            <div className="hidden lg:block absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_80%_0%,rgba(249,142,95,0.18)_0%,rgba(249,142,95,0.08)_35%,transparent_55%)]" />
+            <div className="hidden lg:block absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_50%_100%,rgba(171,30,126,0.15)_0%,transparent_40%)]" />
 
             {/* Subtle particles overlay */}
-            <div className="absolute inset-0 z-0 pointer-events-none opacity-30"
+            <div className="hidden lg:block absolute inset-0 z-0 pointer-events-none opacity-30"
                 style={{
                     backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0)`,
                     backgroundSize: '50px 50px'
@@ -36,7 +36,7 @@ export default function CollaborationLayout({
             />
 
             {/* Grid Pattern Overlay - Collaboration Theme (Brand Burgundy & Orange) */}
-            <svg className="absolute inset-0 z-0 w-full h-full opacity-[0.20] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+            <svg className="hidden lg:block absolute inset-0 z-0 w-full h-full opacity-[0.20] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <pattern id="collaboration-grid-pattern" width="300" height="300" patternUnits="userSpaceOnUse">
                         {/* Row 1 - Brand Dominant */}

@@ -44,7 +44,7 @@ export function Step1Role() {
                                 <RadioGroup
                                     onValueChange={field.onChange}
                                     defaultValue={field.value}
-                                    className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                                    className="grid grid-cols-1 lg:grid-cols-2 gap-4"
                                 >
                                     <FormItem>
                                         <FormControl>
@@ -90,7 +90,7 @@ export function Step1Role() {
                     Person In Charge Information
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <FormField
                         control={control}
                         name="picName"
