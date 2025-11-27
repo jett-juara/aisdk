@@ -50,6 +50,7 @@ export function CollaborationWizard({ user }: CollaborationWizardProps) {
 
     const { watch, trigger, handleSubmit } = form;
     const role = watch("role");
+    const termsAccepted = watch("termsAccepted");
 
     const handleNext = async () => {
         let isValid = false;
@@ -107,7 +108,7 @@ export function CollaborationWizard({ user }: CollaborationWizardProps) {
                 isValid = await trigger(["ndaDocument"]);
                 break;
             case 6:
-                isValid = true;
+                isValid = await trigger(["termsAccepted"]);
                 break;
         }
 
@@ -261,8 +262,8 @@ export function CollaborationWizard({ user }: CollaborationWizardProps) {
                                 ) : (
                                     <Button
                                         type="submit"
-                                        disabled={isSubmitting}
-                                        className="min-w-[160px] font-button font-medium text-md bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-12 rounded-full hover:scale-105 shadow-lg shadow-brand-900/20"
+                                        disabled={isSubmitting || !termsAccepted}
+                                        className="min-w-[160px] font-button font-medium text-md bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-12 rounded-full hover:scale-105 shadow-lg shadow-brand-900/20 disabled:bg-button-disabled disabled:text-text-400 disabled:opacity-100 disabled:cursor-not-allowed disabled:hover:scale-100"
                                     >
                                         {isSubmitting ? (
                                             <>

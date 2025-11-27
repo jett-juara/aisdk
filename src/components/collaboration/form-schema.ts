@@ -40,11 +40,11 @@ export const vendorFormSchema = z.object({
     invoiceDocument: z.string().optional(),
 
     // Step 4: Finance
-    bankName: z.string().min(1, "Bank name is required"),
+    bankName: z.string().optional(),
     bankNameOther: z.string().optional(),
-    bankAccountNumber: z.string().min(1, "Account number is required"),
-    bankAccountHolder: z.string().min(1, "Account holder name is required"),
-    npwpNumber: z.string().min(1, "NPWP number is required"),
+    bankAccountNumber: z.string().optional(),
+    bankAccountHolder: z.string().optional(),
+    npwpNumber: z.string().optional(),
     pkpStatus: z.enum(["pkp", "non_pkp"]).optional(),
 
     // File URLs
@@ -54,16 +54,20 @@ export const vendorFormSchema = z.object({
 
     // Step 5: NDA
     ndaDocument: z.string().optional(),
-}).superRefine((data, ctx) => {
-    // Conditional Validation for "Lain Lain" specialization
-    if (data.specializations?.includes("Lain Lain") && !data.specializationOther) {
-        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please specify other specialization.", path: ["specializationOther"] });
-    }
 
-    // Conditional Validation for "Bank Lain"
-    if (data.bankName === "Bank Lain" && !data.bankNameOther) {
-        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please specify other bank name.", path: ["bankNameOther"] });
-    }
+    // Step 6: Review
+    termsAccepted: z.boolean().refine(val => val === true, "You must accept the terms and conditions."),
 });
+// .superRefine((data, ctx) => {
+//     // Conditional Validation for "Lain Lain" specialization
+//     if (data.specializations?.includes("Lain Lain") && !data.specializationOther) {
+//         ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please specify other specialization.", path: ["specializationOther"] });
+//     }
+//
+//     // Conditional Validation for "Bank Lain"
+//     if (data.bankName === "Bank Lain" && !data.bankNameOther) {
+//         ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please specify other bank name.", path: ["bankNameOther"] });
+//     }
+// });
 
 export type VendorFormValues = z.infer<typeof vendorFormSchema>;
