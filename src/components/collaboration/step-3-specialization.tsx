@@ -13,27 +13,29 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { VendorFormValues } from "./form-schema";
+import { MultiSelect } from "@/components/ui/multi-select";
 import { FileUpload } from "./file-upload";
+import { AnimatedInput } from "@/components/ui/animated-input";
 
 const SPECIALIZATIONS = [
-    "Security & Crowd Control",
-    "Floor Team",
-    "Logistic Team",
-    "Talent Management Service",
-    "Stage Show Management System",
-    "Stage, Rigging, & Booth",
-    "Advertising",
-    "Catering",
-    "General Affair",
-    "Cleaning & Waste Management",
-    "Communication Services",
-    "Ground Transportation & Show",
-    "Photographer & Videographer",
-    "Designer 2D",
-    "Dancer & Choreographers",
-    "Designer 3D Motion Graphic",
-    "Legal Services",
-    "Lain Lain",
+    { label: "Security & Crowd Control", value: "Security & Crowd Control" },
+    { label: "Floor Team", value: "Floor Team" },
+    { label: "Logistic Team", value: "Logistic Team" },
+    { label: "Talent Management Service", value: "Talent Management Service" },
+    { label: "Stage Show Management System", value: "Stage Show Management System" },
+    { label: "Stage, Rigging, & Booth", value: "Stage, Rigging, & Booth" },
+    { label: "Advertising", value: "Advertising" },
+    { label: "Catering", value: "Catering" },
+    { label: "General Affair", value: "General Affair" },
+    { label: "Cleaning & Waste Management", value: "Cleaning & Waste Management" },
+    { label: "Communication Services", value: "Communication Services" },
+    { label: "Ground Transportation & Show", value: "Ground Transportation & Show" },
+    { label: "Photographer & Videographer", value: "Photographer & Videographer" },
+    { label: "Designer 2D", value: "Designer 2D" },
+    { label: "Dancer & Choreographers", value: "Dancer & Choreographers" },
+    { label: "Designer 3D Motion Graphic", value: "Designer 3D Motion Graphic" },
+    { label: "Legal Services", value: "Legal Services" },
+    { label: "Lain Lain", value: "Lain Lain" },
 ];
 
 export function Step3Specialization() {
@@ -41,89 +43,78 @@ export function Step3Specialization() {
     const role = watch("role");
     const specializations = watch("specializations") || [];
 
+
+
     return (
-        <div className="space-y-6">
-            <div className="text-center mb-8">
-                <h2 className="text-2xl font-heading font-bold text-text-50">
+        <div className="space-y-8">
+            <div className="text-start mb-8">
+                <h2 className="font-heading font-bold text-2xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-1 pb-3">
                     Expertise & Portfolio
                 </h2>
-                <p className="text-text-200 mt-2">
+                <p className="text-text-200 text-xl">
                     Tell us what you do best and show us your work.
                 </p>
             </div>
 
-            <div className="space-y-6">
-                <FormField
-                    control={control}
-                    name="specializations"
-                    render={() => (
-                        <FormItem>
-                            <div className="mb-4">
-                                <FormLabel className="text-base">Specializations</FormLabel>
-                                <FormDescription>
-                                    Select all that apply to your services.
-                                </FormDescription>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {SPECIALIZATIONS.map((item) => (
-                                    <FormField
-                                        key={item}
-                                        control={control}
-                                        name="specializations"
-                                        render={({ field }: { field: any }) => (
-                                            <FormItem
-                                                key={item}
-                                                className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-border-800 p-4 hover:bg-background-800 transition-colors"
-                                            >
-                                                <FormControl>
-                                                    <Checkbox
-                                                        checked={field.value?.includes(item)}
-                                                        onCheckedChange={(checked) => {
-                                                            return checked
-                                                                ? field.onChange([...(field.value || []), item])
-                                                                : field.onChange(
-                                                                    (field.value || []).filter(
-                                                                        (value: string) => value !== item
-                                                                    )
-                                                                );
-                                                        }}
-                                                    />
-                                                </FormControl>
-                                                <FormLabel className="font-normal cursor-pointer flex-1">
-                                                    {item}
-                                                </FormLabel>
-                                            </FormItem>
-                                        )}
-                                    />
-                                ))}
-                            </div>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                {specializations.includes("Lain Lain") && (
+            <div className="space-y-8">
+                <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-6">
                     <FormField
                         control={control}
-                        name="specializationOther"
+                        name="specializations"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Please specify &quot;Lain Lain&quot;</FormLabel>
+                                <div className="mb-6">
+                                    <h3 className="text-lg border-b border-border-800 pb-2 mb-4">Specializations</h3>
+                                    <FormDescription className="text-base">
+                                        Select all that apply to your services.
+                                    </FormDescription>
+                                </div>
                                 <FormControl>
-                                    <Input
-                                        placeholder="Specify your specialization..."
-                                        {...field}
-                                        className="h-12 px-4 bg-glass-bg border-glass-border text-text-50 text-md md:text-xl lg:text-sm font-body font-semibold placeholder:text-input-placeholder-400 placeholder:opacity-0 placeholder-shown:placeholder:opacity-100 focus:placeholder:opacity-0 disabled:opacity-100 disabled:cursor-not-allowed selection:bg-brand-500/20 selection:text-text-900 rounded-md backdrop-blur-md border focus:bg-input-focus-bg focus:text-text-900 transition-all duration-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                    <MultiSelect
+                                        options={SPECIALIZATIONS}
+                                        onValueChange={field.onChange}
+                                        value={field.value || []}
+                                        placeholder="Select specializations..."
+                                        variant="default"
+                                        animation={2}
+                                        maxCount={5}
                                     />
                                 </FormControl>
                                 <FormMessage />
+
+                                {/* Show 'Other' input when 'Lain Lain' is selected */}
+                                {(() => {
+                                    const shouldShow = field.value?.includes("Lain Lain");
+
+                                    return shouldShow ? (
+                                        <div className="mt-6 px-4 pb-4 pt-8 bg-background-900/50 rounded-lg border border-border-700">
+                                            <FormField
+                                                control={control}
+                                                name="specializationOther"
+                                                render={({ field: otherField }) => (
+                                                    <FormItem>
+                                                        <FormControl>
+                                                            <AnimatedInput
+                                                                label="Please specify 'Lain Lain'"
+                                                                placeholder="Specify your specialization..."
+                                                                {...otherField}
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
+                                    ) : null;
+                                })()}
+
                             </FormItem>
                         )}
                     />
-                )}
+                </div>
 
-                <div className="space-y-4 border border-border-800 rounded-xl p-4 bg-background-800/30 mt-8">
-                    <h3 className="font-semibold text-text-100">Documents</h3>
+                <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-6">
+                    <h3 className="text-lg border-b border-border-800 pb-2 mb-4">Documents</h3>
 
                     {role === "company" ? (
                         <FormField

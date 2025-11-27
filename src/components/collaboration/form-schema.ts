@@ -54,60 +54,16 @@ export const vendorFormSchema = z.object({
 
     // Step 5: NDA
     ndaDocument: z.string().optional(),
+}).superRefine((data, ctx) => {
+    // Conditional Validation for "Lain Lain" specialization
+    if (data.specializations?.includes("Lain Lain") && !data.specializationOther) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please specify other specialization.", path: ["specializationOther"] });
+    }
+
+    // Conditional Validation for "Bank Lain"
+    if (data.bankName === "Bank Lain" && !data.bankNameOther) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please specify other bank name.", path: ["bankNameOther"] });
+    }
 });
-// .superRefine((data, ctx) => {
-//     // Conditional Validation for Company
-//     if (data.role === "company") {
-//         if (!data.picPosition) {
-//             ctx.addIssue({
-//                 code: z.ZodIssueCode.custom,
-//                 message: "Position is required for company representative.",
-//                 path: ["picPosition"],
-//             });
-//         }
-//         if (!data.companyName) {
-//             ctx.addIssue({
-//                 code: z.ZodIssueCode.custom,
-//                 message: "Company name is required.",
-//                 path: ["companyName"],
-//             });
-//         }
-//         if (!data.companyAddressStreet) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Street address is required.", path: ["companyAddressStreet"] });
-//         if (!data.companyAddressCity) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "City is required.", path: ["companyAddressCity"] });
-//         if (!data.companyAddressProvince) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Province is required.", path: ["companyAddressProvince"] });
-//         if (!data.companyAddressCountry) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Country is required.", path: ["companyAddressCountry"] });
-//         if (!data.companyEmail) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Company email is required.", path: ["companyEmail"] });
-//         if (!data.companyPhone) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Company phone is required.", path: ["companyPhone"] });
-//         if (!data.nibNumber) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "NIB number is required.", path: ["nibNumber"] });
-//         if (!data.nibDocument) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "NIB document is required.", path: ["nibDocument"] });
-//         if (!data.companyProfileDocument) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Company profile is required.", path: ["companyProfileDocument"] });
-//         if (!data.pkpStatus) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "PKP status is required.", path: ["pkpStatus"] });
-//         if (data.pkpStatus === "pkp" && !data.pkpDocument) {
-//             ctx.addIssue({ code: z.ZodIssueCode.custom, message: "PKP document is required.", path: ["pkpDocument"] });
-//         } else if (data.pkpStatus === "non_pkp" && !data.pkpDocument) {
-//             ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Non-PKP letter is required.", path: ["pkpDocument"] });
-//         }
-//     }
-//
-//     // Conditional Validation for Individual
-//     if (data.role === "individual") {
-//         if (!data.individualName) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Full name is required.", path: ["individualName"] });
-//         if (!data.individualAddressStreet) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Street address is required.", path: ["individualAddressStreet"] });
-//         if (!data.individualAddressCity) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "City is required.", path: ["individualAddressCity"] });
-//         if (!data.individualAddressProvince) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Province is required.", path: ["individualAddressProvince"] });
-//         if (!data.individualAddressCountry) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Country is required.", path: ["individualAddressCountry"] });
-//         if (!data.individualEmail) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Email is required.", path: ["individualEmail"] });
-//         if (!data.individualPhone) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Phone number is required.", path: ["individualPhone"] });
-//         if (!data.portfolioDocument) ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Portfolio is required.", path: ["portfolioDocument"] });
-//     }
-//
-//     // Common Conditional
-//     if (data.specializations.includes("Lain Lain") && !data.specializationOther) {
-//         ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please specify other specialization.", path: ["specializationOther"] });
-//     }
-//     if (data.bankName === "Bank Lain" && !data.bankNameOther) {
-//         ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please specify other bank name.", path: ["bankNameOther"] });
-//     }
-// });
 
 export type VendorFormValues = z.infer<typeof vendorFormSchema>;
