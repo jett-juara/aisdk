@@ -32,8 +32,8 @@ export function Step4Finance() {
     return (
         <div className="space-y-6">
             <div className="text-start mb-8">
-                <h2 className="font-heading font-bold text-2xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-1 pb-3">
-                    Finance & Administration
+                <h2 className="font-subheading font-medium text-2xl md:text-4xl lg:text-4xl tracking-tighter text-premium-gradient leading-1 pb-3">
+                    Finance <br className="md:hidden" />& Administration
                 </h2>
                 <p className="text-text-200 text-xl">
                     Setup your payment and tax information.
@@ -199,7 +199,7 @@ export function Step4Finance() {
                                             >
                                                 <FormItem className="flex items-center space-x-3 space-y-0">
                                                     <FormControl>
-                                                        <RadioGroupItem value="pkp" />
+                                                        <RadioGroupItem value="pkp" className="border-border-50 text-text-50" />
                                                     </FormControl>
                                                     <FormLabel className="font-normal">
                                                         PKP (Pengusaha Kena Pajak)
@@ -207,7 +207,7 @@ export function Step4Finance() {
                                                 </FormItem>
                                                 <FormItem className="flex items-center space-x-3 space-y-0">
                                                     <FormControl>
-                                                        <RadioGroupItem value="non_pkp" />
+                                                        <RadioGroupItem value="non_pkp" className="border-border-50 text-text-50" />
                                                     </FormControl>
                                                     <FormLabel className="font-normal">
                                                         Non-PKP

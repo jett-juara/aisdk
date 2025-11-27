@@ -37,8 +37,8 @@ export function Step6Review() {
     return (
         <div className="space-y-8">
             <div className="text-start mb-8">
-                <h2 className="font-heading font-bold text-2xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-1 pb-3">
-                    Review Application
+                <h2 className="font-subheading font-medium text-2xl md:text-4xl lg:text-4xl tracking-tighter text-premium-gradient leading-1 pb-3">
+                    Review <br className="md:hidden" />Application
                 </h2>
                 <p className="text-text-200 text-xl">
                     Please review your information before submitting.

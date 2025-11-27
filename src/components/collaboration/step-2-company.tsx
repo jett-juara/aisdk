@@ -21,7 +21,7 @@ export function Step2Company() {
     return (
         <div className="space-y-6">
             <div className="text-start mb-8">
-                <h2 className="font-heading font-bold text-2xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-1 pb-3">
+                <h2 className="font-subheading font-medium text-2xl md:text-4xl lg:text-4xl tracking-tighter text-premium-gradient leading-1 pb-3">
 
                     Company Details
                 </h2>

@@ -48,8 +48,8 @@ export function Step3Specialization() {
     return (
         <div className="space-y-8">
             <div className="text-start mb-8">
-                <h2 className="font-heading font-bold text-2xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-1 pb-3">
-                    Expertise & Portfolio
+                <h2 className="font-subheading font-medium text-2xl md:text-4xl lg:text-4xl tracking-tighter text-premium-gradient leading-1 pb-3">
+                    Expertise & <br className="md:hidden" /> Portofolio
                 </h2>
                 <p className="text-text-200 text-xl">
                     Tell us what you do best and show us your work.

@@ -36,7 +36,7 @@ export default async function CollaborationPage() {
     }
 
     return (
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto ">
             <CollaborationWizard user={profile as User} />
         </div>
     );

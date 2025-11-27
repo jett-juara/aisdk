@@ -213,14 +213,14 @@ export function CollaborationWizard({ user }: CollaborationWizardProps) {
     };
 
     return (
-        <div className="max-w-5xl mx-auto">
-            <div className="relative bg-background-800 border border-white/10 shadow-2xl rounded-xl overflow-hidden p-6 md:p-10 lg:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="max-w-5xl mx-auto w-[calc(100%+2rem)] mx-[-1rem] md:w-full md:mx-auto">
+            <div className="relative bg-background-900 border border-700 rounded-2xl overflow-hidden p-4 md:p-10 lg:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
                 {/* Diagonal Glass Effect Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none z-0" />
+                <div className="absolute inset-0 pointer-events-none z-0" />
 
                 {/* Step Indicator Badge - Top Right */}
                 <div className="absolute top-6 right-6 md:top-10 md:right-10 lg:top-12 lg:right-12 z-20">
-                    <span className="text-text-200 text-sm md:text-base lg:text-sm font-medium px-3 py-1 rounded-full bg-glass-bg border border-glass-border backdrop-blur-md whitespace-nowrap">
+                    <span className="text-text-200 text-sm md:text-base lg:text-sm font-medium px-3 py-1 rounded-full bg-background-600 border border-700 whitespace-nowrap">
                         Phase: {currentStep}/6
                     </span>
                 </div>
