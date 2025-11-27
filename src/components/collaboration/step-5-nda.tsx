@@ -31,41 +31,44 @@ export function Step5NDA() {
 
     return (
         <div className="space-y-6">
-            <div className="text-center mb-8">
-                <h2 className="text-2xl font-heading font-bold text-text-50">
+            <div className="text-start mb-8">
+                <h2 className="font-heading font-bold text-2xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-1 pb-3">
                     Non-Disclosure Agreement
                 </h2>
-                <p className="text-text-200 mt-2">
+                <p className="text-text-200 text-xl">
                     To protect our mutual interests, please sign the NDA.
                 </p>
             </div>
 
             <div className="space-y-8">
-                <div className="bg-brand-500/5 border border-brand-500/20 rounded-xl p-6 text-center space-y-4">
-                    <div className="h-16 w-16 bg-brand-500/10 rounded-full flex items-center justify-center mx-auto">
-                        <FileText className="h-8 w-8 text-brand-500" />
+                <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-6">
+                    <h3 className="text-lg border-b border-border-800 pb-2 mb-4">Download Template</h3>
+                    <div className="flex flex-col items-center text-center space-y-4 py-4">
+                        <div className="h-16 w-16 bg-background-700 rounded-full flex items-center justify-center">
+                            <FileText className="h-8 w-8 text-50" />
+                        </div>
+                        <div>
+                            <h3 className="font-semibold text-lg text-text-50">
+                                Download NDA Template
+                            </h3>
+                            <p className="text-text-200 text-sm mt-1 max-w-md mx-auto">
+                                Please download, read, and sign the Non-Disclosure Agreement.
+                                This document ensures confidentiality for all future projects.
+                            </p>
+                        </div>
+                        <Button
+                            onClick={handleDownloadNDA}
+                            variant="outline"
+                            className="min-w-[180px] font-button font-medium text-md bg-transparent border border-border-700 text-text-50 hover:bg-white/5 active:bg-white/10 tracking-wide transition-all duration-500 ease-out h-12 rounded-full hover:scale-105 shadow-lg"
+                        >
+                            <Download className="mr-2 h-4 w-4" />
+                            Download Template
+                        </Button>
                     </div>
-                    <div>
-                        <h3 className="font-semibold text-lg text-text-50">
-                            Download NDA Template
-                        </h3>
-                        <p className="text-text-200 text-sm mt-1 max-w-md mx-auto">
-                            Please download, read, and sign the Non-Disclosure Agreement.
-                            This document ensures confidentiality for all future projects.
-                        </p>
-                    </div>
-                    <Button
-                        onClick={handleDownloadNDA}
-                        variant="outline"
-                        className="border-brand-500 text-brand-400 hover:bg-brand-500 hover:text-white"
-                    >
-                        <Download className="mr-2 h-4 w-4" />
-                        Download Template
-                    </Button>
                 </div>
 
-                <div className="space-y-4 border border-border-800 rounded-xl p-4 bg-background-800/30">
-                    <h3 className="font-semibold text-text-100">Upload Signed NDA</h3>
+                <div className="bg-background-800/50 p-6 rounded-xl border border-border-800 space-y-6">
+                    <h3 className="text-lg border-b border-border-800 pb-2 mb-4">Upload Signed NDA</h3>
 
                     <FormField
                         control={control}

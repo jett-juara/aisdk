@@ -40,11 +40,11 @@ export const vendorFormSchema = z.object({
     invoiceDocument: z.string().optional(),
 
     // Step 4: Finance
-    bankName: z.string().optional(),
+    bankName: z.string().min(1, "Bank name is required"),
     bankNameOther: z.string().optional(),
-    bankAccountNumber: z.string().optional(),
-    bankAccountHolder: z.string().optional(),
-    npwpNumber: z.string().optional(),
+    bankAccountNumber: z.string().min(1, "Account number is required"),
+    bankAccountHolder: z.string().min(1, "Account holder name is required"),
+    npwpNumber: z.string().min(1, "NPWP number is required"),
     pkpStatus: z.enum(["pkp", "non_pkp"]).optional(),
 
     // File URLs
