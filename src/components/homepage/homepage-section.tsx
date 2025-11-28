@@ -22,7 +22,7 @@ const Hero47 = () => {
     {
       id: 2,
       label: "Collaborate",
-      href: "#",
+      href: "/collaboration",
       icon: Handshake,
     },
     {
