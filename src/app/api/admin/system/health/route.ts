@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
-import { createSupabaseAdminClient } from '@/lib/supabase/admin'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { getSystemHealthMetrics } from '@/lib/system/health'
+import { createSupabaseAdminClient } from '@/lib/supabase/admin'
 
 export async function GET(_request: Request) {
   const server = await createSupabaseServerClient()
@@ -24,32 +25,30 @@ export async function GET(_request: Request) {
   }
 
   try {
-    const startTime = Date.now()
+    // Use shared logic for core metrics
+    const metrics = await getSystemHealthMetrics()
 
-    // Database health check
-    const dbHealth = await checkDatabaseHealth(admin)
-
-    // System metrics
-    const systemMetrics = await getSystemMetrics(admin)
-
-    // Recent activity
+    // Get additional detailed data for the admin view (recent activity etc)
     const recentActivity = await getRecentActivity(admin)
-
-    // Performance metrics
-    const responseTime = Date.now() - startTime
+    const systemMetrics = await getDetailedSystemMetrics(admin)
 
     const healthStatus = {
-      status: 'healthy',
+      status: metrics.status,
       timestamp: new Date().toISOString(),
-      responseTime: `${responseTime}ms`,
-      database: dbHealth,
-      system: systemMetrics,
+      responseTime: `${metrics.latencyMs}ms`,
+      database: {
+        status: metrics.checks.database ? 'healthy' : 'unhealthy',
+        responseTime: `${metrics.latencyMs}ms`
+      },
+      system: {
+        users: systemMetrics.users,
+        invitations: systemMetrics.invitations,
+        activity: {
+          totalActions24h: metrics.totalRequests24h
+        },
+        metrics: systemMetrics.metrics
+      },
       activity: recentActivity,
-    }
-
-    // Determine overall health status
-    if (dbHealth.status !== 'healthy' || responseTime > 5000) {
-      healthStatus.status = 'degraded'
     }
 
     return NextResponse.json(healthStatus)
@@ -65,84 +64,21 @@ export async function GET(_request: Request) {
   }
 }
 
-async function checkDatabaseHealth(admin: ReturnType<typeof createSupabaseAdminClient>) {
-  const startTime = Date.now()
-
-  try {
-    // Test basic connectivity
-    const { error: connectionError } = await admin.from('users').select('id').limit(1)
-
-    if (connectionError) {
-      return {
-        status: 'unhealthy',
-        error: connectionError.message,
-        responseTime: `${Date.now() - startTime}ms`,
-      }
-    }
-
-    // Check table counts
-    const [
-      usersCount,
-      auditLogsCount,
-      invitationsCount,
-      permissionsCount,
-    ] = await Promise.all([
-      admin.from('users').select('id', { count: 'exact' }),
-      admin.from('audit_logs').select('id', { count: 'exact' }),
-      admin.from('admin_invitations').select('id', { count: 'exact' }),
-      admin.from('user_permissions').select('id', { count: 'exact' }),
-    ])
-
-    // Check for recent errors in logs
-    const { data: recentErrors } = await admin
-      .from('audit_logs')
-      .select('action, created_at')
-      .ilike('action', '%error%')
-      .gte('created_at', new Date(Date.now() - 60 * 60 * 1000).toISOString())
-      .limit(5)
-
-    return {
-      status: 'healthy',
-      responseTime: `${Date.now() - startTime}ms`,
-      tables: {
-        users: usersCount.count || 0,
-        auditLogs: auditLogsCount || 0,
-        invitations: invitationsCount.count || 0,
-        permissions: permissionsCount.count || 0,
-      },
-      recentErrors: recentErrors?.length || 0,
-      lastCheck: new Date().toISOString(),
-    }
-  } catch (error) {
-    return {
-      status: 'unhealthy',
-      error: error instanceof Error ? error.message : 'Database check failed',
-      responseTime: `${Date.now() - startTime}ms`,
-    }
-  }
-}
-
-async function getSystemMetrics(admin: ReturnType<typeof createSupabaseAdminClient>) {
+async function getDetailedSystemMetrics(admin: ReturnType<typeof createSupabaseAdminClient>) {
   const now = new Date()
   const last24h = new Date(now.getTime() - 24 * 60 * 60 * 1000)
-  const _last7d = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
 
   try {
     const [
       totalUsers,
-      activeUsers24h,
       newUsers24h,
       totalInvitations,
       pendingInvitations,
       acceptedInvitations24h,
-      totalActions24h,
       systemMetrics,
     ] = await Promise.all([
       // Total users
       admin.from('users').select('id', { count: 'exact' }),
-
-      // Active users in last 24h (users with recent audit log entries)
-      admin.rpc('count_active_users', { since: last24h.toISOString() }),
 
       // New users in last 24h
       admin.from('users').select('id', { count: 'exact' }).gte('created_at', last24h.toISOString()),
@@ -156,10 +92,7 @@ async function getSystemMetrics(admin: ReturnType<typeof createSupabaseAdminClie
       // Accepted invitations in last 24h
       admin.from('admin_invitations').select('id', { count: 'exact' }).eq('status', 'accepted').gte('responded_at', last24h.toISOString()),
 
-      // Total actions in last 24h
-      admin.from('audit_logs').select('id', { count: 'exact' }).gte('created_at', last24h.toISOString()),
-
-      // System metrics from system_metrics table
+      // System metrics from system_metrics table (if exists, or fallback)
       admin
         .from('system_metrics')
         .select('*')
@@ -171,7 +104,6 @@ async function getSystemMetrics(admin: ReturnType<typeof createSupabaseAdminClie
     return {
       users: {
         total: totalUsers.count || 0,
-        active24h: typeof activeUsers24h === 'number' ? activeUsers24h : 0,
         new24h: newUsers24h.count || 0,
       },
       invitations: {
@@ -179,14 +111,13 @@ async function getSystemMetrics(admin: ReturnType<typeof createSupabaseAdminClie
         pending: pendingInvitations.count || 0,
         accepted24h: acceptedInvitations24h.count || 0,
       },
-      activity: {
-        totalActions24h: totalActions24h.count || 0,
-      },
-      metrics: systemMetrics || [],
+      metrics: systemMetrics.data || [],
     }
   } catch (_error) {
     return {
-      error: 'Failed to fetch system metrics',
+      users: { total: 0, new24h: 0 },
+      invitations: { total: 0, pending: 0, accepted24h: 0 },
+      metrics: []
     }
   }
 }

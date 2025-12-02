@@ -3,7 +3,9 @@
   "outputDirectory": ".next",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "regions": ["sin1"],
+  "regions": [
+    "sin1"
+  ],
   "functions": {
     "src/app/api/**/*.ts": {
       "maxDuration": 30
@@ -27,5 +29,12 @@
         }
       ]
     }
-  ]
+  }
+],
+"crons": [
+  {
+    "path": "/api/cron/system-health",
+    "schedule": "0 * * * *"
+  }
+]
 }

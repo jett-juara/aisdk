@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { createSupabaseFetch } from '@/lib/supabase/safe-fetch'
+import { createSupabaseFetch } from './safe-fetch'
 
 const supabaseFetch = createSupabaseFetch('server-rsc')
 
@@ -16,8 +16,8 @@ export async function createSupabaseRSCClient() {
           return cookieStore.get(name)?.value
         },
         // No-op writers in RSC
-        set() {},
-        remove() {},
+        set() { },
+        remove() { },
       },
       global: {
         fetch: supabaseFetch,
