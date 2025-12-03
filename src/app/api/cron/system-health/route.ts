@@ -6,11 +6,11 @@ export const dynamic = 'force-dynamic'; // Ensure this is not cached
 
 export async function GET(request: Request) {
     // Security check: Verify CRON_SECRET if present in env
-    // For now, we'll skip strict verification to allow manual testing, 
-    // but in production, you should check for 'Authorization' header.
+    const cronSecret = process.env.CRON_SECRET;
     const authHeader = request.headers.get('authorization');
-    if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-        // return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     try {

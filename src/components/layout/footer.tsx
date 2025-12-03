@@ -1,4 +1,4 @@
-import { Instagram, Linkedin, Mail } from "lucide-react";
+import { Instagram, Linkedin } from "lucide-react";
 
 const SOCIAL_LINKS = [
   {
@@ -10,11 +10,6 @@ const SOCIAL_LINKS = [
     icon: Linkedin,
     label: "LinkedIn",
     href: "https://linkedin.com/company/juara",
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    href: "mailto:contact@juaraevent.id",
   },
 ];
 

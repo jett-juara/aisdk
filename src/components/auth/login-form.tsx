@@ -173,7 +173,7 @@ export default function LoginForm() {
       <div className="flex justify-center">
         <Button
           type="submit"
-          disabled={!isValid || isLoading}
+          disabled={isLoading}
           className="w-full font-button font-medium text-md md:text-xl lg:text-sm bg-button-primary text-text-50 hover:bg-button-primary-hover active:bg-button-primary-active tracking-wide transition-all duration-500 ease-out h-12 rounded-full hover:scale-105 disabled:bg-button-disabled disabled:text-text-400 disabled:opacity-100 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           {isLoading ? (
