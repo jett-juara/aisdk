@@ -77,17 +77,17 @@ export function ContentManagement({ user, initialData, initialDetailData, initia
                     <p className="text-sm text-text-300">
                         Ringkasan status, jumlah hero grid, dan detail untuk setiap halaman.
                     </p>
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
                         {overviewCards.map((card) => (
                             <div
                                 key={card.page}
-                                className="rounded-xl border border-white/10 bg-background-900/80 px-4 py-3 shadow-sm space-y-3"
+                                className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm px-5 py-4 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.8)] space-y-3"
                             >
-                                <div className="flex items-center justify-between mb-1">
-                                    <span className="text-sm font-semibold">{card.label}</span>
+                                <div className="flex items-center justify-between mb-2">
+                                    <span className="text-sm font-semibold text-text-50">{card.label}</span>
                                     <PageStatusBadge status={card.status} />
                                 </div>
-                                <dl className="text-sm text-text-300 space-y-1">
+                                <dl className="text-sm text-text-200 space-y-1">
                                     <div className="flex items-center justify-between">
                                         <dt>Hero grid</dt>
                                         <dd className="font-medium text-text-50">{card.heroCount}</dd>
@@ -100,13 +100,13 @@ export function ContentManagement({ user, initialData, initialDetailData, initia
                                 <div className="grid grid-cols-2 gap-2 text-sm">
                                     <a
                                         href={`/cms/${card.page}/hero`}
-                                        className="inline-flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10 transition-colors"
+                                        className="inline-flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10 transition-colors text-text-50"
                                     >
                                         Kelola Hero
                                     </a>
                                     <a
                                         href={`/cms/${card.page}/detail`}
-                                        className="inline-flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10 transition-colors"
+                                        className="inline-flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10 transition-colors text-text-50"
                                     >
                                         Kelola Detail
                                     </a>
