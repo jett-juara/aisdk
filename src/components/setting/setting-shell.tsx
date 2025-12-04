@@ -85,8 +85,8 @@ export function SettingShell({
       ...item,
       isActive:
         item.isActive ??
-        item.href === activePath ||
-        (!!item.href && activePath.startsWith(item.href)),
+        (item.href === activePath ||
+          (!!item.href && activePath.startsWith(item.href))),
     }));
   } else {
     navigationItems = getActiveNavigation(
