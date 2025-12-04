@@ -1,13 +1,13 @@
 'use client'
 
 import { useMemo, useTransition } from 'react'
-import { DetailEditDialog } from './detail-edit-dialog'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useToast } from '@/hooks/use-toast'
 import { deleteDetailAction } from '@/app/cms/actions'
-import { AlertTriangle } from 'lucide-react'
+import { AlertTriangle, Pencil } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 interface DetailItemAdmin {
   id: string
@@ -86,21 +86,12 @@ export function DetailSectionEditor({ pageSlug, label, items, config }: DetailSe
               <span>Gambar: {data?.image_url ? 'Ada' : 'Belum ada'}</span>
             </div>
             <div className="flex gap-2">
-              <DetailEditDialog
-                pageSlug={cfg.pageSlug}
-                itemSlug={cfg.itemSlug}
-                label={cfg.label}
-                position={cfg.position}
-                existing={data ? {
-                  id: data.id,
-                  title: data.title,
-                  paragraphs: data.paragraphs,
-                  imageUrl: data.image_url || undefined,
-                  altText: data.alt_text || undefined,
-                  status: data.status,
-                } : null}
-                onUpdated={() => router.refresh()}
-              />
+              <Button asChild size="sm" variant="secondary">
+                <Link href={`/cms/${cfg.pageSlug}/detail/edit/${cfg.itemSlug}`} className="flex items-center gap-2">
+                  <Pencil className="h-4 w-4" />
+                  Edit
+                </Link>
+              </Button>
               {data?.id && (
                 <Button
                   variant="ghost"

@@ -186,11 +186,17 @@ function NavigationItemComponent({
   collapsed,
   isActive,
   onNavigate,
+  depth = 0,
+  isOpen = false,
+  onToggle,
 }: {
   item: NavigationItem;
   collapsed: boolean;
   isActive: boolean;
   onNavigate?: (href: string) => void;
+  depth?: number;
+  isOpen?: boolean;
+  onToggle?: (id: string) => void;
 }) {
   const [isMounted, setIsMounted] = React.useState(false);
   const IconComponent = iconMap[item.icon || "settings"] || Settings;
@@ -201,51 +207,77 @@ function NavigationItemComponent({
 
   // Ensure consistent SSR rendering - always render in expanded state initially
   const effectiveCollapsed = isMounted ? collapsed : false;
+  const hasChildren = item.children && item.children.length > 0;
+  const open = hasChildren ? isOpen : false;
 
   return (
-    <Button
-      asChild
-      variant={isActive ? "default" : "ghost"}
-      className={cn(
-        "transition-colors duration-200 ease-in-out",
-        effectiveCollapsed
-          ? "w-10 justify-center p-0 mx-auto"
-          : "w-full justify-start px-4",
-        effectiveCollapsed ? "gap-0" : "gap-3",
-        isActive
-          ? "bg-button-primary text-text-50 hover:bg-button-primary-hover shadow-lg shadow-brand-500/20 rounded-full"
-          : "text-text-50 hover:bg-white/5 hover:text-text-50 rounded-full",
-        "group relative",
-      )}
-      size={effectiveCollapsed ? "icon" : "md"}
-    >
-      <Link
-        href={item.href}
-        onClick={() => {
-          if (onNavigate) {
-            onNavigate(item.href);
-          }
-        }}
+    <div className={cn(depth > 0 && !effectiveCollapsed ? "pl-6" : "pl-0", "w-full") }>
+      <Button
+        asChild
+        variant={isActive ? "default" : "ghost"}
+        className={cn(
+          "transition-colors duration-200 ease-in-out",
+          effectiveCollapsed
+            ? "w-10 justify-center p-0 mx-auto"
+            : "w-full justify-start px-4",
+          effectiveCollapsed ? "gap-0" : "gap-3",
+          isActive
+            ? "bg-button-primary text-text-50 hover:bg-button-primary-hover shadow-lg shadow-brand-500/20 rounded-full"
+            : "text-text-50 hover:bg-white/5 hover:text-text-50 rounded-full",
+          "group relative",
+        )}
+        size={effectiveCollapsed ? "icon" : "md"}
       >
-        <IconComponent
+        <Link
+          href={item.href}
+          onClick={(e) => {
+            if (hasChildren) {
+              e.preventDefault();
+              onToggle?.(item.id);
+              return;
+            }
+            onNavigate?.(item.href);
+          }}
           className={cn(
-            "h-5 w-5 flex-shrink-0 transition-colors duration-200",
-            isActive && "text-text-50",
-            !isActive && "text-text-400 group-hover:text-text-50",
-          )}
-        />
-        <span
-          className={cn(
-            "truncate transition-opacity duration-200 ease-in-out",
-            effectiveCollapsed ? "opacity-0 w-0" : "opacity-100 w-auto",
+            "flex items-center gap-3",
+            effectiveCollapsed ? "justify-center" : "justify-start",
           )}
         >
-          {item.label}
-        </span>
-
-
-      </Link>
-    </Button>
+          <IconComponent
+            className={cn(
+              "h-5 w-5 flex-shrink-0 transition-colors duration-200",
+              isActive && "text-text-50",
+              !isActive && "text-text-400 group-hover:text-text-50",
+            )}
+          />
+          <span
+            className={cn(
+              "truncate transition-opacity duration-200 ease-in-out",
+              effectiveCollapsed ? "opacity-0 w-0" : "opacity-100 w-auto",
+              depth > 0 ? "text-text-200" : "",
+            )}
+          >
+            {item.label}
+          </span>
+        </Link>
+      </Button>
+      {hasChildren && !effectiveCollapsed && open && (
+        <div className="mt-2 space-y-1">
+          {item.children!.map((child) => (
+            <NavigationItemComponent
+              key={child.id}
+              item={child}
+              collapsed={collapsed}
+              isActive={!!child.isActive}
+              onNavigate={onNavigate}
+              depth={depth + 1}
+              isOpen={child.children ? child.children.some((c) => c.isActive) : false}
+              onToggle={onToggle}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -262,6 +294,30 @@ export function SettingSidebar({
 }: SidebarProps) {
   const [isMounted, setIsMounted] = React.useState(false);
   const isMobileVariant = variant === "mobile";
+  const [openParents, setOpenParents] = React.useState<Set<string>>(new Set());
+
+  React.useEffect(() => {
+    const initial = new Set<string>();
+    navigationItems.forEach((item) => {
+      const childActive = item.children?.some((c) => c.isActive) ?? false;
+      if (item.isActive || childActive) {
+        initial.add(item.id);
+      }
+    });
+    setOpenParents(initial);
+  }, [navigationItems]);
+
+  const handleToggle = (id: string) => {
+    setOpenParents((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
 
   React.useEffect(() => {
     setIsMounted(true);
@@ -327,18 +383,34 @@ export function SettingSidebar({
       🔄 Menu otomatis muncul/hilang berdasarkan user role dari navigation.ts
       */}
       <nav className="flex-1 p-4 space-y-2 overflow-auto">
-        {navigationItems.map((item) => (
-          <NavigationItemComponent
-            key={item.id}
-            item={item}
-            collapsed={effectiveCollapsed}
-            isActive={item.isActive || false}
-            onNavigate={onNavigate}
-          />
-        ))}
+        {navigationItems
+          .filter((item) => item.section !== 'footer')
+          .map((item) => (
+            <NavigationItemComponent
+              key={item.id}
+              item={item}
+              collapsed={effectiveCollapsed}
+              isActive={item.isActive || false}
+              onNavigate={onNavigate}
+              isOpen={openParents.has(item.id)}
+              onToggle={handleToggle}
+            />
+          ))}
       </nav>
 
-
+      <div className="px-4 py-4 border-t border-white/10 space-y-2">
+        {navigationItems
+          .filter((item) => item.section === 'footer')
+          .map((item) => (
+            <NavigationItemComponent
+              key={item.id}
+              item={item}
+              collapsed={effectiveCollapsed}
+              isActive={item.isActive || false}
+              onNavigate={onNavigate}
+            />
+          ))}
+      </div>
 
 
     </div>

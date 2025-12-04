@@ -25,13 +25,6 @@ const baseNavigation: NavigationItem[] = [
 // Admin-only navigation items
 const adminNavigation: NavigationItem[] = [
   {
-    id: "content",
-    label: "Content Management",
-    href: "/setting/content",
-    icon: "image",
-    requiredRole: "admin",
-  },
-  {
     id: "users",
     label: "User Management",
     href: "/setting/users",
@@ -49,6 +42,14 @@ const adminNavigation: NavigationItem[] = [
 
 // Superadmin-only navigation items
 const superadminNavigation: NavigationItem[] = [
+  {
+    id: "cms",
+    label: "CMS",
+    href: "/cms",
+    icon: "layout-dashboard",
+    requiredRole: "superadmin",
+    section: "footer",
+  },
   {
     id: "system",
     label: "System Health",

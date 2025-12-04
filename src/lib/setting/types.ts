@@ -26,6 +26,8 @@ export interface NavigationItem {
   icon?: string;
   requiredRole?: UserRole;
   isActive?: boolean;
+  children?: NavigationItem[];
+  section?: 'main' | 'footer';
 }
 
 export interface SettingConfig {

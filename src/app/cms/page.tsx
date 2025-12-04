@@ -1,21 +1,24 @@
 import { CmsDashboard } from "@/components/cms/cms-dashboard";
 import { getCmsUserOrRedirect } from "./_data";
 import { getImageGridItems, getPageStatus, getDetailBlocksAdmin } from "@/lib/cms/cms-admin";
+import type { CmsPageSlug } from "@/lib/cms/config";
 
-const PAGE_ORDER = ["about", "product", "services", "collaboration"] as const;
+const PAGE_ORDER = ["overview", "about", "product", "services", "collaboration"] as const;
 type PageSlug = typeof PAGE_ORDER[number];
 
 export default async function CmsPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const user = await getCmsUserOrRedirect();
 
-  const requested = Array.isArray(searchParams.page)
-    ? searchParams.page[0]
-    : searchParams.page;
-  const initialTab = isPageSlug(requested) ? requested : "about";
+  const resolvedSearchParams = await searchParams;
+
+  const requested = Array.isArray(resolvedSearchParams.page)
+    ? resolvedSearchParams.page[0]
+    : resolvedSearchParams.page;
+  const initialTab = isPageSlug(requested) ? requested : "overview";
 
   const [
     aboutItems,
@@ -72,7 +75,7 @@ export default async function CmsPage({
   );
 }
 
-function isPageSlug(value: string | undefined): value is PageSlug {
+function isPageSlug(value: string | undefined): value is CmsPageSlug | "overview" {
   if (!value) return false;
   return (PAGE_ORDER as readonly string[]).includes(value);
 }

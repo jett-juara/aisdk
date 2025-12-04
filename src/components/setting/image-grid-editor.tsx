@@ -4,15 +4,15 @@
  * Image Grid Editor - Grid display with drag-drop reordering
  */
 
-import { useState, useTransition } from 'react'
+import React, { useTransition } from 'react'
 import { DndContext, closestCenter, DragEndEvent } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
 import { ImageGridItemCard } from './image-grid-item-card'
-import { ImageUploadDialog } from './image-upload-dialog'
 import { reorderGridItemsAction } from '@/app/cms/actions'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 interface ImageGridItem {
     id: string
@@ -42,9 +42,8 @@ export function ImageGridEditor({
     maxItems,
 }: ImageGridEditorProps) {
     const router = useRouter()
-    const [items, setItems] = useState(initialItems)
+    const [items, setItems] = React.useState(initialItems)
     const [isPending, startTransition] = useTransition()
-    const [uploadDialogOpen, setUploadDialogOpen] = useState(false)
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event
@@ -69,6 +68,7 @@ export function ImageGridEditor({
     }
 
     const canAddMore = items.length < maxItems
+    const addHref = `/cms/${pageSlug}/hero/edit/new`
 
     return (
         <div className="space-y-4">
@@ -78,9 +78,11 @@ export function ImageGridEditor({
                         {items.length} of {maxItems} image slots used
                     </p>
                 </div>
-                <Button size="sm" disabled={!canAddMore || isPending} onClick={() => setUploadDialogOpen(true)}>
-                    <Plus className="mr-2 h-4 w-4" />
-                    Add Image
+                <Button asChild size="sm" disabled={!canAddMore || isPending}>
+                    <Link href={addHref}>
+                        <Plus className="mr-2 h-4 w-4" />
+                        Add Image
+                    </Link>
                 </Button>
             </div>
 
@@ -101,14 +103,6 @@ export function ImageGridEditor({
                     </SortableContext>
                 </DndContext>
             )}
-
-            <ImageUploadDialog
-                open={uploadDialogOpen}
-                onOpenChange={setUploadDialogOpen}
-                pageSlug={pageSlug}
-                section={section}
-                nextPosition={items.length + 1}
-            />
         </div>
     )
 }

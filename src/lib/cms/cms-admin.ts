@@ -3,7 +3,7 @@
  * Server-side functions for managing CMS content (admin-only)
  */
 
-import { createClient } from '@/lib/supabase/server'
+import { createClient as createServerClient, createSupabaseRSCClient } from '@/lib/supabase/server'
 
 export interface CreateImageGridItemData {
     pageSlug: string
@@ -32,7 +32,7 @@ export interface UpdateImageGridItemData {
  * Create a new image grid item
  */
 export async function createImageGridItem(data: CreateImageGridItemData) {
-    const supabase = await createClient()
+    const supabase = await createServerClient()
 
     const { data: result, error } = await supabase
         .from('cms_image_grid_items')
@@ -63,7 +63,7 @@ export async function createImageGridItem(data: CreateImageGridItemData) {
  * Update an existing image grid item
  */
 export async function updateImageGridItem(id: string, data: UpdateImageGridItemData) {
-    const supabase = await createClient()
+    const supabase = await createServerClient()
 
     const updateData: Record<string, any> = {}
     if (data.label !== undefined) updateData.label = data.label
@@ -93,7 +93,7 @@ export async function updateImageGridItem(id: string, data: UpdateImageGridItemD
  * Delete an image grid item
  */
 export async function deleteImageGridItem(id: string) {
-    const supabase = await createClient()
+    const supabase = await createServerClient()
 
     const { error } = await supabase.from('cms_image_grid_items').delete().eq('id', id)
 
@@ -113,7 +113,7 @@ export async function reorderImageGridItems(
     section: string,
     itemIds: string[]
 ) {
-    const supabase = await createClient()
+    const supabase = await createServerClient()
 
     // Update each item with its new position (index + 1)
     const updates = itemIds.map((id, index) => ({
@@ -143,7 +143,7 @@ export async function reorderImageGridItems(
  * Get all image grid items for a page/section
  */
 export async function getImageGridItems(pageSlug: string, section: string = 'hero_grid') {
-    const supabase = await createClient()
+    const supabase = await createSupabaseRSCClient()
 
     const { data, error } = await supabase
         .from('cms_image_grid_items')
@@ -158,6 +158,22 @@ export async function getImageGridItems(pageSlug: string, section: string = 'her
     }
 
     return data || []
+}
+
+export async function getImageGridItemById(id: string) {
+    const supabase = await createSupabaseRSCClient()
+    const { data, error } = await supabase
+        .from('cms_image_grid_items')
+        .select('*')
+        .eq('id', id)
+        .single()
+
+    if (error) {
+        console.error('Failed to fetch image grid item:', error)
+        return null
+    }
+
+    return data as CreateImageGridItemData & { id: string }
 }
 
 // ============================================
@@ -181,7 +197,7 @@ export interface AdminDetailBlock {
  * Get current status of a CMS page
  */
 export async function getPageStatus(pageSlug: string): Promise<CMSPageStatus | null> {
-    const supabase = await createClient()
+    const supabase = await createSupabaseRSCClient()
 
     const { data, error } = await supabase
         .from('cms_pages')
@@ -204,7 +220,7 @@ export async function updatePageStatus(
     pageSlug: string,
     newStatus: CMSPageStatus
 ): Promise<{ success: boolean; error?: string }> {
-    const supabase = await createClient()
+    const supabase = await createServerClient()
 
     const { error } = await supabase
         .from('cms_pages')
@@ -224,7 +240,7 @@ export async function updatePageStatus(
 // ============================================
 
 export async function getDetailBlocksAdmin(pageSlug: string): Promise<AdminDetailBlock[]> {
-    const supabase = await createClient()
+    const supabase = await createSupabaseRSCClient()
     const { data, error } = await supabase
         .from('cms_detail_blocks')
         .select('*')
@@ -239,6 +255,23 @@ export async function getDetailBlocksAdmin(pageSlug: string): Promise<AdminDetai
     return (data || []) as AdminDetailBlock[]
 }
 
+export async function getDetailBlock(pageSlug: string, itemSlug: string): Promise<AdminDetailBlock | null> {
+    const supabase = await createSupabaseRSCClient()
+    const { data, error } = await supabase
+        .from('cms_detail_blocks')
+        .select('*')
+        .eq('page_slug', pageSlug)
+        .eq('item_slug', itemSlug)
+        .single()
+
+    if (error) {
+        console.error('Failed to fetch detail block:', error)
+        return null
+    }
+
+    return data as AdminDetailBlock
+}
+
 export async function upsertDetailBlock(input: {
     pageSlug: string
     itemSlug: string
@@ -249,7 +282,7 @@ export async function upsertDetailBlock(input: {
     status?: CMSPageStatus
     position?: number
 }) {
-    const supabase = await createClient()
+    const supabase = await createServerClient()
 
     // Fetch existing to preserve status when not provided
     const { data: existing } = await supabase
@@ -283,7 +316,7 @@ export async function upsertDetailBlock(input: {
 }
 
 export async function deleteDetailBlock(id: string) {
-    const supabase = await createClient()
+    const supabase = await createServerClient()
     const { error } = await supabase.from('cms_detail_blocks').delete().eq('id', id)
 
     if (error) {

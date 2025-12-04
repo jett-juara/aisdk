@@ -63,6 +63,82 @@ export async function uploadImageAction(formData: FormData) {
   }
 }
 
+export async function upsertHeroGridAction(formData: FormData) {
+  try {
+    const id = (formData.get('id') as string) || null
+    const pageSlug = formData.get('pageSlug') as string
+    const section = formData.get('section') as string
+    const slug = formData.get('slug') as string
+    const label = formData.get('label') as string
+    const labelLine1 = (formData.get('labelLine1') as string) || null
+    const labelLine2 = (formData.get('labelLine2') as string) || null
+    const iconName = (formData.get('iconName') as string) || null
+    const imagePositionRaw = (formData.get('imagePosition') as string) || null
+    const imagePosition = imagePositionRaw === 'left' || imagePositionRaw === 'right' ? imagePositionRaw : null
+    const position = Number(formData.get('position') || 1)
+    const existingImageUrl = (formData.get('existingImageUrl') as string) || null
+    const file = formData.get('file') as File | null
+
+    if (!pageSlug || !section || !slug || !label) {
+      return { success: false, error: 'Field wajib belum lengkap' }
+    }
+
+    let imageUrl = existingImageUrl
+
+    if (file && file.size > 0) {
+      const path = generateImagePath(pageSlug, section, file.name)
+      const { url } = await uploadImageToStorage(file, path)
+      imageUrl = url
+      if (existingImageUrl) {
+        const oldPath = extractPathFromUrl(existingImageUrl)
+        if (oldPath) {
+          await deleteImageFromStorage(oldPath)
+        }
+      }
+    }
+
+    if (id && id !== 'new') {
+      const result = await updateImageGridItem(id, {
+        label,
+        labelLine1,
+        labelLine2,
+        iconName,
+        imageUrl: imageUrl || undefined,
+        imagePosition,
+      })
+      revalidatePath('/cms')
+      revalidatePath(`/${result.page_slug}`)
+      revalidatePath(`/preview/${result.page_slug}`)
+      return { success: true, data: result }
+    }
+
+    if (!imageUrl) {
+      return { success: false, error: 'Gambar wajib diunggah untuk item baru' }
+    }
+
+    const createResult = await createImageGridItem({
+      pageSlug,
+      section,
+      slug,
+      label,
+      labelLine1,
+      labelLine2,
+      iconName,
+      imageUrl,
+      imagePosition,
+      position,
+    })
+
+    revalidatePath('/cms')
+    revalidatePath(`/${pageSlug}`)
+    revalidatePath(`/preview/${pageSlug}`)
+    return { success: true, data: createResult }
+  } catch (error) {
+    console.error('Upsert hero grid failed:', error)
+    return { success: false, error: error instanceof Error ? error.message : 'Upsert hero grid failed' }
+  }
+}
+
 export async function saveImageGridAction(id: string, data: any) {
   try {
     const result = await updateImageGridItem(id, {

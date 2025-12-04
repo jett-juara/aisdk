@@ -13,7 +13,6 @@ import { GripVertical, Edit, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import { deleteImageGridItemAction } from '@/app/cms/actions'
 import { useRouter } from 'next/navigation'
-import { ImageEditDialog } from './image-edit-dialog'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -48,7 +47,6 @@ export function ImageGridItemCard({ item }: ImageGridItemCardProps) {
     const router = useRouter()
     const [isPending, startTransition] = useTransition()
     const [isDeleting, setIsDeleting] = useState(false)
-    const [editDialogOpen, setEditDialogOpen] = useState(false)
 
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: item.id,
@@ -115,7 +113,12 @@ export function ImageGridItemCard({ item }: ImageGridItemCardProps) {
 
                     {/* Actions */}
                     <div className="flex gap-2">
-                        <Button size="sm" variant="outline" disabled={isPending} onClick={() => setEditDialogOpen(true)}>
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            disabled={isPending}
+                            onClick={() => router.push(`/cms/${item.page_slug}/hero/edit/${item.id}`)}
+                        >
                             <Edit className="h-4 w-4" />
                         </Button>
 
@@ -141,12 +144,6 @@ export function ImageGridItemCard({ item }: ImageGridItemCardProps) {
                         </AlertDialog>
                     </div>
                 </div>
-
-                <ImageEditDialog
-                    open={editDialogOpen}
-                    onOpenChange={setEditDialogOpen}
-                    item={item}
-                />
             </CardContent>
         </Card>
     )
