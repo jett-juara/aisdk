@@ -25,6 +25,13 @@ const baseNavigation: NavigationItem[] = [
 // Admin-only navigation items
 const adminNavigation: NavigationItem[] = [
   {
+    id: "content",
+    label: "Content Management",
+    href: "/setting/content",
+    icon: "image",
+    requiredRole: "admin",
+  },
+  {
     id: "users",
     label: "User Management",
     href: "/setting/users",

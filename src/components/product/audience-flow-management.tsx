@@ -14,8 +14,8 @@ export default function AudienceFlowManagement({
   onClose?: () => void
   imagePosition?: "left" | "right"
   navigationItems?: any[]
-  currentId?: number
-  onNavigate?: (id: number) => void
+  currentId?: string | number
+  onNavigate?: (id: string | number) => void
 }) {
   const paragraphs = [
     "Kami mendesain journey audiens end-to-end: dari pre-event onboarding, akses lokasi, hingga egress, supaya alur terasa mulus dan terukur.",

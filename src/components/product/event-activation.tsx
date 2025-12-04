@@ -14,8 +14,8 @@ export default function EventActivation({
   onClose?: () => void
   imagePosition?: "left" | "right"
   navigationItems?: any[]
-  currentId?: number
-  onNavigate?: (id: number) => void
+  currentId?: string | number
+  onNavigate?: (id: string | number) => void
 }) {
   const paragraphs = [
     "Mengubah pesan brand menjadi pengalaman interaktif yang menciptakan percakapan luas dan memori kolektif.",

@@ -14,8 +14,8 @@ export default function MiceEvent({
   onClose?: () => void
   imagePosition?: "left" | "right"
   navigationItems?: any[]
-  currentId?: number
-  onNavigate?: (id: number) => void
+  currentId?: string | number
+  onNavigate?: (id: string | number) => void
 }) {
   const paragraphs = [
     "Mendefinisikan ulang MICE: meeting, incentive, conference, exhibition dengan pendekatan dinamis dan audience-centric.",

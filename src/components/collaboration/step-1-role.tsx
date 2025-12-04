@@ -106,7 +106,7 @@ export function Step1Role() {
                                     />
                                 </FormControl>
                                 <FormDescription>
-                                    Full name must match your official identity card (KTP/SIM/Passport). If it doesn't match, please update it immediately in your <a href="/setting/profile" className="text-text-info-500 hover:underline">Profile Settings</a>.
+                                    Full name must match your official identity card (KTP/SIM/Passport). If it doesn&apos;t match, please update it immediately in your <a href="/setting/profile" className="text-text-info-500 hover:underline">Profile Settings</a>.
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>

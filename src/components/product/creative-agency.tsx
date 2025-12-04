@@ -14,8 +14,8 @@ export default function CreativeAgency({
   onClose?: () => void
   imagePosition?: "left" | "right"
   navigationItems?: any[]
-  currentId?: number
-  onNavigate?: (id: number) => void
+  currentId?: string | number
+  onNavigate?: (id: string | number) => void
 }) {
   const paragraphs = [
     "Kami menggabungkan kreativitas dan data untuk membangun konsep yang relevan, bernilai jual, dan beda di industri event.",

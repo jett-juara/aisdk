@@ -14,8 +14,8 @@ export default function LocalAuthLiaison({
   onClose?: () => void
   imagePosition?: "left" | "right"
   navigationItems?: any[]
-  currentId?: number
-  onNavigate?: (id: number) => void
+  currentId?: string | number
+  onNavigate?: (id: string | number) => void
 }) {
   const paragraphs = [
     "Pengurusan perizinan, regulasi, dan koordinasi dengan otoritas setempat untuk memastikan acara berjalan lancar dan patuh aturan.",

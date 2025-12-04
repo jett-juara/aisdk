@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import type { LucideIcon } from "lucide-react"
@@ -11,17 +12,20 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
+import type { ImageGridItem } from "@/lib/cms/marketing"
 
 interface CollaborationHeroProps {
     heading?: string
     subheading?: string
     description?: string
+    imageGridItems?: ImageGridItem[]
 }
 
 export function CollaborationHero({
     heading = "Partner with Juara",
     subheading = "Join Indonesia's premier event ecosystem.",
     description = "We are looking for passionate vendors, suppliers, and talents to create unforgettable experiences together. Access a wide network of high-profile clients and premium events.",
+    imageGridItems = [],
 }: CollaborationHeroProps) {
     const router = useRouter()
     const [introStep, setIntroStep] = useState(0)
@@ -30,10 +34,44 @@ export function CollaborationHero({
     const [detailStage, setDetailStage] = useState<"idle" | "cards" | "content">("idle")
     const [introReady, setIntroReady] = useState(false)
 
-    const items: { id: number; slug: string; label: string; icon: LucideIcon; description: string }[] = [
+    const desiredCount = 2
+
+    const fallbackItems: { id: number; slug: string; label: string; icon: LucideIcon; description: string; imageUrl?: string; altText?: string }[] = [
         { id: 1, slug: "partnership-guide", label: "Partnership Guide", icon: BookOpen, description: "Everything you need to know about becoming a Juara partner. Guidelines, requirements, and benefits." },
         { id: 2, slug: "chat-jett", label: "Chat JETT", icon: MessageSquare, description: "Meet JETT, Juara's AI assistant. Get instant answers about partnership, requirements, and more." },
     ]
+
+    const getIconBySlug = (slug: string): LucideIcon => {
+        const map: Record<string, LucideIcon> = {
+            "partnership-guide": BookOpen,
+            "chat-jett": MessageSquare,
+        }
+        return map[slug] || BookOpen
+    }
+
+    const useCMSImages = imageGridItems && imageGridItems.length > 0
+    let items = useCMSImages
+        ? imageGridItems.map((item: ImageGridItem, idx) => ({
+            id: Number(item.id) || item.position || idx + 1,
+            slug: item.slug,
+            label: item.label,
+            icon: getIconBySlug(item.slug),
+            description: item.labelLine1 || item.labelLine2 || "Click to learn more",
+            imageUrl: item.imageUrl,
+            altText: item.altText,
+        }))
+        : fallbackItems
+
+    if (useCMSImages && items.length < desiredCount) {
+        const existingSlugs = new Set(items.map((i) => i.slug))
+        const padded = [...items]
+        for (const fb of fallbackItems) {
+            if (padded.length >= desiredCount) break
+            if (existingSlugs.has(fb.slug)) continue
+            padded.push({ ...fb, id: `fallback-${fb.slug}` })
+        }
+        items = padded
+    }
 
     const totalIntroSteps = items.length + 1
     const introDone = introStep >= totalIntroSteps
@@ -204,6 +242,22 @@ export function CollaborationHero({
                                                     >
                                                         {/* Hover Glow */}
                                                         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-glass-bg-hover to-transparent" />
+
+                                                        {/* CMS Image (Primary) */}
+                                                        {useCMSImages && item.imageUrl ? (
+                                                            <div className="absolute inset-0">
+                                                                <Image
+                                                                    src={item.imageUrl}
+                                                                    alt={item.altText || item.label || "JUARA Collaboration"}
+                                                                    fill
+                                                                    className="object-cover"
+                                                                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                                                                />
+                                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+                                                            </div>
+                                                        ) : (
+                                                            <div className="absolute inset-0 bg-gradient-to-br from-brand-900/40 via-background-900/60 to-background-950/80" />
+                                                        )}
 
                                                         {/* Content */}
                                                         <div className="absolute inset-0 flex flex-col justify-between p-8">

@@ -14,8 +14,8 @@ export default function TalentLogMng({
   onClose?: () => void
   imagePosition?: "left" | "right"
   navigationItems?: any[]
-  currentId?: number
-  onNavigate?: (id: number) => void
+  currentId?: string | number
+  onNavigate?: (id: string | number) => void
 }) {
   const paragraphs = [
     "Kurasi talent yang tepat dan manajemen logistik end-to-end untuk mendukung eksekusi tanpa hambatan.",

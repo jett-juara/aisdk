@@ -14,8 +14,8 @@ export default function CreativePlanDev({
   onClose?: () => void
   imagePosition?: "left" | "right"
   navigationItems?: any[]
-  currentId?: number
-  onNavigate?: (id: number) => void
+  currentId?: string | number
+  onNavigate?: (id: string | number) => void
 }) {
   const paragraphs = [
     "Kami merancang strategi acara berbasis data dan insight audiens untuk memastikan konsep tepat sasaran dan berdaya jual.",

@@ -1,10 +1,10 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { PenTool, Settings, Truck, ShieldCheck, type LucideIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
-import type { LucideIcon } from "lucide-react"
-import { Wand2, Workflow, Ship, Landmark, Lightbulb, Settings, Truck, ShieldCheck } from "lucide-react"
 import {
   CreativePlanDev as CreativePlanDevContent,
   ExecutionHandling as ExecutionHandlingContent,
@@ -22,26 +22,74 @@ interface ServicesHeroProps {
   heading?: string
   subheading?: string
   description?: string
+  imageGridItems?: any[]
 }
 
 export function ServicesHero({
   heading = "End-to-End Services",
   subheading = "From planning to execution—measured, secure, and on time.",
   description = "We manage strategy, field execution, logistics, and authority liaison with clear SOPs. Our focus is on governance, compliance, and delivering a seamless audience experience.",
+  imageGridItems = [], // CMS image grid items
 }: ServicesHeroProps) {
   const router = useRouter()
   const [introStep, setIntroStep] = useState(0)
-  const [hoveredId, setHoveredId] = useState<number | null>(null)
-  const [selectedId, setSelectedId] = useState<number | null>(null)
+  const [selectedId, setSelectedId] = useState<string | number | null>(null)
+  const [hoveredId, setHoveredId] = useState<string | number | null>(null)
   const [detailStage, setDetailStage] = useState<"idle" | "cards" | "content">("idle")
   const [introReady, setIntroReady] = useState(false)
 
-  const items: { id: number; slug: string; label: string; labelLine1: string; labelLine2: string; icon: LucideIcon; imagePosition: "left" | "right" }[] = [
-    { id: 1, slug: "creative-and-plan-development", label: "Creative & Plan Development", labelLine1: "Creative & Plan", labelLine2: "Development", icon: Lightbulb, imagePosition: "left" },
-    { id: 3, slug: "talent-and-logistic-management", label: "Talent & Logistic Management", labelLine1: "Talent & Logistic", labelLine2: "Management", icon: Truck, imagePosition: "left" },
-    { id: 2, slug: "execution-handling", label: "Execution Handling", labelLine1: "Execution", labelLine2: "Handling", icon: Settings, imagePosition: "right" },
-    { id: 4, slug: "local-authority-liaison", label: "Local Authority Liaison", labelLine1: "Local Authority", labelLine2: "Liaison", icon: ShieldCheck, imagePosition: "right" },
+  const desiredCount = 4
+
+  // Minimal fallback items (emergency only)
+  const fallbackItems: { id: number; slug: string; label: string; labelLine1: string; labelLine2: string; imagePosition: "left" | "right"; imageUrl?: string; altText?: string; icon: LucideIcon }[] = [
+    { id: 1, slug: "creative-and-plan-development", label: "Creative & Plan Development", labelLine1: "Creative & Plan", labelLine2: "Development", imagePosition: "left", icon: PenTool },
+    { id: 3, slug: "talent-and-logistic-management", label: "Talent & Logistic Management", labelLine1: "Talent & Logistic", labelLine2: "Management", imagePosition: "left", icon: Truck },
+    { id: 2, slug: "execution-handling", label: "Execution Handling", labelLine1: "Execution", labelLine2: "Handling", imagePosition: "right", icon: Settings },
+    { id: 4, slug: "local-authority-liaison", label: "Local Authority Liaison", labelLine1: "Local Authority", labelLine2: "Liaison", imagePosition: "right", icon: ShieldCheck },
   ]
+
+  const allowedSlugs = fallbackItems.map((i) => i.slug)
+  const normalizeServiceSlug = (slug: string, index: number) => {
+    if (allowedSlugs.includes(slug)) return slug
+    return allowedSlugs[index] || slug
+  }
+
+  const getIconBySlug = (slug: string): LucideIcon => {
+    const map: Record<string, LucideIcon> = {
+      "creative-and-plan-development": PenTool,
+      "talent-and-logistic-management": Truck,
+      "execution-handling": Settings,
+      "local-authority-liaison": ShieldCheck,
+    }
+    return map[slug] || PenTool
+  }
+
+  // Primary: Use CMS image grid. Fallback: show gradient placeholder
+  const useCMSImages = imageGridItems && imageGridItems.length > 0
+  let items = useCMSImages
+    ? imageGridItems.map((item: any, index: number) => ({
+      id: Number(item.id) || item.position || index + 1,
+      slug: normalizeServiceSlug(item.slug, index),
+      label: item.label,
+      labelLine1: item.labelLine1 || "",
+      labelLine2: item.labelLine2 || "",
+      imagePosition: item.imagePosition || "left",
+      imageUrl: item.imageUrl,
+      altText: item.altText,
+      icon: getIconBySlug(normalizeServiceSlug(item.slug, index)),
+    }))
+    : fallbackItems
+
+  if (useCMSImages && items.length < desiredCount) {
+    const existingSlugs = new Set(items.map((i) => i.slug))
+    const padded = [...items]
+    for (const fb of fallbackItems) {
+      if (padded.length >= desiredCount) break
+      if (existingSlugs.has(fb.slug)) continue
+      padded.push({ ...fb, id: `fallback-${fb.slug}` })
+    }
+    items = padded
+  }
 
   const totalIntroSteps = items.length + 1
   const introDone = introStep >= totalIntroSteps
@@ -90,7 +138,7 @@ export function ServicesHero({
     return () => { clearTimeout(t); if (detailTimerRef.current) { clearTimeout(detailTimerRef.current); detailTimerRef.current = null } }
   }, [selectedId])
 
-  const handleCardClick = (id: number) => {
+  const handleCardClick = (id: string | number) => {
     if (selectedId === id) {
       setSelectedId(null); setHoveredId(null); setIntroStep(0); setDetailStage("idle"); resetIntroTimers(); setIntroReady(false)
       if (introStartTimerRef.current) { clearTimeout(introStartTimerRef.current) }
@@ -188,31 +236,40 @@ export function ServicesHero({
                       className={`transition-all duration-700 ease-premium transform-gpu w-full ${bentoClass} ${introClass} ${scaleClass} ${introStep < totalIntroSteps ? "pointer-events-none" : ""}`}
                       onMouseEnter={() => introDone && setHoveredId(item.id)}
                       onMouseLeave={() => introDone && setHoveredId(null)}>
-                      {(() => {
-                        const Icon = item.icon as LucideIcon
-                        return (
-                          <div
-                            className="group relative rounded-3xl overflow-hidden cursor-pointer h-full glass-card shadow-2xl focus:outline-none focus-visible:outline-none"
-                            onClick={() => handleCardClick(item.id)}
-                            tabIndex={-1}
-                          >
-                            {/* Hover Glow */}
-                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-glass-bg-hover to-transparent" />
+                      <div
+                        className="group relative rounded-3xl overflow-hidden cursor-pointer h-full glass-card shadow-2xl focus:outline-none focus-visible:outline-none"
+                        onClick={() => handleCardClick(item.id)}
+                        tabIndex={-1}
+                      >
+                        {/* Background gradient for hover effect */}
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-glass-bg-hover to-transparent" />
 
-                            {/* Content */}
-                            <div className="absolute inset-0 flex flex-col justify-between p-6">
-                              <div className="flex justify-end">
-                                <div className="p-3 rounded-full bg-glass-bg border border-glass-border group-hover:bg-glass-bg-hover transition-colors duration-300">
-                                  <Icon className="h-6 w-6 text-text-50 opacity-80 group-hover:text-text-50 group-hover:opacity-100 transition-colors duration-300" strokeWidth={1.5} />
-                                </div>
-                              </div>
-                              <div>
-                                <h3 className="text-lg font-medium text-text-50 tracking-wide group-hover:text-text-50 transition-colors duration-300 leading-tight">{item.label}</h3>
-                              </div>
-                            </div>
+                        {/* CMS Image (Primary) */}
+                        {useCMSImages && item.imageUrl ? (
+                          <div className="absolute inset-0">
+                            <Image
+                              src={item.imageUrl}
+                              alt={item.altText || item.label || 'JUARA Services'}
+                              fill
+                              className="object-cover"
+                              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                              priority={false}
+                            />
+                            {/* Dark overlay for text readability */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
                           </div>
-                        )
-                      })()}
+                        ) : (
+                          /* Emergency fallback: gradient background without icon */
+                          <div className="absolute inset-0 bg-gradient-to-br from-brand-900/40 via-background-900/60 to-background-950/80" />
+                        )}
+
+                        {/* Label overlay */}
+                        <div className="absolute inset-0 flex flex-col justify-end p-6">
+                          <div>
+                            <h3 className="text-lg font-medium text-white tracking-wide group-hover:text-text-50 transition-colors duration-300 leading-tight">{item.label}</h3>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   )
                 })}

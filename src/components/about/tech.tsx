@@ -13,8 +13,8 @@ export default function Tech({
   stage: "idle" | "cards" | "content"
   onClose?: () => void
   navigationItems?: any[]
-  currentId?: number
-  onNavigate?: (id: number) => void
+  currentId?: string | number
+  onNavigate?: (id: string | number) => void
 }) {
   const router = useRouter()
   const paragraphs = [

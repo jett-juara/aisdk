@@ -14,8 +14,8 @@ export default function MusicConcertManagement({
   onClose?: () => void
   imagePosition?: "left" | "right"
   navigationItems?: any[]
-  currentId?: number
-  onNavigate?: (id: number) => void
+  currentId?: string | number
+  onNavigate?: (id: string | number) => void
 }) {
   const paragraphs = [
     "Kami merancang dan mengeksekusi konser musik dengan energi tinggi, menggabungkan ritme, crowd dynamics, dan momentum panggung menjadi satu narasi yang kohesif.",

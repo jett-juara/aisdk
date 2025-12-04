@@ -14,8 +14,8 @@ export default function ExecutionHandling({
   onClose?: () => void
   imagePosition?: "left" | "right"
   navigationItems?: any[]
-  currentId?: number
-  onNavigate?: (id: number) => void
+  currentId?: string | number
+  onNavigate?: (id: string | number) => void
 }) {
   const paragraphs = [
     "Eksekusi presisi tinggi dengan koordinasi lintas-stakeholder, memastikan setiap detail berjalan sesuai rencana.",

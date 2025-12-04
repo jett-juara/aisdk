@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 interface NavigationItem {
-  id: number
+  id: string | number
   labelLine1: string
   labelLine2: string
   icon: React.ElementType
@@ -24,8 +24,8 @@ interface DetailSectionProps {
   paragraphs: string[]
   imagePosition?: "left" | "right"
   navigationItems?: NavigationItem[]
-  currentId?: number
-  onNavigate?: (id: number) => void
+  currentId?: string | number
+  onNavigate?: (id: string | number) => void
 }
 
 export function DetailSection({
