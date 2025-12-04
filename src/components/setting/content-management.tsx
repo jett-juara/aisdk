@@ -27,6 +27,7 @@ interface ContentManagementProps {
         services: CMSPageStatus
         collaboration: CMSPageStatus
     }
+    initialTab?: PageSlug
 }
 
 const PAGE_CONFIG = {
@@ -36,8 +37,8 @@ const PAGE_CONFIG = {
     collaboration: { label: 'Collaboration', maxItems: 4, section: 'hero_grid' },
 } as const
 
-export function ContentManagement({ user, initialData, initialStatuses }: ContentManagementProps) {
-    const [activeTab, setActiveTab] = useState<PageSlug>('about')
+export function ContentManagement({ user, initialData, initialStatuses, initialTab }: ContentManagementProps) {
+    const [activeTab, setActiveTab] = useState<PageSlug>(initialTab || 'about')
     const [statuses, setStatuses] = useState(initialStatuses)
 
     const handleStatusChange = (page: PageSlug, newStatus: CMSPageStatus) => {
