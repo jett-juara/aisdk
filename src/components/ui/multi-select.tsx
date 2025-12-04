@@ -420,13 +420,13 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 					}
 					onValueChange(values);
 				},
-				clear: () => {
-					if (!isControlled) {
-						setInternalSelectedValues([]);
-					}
-					onValueChange([]);
-				},
-				focus: () => {
+			clear: () => {
+				if (!isControlled) {
+					setInternalSelectedValues([]);
+				}
+				onValueChange([]);
+			},
+			focus: () => {
 					if (buttonRef.current) {
 						buttonRef.current.focus();
 						const originalOutline = buttonRef.current.style.outline;
@@ -442,7 +442,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 					}
 				},
 			}),
-			[resetToDefault, selectedValues, onValueChange]
+			[resetToDefault, selectedValues, onValueChange, isControlled]
 		);
 
 		const [screenSize, setScreenSize] = React.useState<
