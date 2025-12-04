@@ -20,7 +20,7 @@ import {
   AboutStats,
   AboutClientLogos,
 } from "@/components/about";
-import type { ImageGridItem } from "@/lib/cms/marketing";
+import type { ImageGridItem, DetailBlock } from "@/lib/cms/marketing";
 
 const layoutConfigs = {
   1: {
@@ -55,6 +55,7 @@ interface AboutHeroProps {
   whatWeValueHeading?: string;
   whatWeValueBody?: string;
   imageGridItems?: ImageGridItem[];
+  detailBlocks?: Record<string, DetailBlock>;
 }
 
 const Hero = ({
@@ -63,6 +64,7 @@ const Hero = ({
   whatWeValueHeading = "What We Value",
   whatWeValueBody = "We strive for excellence, do our utmost to provide the best, and aim for success. We value excellence and integrity to deliver remarkable experiences to the guest with an emphasis on bringing innovation to the table. Putting our highest endeavor in executing ideas is our foundation to bring together the client's visions.",
   imageGridItems = [],
+  detailBlocks = {},
 }: AboutHeroProps = {}) => {
   const router = useRouter();
 
@@ -153,8 +155,8 @@ const Hero = ({
         labelLine1: item.labelLine1 || "",
         labelLine2: item.labelLine2 || "",
         imagePosition: item.imagePosition || "left",
-        imageUrl: item.imageUrl,
-        altText: item.altText,
+        imageUrl: item.imageUrl ?? undefined,
+        altText: item.altText ?? undefined,
         icon: getIconBySlug(mappedSlug),
       };
     })
@@ -581,6 +583,8 @@ const Hero = ({
                 navigationItems: items,
                 currentId: selectedId,
                 onNavigate: handleCardClick,
+                detailBlock: detailBlocks[slug],
+                imagePosition,
               };
 
               if (slug === "event") return <EventContent {...commonProps} />;

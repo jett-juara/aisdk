@@ -8,13 +8,15 @@ export default function Analytic({
   onClose,
   navigationItems,
   currentId,
-  onNavigate
+  onNavigate,
+  detailBlock,
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
   navigationItems?: any[]
   currentId?: string | number
   onNavigate?: (id: string | number) => void
+  detailBlock?: { title?: string; paragraphs?: string[]; imageUrl?: string; altText?: string }
 }) {
   const router = useRouter()
   const paragraphs = [
@@ -28,9 +30,11 @@ export default function Analytic({
     <DetailSection
       stage={stage}
       onClose={onClose ?? (() => router.push("/about"))}
-      title="Data-driven insights"
-      paragraphs={paragraphs}
+      title={detailBlock?.title || "Data-driven insights"}
+      paragraphs={detailBlock?.paragraphs?.length ? detailBlock.paragraphs : paragraphs}
       imagePosition="right"
+      imageUrl={detailBlock?.imageUrl}
+      imageAlt={detailBlock?.altText}
       navigationItems={navigationItems}
       currentId={currentId}
       onNavigate={onNavigate}

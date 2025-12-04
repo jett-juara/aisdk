@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import Image from "next/image"
 import { Undo2, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -26,6 +27,8 @@ interface DetailSectionProps {
   navigationItems?: NavigationItem[]
   currentId?: string | number
   onNavigate?: (id: string | number) => void
+  imageUrl?: string
+  imageAlt?: string
 }
 
 export function DetailSection({
@@ -37,9 +40,13 @@ export function DetailSection({
   navigationItems,
   currentId,
   onNavigate,
+  imageUrl,
+  imageAlt,
 }: DetailSectionProps) {
   const isContent = stage === "content"
   const isImageLeft = imagePosition === "left"
+  const activeItem = navigationItems?.find(item => item.id === currentId) || navigationItems?.[0]
+  const ActiveIcon = activeItem?.icon
 
   return (
     <div className="flex flex-col gap-4 lg:gap-8">
@@ -212,20 +219,35 @@ export function DetailSection({
         style={{ transitionProperty: "transform, opacity", transitionDuration: "1000ms" }}>
         {/* Visual Area */}
         <div className={`order-1 ${isImageLeft ? "lg:order-1" : "lg:order-2"} lg:basis-[45%] flex flex-col w-full`}>
-          <div
-            className={`relative w-full h-[300px] lg:h-full min-h-[400px] rounded-3xl overflow-hidden border border-glass-border bg-glass-bg backdrop-blur-md transition-all duration-1000 shadow-2xl ${isContent ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
-          >
-            {/* Placeholder for future immersive content */}
-            <div className="absolute inset-0 bg-gradient-to-br from-glass-bg to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center transition-transform duration-500 ease-premium">
-                <div className="w-20 h-20 rounded-full bg-glass-bg border border-glass-border flex items-center justify-center mx-auto mb-4 transition-colors">
-                  <span className="text-3xl">✨</span>
-                </div>
-                <span className="text-text-200 font-mono text-sm uppercase tracking-widest transition-colors">Visual Asset</span>
-              </div>
+            <div
+              className={`relative w-full h-[300px] lg:h-full min-h-[400px] rounded-3xl overflow-hidden border border-glass-border bg-glass-bg backdrop-blur-md transition-all duration-1000 shadow-2xl ${isContent ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
+            >
+              {imageUrl ? (
+                <>
+                  <Image
+                    src={imageUrl}
+                    alt={imageAlt || title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={false}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent" />
+                </>
+              ) : (
+                <>
+                  <div className="absolute inset-0 bg-gradient-to-br from-glass-bg to-transparent" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center transition-transform duration-500 ease-premium">
+                      <div className="w-20 h-20 rounded-full bg-glass-bg border border-glass-border flex items-center justify-center mx-auto mb-4 transition-colors">
+                        {ActiveIcon ? <ActiveIcon className="h-8 w-8 text-text-100" /> : <span className="text-3xl">✨</span>}
+                      </div>
+                      <span className="text-text-200 font-mono text-sm uppercase tracking-widest transition-colors">Visual Asset</span>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
-          </div>
         </div>
 
         {/* Text Content Area */}

@@ -8,7 +8,8 @@ export default function AudienceFlowManagement({
   imagePosition,
   navigationItems,
   currentId,
-  onNavigate
+  onNavigate,
+  detailBlock,
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
@@ -16,6 +17,7 @@ export default function AudienceFlowManagement({
   navigationItems?: any[]
   currentId?: string | number
   onNavigate?: (id: string | number) => void
+  detailBlock?: { title?: string; paragraphs?: string[]; imageUrl?: string; altText?: string }
 }) {
   const paragraphs = [
     "Kami mendesain journey audiens end-to-end: dari pre-event onboarding, akses lokasi, hingga egress, supaya alur terasa mulus dan terukur.",
@@ -27,9 +29,11 @@ export default function AudienceFlowManagement({
     <DetailSection
       stage={stage}
       onClose={onClose}
-      title="Seamless Audience Journey"
-      paragraphs={paragraphs}
+      title={detailBlock?.title || "Seamless Audience Journey"}
+      paragraphs={detailBlock?.paragraphs?.length ? detailBlock.paragraphs : paragraphs}
       imagePosition={imagePosition}
+      imageUrl={detailBlock?.imageUrl}
+      imageAlt={detailBlock?.altText}
       navigationItems={navigationItems}
       currentId={currentId}
       onNavigate={onNavigate}

@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { ChevronDown, FileEdit, Eye, CheckCircle, Archive } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
-import { updatePageStatusAction } from '@/app/setting/content/actions'
+import { updatePageStatusAction } from '@/app/cms/actions'
 
 export type CMSPageStatus = 'draft' | 'review' | 'published' | 'archived'
 export type UserRole = 'superadmin' | 'admin' | 'user'

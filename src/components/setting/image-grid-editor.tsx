@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
 import { ImageGridItemCard } from './image-grid-item-card'
 import { ImageUploadDialog } from './image-upload-dialog'
-import { reorderGridItemsAction } from '@/app/setting/content/actions'
+import { reorderGridItemsAction } from '@/app/cms/actions'
 import { useRouter } from 'next/navigation'
 
 interface ImageGridItem {

@@ -8,13 +8,15 @@ export default function Community({
   onClose,
   navigationItems,
   currentId,
-  onNavigate
+  onNavigate,
+  detailBlock,
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
   navigationItems?: any[]
   currentId?: string | number
   onNavigate?: (id: string | number) => void
+  detailBlock?: { title?: string; paragraphs?: string[]; imageUrl?: string; altText?: string }
 }) {
   const router = useRouter()
   const paragraphs = [
@@ -28,9 +30,11 @@ export default function Community({
     <DetailSection
       stage={stage}
       onClose={onClose ?? (() => router.push("/about"))}
-      title="Community-driven innovation"
-      paragraphs={paragraphs}
+      title={detailBlock?.title || "Community-driven innovation"}
+      paragraphs={detailBlock?.paragraphs?.length ? detailBlock.paragraphs : paragraphs}
       imagePosition="right"
+      imageUrl={detailBlock?.imageUrl}
+      imageAlt={detailBlock?.altText}
       navigationItems={navigationItems}
       currentId={currentId}
       onNavigate={onNavigate}

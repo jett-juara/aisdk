@@ -8,13 +8,15 @@ export default function Event({
   onClose,
   navigationItems,
   currentId,
-  onNavigate
+  onNavigate,
+  detailBlock,
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
   navigationItems?: any[]
   currentId?: string | number
   onNavigate?: (id: string | number) => void
+  detailBlock?: { title?: string; paragraphs?: string[]; imageUrl?: string; altText?: string }
 }) {
   const router = useRouter()
   const paragraphs = [
@@ -28,9 +30,11 @@ export default function Event({
     <DetailSection
       stage={stage}
       onClose={onClose ?? (() => router.push("/about"))}
-      title="Premium event experiences"
-      paragraphs={paragraphs}
+      title={detailBlock?.title || "Premium event experiences"}
+      paragraphs={detailBlock?.paragraphs?.length ? detailBlock.paragraphs : paragraphs}
       imagePosition="left"
+      imageUrl={detailBlock?.imageUrl}
+      imageAlt={detailBlock?.altText}
       navigationItems={navigationItems}
       currentId={currentId}
       onNavigate={onNavigate}

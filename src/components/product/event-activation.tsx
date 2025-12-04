@@ -8,7 +8,8 @@ export default function EventActivation({
   imagePosition,
   navigationItems,
   currentId,
-  onNavigate
+  onNavigate,
+  detailBlock,
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
@@ -16,6 +17,7 @@ export default function EventActivation({
   navigationItems?: any[]
   currentId?: string | number
   onNavigate?: (id: string | number) => void
+  detailBlock?: { title?: string; paragraphs?: string[]; imageUrl?: string; altText?: string }
 }) {
   const paragraphs = [
     "Mengubah pesan brand menjadi pengalaman interaktif yang menciptakan percakapan luas dan memori kolektif.",
@@ -27,9 +29,11 @@ export default function EventActivation({
     <DetailSection
       stage={stage}
       onClose={onClose}
-      title="Event Activation"
-      paragraphs={paragraphs}
+      title={detailBlock?.title || "Event Activation"}
+      paragraphs={detailBlock?.paragraphs?.length ? detailBlock.paragraphs : paragraphs}
       imagePosition={imagePosition}
+      imageUrl={detailBlock?.imageUrl}
+      imageAlt={detailBlock?.altText}
       navigationItems={navigationItems}
       currentId={currentId}
       onNavigate={onNavigate}

@@ -8,7 +8,8 @@ export default function LocalAuthLiaison({
   imagePosition,
   navigationItems,
   currentId,
-  onNavigate
+  onNavigate,
+  detailBlock,
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
@@ -16,6 +17,7 @@ export default function LocalAuthLiaison({
   navigationItems?: any[]
   currentId?: string | number
   onNavigate?: (id: string | number) => void
+  detailBlock?: { title?: string; paragraphs?: string[]; imageUrl?: string; altText?: string }
 }) {
   const paragraphs = [
     "Pengurusan perizinan, regulasi, dan koordinasi dengan otoritas setempat untuk memastikan acara berjalan lancar dan patuh aturan.",
@@ -27,9 +29,11 @@ export default function LocalAuthLiaison({
     <DetailSection
       stage={stage}
       onClose={onClose}
-      title="Local Authority Liaison"
-      paragraphs={paragraphs}
+      title={detailBlock?.title || "Local Authority Liaison"}
+      paragraphs={detailBlock?.paragraphs?.length ? detailBlock.paragraphs : paragraphs}
       imagePosition={imagePosition}
+      imageUrl={detailBlock?.imageUrl}
+      imageAlt={detailBlock?.altText}
       navigationItems={navigationItems}
       currentId={currentId}
       onNavigate={onNavigate}

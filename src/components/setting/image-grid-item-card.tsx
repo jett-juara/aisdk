@@ -11,7 +11,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { GripVertical, Edit, Trash2 } from 'lucide-react'
 import Image from 'next/image'
-import { deleteImageGridItemAction } from '@/app/setting/content/actions'
+import { deleteImageGridItemAction } from '@/app/cms/actions'
 import { useRouter } from 'next/navigation'
 import { ImageEditDialog } from './image-edit-dialog'
 import {

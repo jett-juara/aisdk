@@ -23,6 +23,7 @@ interface ServicesHeroProps {
   subheading?: string
   description?: string
   imageGridItems?: any[]
+  detailBlocks?: Record<string, { title?: string; paragraphs?: string[]; imageUrl?: string; altText?: string }>
 }
 
 export function ServicesHero({
@@ -30,6 +31,7 @@ export function ServicesHero({
   subheading = "From planning to execution—measured, secure, and on time.",
   description = "We manage strategy, field execution, logistics, and authority liaison with clear SOPs. Our focus is on governance, compliance, and delivering a seamless audience experience.",
   imageGridItems = [], // CMS image grid items
+  detailBlocks = {},
 }: ServicesHeroProps) {
   const router = useRouter()
   const [introStep, setIntroStep] = useState(0)
@@ -74,8 +76,8 @@ export function ServicesHero({
       labelLine1: item.labelLine1 || "",
       labelLine2: item.labelLine2 || "",
       imagePosition: item.imagePosition || "left",
-      imageUrl: item.imageUrl,
-      altText: item.altText,
+      imageUrl: item.imageUrl ?? undefined,
+      altText: item.altText ?? undefined,
       icon: getIconBySlug(normalizeServiceSlug(item.slug, index)),
     }))
     : fallbackItems
@@ -86,7 +88,7 @@ export function ServicesHero({
     for (const fb of fallbackItems) {
       if (padded.length >= desiredCount) break
       if (existingSlugs.has(fb.slug)) continue
-      padded.push({ ...fb, id: `fallback-${fb.slug}` })
+      padded.push({ ...fb, id: fb.id + 1000 })
     }
     items = padded
   }
@@ -152,6 +154,7 @@ export function ServicesHero({
   }
 
   const selectedItem = items.find((item) => item.id === selectedId)
+  const detailMap = detailBlocks || {}
 
   return (
     <section className={`relative flex-1 min-h-0 w-full flex items-start -mt-8 lg:mt-0 ${selectedId ? "pt-0 lg:pt-8" : "pt-0 lg:pt-8"} overflow-visible transition-all duration-500`}>
@@ -297,10 +300,10 @@ export function ServicesHero({
                   imagePosition
                 }
 
-                if (slug === "creative-and-plan-development") return <CreativePlanDevContent {...commonProps} />
-                if (slug === "execution-handling") return <ExecutionHandlingContent {...commonProps} />
-                if (slug === "talent-and-logistic-management") return <TalentLogMngContent {...commonProps} />
-                if (slug === "local-authority-liaison") return <LocalAuthLiaisonContent {...commonProps} />
+                if (slug === "creative-and-plan-development") return <CreativePlanDevContent {...commonProps} detailBlock={detailMap[slug]} />
+                if (slug === "execution-handling") return <ExecutionHandlingContent {...commonProps} detailBlock={detailMap[slug]} />
+                if (slug === "talent-and-logistic-management") return <TalentLogMngContent {...commonProps} detailBlock={detailMap[slug]} />
+                if (slug === "local-authority-liaison") return <LocalAuthLiaisonContent {...commonProps} detailBlock={detailMap[slug]} />
                 return null
               })()}
             </div>

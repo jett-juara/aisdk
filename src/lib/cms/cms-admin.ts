@@ -165,6 +165,17 @@ export async function getImageGridItems(pageSlug: string, section: string = 'her
 // ============================================
 
 export type CMSPageStatus = 'draft' | 'review' | 'published' | 'archived'
+export interface AdminDetailBlock {
+    id: string
+    page_slug: string
+    item_slug: string
+    title: string
+    paragraphs: string[]
+    image_url: string | null
+    alt_text: string | null
+    status: CMSPageStatus
+    position: number
+}
 
 /**
  * Get current status of a CMS page
@@ -203,6 +214,81 @@ export async function updatePageStatus(
     if (error) {
         console.error('Failed to update page status:', error)
         return { success: false, error: error.message }
+    }
+
+    return { success: true }
+}
+
+// ============================================
+// Detail Blocks Management
+// ============================================
+
+export async function getDetailBlocksAdmin(pageSlug: string): Promise<AdminDetailBlock[]> {
+    const supabase = await createClient()
+    const { data, error } = await supabase
+        .from('cms_detail_blocks')
+        .select('*')
+        .eq('page_slug', pageSlug)
+        .order('position', { ascending: true })
+
+    if (error) {
+        console.error('Failed to fetch detail blocks:', error)
+        return []
+    }
+
+    return (data || []) as AdminDetailBlock[]
+}
+
+export async function upsertDetailBlock(input: {
+    pageSlug: string
+    itemSlug: string
+    title: string
+    paragraphs: string[]
+    imageUrl?: string | null
+    altText?: string | null
+    status?: CMSPageStatus
+    position?: number
+}) {
+    const supabase = await createClient()
+
+    // Fetch existing to preserve status when not provided
+    const { data: existing } = await supabase
+        .from('cms_detail_blocks')
+        .select('status')
+        .eq('page_slug', input.pageSlug)
+        .eq('item_slug', input.itemSlug)
+        .single()
+
+    const { data, error } = await supabase
+        .from('cms_detail_blocks')
+        .upsert({
+            page_slug: input.pageSlug,
+            item_slug: input.itemSlug,
+            title: input.title,
+            paragraphs: input.paragraphs,
+            image_url: input.imageUrl ?? null,
+            alt_text: input.altText ?? null,
+            status: input.status ?? (existing?.status as CMSPageStatus ?? 'draft'),
+            position: input.position ?? 1,
+        })
+        .select()
+        .single()
+
+    if (error) {
+        console.error('Failed to upsert detail block:', error)
+        throw new Error(`Failed to upsert detail block: ${error.message}`)
+    }
+
+    return data as AdminDetailBlock
+}
+
+export async function deleteDetailBlock(id: string) {
+    const supabase = await createClient()
+    const { error } = await supabase.from('cms_detail_blocks').delete().eq('id', id)
+
+    if (error) {
+        console.error('Failed to delete detail block:', error)
+        throw new Error(`Failed to delete detail block: ${error.message}`)
     }
 
     return { success: true }

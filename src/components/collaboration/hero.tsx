@@ -19,6 +19,7 @@ interface CollaborationHeroProps {
     subheading?: string
     description?: string
     imageGridItems?: ImageGridItem[]
+    detailBlocks?: Record<string, { title?: string; paragraphs?: string[]; imageUrl?: string; altText?: string }>
 }
 
 export function CollaborationHero({
@@ -26,6 +27,7 @@ export function CollaborationHero({
     subheading = "Join Indonesia's premier event ecosystem.",
     description = "We are looking for passionate vendors, suppliers, and talents to create unforgettable experiences together. Access a wide network of high-profile clients and premium events.",
     imageGridItems = [],
+    detailBlocks = {},
 }: CollaborationHeroProps) {
     const router = useRouter()
     const [introStep, setIntroStep] = useState(0)
@@ -57,8 +59,8 @@ export function CollaborationHero({
             label: item.label,
             icon: getIconBySlug(item.slug),
             description: item.labelLine1 || item.labelLine2 || "Click to learn more",
-            imageUrl: item.imageUrl,
-            altText: item.altText,
+            imageUrl: item.imageUrl ?? undefined,
+            altText: item.altText ?? undefined,
         }))
         : fallbackItems
 
@@ -68,7 +70,7 @@ export function CollaborationHero({
         for (const fb of fallbackItems) {
             if (padded.length >= desiredCount) break
             if (existingSlugs.has(fb.slug)) continue
-            padded.push({ ...fb, id: `fallback-${fb.slug}` })
+            padded.push({ ...fb, id: fb.id + 1000 })
         }
         items = padded
     }
@@ -134,6 +136,7 @@ export function CollaborationHero({
     }
 
     const selectedItem = items.find((item) => item.id === selectedId)
+    const detailMap = detailBlocks || {}
 
     return (
         <section className={`relative flex-1 min-h-0 w-full flex items-start -mt-8 lg:mt-0 ${selectedId ? "pt-0 lg:pt-8" : "pt-0 lg:pt-8"} overflow-visible transition-all duration-500`}>
@@ -306,11 +309,11 @@ export function CollaborationHero({
                                     </div>
 
                                     <h2 className="text-3xl md:text-4xl font-headingSecondary font-bold text-text-50">
-                                        {selectedItem.label}
+                                        {detailMap[selectedItem.slug]?.title || selectedItem.label}
                                     </h2>
 
                                     <p className="text-xl text-text-200 leading-relaxed">
-                                        {selectedItem.description}
+                                        {detailMap[selectedItem.slug]?.paragraphs?.[0] || selectedItem.description}
                                     </p>
 
                                     {selectedItem.slug === "partnership-guide" && (

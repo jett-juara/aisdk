@@ -10,12 +10,19 @@ import { ImageGridEditor } from './image-grid-editor'
 import { PageStatusBadge, CMSPageStatus } from './page-status-badge'
 import { PageStatusDropdown } from './page-status-dropdown'
 import type { User } from '@/lib/setting/types'
+import { DetailSectionEditor } from '@/components/cms/detail-section-editor'
 
 type PageSlug = 'about' | 'product' | 'services' | 'collaboration'
 
 interface ContentManagementProps {
     user: User
     initialData: {
+        about: any[]
+        product: any[]
+        services: any[]
+        collaboration: any[]
+    }
+    initialDetailData?: {
         about: any[]
         product: any[]
         services: any[]
@@ -37,7 +44,34 @@ const PAGE_CONFIG = {
     collaboration: { label: 'Collaboration', maxItems: 4, section: 'hero_grid' },
 } as const
 
-export function ContentManagement({ user, initialData, initialStatuses, initialTab }: ContentManagementProps) {
+const DETAIL_CONFIG: Record<PageSlug, { pageSlug: PageSlug; itemSlug: string; label: string; position: number }[]> = {
+    about: [
+        { pageSlug: 'about', itemSlug: 'event', label: 'Event', position: 1 },
+        { pageSlug: 'about', itemSlug: 'community', label: 'Community', position: 2 },
+        { pageSlug: 'about', itemSlug: 'tech', label: 'Tech', position: 3 },
+        { pageSlug: 'about', itemSlug: 'analytic', label: 'Analytics', position: 4 },
+    ],
+    product: [
+        { pageSlug: 'product', itemSlug: 'audience-flow-management', label: 'Audience Flow', position: 1 },
+        { pageSlug: 'product', itemSlug: 'creative-agency', label: 'Creative Agency', position: 2 },
+        { pageSlug: 'product', itemSlug: 'event-activation', label: 'Event Activation', position: 3 },
+        { pageSlug: 'product', itemSlug: 'mice-event', label: 'MICE Event', position: 4 },
+        { pageSlug: 'product', itemSlug: 'music-concert-management', label: 'Music Concert', position: 5 },
+        { pageSlug: 'product', itemSlug: 'sport-event-management', label: 'Sport Event', position: 6 },
+    ],
+    services: [
+        { pageSlug: 'services', itemSlug: 'creative-and-plan-development', label: 'Creative & Plan', position: 1 },
+        { pageSlug: 'services', itemSlug: 'execution-handling', label: 'Execution Handling', position: 2 },
+        { pageSlug: 'services', itemSlug: 'talent-and-logistic-management', label: 'Talent & Logistic', position: 3 },
+        { pageSlug: 'services', itemSlug: 'local-authority-liaison', label: 'Local Authority Liaison', position: 4 },
+    ],
+    collaboration: [
+        { pageSlug: 'collaboration', itemSlug: 'partnership-guide', label: 'Partnership Guide', position: 1 },
+        { pageSlug: 'collaboration', itemSlug: 'chat-jett', label: 'Chat JETT', position: 2 },
+    ],
+}
+
+export function ContentManagement({ user, initialData, initialDetailData, initialStatuses, initialTab }: ContentManagementProps) {
     const [activeTab, setActiveTab] = useState<PageSlug>(initialTab || 'about')
     const [statuses, setStatuses] = useState(initialStatuses)
 
@@ -75,12 +109,30 @@ export function ContentManagement({ user, initialData, initialStatuses, initialT
                                 onStatusChange={(newStatus) => handleStatusChange(key, newStatus)}
                             />
                         </div>
-                        <ImageGridEditor
-                            pageSlug={key}
-                            section={PAGE_CONFIG[key].section}
-                            initialItems={initialData[key]}
-                            maxItems={PAGE_CONFIG[key].maxItems}
-                        />
+                        <div className="space-y-8">
+                            <div className="space-y-2">
+                                <h4 className="text-base font-semibold">Hero Grid</h4>
+                                <p className="text-sm text-text-300">Atur gambar grid hero (CMS utama).</p>
+                                <ImageGridEditor
+                                    pageSlug={key}
+                                    section={PAGE_CONFIG[key].section}
+                                    initialItems={initialData[key]}
+                                    maxItems={PAGE_CONFIG[key].maxItems}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <h4 className="text-base font-semibold">Detail Content</h4>
+                                <p className="text-sm text-text-300">
+                                    Konten state 2 (tampilan detail setelah tile di-klik). Gambar detail harus berbeda dari hero grid.
+                                </p>
+                                <DetailSectionEditor
+                                    pageSlug={key}
+                                    label={PAGE_CONFIG[key].label}
+                                    items={initialDetailData ? initialDetailData[key] : []}
+                                    config={DETAIL_CONFIG[key]}
+                                />
+                            </div>
+                        </div>
                     </TabsContent>
                 ))}
             </Tabs>

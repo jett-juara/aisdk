@@ -8,7 +8,8 @@ export default function TalentLogMng({
   imagePosition,
   navigationItems,
   currentId,
-  onNavigate
+  onNavigate,
+  detailBlock,
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
@@ -16,6 +17,7 @@ export default function TalentLogMng({
   navigationItems?: any[]
   currentId?: string | number
   onNavigate?: (id: string | number) => void
+  detailBlock?: { title?: string; paragraphs?: string[]; imageUrl?: string; altText?: string }
 }) {
   const paragraphs = [
     "Kurasi talent yang tepat dan manajemen logistik end-to-end untuk mendukung eksekusi tanpa hambatan.",
@@ -27,9 +29,11 @@ export default function TalentLogMng({
     <DetailSection
       stage={stage}
       onClose={onClose}
-      title="Talent & Logistic Management"
-      paragraphs={paragraphs}
+      title={detailBlock?.title || "Talent & Logistic Management"}
+      paragraphs={detailBlock?.paragraphs?.length ? detailBlock.paragraphs : paragraphs}
       imagePosition={imagePosition}
+      imageUrl={detailBlock?.imageUrl}
+      imageAlt={detailBlock?.altText}
       navigationItems={navigationItems}
       currentId={currentId}
       onNavigate={onNavigate}

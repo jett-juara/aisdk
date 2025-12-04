@@ -1,7 +1,7 @@
 import React from "react"
 import { Metadata } from "next"
 import { ProductHero } from "@/components/product/hero"
-import { getPageContent, getImageGrid, getPageSeo } from "@/lib/cms/marketing"
+import { getPageContent, getImageGrid, getPageSeo, getDetailBlocks } from "@/lib/cms/marketing"
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getPageSeo('product');
@@ -21,6 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ProductPage() {
   // Fetch CMS content for Product page
   const cmsContent = await getPageContent('product')
+  const detailBlocks = await getDetailBlocks('product')
+  const detailMap = Object.fromEntries(detailBlocks.map((d) => [d.itemSlug, d]))
 
   // Extract hero content from CMS or use defaults
   const heroBlock = cmsContent?.blocks.find(
@@ -35,6 +37,7 @@ export default async function ProductPage() {
     subheading: heroBlock?.content?.subheading || "Delivering success through innovation and integrity.",
     description: heroBlock?.content?.description || "We create remarkable guest experiences by combining creative vision with precise execution. Our focus on innovation and integrity ensures that every event brings your vision to life.",
     imageGridItems,
+    detailBlocks: detailMap,
   }
 
   return (

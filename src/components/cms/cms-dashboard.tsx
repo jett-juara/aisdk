@@ -18,6 +18,12 @@ interface CmsDashboardProps {
     services: any[];
     collaboration: any[];
   };
+  initialDetailData: {
+    about: any[];
+    product: any[];
+    services: any[];
+    collaboration: any[];
+  };
   initialStatuses: {
     about: CMSPageStatus;
     product: CMSPageStatus;
@@ -37,6 +43,7 @@ const CMS_NAV: { id: PageSlug; label: string }[] = [
 export function CmsDashboard({
   user,
   initialData,
+  initialDetailData,
   initialStatuses,
   initialTab,
 }: CmsDashboardProps) {
@@ -45,7 +52,7 @@ export function CmsDashboard({
   const paramPage = searchParams.get("page");
   const activePage = paramPage && isPageSlug(paramPage) ? paramPage : initialTab;
 
-  const navItems: NavigationItem[] = useMemo(
+  const pageNav: NavigationItem[] = useMemo(
     () =>
       CMS_NAV.map((item) => ({
         id: item.id,
@@ -53,14 +60,22 @@ export function CmsDashboard({
         href: `/cms?page=${item.id}`,
         icon: "layout-dashboard",
         isActive: activePage === item.id,
-      })).concat({
+      })),
+    [activePage],
+  );
+
+  const navItems: NavigationItem[] = useMemo(
+    () => [
+      ...pageNav,
+      {
         id: "back-setting",
         label: "Back to Setting",
         href: "/setting",
         icon: "layout-dashboard",
         isActive: false,
-      }),
-    [activePage],
+      },
+    ],
+    [pageNav],
   );
 
   const handleNavigate = (href: string) => {
@@ -98,6 +113,7 @@ export function CmsDashboard({
         <ContentManagement
           user={user}
           initialData={initialData}
+          initialDetailData={initialDetailData}
           initialStatuses={initialStatuses}
           initialTab={activePage}
           key={activePage}

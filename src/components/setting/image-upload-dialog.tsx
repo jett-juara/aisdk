@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { uploadImageAction } from '@/app/setting/content/actions'
+import { uploadImageAction } from '@/app/cms/actions'
 import { useToast } from '@/hooks/use-toast'
 import Image from 'next/image'
 

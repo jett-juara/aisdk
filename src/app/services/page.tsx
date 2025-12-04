@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import { ServicesHero } from "@/components/services/hero"
-import { getPageContent, getImageGrid, getPageSeo } from "@/lib/cms/marketing"
+import { getPageContent, getImageGrid, getPageSeo, getDetailBlocks } from "@/lib/cms/marketing"
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getPageSeo('services');
@@ -20,6 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ServicesPage() {
   // Fetch CMS content for Services page
   const cmsContent = await getPageContent('services')
+  const detailBlocks = await getDetailBlocks('services')
+  const detailMap = Object.fromEntries(detailBlocks.map((d) => [d.itemSlug, d]))
 
   // Extract hero content from CMS or use defaults
   const heroBlock = cmsContent?.blocks.find(
@@ -34,6 +36,7 @@ export default async function ServicesPage() {
     subheading: heroBlock?.content?.subheading || "From planning to execution—measured, secure, and on time.",
     description: heroBlock?.content?.description || "We manage strategy, field execution, logistics, and authority liaison with clear SOPs. Our focus is on governance, compliance, and delivering a seamless audience experience.",
     imageGridItems,
+    detailBlocks: detailMap,
   }
 
   return (

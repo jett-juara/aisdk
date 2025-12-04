@@ -8,7 +8,8 @@ export default function ExecutionHandling({
   imagePosition,
   navigationItems,
   currentId,
-  onNavigate
+  onNavigate,
+  detailBlock,
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
@@ -16,6 +17,7 @@ export default function ExecutionHandling({
   navigationItems?: any[]
   currentId?: string | number
   onNavigate?: (id: string | number) => void
+  detailBlock?: { title?: string; paragraphs?: string[]; imageUrl?: string; altText?: string }
 }) {
   const paragraphs = [
     "Eksekusi presisi tinggi dengan koordinasi lintas-stakeholder, memastikan setiap detail berjalan sesuai rencana.",
@@ -27,9 +29,11 @@ export default function ExecutionHandling({
     <DetailSection
       stage={stage}
       onClose={onClose}
-      title="Execution Handling"
-      paragraphs={paragraphs}
+      title={detailBlock?.title || "Execution Handling"}
+      paragraphs={detailBlock?.paragraphs?.length ? detailBlock.paragraphs : paragraphs}
       imagePosition={imagePosition}
+      imageUrl={detailBlock?.imageUrl}
+      imageAlt={detailBlock?.altText}
       navigationItems={navigationItems}
       currentId={currentId}
       onNavigate={onNavigate}

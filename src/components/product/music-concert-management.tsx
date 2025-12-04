@@ -8,7 +8,8 @@ export default function MusicConcertManagement({
   imagePosition,
   navigationItems,
   currentId,
-  onNavigate
+  onNavigate,
+  detailBlock,
 }: {
   stage: "idle" | "cards" | "content"
   onClose?: () => void
@@ -16,6 +17,7 @@ export default function MusicConcertManagement({
   navigationItems?: any[]
   currentId?: string | number
   onNavigate?: (id: string | number) => void
+  detailBlock?: { title?: string; paragraphs?: string[]; imageUrl?: string; altText?: string }
 }) {
   const paragraphs = [
     "Kami merancang dan mengeksekusi konser musik dengan energi tinggi, menggabungkan ritme, crowd dynamics, dan momentum panggung menjadi satu narasi yang kohesif.",
@@ -28,13 +30,14 @@ export default function MusicConcertManagement({
     <DetailSection
       stage={stage}
       onClose={onClose}
-      title="Music Concert Management"
-      paragraphs={paragraphs}
+      title={detailBlock?.title || "Music Concert Management"}
+      paragraphs={detailBlock?.paragraphs?.length ? detailBlock.paragraphs : paragraphs}
       imagePosition={imagePosition}
+      imageUrl={detailBlock?.imageUrl}
+      imageAlt={detailBlock?.altText}
       navigationItems={navigationItems}
       currentId={currentId}
       onNavigate={onNavigate}
     />
   )
 }
-

@@ -25,6 +25,7 @@ interface ProductHeroProps {
   subheading?: string
   description?: string
   imageGridItems?: any[]
+  detailBlocks?: Record<string, { title?: string; paragraphs?: string[]; imageUrl?: string; altText?: string }>
 }
 
 export function ProductHero({
@@ -32,6 +33,7 @@ export function ProductHero({
   subheading = "Delivering success through innovation and integrity.",
   description = "We create remarkable guest experiences by combining creative vision with precise execution. Our focus on innovation and integrity ensures that every event brings your vision to life.",
   imageGridItems = [], // CMS image grid items
+  detailBlocks = {},
 }: ProductHeroProps) {
   const router = useRouter()
   const [introStep, setIntroStep] = useState(0)
@@ -81,13 +83,13 @@ export function ProductHero({
         slug: mappedSlug,
         label: item.label,
         labelLine1: item.labelLine1 || "",
-      labelLine2: item.labelLine2 || "",
-      imagePosition: item.imagePosition || "left",
-      imageUrl: item.imageUrl,
-      altText: item.altText,
-      icon: getIconBySlug(mappedSlug),
-    }
-  })
+        labelLine2: item.labelLine2 || "",
+        imagePosition: item.imagePosition || "left",
+        imageUrl: item.imageUrl ?? undefined,
+        altText: item.altText ?? undefined,
+        icon: getIconBySlug(mappedSlug),
+      }
+    })
     : fallbackItems
 
   // Pad with fallback items to preserve 6-tile layout when CMS data is partial
@@ -97,7 +99,7 @@ export function ProductHero({
     for (const fb of fallbackItems) {
       if (padded.length >= desiredCount) break
       if (existingSlugs.has(fb.slug)) continue
-      padded.push({ ...fb, id: `fallback-${fb.slug}` })
+      padded.push({ ...fb, id: fb.id + 1000 })
     }
     items = padded
   }
@@ -163,6 +165,7 @@ export function ProductHero({
   }
 
   const selectedItem = items.find((item) => item.id === selectedId)
+  const detailMap = detailBlocks || {}
 
   return (
     <section className={`relative flex-1 min-h-0 w-full flex items-start -mt-8 lg:mt-0 ${selectedId ? "pt-8" : "pt-8"} overflow-visible transition-all duration-500`}>
@@ -308,12 +311,12 @@ export function ProductHero({
                   imagePosition
                 }
 
-                if (slug === "audience-flow-management") return <AudienceFlowManagementContent {...commonProps} />
-                if (slug === "creative-agency") return <CreativeAgencyContent {...commonProps} />
-                if (slug === "music-concert-management") return <MusicConcertManagementContent {...commonProps} />
-                if (slug === "sport-event-management") return <SportEventManagementContent {...commonProps} />
-                if (slug === "event-activation") return <EventActivationContent {...commonProps} />
-                if (slug === "mice-event") return <MiceEventContent {...commonProps} />
+                if (slug === "audience-flow-management") return <AudienceFlowManagementContent {...commonProps} detailBlock={detailMap[slug]} />
+                if (slug === "creative-agency") return <CreativeAgencyContent {...commonProps} detailBlock={detailMap[slug]} />
+                if (slug === "music-concert-management") return <MusicConcertManagementContent {...commonProps} detailBlock={detailMap[slug]} />
+                if (slug === "sport-event-management") return <SportEventManagementContent {...commonProps} detailBlock={detailMap[slug]} />
+                if (slug === "event-activation") return <EventActivationContent {...commonProps} detailBlock={detailMap[slug]} />
+                if (slug === "mice-event") return <MiceEventContent {...commonProps} detailBlock={detailMap[slug]} />
                 return null
               })()}
             </div>

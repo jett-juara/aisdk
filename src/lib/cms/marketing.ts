@@ -47,6 +47,18 @@ export interface PageSeo {
   canonicalUrl: string | null;
 }
 
+export interface DetailBlock {
+  id: string;
+  pageSlug: PageSlug;
+  itemSlug: string;
+  title: string;
+  paragraphs: string[];
+  imageUrl?: string;
+  altText?: string;
+  status: "draft" | "review" | "published" | "archived";
+  position: number;
+}
+
 // ============================================
 // Helper Functions
 // ============================================
@@ -231,4 +243,41 @@ export async function isPagePublished(pageSlug: PageSlug): Promise<boolean> {
   }
 
   return data.status === "published";
+}
+
+/**
+ * Get detail blocks for a page (published only)
+ * @param pageSlug - The page identifier
+ * @returns Array of detail blocks ordered by position
+ */
+export async function getDetailBlocks(
+  pageSlug: PageSlug,
+): Promise<DetailBlock[]> {
+  const supabase = await createSupabaseRSCClient();
+
+  const { data, error } = await supabase
+    .from("cms_detail_blocks")
+    .select(
+      "id, page_slug, item_slug, title, paragraphs, image_url, alt_text, status, position",
+    )
+    .eq("page_slug", pageSlug)
+    .eq("status", "published")
+    .order("position", { ascending: true });
+
+  if (error) {
+    console.error(`Failed to fetch detail blocks for: ${pageSlug}`, error);
+    return [];
+  }
+
+  return (data || []).map((item) => ({
+    id: item.id,
+    pageSlug: item.page_slug as PageSlug,
+    itemSlug: item.item_slug,
+    title: item.title,
+    paragraphs: Array.isArray(item.paragraphs) ? item.paragraphs : [],
+    imageUrl: item.image_url ?? undefined,
+    altText: item.alt_text ?? undefined,
+    status: item.status,
+    position: item.position,
+  }));
 }
