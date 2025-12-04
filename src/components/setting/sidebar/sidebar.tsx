@@ -25,6 +25,11 @@ import {
   Activity,
   Settings,
   PanelLeftClose,
+  BookOpen,
+  Package,
+  Wrench,
+  Handshake,
+  Image as ImageIcon,
 } from "lucide-react";
 
 /**
@@ -50,6 +55,14 @@ import {
  *    ⚙️ 'settings' → Settings → Default icon kalau error
  */
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  // CMS icons
+  "book-open": BookOpen, // About
+  package: Package, // Product
+  wrench: Wrench, // Services
+  handshake: Handshake, // Collaboration
+  image: ImageIcon, // Hero
+  detail: FileText, // Detail
+
   // ✅ MENU UNTUK SEMUA USER:
   "layout-dashboard": Home, // "Overview" - Dashboard utama
   user: UserIcon, // "My Profile" - Profil user
@@ -209,6 +222,10 @@ function NavigationItemComponent({
   const effectiveCollapsed = isMounted ? collapsed : false;
   const hasChildren = item.children && item.children.length > 0;
   const open = hasChildren ? isOpen : false;
+  const activeClass =
+    depth > 0
+      ? "bg-brand-800 text-text-50 shadow-lg"
+      : "bg-button-primary text-text-50 hover:bg-button-primary-hover shadow-lg shadow-brand-500/20";
 
   return (
     <div className={cn(depth > 0 && !effectiveCollapsed ? "pl-6" : "pl-0", "w-full") }>
@@ -222,7 +239,7 @@ function NavigationItemComponent({
             : "w-full justify-start px-4",
           effectiveCollapsed ? "gap-0" : "gap-3",
           isActive
-            ? "bg-button-primary text-text-50 hover:bg-button-primary-hover shadow-lg shadow-brand-500/20 rounded-full"
+            ? activeClass + " rounded-full"
             : "text-text-50 hover:bg-white/5 hover:text-text-50 rounded-full",
           "group relative",
         )}

@@ -12,6 +12,13 @@ export function buildCmsNavItems(activePath: string): NavigationItem[] {
     },
   ]
 
+  const pageIconMap: Record<CmsPageSlug, string> = {
+    about: 'book-open',
+    product: 'package',
+    services: 'wrench',
+    collaboration: 'handshake',
+  }
+
   ;(Object.keys(CMS_PAGE_CONFIG) as CmsPageSlug[]).forEach((page: CmsPageSlug) => {
     const label = CMS_PAGE_CONFIG[page].label
     const pageActive = activePath.startsWith(`/cms/${page}`)
@@ -22,21 +29,21 @@ export function buildCmsNavItems(activePath: string): NavigationItem[] {
       id: `${page}-root`,
       label,
       href: childHeroHref,
-      icon: 'layout-dashboard',
+      icon: pageIconMap[page] || 'layout-dashboard',
       isActive: pageActive,
       children: [
         {
           id: `${page}-hero`,
           label: 'Hero',
           href: childHeroHref,
-          icon: 'layout-dashboard',
+          icon: 'image',
           isActive: activePath.startsWith(childHeroHref),
         },
         {
           id: `${page}-detail`,
           label: 'Detail',
           href: childDetailHref,
-          icon: 'layout-dashboard',
+          icon: 'detail',
           isActive: activePath.startsWith(childDetailHref),
         },
       ],

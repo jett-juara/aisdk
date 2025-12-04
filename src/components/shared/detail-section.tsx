@@ -169,7 +169,7 @@ export function DetailSection({
           </div>
 
           {/* Desktop Board Navigation */}
-          <div className="hidden lg:flex flex-wrap gap-2 p-1.5 bg-glass-bg backdrop-blur-md border border-glass-border rounded-2xl w-full">
+          <div className="hidden lg:flex flex-nowrap gap-2 p-1.5 bg-glass-bg backdrop-blur-md border border-glass-border rounded-2xl w-full overflow-x-auto no-scrollbar">
             {/* Back Button */}
             <button
               onClick={() => onClose?.()}
@@ -191,7 +191,7 @@ export function DetailSection({
                   key={item.id}
                   onClick={() => onNavigate?.(item.id)}
                   className={`
-                    flex-1 flex items-center justify-start gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-left group min-w-[180px]
+                    flex-1 min-w-[140px] max-w-[200px] flex items-center justify-start gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-left group
                     ${isActive
                       ? "bg-brand-800 text-text-50 shadow-lg"
                       : "text-text-200 hover:bg-glass-bg hover:text-text-50"
