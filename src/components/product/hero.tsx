@@ -173,7 +173,7 @@ export function ProductHero({
         {!selectedId && (
           <div className="flex flex-col lg:flex-row lg:items-start w-full gap-12 lg:gap-20">
             {/* Hero Text Section */}
-            <div className="lg:flex-1 flex flex-col justify-start">
+            <div className="lg:w-[45%] flex flex-col justify-start">
               <div className={`w-full transition-all duration-1000 ease-premium ${introStep < items.length ? "opacity-0 translate-y-16 blur-xl" : "opacity-100 translate-y-0 blur-0"}`}>
                 {introStep > 0 && (
                   <>
@@ -228,7 +228,7 @@ export function ProductHero({
             </div>
 
             {/* Grid Section */}
-            <div className="w-full lg:max-w-[35vw]">
+            <div className="w-full lg:w-[55%]">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-4 auto-rows-[minmax(100px,auto)]">
                 {items.map((item, index) => {
                   const isStateOne = selectedId === null
@@ -236,14 +236,14 @@ export function ProductHero({
                   const introClass = isIntroActive ? "opacity-0 translate-y-12 blur-lg" : "opacity-100 translate-y-0 blur-0"
                   const scaleClass = !isStateOne || introStep < totalIntroSteps ? "scale-100" : hoveredId === item.id ? "scale-[1.09]" : hoveredId === null ? "scale-100" : "scale-95 opacity-60 blur-[1px]"
 
-                  // Bento Grid Classes
+                  // Bento Grid Classes - ALL SQUARE 1:1
                   let bentoClass = ""
-                  if (index === 0) bentoClass = "col-span-2 aspect-[2/1] md:col-span-2 md:row-start-1 md:col-start-1"
-                  else if (index === 1) bentoClass = "col-span-1 row-span-2 h-full lg:h-full md:col-span-1 md:row-start-1 md:col-start-3 md:row-span-1 md:aspect-square md:h-auto"
-                  else if (index === 2) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-start-2 md:col-start-1"
-                  else if (index === 3) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-start-2 md:col-start-2"
-                  else if (index === 4) bentoClass = "col-span-2 aspect-[2/1] md:col-span-2 md:row-start-3 md:col-start-1"
-                  else if (index === 5) bentoClass = "col-span-2 aspect-[2/1] md:col-span-1 md:row-start-2 md:col-start-3 md:row-span-2 md:h-full md:aspect-auto"
+                  if (index === 0) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-start-1 md:col-start-1 md:aspect-square"
+                  else if (index === 1) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-start-1 md:col-start-2 md:aspect-square"
+                  else if (index === 2) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-start-1 md:col-start-3 md:aspect-square"
+                  else if (index === 3) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-start-2 md:col-start-1 md:aspect-square"
+                  else if (index === 4) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-start-2 md:col-start-2 md:aspect-square"
+                  else if (index === 5) bentoClass = "col-span-1 aspect-square md:col-span-1 md:row-start-2 md:col-start-3 md:aspect-square"
 
                   return (
                     <div key={item.id}

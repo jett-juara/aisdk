@@ -50,7 +50,14 @@ export const CMS_HERO_ASPECT_RATIOS: Record<CmsPageSlug, Record<number, { ratio:
     3: { ratio: 1, label: 'Square (1:1)' },
     4: { ratio: 2, label: 'Landscape (2:1)' },
   },
-  product: undefined, // TBD
+  product: {
+    1: { ratio: 1, label: 'Square (1:1)' },
+    2: { ratio: 1, label: 'Square (1:1)' },
+    3: { ratio: 1, label: 'Square (1:1)' },
+    4: { ratio: 1, label: 'Square (1:1)' },
+    5: { ratio: 1, label: 'Square (1:1)' },
+    6: { ratio: 1, label: 'Square (1:1)' },
+  },
   services: undefined, // TBD
   collaboration: undefined, // TBD
 }
