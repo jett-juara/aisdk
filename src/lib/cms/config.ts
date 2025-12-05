@@ -42,3 +42,16 @@ export function getCmsPageLabel(slug: CmsPageSlug | string) {
   if (isCmsPageSlug(slug)) return CMS_PAGE_CONFIG[slug].label
   return slug.charAt(0).toUpperCase() + slug.slice(1)
 }
+
+export const CMS_HERO_ASPECT_RATIOS: Record<CmsPageSlug, Record<number, { ratio: number; label: string }> | undefined> = {
+  about: {
+    1: { ratio: 1, label: 'Square (1:1)' },
+    2: { ratio: 0.5, label: 'Portrait (1:2)' },
+    3: { ratio: 1, label: 'Square (1:1)' },
+    4: { ratio: 2, label: 'Landscape (2:1)' },
+  },
+  product: undefined, // TBD
+  services: undefined, // TBD
+  collaboration: undefined, // TBD
+}
+

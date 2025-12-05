@@ -10,7 +10,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea'
 import { upsertHeroGridAction } from '@/app/cms/actions'
 import { useToast } from '@/hooks/use-toast'
-import type { CmsPageSlug } from '@/lib/cms/config'
+import { type CmsPageSlug, CMS_HERO_ASPECT_RATIOS } from '@/lib/cms/config'
+import { ImageCropper } from './image-cropper'
 
 export interface HeroGridItem {
   id?: string
@@ -39,10 +40,15 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
   const { toast } = useToast()
   const [isPending, startTransition] = useTransition()
   const [preview, setPreview] = useState<string | null>(item?.image_url || null)
-  const [imagePosition, setImagePosition] = useState<string>(item?.image_position ?? 'right')
+
+  // Cropper States
+  const [cropOpen, setCropOpen] = useState(false)
+  const [pendingFile, setPendingFile] = useState<string | null>(null)
+  const [croppedBlob, setCroppedBlob] = useState<Blob | null>(null)
 
   const isNew = !item
   const position = item?.position ?? nextPosition
+  const requiredRatioConfig = CMS_HERO_ASPECT_RATIOS[pageSlug]?.[position]
 
   return (
     <form
@@ -56,6 +62,12 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
         formData.set('existingImageUrl', item?.image_url ?? '')
         if (item?.id) formData.set('id', item.id)
 
+        // If we have a cropped image, use it instead of the original file input
+        if (croppedBlob) {
+          formData.delete('file') // Remove the original file input
+          formData.append('file', croppedBlob, 'hero-image.jpg')
+        }
+
         startTransition(async () => {
           const res = await upsertHeroGridAction(formData)
           if (!res.success) {
@@ -68,13 +80,13 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
         })
       }}
     >
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-4">
-          <div className="space-y-1">
+      <div className="grid gap-8 md:grid-cols-2">
+        <div className="flex flex-col gap-6 h-full">
+          <div className="space-y-2">
             <Label htmlFor="label">Label</Label>
             <Input id="label" name="label" defaultValue={item?.label} required />
           </div>
-          <div className="space-y-1">
+          <div className="space-y-2">
             <Label htmlFor="slug">Slug</Label>
             <Input
               id="slug"
@@ -86,61 +98,127 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
             {!isNew && <p className="text-xs text-muted-foreground">Slug tidak diubah pada mode edit.</p>}
             {!isNew && <input type="hidden" name="slug" value={item?.slug ?? ''} />}
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <Label htmlFor="labelLine1">Label Line 1</Label>
-              <Input id="labelLine1" name="labelLine1" defaultValue={item?.label_line_1 ?? ''} />
+
+          {/* Layout Position Guide */}
+          <div className="flex flex-col gap-2 flex-1">
+            <Label>Posisi di Grid</Label>
+            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 flex-1 flex flex-col">
+              <div className="grid grid-cols-2 gap-6 flex-1">
+                {/* Desktop Layout */}
+                <div className="flex flex-col gap-2">
+                  <p className="text-xs text-muted-foreground text-center">Desktop</p>
+                  <div className="grid grid-cols-3 grid-rows-3 gap-1 flex-1">
+                    {[1, 2, 3, 4].map((pos) => {
+                      const isCurrentPos = pos === position
+                      let gridClass = ''
+                      if (pos === 1) gridClass = 'col-span-2 row-span-2'
+                      else if (pos === 2) gridClass = 'col-start-3 row-span-2'
+                      else if (pos === 3) gridClass = 'col-start-1 row-start-3'
+                      else if (pos === 4) gridClass = 'col-span-2 col-start-2 row-start-3'
+                      return (
+                        <div
+                          key={pos}
+                          className={`${gridClass} rounded border ${isCurrentPos ? 'bg-brand-500/50 border-brand-400' : 'bg-white/15 border-white/20'} flex items-center justify-center text-xs font-medium ${isCurrentPos ? 'text-brand-200' : 'text-text-200'}`}
+                        >
+                          {pos}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+                {/* Mobile Layout */}
+                <div className="flex flex-col gap-2">
+                  <p className="text-xs text-muted-foreground text-center">Mobile</p>
+                  <div className="grid grid-cols-2 grid-rows-3 gap-1 flex-1">
+                    {[1, 2, 3, 4].map((pos) => {
+                      const isCurrentPos = pos === position
+                      let gridClass = ''
+                      if (pos === 1) gridClass = 'col-start-1 row-span-1'
+                      else if (pos === 2) gridClass = 'col-start-2 row-span-2'
+                      else if (pos === 3) gridClass = 'col-start-1 row-start-2'
+                      else if (pos === 4) gridClass = 'col-span-2 row-start-3'
+                      return (
+                        <div
+                          key={pos}
+                          className={`${gridClass} rounded border ${isCurrentPos ? 'bg-brand-500/50 border-brand-400' : 'bg-white/15 border-white/20'} flex items-center justify-center text-xs font-medium ${isCurrentPos ? 'text-brand-200' : 'text-text-200'}`}
+                        >
+                          {pos}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground text-center mt-4">
+                Gambar ini akan tampil di posisi <span className="text-brand-300 font-semibold">{position}</span>
+              </p>
             </div>
-            <div className="space-y-1">
-              <Label htmlFor="labelLine2">Label Line 2</Label>
-              <Input id="labelLine2" name="labelLine2" defaultValue={item?.label_line_2 ?? ''} />
-            </div>
-          </div>
-          <div className="space-y-1">
-            <Label htmlFor="iconName">Icon Name (lucide)</Label>
-            <Input id="iconName" name="iconName" defaultValue={item?.icon_name ?? ''} />
-          </div>
-          <div className="space-y-1">
-            <Label>Image Position</Label>
-            <Select
-              value={imagePosition}
-              onValueChange={(val) => setImagePosition(val)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Pilih posisi" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="left">Left</SelectItem>
-                <SelectItem value="right">Right</SelectItem>
-              </SelectContent>
-            </Select>
-            <input type="hidden" name="imagePosition" value={imagePosition} />
           </div>
         </div>
 
-        <div className="space-y-3">
-          <div className="space-y-1">
-            <Label htmlFor="file">Gambar Hero</Label>
-            <Input
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <Label>Upload Gambar Hero</Label>
+            <input
               id="file"
               name="file"
               type="file"
               accept="image/*"
+              className="hidden"
               onChange={(e) => {
                 const file = e.target.files?.[0]
                 if (file) {
                   const url = URL.createObjectURL(file)
-                  setPreview(url)
+
+                  if (requiredRatioConfig) {
+                    // Open Cropper
+                    setPendingFile(url)
+                    setCropOpen(true)
+                  } else {
+                    // Direct Preview (No mandatory crop)
+                    setPreview(url)
+                  }
                 }
               }}
             />
-            {isNew && <p className="text-xs text-muted-foreground">Wajib unggah gambar untuk item baru.</p>}
-            {!isNew && <p className="text-xs text-muted-foreground">Biarkan kosong jika tidak mengganti gambar.</p>}
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => document.getElementById('file')?.click()}
+              className="glass-card rounded-2xl h-10 w-full text-text-50 hover:text-text-50 hover:bg-white/10 transition-all duration-500 ease-out hover:scale-105 border border-glass-border"
+            >
+              Upload
+            </Button>
+            {requiredRatioConfig && (
+              <p className="text-xs font-medium text-blue-400 mt-1">
+                Akan dicrop ke rasio: {requiredRatioConfig.label}
+              </p>
+            )}
           </div>
-          <div className="rounded-xl border border-white/10 bg-background-900/60 p-4">
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6">
             {preview ? (
-              <div className="relative aspect-video w-full overflow-hidden rounded-lg">
-                <Image src={preview} alt={item?.label ?? 'Preview'} fill className="object-cover" />
+              <div className="flex flex-col gap-3">
+                <div
+                  className="relative w-full overflow-hidden rounded-lg"
+                  style={{
+                    aspectRatio: requiredRatioConfig ? requiredRatioConfig.ratio : 16 / 9
+                  }}
+                >
+                  <Image src={preview} alt={item?.label ?? 'Preview'} fill className="object-cover" />
+                </div>
+                {requiredRatioConfig && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => {
+                      setPendingFile(preview)
+                      setCropOpen(true)
+                    }}
+                    className="glass-card rounded-2xl h-10 w-full text-text-50 hover:text-text-50 hover:bg-white/10 transition-all duration-500 ease-out hover:scale-105 border border-glass-border"
+                  >
+                    Edit / Crop Ulang
+                  </Button>
+                )}
               </div>
             ) : (
               <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
@@ -148,29 +226,50 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
               </div>
             )}
           </div>
-          <div className="space-y-1">
-            <Label htmlFor="notes">Catatan</Label>
-            <Textarea
-              id="notes"
-              name="notes"
-              placeholder="Opsional: catatan internal"
-              className="h-20"
-            />
-          </div>
           <input type="hidden" name="position" value={position} />
           <input type="hidden" name="pageSlug" value={pageSlug} />
           <input type="hidden" name="section" value={section} />
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
-        <Button type="submit" disabled={isPending}>
+      {requiredRatioConfig && pendingFile && (
+        <ImageCropper
+          open={cropOpen}
+          onOpenChange={(open) => {
+            setCropOpen(open)
+            if (!open && !croppedBlob) {
+              setPendingFile(null)
+              const fileInput = document.getElementById('file') as HTMLInputElement
+              if (fileInput) fileInput.value = ''
+            }
+          }}
+          imageSrc={pendingFile}
+          aspect={requiredRatioConfig.ratio}
+          onCropComplete={(blob) => {
+            setCroppedBlob(blob)
+            const url = URL.createObjectURL(blob)
+            setPreview(url)
+          }}
+        />
+      )}
+
+      <div className="flex items-center justify-center gap-6 pt-4">
+        <Button
+          type="submit"
+          disabled={isPending}
+          className="rounded-full bg-button-primary text-text-50 hover:bg-button-primary-hover shadow-lg shadow-brand-500/20 h-10 w-32 transition-colors duration-200"
+        >
           {isPending ? 'Menyimpan...' : 'Simpan'}
         </Button>
-        <Button type="button" variant="ghost" onClick={() => router.push(`/cms/${pageSlug}/hero`)}>
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={() => router.push(`/cms/${pageSlug}/hero`)}
+          className="glass-card rounded-2xl h-10 w-32 text-text-50 hover:text-text-50 hover:bg-white/10 transition-all duration-500 ease-out hover:scale-105 border border-glass-border"
+        >
           Batal
         </Button>
       </div>
-    </form>
+    </form >
   )
 }

@@ -443,10 +443,10 @@ const Hero = ({
                         "col-span-1 row-start-1 col-start-1 aspect-square md:col-span-2 md:aspect-[2/1] md:row-start-1 md:col-start-1 lg:col-span-2 lg:row-span-2 lg:row-start-1 lg:col-start-1 lg:aspect-square";
                     else if (index === 1)
                       bentoClass =
-                        "col-span-1 row-start-2 col-start-1 aspect-square md:col-span-1 md:row-start-1 md:col-start-3 lg:col-span-1 lg:row-span-2 lg:row-start-1 lg:col-start-3 lg:aspect-[1/2] lg:h-full";
+                        "col-span-1 row-span-2 row-start-1 col-start-2 h-full md:col-span-1 md:row-start-1 md:col-start-3 lg:col-span-1 lg:row-span-2 lg:row-start-1 lg:col-start-3 lg:aspect-[1/2] lg:h-full";
                     else if (index === 2)
                       bentoClass =
-                        "col-span-1 row-span-2 row-start-1 col-start-2 h-full md:col-span-1 md:row-start-2 md:col-start-1 md:aspect-square md:row-span-1 md:h-auto lg:col-span-1 lg:row-span-1 lg:row-start-3 lg:col-start-1 lg:aspect-square lg:h-full";
+                        "col-span-1 row-start-2 col-start-1 aspect-square md:col-span-1 md:row-start-2 md:col-start-1 md:aspect-square md:row-span-1 md:h-auto lg:col-span-1 lg:row-span-1 lg:row-start-3 lg:col-start-1 lg:aspect-square lg:h-full";
                     else if (index === 3)
                       bentoClass =
                         "col-span-2 row-start-3 aspect-[2/1] md:col-span-2 md:row-start-2 md:col-start-2 md:aspect-[2/1] lg:col-span-2 lg:row-start-3 lg:col-start-2 lg:aspect-[2/1]";
