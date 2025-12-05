@@ -11,7 +11,7 @@ const baseNavigation: NavigationItem[] = [
     id: "overview",
     label: "Overview",
     href: "/setting",
-    icon: "layout-dashboard",
+    icon: "home",
     isActive: true,
   },
   {

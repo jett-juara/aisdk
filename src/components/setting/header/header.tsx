@@ -29,6 +29,7 @@ import {
   PanelLeftClose,
   LayoutDashboard,
   Clock,
+  Settings,
 } from "lucide-react";
 import { BecomeVendorModal } from "../become-vendor-modal";
 
@@ -198,6 +199,7 @@ function UserProfileDropdown({
   const [syncedWidth, setSyncedWidth] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
+  const pathname = usePathname();
   const EXPANSION_DELTA = 24;
 
   // Mount gate untuk mencegah hydration mismatch dengan Radix DropdownMenu
@@ -327,6 +329,34 @@ function UserProfileDropdown({
         className="w-auto border-glass-border bg-background-900/95 backdrop-blur-xl p-2 rounded-xl"
       >
 
+
+
+        {(user.role === "admin" || user.role === "superadmin") &&
+          (pathname?.startsWith("/cms") ? (
+            <DropdownMenuItem
+              asChild
+              className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4 rounded-lg"
+            >
+              <Link href="/setting">
+                <Settings className="h-6 w-6" />
+                <span className="font-button font-medium text-sm text-text-50">
+                  Setting
+                </span>
+              </Link>
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem
+              asChild
+              className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4 rounded-lg"
+            >
+              <Link href="/cms">
+                <LayoutDashboard className="h-6 w-6" />
+                <span className="font-button font-medium text-sm text-text-50">
+                  CMS
+                </span>
+              </Link>
+            </DropdownMenuItem>
+          ))}
 
         <DropdownMenuItem
           className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4 rounded-lg"

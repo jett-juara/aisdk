@@ -16,6 +16,7 @@ import type { SidebarProps, NavigationItem } from "@/lib/setting/types";
 import { sidebarConfig } from "@/lib/setting/navigation";
 import {
   Home,
+  LayoutDashboard,
   User as UserIcon, // ← NEEDED untuk "My Profile" menu (rename to avoid conflict)
   Users,
   Shield,
@@ -65,7 +66,8 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   detail: FileText, // Detail
 
   // ✅ MENU UNTUK SEMUA USER:
-  "layout-dashboard": Home, // "Overview" - Dashboard utama
+  "home": Home, // "Overview" - Dashboard utama
+  "layout-dashboard": LayoutDashboard, // "CMS" - Dashboard icon
   user: UserIcon, // "My Profile" - Profil user
 
   // 🔒 MENU UNTUK ADMIN + SUPERADMIN:
