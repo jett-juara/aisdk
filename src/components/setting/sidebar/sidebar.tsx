@@ -30,6 +30,7 @@ import {
   Wrench,
   Handshake,
   Image as ImageIcon,
+  ChevronDown,
 } from "lucide-react";
 
 /**
@@ -224,11 +225,11 @@ function NavigationItemComponent({
   const open = hasChildren ? isOpen : false;
   const activeClass =
     depth > 0
-      ? "bg-brand-800 text-text-50 shadow-lg"
+      ? "bg-white/5 text-text-50"
       : "bg-button-primary text-text-50 hover:bg-button-primary-hover shadow-lg shadow-brand-500/20";
 
   return (
-    <div className={cn(depth > 0 && !effectiveCollapsed ? "pl-6" : "pl-0", "w-full") }>
+    <div className={cn(depth > 0 && !effectiveCollapsed ? "pl-6" : "pl-0", "w-full")}>
       <Button
         asChild
         variant={isActive ? "default" : "ghost"}
@@ -256,26 +257,36 @@ function NavigationItemComponent({
             onNavigate?.(item.href);
           }}
           className={cn(
-            "flex items-center gap-3",
-            effectiveCollapsed ? "justify-center" : "justify-start",
+            "flex items-center w-full",
+            effectiveCollapsed ? "justify-center" : "justify-between",
           )}
         >
-          <IconComponent
-            className={cn(
-              "h-5 w-5 flex-shrink-0 transition-colors duration-200",
-              isActive && "text-text-50",
-              !isActive && "text-text-400 group-hover:text-text-50",
-            )}
-          />
-          <span
-            className={cn(
-              "truncate transition-opacity duration-200 ease-in-out",
-              effectiveCollapsed ? "opacity-0 w-0" : "opacity-100 w-auto",
-              depth > 0 ? "text-text-200" : "",
-            )}
-          >
-            {item.label}
-          </span>
+          <div className={cn("flex items-center gap-3 min-w-0", effectiveCollapsed ? "justify-center" : "")}>
+            <IconComponent
+              className={cn(
+                "h-5 w-5 flex-shrink-0 transition-colors duration-200",
+                isActive && "text-text-50",
+                !isActive && "text-text-400 group-hover:text-text-50",
+              )}
+            />
+            <span
+              className={cn(
+                "truncate transition-opacity duration-200 ease-in-out",
+                effectiveCollapsed ? "opacity-0 w-0" : "opacity-100 w-auto",
+                depth > 0 ? "text-text-200" : "",
+              )}
+            >
+              {item.label}
+            </span>
+          </div>
+          {hasChildren && !effectiveCollapsed && (
+            <ChevronDown
+              className={cn(
+                "h-4 w-4 text-text-400 transition-transform duration-200",
+                open && "rotate-180"
+              )}
+            />
+          )}
         </Link>
       </Button>
       {hasChildren && !effectiveCollapsed && open && (
@@ -311,9 +322,8 @@ export function SettingSidebar({
 }: SidebarProps) {
   const [isMounted, setIsMounted] = React.useState(false);
   const isMobileVariant = variant === "mobile";
-  const [openParents, setOpenParents] = React.useState<Set<string>>(new Set());
-
-  React.useEffect(() => {
+  // Initialize with currently active items to avoid flash
+  const [openParents, setOpenParents] = React.useState<Set<string>>(() => {
     const initial = new Set<string>();
     navigationItems.forEach((item) => {
       const childActive = item.children?.some((c) => c.isActive) ?? false;
@@ -321,7 +331,51 @@ export function SettingSidebar({
         initial.add(item.id);
       }
     });
-    setOpenParents(initial);
+    return initial;
+  });
+
+  // Load from localStorage on mount
+  React.useEffect(() => {
+    try {
+      const stored = localStorage.getItem("cms-sidebar-state");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          setOpenParents((prev) => {
+            const next = new Set(prev);
+            parsed.forEach((id) => next.add(id));
+            return next;
+          });
+        }
+      }
+    } catch (e) {
+      console.error("Failed to load sidebar state", e);
+    }
+  }, []);
+
+  // Save to localStorage whenever state changes
+  React.useEffect(() => {
+    try {
+      localStorage.setItem("cms-sidebar-state", JSON.stringify(Array.from(openParents)));
+    } catch (e) {
+      console.error("Failed to save sidebar state", e);
+    }
+  }, [openParents]);
+
+  // Ensure active items are open (deep linking support)
+  React.useEffect(() => {
+    setOpenParents((prev) => {
+      const next = new Set(prev);
+      let changed = false;
+      navigationItems.forEach((item) => {
+        const childActive = item.children?.some((c) => c.isActive) ?? false;
+        if ((item.isActive || childActive) && !next.has(item.id)) {
+          next.add(item.id);
+          changed = true;
+        }
+      });
+      return changed ? next : prev;
+    });
   }, [navigationItems]);
 
   const handleToggle = (id: string) => {

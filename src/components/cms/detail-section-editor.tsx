@@ -71,7 +71,7 @@ export function DetailSectionEditor({ pageSlug, label, items, config }: DetailSe
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {mapped.map(({ cfg, data }) => (
-          <div key={cfg.itemSlug} className="rounded-lg border border-border bg-background-900/70 p-4 flex flex-col gap-3">
+          <div key={cfg.itemSlug} className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm px-5 py-4 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.8)] flex flex-col gap-3">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-text-300">{label} / {cfg.label}</p>

@@ -169,7 +169,7 @@ export function DetailSection({
           </div>
 
           {/* Desktop Board Navigation */}
-          <div className="hidden lg:flex flex-nowrap gap-2 p-1.5 bg-glass-bg backdrop-blur-md border border-glass-border rounded-2xl w-full overflow-x-auto no-scrollbar">
+          <div className="hidden lg:flex flex-nowrap justify-center gap-2 p-1.5 bg-glass-bg backdrop-blur-md border border-glass-border rounded-2xl w-full overflow-x-auto no-scrollbar">
             {/* Back Button */}
             <button
               onClick={() => onClose?.()}
@@ -191,7 +191,7 @@ export function DetailSection({
                   key={item.id}
                   onClick={() => onNavigate?.(item.id)}
                   className={`
-                    flex-1 min-w-[140px] max-w-[200px] flex items-center justify-start gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-left group
+                    flex-1 min-w-[140px] flex items-center justify-start gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-left group
                     ${isActive
                       ? "bg-brand-800 text-text-50 shadow-lg"
                       : "text-text-200 hover:bg-glass-bg hover:text-text-50"
@@ -205,8 +205,8 @@ export function DetailSection({
 
                   {/* 2-Line Text */}
                   <div className="flex flex-col leading-none">
-                    <span className="text-[10px] font-bold uppercase tracking-wider opacity-80 mb-0.5">{item.labelLine1}</span>
-                    <span className="text-xs font-bold uppercase tracking-widest">{item.labelLine2}</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider opacity-80 mb-0.5 whitespace-nowrap">{item.labelLine1}</span>
+                    <span className="text-xs font-bold uppercase tracking-widest whitespace-nowrap">{item.labelLine2}</span>
                   </div>
                 </button>
               )
@@ -219,35 +219,35 @@ export function DetailSection({
         style={{ transitionProperty: "transform, opacity", transitionDuration: "1000ms" }}>
         {/* Visual Area */}
         <div className={`order-1 ${isImageLeft ? "lg:order-1" : "lg:order-2"} lg:basis-[45%] flex flex-col w-full`}>
-            <div
-              className={`relative w-full h-[300px] lg:h-full min-h-[400px] rounded-3xl overflow-hidden border border-glass-border bg-glass-bg backdrop-blur-md transition-all duration-1000 shadow-2xl ${isContent ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
-            >
-              {imageUrl ? (
-                <>
-                  <Image
-                    src={imageUrl}
-                    alt={imageAlt || title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={false}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent" />
-                </>
-              ) : (
-                <>
-                  <div className="absolute inset-0 bg-gradient-to-br from-glass-bg to-transparent" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center transition-transform duration-500 ease-premium">
-                      <div className="w-20 h-20 rounded-full bg-glass-bg border border-glass-border flex items-center justify-center mx-auto mb-4 transition-colors">
-                        {ActiveIcon ? <ActiveIcon className="h-8 w-8 text-text-100" /> : <span className="text-3xl">✨</span>}
-                      </div>
-                      <span className="text-text-200 font-mono text-sm uppercase tracking-widest transition-colors">Visual Asset</span>
+          <div
+            className={`relative w-full h-[300px] lg:h-full min-h-[400px] rounded-3xl overflow-hidden border border-glass-border bg-glass-bg backdrop-blur-md transition-all duration-1000 shadow-2xl ${isContent ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
+          >
+            {imageUrl ? (
+              <>
+                <Image
+                  src={imageUrl}
+                  alt={imageAlt || title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority={false}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent" />
+              </>
+            ) : (
+              <>
+                <div className="absolute inset-0 bg-gradient-to-br from-glass-bg to-transparent" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center transition-transform duration-500 ease-premium">
+                    <div className="w-20 h-20 rounded-full bg-glass-bg border border-glass-border flex items-center justify-center mx-auto mb-4 transition-colors">
+                      {ActiveIcon ? <ActiveIcon className="h-8 w-8 text-text-100" /> : <span className="text-3xl">✨</span>}
                     </div>
+                    <span className="text-text-200 font-mono text-sm uppercase tracking-widest transition-colors">Visual Asset</span>
                   </div>
-                </>
-              )}
-            </div>
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
         {/* Text Content Area */}

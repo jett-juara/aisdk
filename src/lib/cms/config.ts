@@ -1,10 +1,10 @@
 export type CmsPageSlug = 'about' | 'product' | 'services' | 'collaboration'
 
 export const CMS_PAGE_CONFIG: Record<CmsPageSlug, { label: string; maxItems: number; section: string }> = {
-  about: { label: 'About', maxItems: 6, section: 'hero_grid' },
+  about: { label: 'About', maxItems: 4, section: 'hero_grid' },
   product: { label: 'Product', maxItems: 6, section: 'hero_grid' },
-  services: { label: 'Services', maxItems: 6, section: 'hero_grid' },
-  collaboration: { label: 'Collaboration', maxItems: 4, section: 'hero_grid' },
+  services: { label: 'Services', maxItems: 4, section: 'hero_grid' },
+  collaboration: { label: 'Collaboration', maxItems: 2, section: 'hero_grid' },
 }
 
 export const CMS_DETAIL_CONFIG: Record<CmsPageSlug, { pageSlug: CmsPageSlug; itemSlug: string; label: string; position: number }[]> = {
