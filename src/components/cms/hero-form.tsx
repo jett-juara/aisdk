@@ -108,10 +108,21 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
                 <div className="flex flex-col gap-2">
                   <p className="text-xs text-muted-foreground text-center">Desktop</p>
                   <div
-                    className={`grid grid-cols-3 ${pageSlug === 'product' ? 'gap-x-2 gap-y-2 content-start' : 'gap-2'} min-h-[280px]`}
-                    style={pageSlug === 'product' ? { gridAutoRows: 'auto' } : { gridAutoRows: 'minmax(60px, 1fr)' }}
+                    className={`grid ${pageSlug === 'collaboration' ? 'grid-cols-2' : 'grid-cols-3'} ${pageSlug === 'product' ? 'gap-x-2 gap-y-2 content-start' : 'gap-2'} min-h-[280px]`}
+                    style={
+                      pageSlug === 'product'
+                        ? { gridAutoRows: 'auto' }
+                        : pageSlug === 'collaboration'
+                          ? { gridAutoRows: 'minmax(120px, auto)' }
+                          : { gridAutoRows: 'minmax(60px, 1fr)' }
+                    }
                   >
-                    {(pageSlug === 'product' ? [1, 2, 3, 4, 5, 6] : [1, 2, 3, 4]).map((pos) => {
+                    {(pageSlug === 'product'
+                      ? [1, 2, 3, 4, 5, 6]
+                      : pageSlug === 'collaboration'
+                        ? [1, 2]
+                        : [1, 2, 3, 4]
+                    ).map((pos) => {
                       const isCurrentPos = pos === position
                       let gridClass = ''
                       if (pageSlug === 'product') {
@@ -122,6 +133,10 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
                         else if (pos === 4) gridClass = 'col-span-1 row-start-2 col-start-1'
                         else if (pos === 5) gridClass = 'col-span-1 row-start-2 col-start-2'
                         else if (pos === 6) gridClass = 'col-span-1 row-start-2 col-start-3'
+                      } else if (pageSlug === 'collaboration') {
+                        // Collaboration: 2 items - tall portrait pillars
+                        if (pos === 1) gridClass = 'col-start-1 row-start-1'
+                        else if (pos === 2) gridClass = 'col-start-2 row-start-1'
                       } else {
                         // About/Services/Collaboration: 4 items
                         if (pos === 1) gridClass = 'col-span-2 row-span-2'
@@ -132,7 +147,7 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
                       return (
                         <div
                           key={pos}
-                          className={`${gridClass} ${pageSlug === 'product' ? 'aspect-square' : ''} rounded border ${isCurrentPos ? 'bg-brand-500/50 border-brand-400' : 'bg-white/15 border-white/20'} flex items-center justify-center text-xs font-medium ${isCurrentPos ? 'text-brand-200' : 'text-text-200'}`}
+                          className={`${gridClass} ${pageSlug === 'product' ? 'aspect-square' : pageSlug === 'collaboration' ? 'aspect-[3/5]' : ''} rounded border ${isCurrentPos ? 'bg-brand-500/50 border-brand-400' : 'bg-white/15 border-white/20'} flex items-center justify-center text-xs font-medium ${isCurrentPos ? 'text-brand-200' : 'text-text-200'}`}
                         >
                           {pos}
                         </div>
@@ -144,7 +159,12 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
                 <div className="flex flex-col gap-2">
                   <p className="text-xs text-muted-foreground text-center">Mobile</p>
                   <div className="grid grid-cols-2 gap-2 auto-rows-min">
-                    {(pageSlug === 'product' ? [1, 2, 3, 4, 5, 6] : [1, 2, 3, 4]).map((pos) => {
+                    {(pageSlug === 'product'
+                      ? [1, 2, 3, 4, 5, 6]
+                      : pageSlug === 'collaboration'
+                        ? [1, 2]
+                        : [1, 2, 3, 4]
+                    ).map((pos) => {
                       const isCurrentPos = pos === position
                       let gridClass = ''
                       let styleProps: React.CSSProperties = {}
@@ -170,6 +190,10 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
                           gridClass = 'col-span-1'
                           styleProps = { aspectRatio: '1 / 1' }
                         }
+                      } else if (pageSlug === 'collaboration') {
+                        // Collaboration mobile: 2 items, portrait pillars
+                        gridClass = 'col-span-1'
+                        styleProps = { aspectRatio: '3 / 5' }
                       } else {
                         // About/Services/Collaboration mobile
                         if (pos === 1) {
