@@ -62,7 +62,7 @@ function SettingBreadcrumb() {
     const action = rest[2];
 
     const breadcrumbs: { label: string; href?: string }[] = [
-      { label: "CMS", href: "/cms" },
+      { label: "Content Management System", href: "/cms" },
     ];
 
     if (!pageSlug) {
@@ -418,6 +418,10 @@ export function SettingHeader({
     );
   };
 
+  // Check if current page is CMS
+  const pathname = usePathname();
+  const isCmsPage = pathname?.startsWith("/cms");
+
   return (
     <header
       className={cn(
@@ -462,8 +466,8 @@ export function SettingHeader({
           {/* Notifications */}
           <NotificationBell />
 
-          {/* Upgrade / Vendor Status Button (Desktop) */}
-          {renderVendorButton(false)}
+          {/* Upgrade / Vendor Status Button (Desktop) - Hide in CMS */}
+          {!isCmsPage && renderVendorButton(false)}
 
           {/* User Profile Dropdown */}
           <UserProfileDropdown
@@ -476,7 +480,7 @@ export function SettingHeader({
 
       {/* Mobile Upgrade Button Row */}
       <div className="flex md:hidden w-full justify-center items-center py-4 border-b border-white/10 px-6">
-        {renderVendorButton(true)}
+        {!isCmsPage && renderVendorButton(true)}
       </div>
 
       <BecomeVendorModal
