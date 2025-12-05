@@ -107,18 +107,21 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
                 {/* Desktop Layout */}
                 <div className="flex flex-col gap-2">
                   <p className="text-xs text-muted-foreground text-center">Desktop</p>
-                  <div className="grid grid-cols-3 gap-2 min-h-[280px]" style={{ gridAutoRows: 'minmax(60px, 1fr)' }}>
+                  <div
+                    className={`grid grid-cols-3 ${pageSlug === 'product' ? 'gap-x-2 gap-y-2 content-start' : 'gap-2'} min-h-[280px]`}
+                    style={pageSlug === 'product' ? { gridAutoRows: 'auto' } : { gridAutoRows: 'minmax(60px, 1fr)' }}
+                  >
                     {(pageSlug === 'product' ? [1, 2, 3, 4, 5, 6] : [1, 2, 3, 4]).map((pos) => {
                       const isCurrentPos = pos === position
                       let gridClass = ''
                       if (pageSlug === 'product') {
-                        // Product: 6 items - exact classes from product/hero.tsx
-                        if (pos === 1) gridClass = 'col-span-2 row-start-1 col-start-1'
-                        else if (pos === 2) gridClass = 'col-span-1 row-start-1 col-start-3 row-span-1'
-                        else if (pos === 3) gridClass = 'col-span-1 row-start-2 col-start-1'
-                        else if (pos === 4) gridClass = 'col-span-1 row-start-2 col-start-2'
-                        else if (pos === 5) gridClass = 'col-span-2 row-start-3 col-start-1'
-                        else if (pos === 6) gridClass = 'col-span-1 row-start-2 col-start-3 row-span-2'
+                        // Product: 6 items - ALL SQUARE 1:1, 3x2 grid
+                        if (pos === 1) gridClass = 'col-span-1 row-start-1 col-start-1'
+                        else if (pos === 2) gridClass = 'col-span-1 row-start-1 col-start-2'
+                        else if (pos === 3) gridClass = 'col-span-1 row-start-1 col-start-3'
+                        else if (pos === 4) gridClass = 'col-span-1 row-start-2 col-start-1'
+                        else if (pos === 5) gridClass = 'col-span-1 row-start-2 col-start-2'
+                        else if (pos === 6) gridClass = 'col-span-1 row-start-2 col-start-3'
                       } else {
                         // About/Services/Collaboration: 4 items
                         if (pos === 1) gridClass = 'col-span-2 row-span-2'
@@ -129,7 +132,7 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
                       return (
                         <div
                           key={pos}
-                          className={`${gridClass} rounded border ${isCurrentPos ? 'bg-brand-500/50 border-brand-400' : 'bg-white/15 border-white/20'} flex items-center justify-center text-xs font-medium ${isCurrentPos ? 'text-brand-200' : 'text-text-200'}`}
+                          className={`${gridClass} ${pageSlug === 'product' ? 'aspect-square' : ''} rounded border ${isCurrentPos ? 'bg-brand-500/50 border-brand-400' : 'bg-white/15 border-white/20'} flex items-center justify-center text-xs font-medium ${isCurrentPos ? 'text-brand-200' : 'text-text-200'}`}
                         >
                           {pos}
                         </div>
@@ -147,25 +150,25 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
                       let styleProps: React.CSSProperties = {}
 
                       if (pageSlug === 'product') {
-                        // Product mobile: exact classes from product/hero.tsx
+                        // Product mobile: ALL SQUARE 1:1, 2x3 grid
                         if (pos === 1) {
-                          gridClass = 'col-span-2' // Full width landscape
-                          styleProps = { aspectRatio: '2 / 1' }
+                          gridClass = 'col-span-1'
+                          styleProps = { aspectRatio: '1 / 1' }
                         } else if (pos === 2) {
-                          gridClass = 'col-span-1 row-span-2 h-full' // Portrait tall - h-full untuk alignment
-                          styleProps = {} // No aspect ratio, use h-full
+                          gridClass = 'col-span-1'
+                          styleProps = { aspectRatio: '1 / 1' }
                         } else if (pos === 3) {
-                          gridClass = 'col-span-1' // Square
+                          gridClass = 'col-span-1'
                           styleProps = { aspectRatio: '1 / 1' }
                         } else if (pos === 4) {
-                          gridClass = 'col-span-1' // Square
+                          gridClass = 'col-span-1'
                           styleProps = { aspectRatio: '1 / 1' }
                         } else if (pos === 5) {
-                          gridClass = 'col-span-2' // Full width landscape
-                          styleProps = { aspectRatio: '2 / 1' }
+                          gridClass = 'col-span-1'
+                          styleProps = { aspectRatio: '1 / 1' }
                         } else if (pos === 6) {
-                          gridClass = 'col-span-2' // Full width landscape
-                          styleProps = { aspectRatio: '2 / 1' }
+                          gridClass = 'col-span-1'
+                          styleProps = { aspectRatio: '1 / 1' }
                         }
                       } else {
                         // About/Services/Collaboration mobile
