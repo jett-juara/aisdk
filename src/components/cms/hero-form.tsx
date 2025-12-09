@@ -108,13 +108,13 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
                 <div className="flex flex-col gap-2">
                   <p className="text-xs text-muted-foreground text-center">Desktop</p>
                   <div
-                    className={`grid ${pageSlug === 'collaboration' ? 'grid-cols-2' : 'grid-cols-3'} ${pageSlug === 'product' ? 'gap-x-2 gap-y-2 content-start' : 'gap-2'} min-h-[280px]`}
+                    className={`grid ${pageSlug === 'collaboration' ? 'grid-cols-2' : 'grid-cols-3'} ${pageSlug === 'product' ? 'gap-x-2 gap-y-2 content-start' : 'gap-2 content-start'}`}
                     style={
                       pageSlug === 'product'
                         ? { gridAutoRows: 'auto' }
                         : pageSlug === 'collaboration'
                           ? { gridAutoRows: 'minmax(120px, auto)' }
-                          : { gridAutoRows: 'minmax(60px, 1fr)' }
+                          : { gridAutoRows: 'auto' }
                     }
                   >
                     {(pageSlug === 'product'
@@ -125,6 +125,7 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
                     ).map((pos) => {
                       const isCurrentPos = pos === position
                       let gridClass = ''
+                      let aspectClass = ''
                       if (pageSlug === 'product') {
                         // Product: 6 items - ALL SQUARE 1:1, 3x2 grid
                         if (pos === 1) gridClass = 'col-span-1 row-start-1 col-start-1'
@@ -133,21 +134,30 @@ export function HeroForm({ pageSlug, pageLabel, section, item, nextPosition }: H
                         else if (pos === 4) gridClass = 'col-span-1 row-start-2 col-start-1'
                         else if (pos === 5) gridClass = 'col-span-1 row-start-2 col-start-2'
                         else if (pos === 6) gridClass = 'col-span-1 row-start-2 col-start-3'
+                        aspectClass = 'aspect-square'
                       } else if (pageSlug === 'collaboration') {
                         // Collaboration: 2 items - tall portrait pillars
                         if (pos === 1) gridClass = 'col-start-1 row-start-1'
                         else if (pos === 2) gridClass = 'col-start-2 row-start-1'
+                        aspectClass = 'aspect-[3/5]'
                       } else {
-                        // About/Services/Collaboration: 4 items
-                        if (pos === 1) gridClass = 'col-span-2 row-span-2'
-                        else if (pos === 2) gridClass = 'col-start-3 row-span-2'
-                        else if (pos === 3) gridClass = 'col-start-1 row-start-3'
-                        else if (pos === 4) gridClass = 'col-span-2 col-start-2 row-start-3'
+                        // About/Services: 4 items
+                        if (pos === 1) {
+                          gridClass = 'col-span-2 row-span-2'
+                          aspectClass = 'aspect-square'
+                        } else if (pos === 2) {
+                          gridClass = 'col-start-3 row-span-2 h-full'
+                        } else if (pos === 3) {
+                          gridClass = 'col-start-1 row-start-3'
+                          aspectClass = 'aspect-square'
+                        } else if (pos === 4) {
+                          gridClass = 'col-span-2 col-start-2 row-start-3 h-full'
+                        }
                       }
                       return (
                         <div
                           key={pos}
-                          className={`${gridClass} ${pageSlug === 'product' ? 'aspect-square' : pageSlug === 'collaboration' ? 'aspect-[3/5]' : ''} rounded border ${isCurrentPos ? 'bg-brand-500/50 border-brand-400' : 'bg-white/15 border-white/20'} flex items-center justify-center text-xs font-medium ${isCurrentPos ? 'text-brand-200' : 'text-text-200'}`}
+                          className={`${gridClass} ${aspectClass} rounded border ${isCurrentPos ? 'bg-brand-500/50 border-brand-400' : 'bg-white/15 border-white/20'} flex items-center justify-center text-xs font-medium ${isCurrentPos ? 'text-brand-200' : 'text-text-200'}`}
                         >
                           {pos}
                         </div>
