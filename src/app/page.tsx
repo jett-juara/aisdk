@@ -2,8 +2,13 @@ import { Header } from "@/components/layout/header/header";
 import Image from "next/image";
 import { HomepageSection } from "@/components/homepage";
 import Footer from "@/components/layout/footer";
+import { getHomeData } from "@/lib/cms/home-service";
 
-export default function HomePage() {
+export const dynamic = 'force-dynamic'
+
+export default async function HomePage() {
+  const cmsData = await getHomeData();
+
   return (
     <div className="relative isolate flex flex-col bg-black min-h-svh md:min-h-[100dvh] md:h-dvh lg:h-dvh md:overflow-hidden lg:overflow-hidden [&_*]:focus:outline-none [&_*]:focus-visible:outline-none [&_*]:focus-visible:ring-0 [&_*]:focus-visible:ring-offset-0">
 
@@ -11,7 +16,7 @@ export default function HomePage() {
 
       {/* Mobile Background */}
       <Image
-        src="/images/home-hero/dark-hero-home-mobile.webp"
+        src={cmsData?.bg_mobile_url || "/images/home-hero/dark-hero-home-mobile.webp"}
         alt="Background"
         width={800}
         height={1434}
@@ -21,7 +26,7 @@ export default function HomePage() {
 
       {/* Tablet Background */}
       <Image
-        src="/images/home-hero/dark-hero-home-tablet.webp"
+        src={cmsData?.bg_tablet_url || "/images/home-hero/dark-hero-home-tablet.webp"}
         alt="Background"
         width={1536}
         height={2048}
@@ -31,7 +36,7 @@ export default function HomePage() {
 
       {/* Desktop Background */}
       <Image
-        src="/images/home-hero/dark-hero-home.webp"
+        src={cmsData?.bg_desktop_url || "/images/home-hero/dark-hero-home.webp"}
         alt="Background"
         width={1280}
         height={800}
@@ -50,7 +55,12 @@ export default function HomePage() {
       {/* Main Content - Centered */}
       <main className="flex-grow relative z-10 flex flex-col justify-start lg:justify-center">
         <div className="w-full">
-          <HomepageSection />
+          <HomepageSection
+            headlineH2={cmsData?.hero_text_h2}
+            descriptionP={cmsData?.hero_text_p}
+            svgUrl={cmsData?.svg_headline_url}
+            ctaButtons={cmsData?.cta_buttons}
+          />
         </div>
       </main>
 

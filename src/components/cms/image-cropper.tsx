@@ -52,7 +52,7 @@ export function ImageCropper({ imageSrc, aspect, open, onOpenChange, onCropCompl
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-xl">
+            <DialogContent className="sm:max-w-xl bg-background-900 border border-white/10 bg-background-900 border border-white/10">
                 <DialogHeader>
                     <DialogTitle>Sesuaikan Gambar</DialogTitle>
                 </DialogHeader>

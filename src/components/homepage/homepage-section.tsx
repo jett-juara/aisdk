@@ -4,34 +4,48 @@ import { useState } from "react";
 import { useHomepageAnimations } from "@/hooks/use-homepage-animations";
 import Image from "next/image";
 import Link from "next/link";
-import { Users, Handshake, MessageSquare } from "lucide-react";
+import * as LucideIcons from "lucide-react";
+import type { HomeCtaButton } from "@/lib/cms/home-service";
 
-const Hero47 = () => {
+interface HomepageSectionProps {
+  headlineH2?: string | null
+  descriptionP?: string | null
+  svgUrl?: string | null
+  ctaButtons?: HomeCtaButton[]
+}
+
+const Hero47 = ({ headlineH2, descriptionP, svgUrl, ctaButtons }: HomepageSectionProps) => {
   // Initialize homepage animations
   const { getClasses } = useHomepageAnimations()
   const animationClasses = getClasses()
-  const [hoveredId, setHoveredId] = useState<number | null>(null)
+  const [hoveredId, setHoveredId] = useState<string | number | null>(null)
 
-  const ctaItems = [
+  const defaultCtaItems = [
     {
-      id: 1,
+      id: "who-we-are",
       label: "Who We Are",
       href: "/about",
-      icon: Users,
+      icon: "Users",
+      is_active: true
     },
     {
-      id: 2,
+      id: "collaborate",
       label: "Collaborate",
       href: "/collaboration",
-      icon: Handshake,
+      icon: "Handshake",
+      is_active: true
     },
     {
-      id: 3,
+      id: "chat-jett",
       label: "Chat JETT",
       href: "#",
-      icon: MessageSquare,
+      icon: "MessageSquare",
+      is_active: true
     },
   ];
+
+  // Use props if available, otherwise defaults (filtering active ones)
+  const displayButtons = (ctaButtons || defaultCtaItems).filter(b => b.is_active)
 
   return (
     <section className="relative w-full h-full flex items-start lg:items-center justify-center">
@@ -41,8 +55,9 @@ const Hero47 = () => {
         <div className="lg:w-1/2 flex justify-start lg:justify-end items-center lg:pr-12 lg:items-center pt-0 md:pt-0 lg:pt-0">
           <div className={`w-[45vh] min-[375px]:w-[35vh] min-[360px]:w-[35vh] md:w-[40vh] px-4 relative lg:w-[55vh] flex-shrink-0 transition-all duration-700 ease-out transform-gpu ${animationClasses.svg}`}>
             {/* Spacer Image - Invisible but sets the size correctly */}
+            {/* Use dynamic SVG or default */}
             <Image
-              src="/images/home-hero/off-the-grid-headline.svg"
+              src={svgUrl || "/images/home-hero/off-the-grid-headline.svg"}
               alt="Off The Grid"
               width={500}
               height={200}
@@ -51,7 +66,15 @@ const Hero47 = () => {
             />
 
             {/* Creative Gradient Mask Layer - Absolutely positioned over the spacer */}
-            <div className="absolute inset-0 hero-headline-creative" role="img" aria-label="Off The Grid" />
+            <div
+              className="absolute inset-0 hero-headline-creative"
+              role="img"
+              aria-label="Off The Grid headline"
+              style={svgUrl ? {
+                maskImage: `url('${svgUrl}')`,
+                WebkitMaskImage: `url('${svgUrl}')`
+              } : undefined}
+            />
           </div>
         </div>
 
@@ -64,24 +87,24 @@ const Hero47 = () => {
               {/* Mobile & Tablet Text (Shortened) */}
               <div className="block lg:hidden">
                 <h2 className="font-subheading font-medium text-text-100 text-lg md:text-2xl leading-tight mb-0">
-                  We are forged by challenges to reach the highest peaks.
+                  {headlineH2 || "We are forged by challenges to reach the highest peaks."}
                 </h2>
               </div>
 
               {/* Desktop Text (Full) */}
               <div className="hidden lg:block lg:w-[100%]">
                 <h2 className="font-subheading font-medium text-text-100 text-lg md:text-lg lg:text-md lg:mb-4 leading-tight ">
-                  We are forged by challenges and struggles for a long period of time to become a skilled and trained team to reach the highest peaks.
+                  {headlineH2 || "We are forged by challenges and struggles for a long period of time to become a skilled and trained team to reach the highest peaks."}
                 </h2>
                 <p className="font-body font-medium text-text-100 text-lg md:text-lg lg:text-sm leading-tight">
-                  Meet JETT, our AI agent that complements our technology and is ready to discuss everything about Juara. Be part of our ecosystem by joining our network of excellence—we invite vendors and talents to collaborate by creating an account.
+                  {descriptionP || "Meet JETT, our AI agent that complements our technology and is ready to discuss everything about Juara. Be part of our ecosystem by joining our network of excellence—we invite vendors and talents to collaborate by creating an account."}
                 </p>
               </div>
             </div>
 
             {/* Card CTAs */}
             <div className="grid grid-cols-1 min-[480px]:grid-cols-3 gap-4 md:gap-4 w-full">
-              {ctaItems.map((item) => {
+              {displayButtons.map((item) => {
                 const isHovered = hoveredId === item.id
                 const isAnyHovered = hoveredId !== null
                 const scaleClass = isHovered
@@ -89,6 +112,9 @@ const Hero47 = () => {
                   : isAnyHovered
                     ? "scale-95 opacity-60 blur-[1px]"
                     : "scale-100 opacity-100"
+
+                // Dynamic Icon Loading
+                const IconComponent = (LucideIcons as any)[item.icon] || LucideIcons.CircleHelp
 
                 return (
                   <Link
@@ -108,7 +134,7 @@ const Hero47 = () => {
                     <div className="absolute inset-0 flex flex-col justify-between p-3 lg:p-2">
                       <div className="flex justify-end">
                         <div className="p-1 lg:p-2 rounded-full bg-glass-bg border border-glass-border group-hover:bg-glass-bg-hover transition-colors duration-300">
-                          <item.icon className="h-4 w-4 lg:h-8 lg:w-8 md:h-8 md:w-8 text-text-50 opacity-80 group-hover:text-text-50 group-hover:opacity-100 transition-colors duration-300" strokeWidth={1.5} />
+                          <IconComponent className="h-4 w-4 lg:h-8 lg:w-8 md:h-8 md:w-8 text-text-50 opacity-80 group-hover:text-text-50 group-hover:opacity-100 transition-colors duration-300" strokeWidth={1.5} />
                         </div>
                       </div>
                       <div>
