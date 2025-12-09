@@ -14,6 +14,7 @@ import {
 import { useRouter } from "next/navigation"
 import { ABOUT_RESET_EVENT } from "@/lib/constants/events"
 import { Event as EventContent, Community as CommunityContent, Tech as TechContent, Analytic as AnalyticContent, AboutStats, AboutClientLogos } from "@/components/about"
+import type { ImageGridItem } from "@/lib/cms/marketing"
 
 const layoutConfigs = {
   1: { desktopTextOrder: "lg:order-1", desktopImageOrder: "lg:order-2", textBasis: "lg:basis-[60%]", imageBasis: "lg:basis-[40%]" },
@@ -22,7 +23,20 @@ const layoutConfigs = {
   4: { desktopTextOrder: "lg:order-2", desktopImageOrder: "lg:order-1", textBasis: "lg:basis-[60%]", imageBasis: "lg:basis-[40%]" },
 } as const
 
-const Hero = () => {
+interface HeroProps {
+  whoWeAreHeading?: string
+  whoWeAreBody?: string
+  whatWeValueHeading?: string
+  whatWeValueBody?: string
+  imageGridItems?: ImageGridItem[]
+}
+
+const Hero = ({ whoWeAreHeading, whoWeAreBody, whatWeValueHeading, whatWeValueBody, imageGridItems }: HeroProps = {}) => {
+  // Use props for CMS preview or fallback to default content
+  const _whoWeAreHeading = whoWeAreHeading ?? "Who We Are"
+  const _whoWeAreBody = whoWeAreBody ?? "Juara is a full-service event organizer with more than 15 years of experience based in Indonesia. Led by passionate and talented individuals who have mastered the art of providing top-notch event services from planning to completion. We take a thoughtful approach in understanding client's objectives before meticulously bringing the ideas into life."
+  const _whatWeValueHeading = whatWeValueHeading ?? "What We Value"
+  const _whatWeValueBody = whatWeValueBody ?? "We strive for excellence, do our utmost to provide the best, and aim for success. We value excellence and integrity to deliver remarkable experiences to the guest with an emphasis on bringing innovation to the table. Putting our highest endeavor in executing ideas is our foundation to bring together the client's visions."
   const router = useRouter()
   const items: { id: number; slug: string; label: string; labelLine1: string; labelLine2: string; icon: LucideIcon; imagePosition: "left" | "right" }[] = [
     { id: 1, slug: "event", label: "Events", labelLine1: "Premium Event", labelLine2: "Experiences", icon: Sparkles, imagePosition: "left" },
@@ -121,24 +135,24 @@ const Hero = () => {
                       <div className="hidden lg:flex flex-col gap-8">
                         <div>
                           <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
-                            Who We Are
+                            {_whoWeAreHeading}
                           </h1>
                         </div>
                         <div className="relative pl-8">
                           <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
                           <p className="font-light text-lg md:text-xl text-50/60 leading-relaxed max-w-2xl">
-                            Juara is a full-service event organizer with more than 15 years of experience based in Indonesia. Led by passionate and talented individuals who have mastered the art of providing top-notch event services from planning to completion. We take a thoughtful approach in understanding client’s objectives before meticulously bringing the ideas into life.
+                            {_whoWeAreBody}
                           </p>
                         </div>
                         <div>
                           <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl lg:text-5xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em]">
-                            What We Value
+                            {_whatWeValueHeading}
                           </h1>
                         </div>
                         <div className="relative pl-8">
                           <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
                           <p className="font-light text-lg md:text-xl text-50/60 leading-relaxed max-w-2xl">
-                            We strive for excellence, do our utmost to provide the best, and aim for success. We value excellence and integrity to deliver remarkable experiences to the guest with an emphasis on bringing innovation to the table. Putting our highest endeavor in executing ideas is our foundation to bring together the client’s visions.
+                            {_whatWeValueBody}
                           </p>
                         </div>
 
@@ -151,14 +165,14 @@ const Hero = () => {
                           <AccordionItem value="who-we-are" className="border-none">
                             <AccordionTrigger className="hover:no-underline py-2">
                               <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em] text-left">
-                                Who We Are
+                                {_whoWeAreHeading}
                               </h1>
                             </AccordionTrigger>
                             <AccordionContent>
                               <div className="relative pl-6 mt-2">
                                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
                                 <p className="font-light text-lg text-50/60 leading-relaxed">
-                                  Juara is a full-service event organizer with more than 15 years of experience based in Indonesia. Led by passionate and talented individuals who have mastered the art of providing top-notch event services from planning to completion. We take a thoughtful approach in understanding client’s objectives before meticulously bringing the ideas into life.
+                                  {_whoWeAreBody}
                                 </p>
                               </div>
                             </AccordionContent>
@@ -167,14 +181,14 @@ const Hero = () => {
                           <AccordionItem value="what-we-value" className="border-none">
                             <AccordionTrigger className="hover:no-underline py-2">
                               <h1 className="font-headingSecondary font-bold text-3xl md:text-4xl tracking-tighter text-premium-gradient leading-[1.08] pb-[0.08em] text-left">
-                                What We Value
+                                {_whatWeValueHeading}
                               </h1>
                             </AccordionTrigger>
                             <AccordionContent>
                               <div className="relative pl-6 mt-2 flex flex-col gap-6">
                                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 to-transparent rounded-full" />
                                 <p className="font-light text-lg text-50/60 leading-relaxed">
-                                  We strive for excellence, do our utmost to provide the best, and aim for success. We value excellence and integrity to deliver remarkable experiences to the guest with an emphasis on bringing innovation to the table. Putting our highest endeavor in executing ideas is our foundation to bring together the client’s visions.
+                                  {_whatWeValueBody}
                                 </p>
 
                               </div>
