@@ -3,8 +3,7 @@ import React from 'react';
 export function TestimonialGridBackground() {
     return (
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none rounded-r-2xl">
-            {/* Noise Texture Overlay */}
-            <div className="absolute inset-0 bg-noise-overlay z-0" />
+
 
             {/* Ambient Glows - Indigo/Rose/Cyan Theme */}
             <div className="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-900/20 rounded-full blur-[120px] pointer-events-none z-0" />
