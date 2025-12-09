@@ -38,6 +38,7 @@ import {
   LogOut,
   Loader2,
   Settings,
+  LayoutDashboard,
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 // Desktop layout now handled in header.tsx; this module renders only mobile/tablet
@@ -325,6 +326,29 @@ export const MobileMenu = ({
                         </span>
                       </Link>
                     </DropdownMenuItem>
+                    {(profile?.role === "admin" ||
+                      profile?.role === "superadmin") && (
+                        <DropdownMenuItem
+                          asChild
+                          className="cursor-pointer text-text-50 hover:bg-glass-bg hover:text-text-50 focus:bg-glass-bg focus:text-text-50 rounded-lg"
+                        >
+                          <Link
+                            href="/cms"
+                            className={cn(
+                              "flex items-center gap-3 w-full px-4 py-2 min-h-[44px] md:min-h-[60px] text-left hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4",
+                              pathname && pathname.startsWith("/cms")
+                                ? "text-navigation-active underline decoration-dotted decoration-navigation-active underline-offset-4"
+                                : ""
+                            )}
+                            onClick={() => setOpen(false)}
+                          >
+                            <LayoutDashboard className="h-6 w-6 md:h-8 md:w-8" />
+                            <span className="font-button font-medium text-md md:text-xl">
+                              CMS
+                            </span>
+                          </Link>
+                        </DropdownMenuItem>
+                      )}
                     <DropdownMenuItem
                       asChild
                       className="min-h-[44px] cursor-pointer text-text-50 hover:bg-glass-bg hover:text-text-50 focus:bg-glass-bg focus:text-text-50 rounded-lg"
@@ -479,6 +503,35 @@ export const HeaderMenu = ({
                     </span>
                   </Link>
                 </DropdownMenuItem>
+                {(profile?.role === "admin" ||
+                  profile?.role === "superadmin") && (
+                    <DropdownMenuItem
+                      asChild
+                      className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] rounded-lg"
+                    >
+                      <Link
+                        href="/cms"
+                        className={cn(
+                          "flex items-center gap-3 w-full hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4",
+                          pathname && pathname.startsWith("/cms")
+                            ? "text-navigation-active underline decoration-dotted decoration-navigation-active underline-offset-4"
+                            : ""
+                        )}
+                      >
+                        <LayoutDashboard className="h-6 w-6" />
+                        <span
+                          className={cn(
+                            "font-button font-medium text-sm text-text-50",
+                            pathname && pathname.startsWith("/cms")
+                              ? "text-navigation-active"
+                              : ""
+                          )}
+                        >
+                          CMS
+                        </span>
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
                 <DropdownMenuItem
                   className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4 rounded-lg"
                   onSelect={async (event) => {

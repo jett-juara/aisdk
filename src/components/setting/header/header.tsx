@@ -29,6 +29,7 @@ import {
   PanelLeftClose,
   LayoutDashboard,
   Clock,
+  Settings,
 } from "lucide-react";
 import { BecomeVendorModal } from "../become-vendor-modal";
 
@@ -36,7 +37,7 @@ import { BecomeVendorModal } from "../become-vendor-modal";
  * Breadcrumb Navigation Component
  */
 function SettingBreadcrumb() {
-  const pathname = usePathname();
+  const pathname = usePathname() || "/";
 
   // Map path segments to readable labels
   const breadcrumbMap: Record<string, string> = {
@@ -48,14 +49,79 @@ function SettingBreadcrumb() {
     invitations: "Invitations",
     audit: "Audit Logs",
     security: "Security",
+    hero: "Hero",
+    detail: "Detail",
+    edit: "Edit",
   };
 
-  // Get segments after /setting
-  const segments = pathname?.split("/").filter(Boolean).slice(1) || [];
+  const segments = pathname.split("/").filter(Boolean);
+  const [root, ...rest] = segments;
 
-  // If we are at root /setting, show Overview
-  const isRoot = segments.length === 0;
-  const currentLabel = isRoot ? "Overview" : breadcrumbMap[segments[0]] || segments[0];
+  if (root === "cms") {
+    const pageSlug = rest[0];
+    const section = rest[1];
+    const action = rest[2];
+
+    const breadcrumbs: { label: string; href?: string }[] = [
+      { label: "Content Management System", href: "/cms" },
+    ];
+
+    if (!pageSlug) {
+      breadcrumbs.push({ label: "Overview" });
+      return (
+        <nav className="flex items-center space-x-2 text-sm text-text-400">
+          {breadcrumbs.map((crumb, index) => (
+            <span key={`${crumb.label}-${index}`} className="flex items-center space-x-2">
+              {crumb.href ? (
+                <Link href={crumb.href} className="hover:text-text-50 transition-colors capitalize">
+                  {crumb.label}
+                </Link>
+              ) : (
+                <span className="text-text-50 capitalize">{crumb.label}</span>
+              )}
+              {index < breadcrumbs.length - 1 && <span className="text-text-600">/</span>}
+            </span>
+          ))}
+        </nav>
+      );
+    }
+
+    if (pageSlug) {
+      const pageLabel = pageSlug.charAt(0).toUpperCase() + pageSlug.slice(1);
+      const pageHref = `/cms/${pageSlug}`;
+      breadcrumbs.push({ label: pageLabel, href: pageHref });
+    }
+
+    if (section) {
+      const sectionLabel = breadcrumbMap[section] || section;
+      const sectionHref = pageSlug ? `/cms/${pageSlug}/${section}` : undefined;
+      breadcrumbs.push({ label: sectionLabel, href: sectionHref });
+    }
+
+    if (action === "edit") {
+      breadcrumbs.push({ label: "Edit" });
+    }
+
+    return (
+      <nav className="flex items-center space-x-2 text-sm text-text-400">
+        {breadcrumbs.map((crumb, index) => (
+          <span key={`${crumb.label}-${index}`} className="flex items-center space-x-2">
+            {crumb.href ? (
+              <Link href={crumb.href} className="hover:text-text-50 transition-colors capitalize">
+                {crumb.label}
+              </Link>
+            ) : (
+              <span className="text-text-50 capitalize">{crumb.label}</span>
+            )}
+            {index < breadcrumbs.length - 1 && <span className="text-text-600">/</span>}
+          </span>
+        ))}
+      </nav>
+    );
+  }
+
+  const isRoot = rest.length === 0;
+  const currentLabel = isRoot ? "Overview" : breadcrumbMap[rest[0]] || rest[0];
 
   return (
     <nav className="flex items-center space-x-2 text-sm text-text-400">
@@ -133,6 +199,7 @@ function UserProfileDropdown({
   const [syncedWidth, setSyncedWidth] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
+  const pathname = usePathname();
   const EXPANSION_DELTA = 24;
 
   // Mount gate untuk mencegah hydration mismatch dengan Radix DropdownMenu
@@ -263,6 +330,34 @@ function UserProfileDropdown({
       >
 
 
+
+        {(user.role === "admin" || user.role === "superadmin") &&
+          (pathname?.startsWith("/cms") ? (
+            <DropdownMenuItem
+              asChild
+              className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4 rounded-lg"
+            >
+              <Link href="/setting">
+                <Settings className="h-6 w-6" />
+                <span className="font-button font-medium text-sm text-text-50">
+                  Setting
+                </span>
+              </Link>
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem
+              asChild
+              className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4 rounded-lg"
+            >
+              <Link href="/cms">
+                <LayoutDashboard className="h-6 w-6" />
+                <span className="font-button font-medium text-sm text-text-50">
+                  CMS
+                </span>
+              </Link>
+            </DropdownMenuItem>
+          ))}
+
         <DropdownMenuItem
           className="cursor-pointer text-text-50 focus:text-brand-100 hover:text-brand-100 hover:bg-glass-bg focus:bg-glass-bg flex items-center gap-3 w-full px-4 py-2 min-h-[44px] hover:underline hover:decoration-dotted hover:decoration-text-50 hover:underline-offset-4 rounded-lg"
           onSelect={async (event) => {
@@ -353,6 +448,10 @@ export function SettingHeader({
     );
   };
 
+  // Check if current page is CMS
+  const pathname = usePathname();
+  const isCmsPage = pathname?.startsWith("/cms");
+
   return (
     <header
       className={cn(
@@ -397,8 +496,8 @@ export function SettingHeader({
           {/* Notifications */}
           <NotificationBell />
 
-          {/* Upgrade / Vendor Status Button (Desktop) */}
-          {renderVendorButton(false)}
+          {/* Upgrade / Vendor Status Button (Desktop) - Hide in CMS */}
+          {!isCmsPage && renderVendorButton(false)}
 
           {/* User Profile Dropdown */}
           <UserProfileDropdown
@@ -411,7 +510,7 @@ export function SettingHeader({
 
       {/* Mobile Upgrade Button Row */}
       <div className="flex md:hidden w-full justify-center items-center py-4 border-b border-white/10 px-6">
-        {renderVendorButton(true)}
+        {!isCmsPage && renderVendorButton(true)}
       </div>
 
       <BecomeVendorModal

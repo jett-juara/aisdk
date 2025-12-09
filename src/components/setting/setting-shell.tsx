@@ -13,7 +13,7 @@ import { SettingSidebar } from "./sidebar/sidebar";
 import { SettingHeader } from "./header/header";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
-import { User, SettingConfig } from "@/lib/setting/types";
+import { User, SettingConfig, NavigationItem } from "@/lib/setting/types";
 import { getNavigationItems, getActiveNavigation } from "@/lib/setting/navigation";
 import { SettingGridBackground } from "./setting-grid-background";
 import { SettingFooter } from "./footer/footer";
@@ -27,6 +27,9 @@ interface SettingShellProps {
   className?: string;
   children: React.ReactNode;
   onLogout?: () => Promise<void>;
+  navigationItemsOverride?: NavigationItem[];
+  activePathOverride?: string;
+  onNavigateOverride?: (href: string) => void;
 }
 
 /**
@@ -39,6 +42,9 @@ export function SettingShell({
   className,
   children,
   onLogout,
+  navigationItemsOverride,
+  activePathOverride,
+  onNavigateOverride,
 }: SettingShellProps) {
   const pathname = usePathname();
 
@@ -70,10 +76,24 @@ export function SettingShell({
   }, []);
 
   // Get navigation items berdasarkan user role + current path
-  const navigationItems = getActiveNavigation(
-    getNavigationItems(user.role),
-    pathname || "/setting",
-  );
+  const activePath = activePathOverride || pathname || "/setting";
+  let navigationItems: NavigationItem[];
+
+  if (navigationItemsOverride) {
+    // If override provided, respect incoming isActive; otherwise derive from activePath
+    navigationItems = navigationItemsOverride.map((item) => ({
+      ...item,
+      isActive:
+        item.isActive ??
+        (item.href === activePath ||
+          (!!item.href && activePath.startsWith(item.href))),
+    }));
+  } else {
+    navigationItems = getActiveNavigation(
+      getNavigationItems(user.role),
+      activePath,
+    );
+  }
 
   // Setting configuration object
   const settingConfig: SettingConfig = {
@@ -103,7 +123,10 @@ export function SettingShell({
             onToggle={handleSidebarToggle}
             user={user}
             navigationItems={navigationItems}
-            onNavigate={() => handleMobileSidebarClose()}
+            onNavigate={(href) => {
+              handleMobileSidebarClose();
+              onNavigateOverride?.(href);
+            }}
             variant="desktop"
           />
         </div>
@@ -147,7 +170,10 @@ export function SettingShell({
                   onToggle={handleSidebarToggle}
                   user={user}
                   navigationItems={navigationItems}
-                  onNavigate={() => handleMobileSidebarClose()}
+                  onNavigate={(href) => {
+                    handleMobileSidebarClose();
+                    onNavigateOverride?.(href);
+                  }}
                   variant="mobile"
                 />
               </div>

@@ -16,6 +16,7 @@ import type { SidebarProps, NavigationItem } from "@/lib/setting/types";
 import { sidebarConfig } from "@/lib/setting/navigation";
 import {
   Home,
+  LayoutDashboard,
   User as UserIcon, // ← NEEDED untuk "My Profile" menu (rename to avoid conflict)
   Users,
   Shield,
@@ -25,6 +26,12 @@ import {
   Activity,
   Settings,
   PanelLeftClose,
+  BookOpen,
+  Package,
+  Wrench,
+  Handshake,
+  Image as ImageIcon,
+  ChevronDown,
 } from "lucide-react";
 
 /**
@@ -50,8 +57,17 @@ import {
  *    ⚙️ 'settings' → Settings → Default icon kalau error
  */
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  // CMS icons
+  "book-open": BookOpen, // About
+  package: Package, // Product
+  wrench: Wrench, // Services
+  handshake: Handshake, // Collaboration
+  image: ImageIcon, // Hero
+  detail: FileText, // Detail
+
   // ✅ MENU UNTUK SEMUA USER:
-  "layout-dashboard": Home, // "Overview" - Dashboard utama
+  "home": Home, // "Overview" - Dashboard utama
+  "layout-dashboard": LayoutDashboard, // "CMS" - Dashboard icon
   user: UserIcon, // "My Profile" - Profil user
 
   // 🔒 MENU UNTUK ADMIN + SUPERADMIN:
@@ -186,11 +202,17 @@ function NavigationItemComponent({
   collapsed,
   isActive,
   onNavigate,
+  depth = 0,
+  isOpen = false,
+  onToggle,
 }: {
   item: NavigationItem;
   collapsed: boolean;
   isActive: boolean;
   onNavigate?: (href: string) => void;
+  depth?: number;
+  isOpen?: boolean;
+  onToggle?: (id: string) => void;
 }) {
   const [isMounted, setIsMounted] = React.useState(false);
   const IconComponent = iconMap[item.icon || "settings"] || Settings;
@@ -201,51 +223,91 @@ function NavigationItemComponent({
 
   // Ensure consistent SSR rendering - always render in expanded state initially
   const effectiveCollapsed = isMounted ? collapsed : false;
+  const hasChildren = item.children && item.children.length > 0;
+  const open = hasChildren ? isOpen : false;
+  const activeClass =
+    depth > 0
+      ? "bg-white/5 text-text-50"
+      : "bg-button-primary text-text-50 hover:bg-button-primary-hover shadow-lg shadow-brand-500/20";
 
   return (
-    <Button
-      asChild
-      variant={isActive ? "default" : "ghost"}
-      className={cn(
-        "transition-colors duration-200 ease-in-out",
-        effectiveCollapsed
-          ? "w-10 justify-center p-0 mx-auto"
-          : "w-full justify-start px-4",
-        effectiveCollapsed ? "gap-0" : "gap-3",
-        isActive
-          ? "bg-button-primary text-text-50 hover:bg-button-primary-hover shadow-lg shadow-brand-500/20 rounded-full"
-          : "text-text-50 hover:bg-white/5 hover:text-text-50 rounded-full",
-        "group relative",
-      )}
-      size={effectiveCollapsed ? "icon" : "md"}
-    >
-      <Link
-        href={item.href}
-        onClick={() => {
-          if (onNavigate) {
-            onNavigate(item.href);
-          }
-        }}
+    <div className={cn(depth > 0 && !effectiveCollapsed ? "pl-6" : "pl-0", "w-full")}>
+      <Button
+        asChild
+        variant={isActive ? "default" : "ghost"}
+        className={cn(
+          "transition-colors duration-200 ease-in-out",
+          effectiveCollapsed
+            ? "w-10 justify-center p-0 mx-auto"
+            : "w-full justify-start px-4",
+          effectiveCollapsed ? "gap-0" : "gap-3",
+          isActive
+            ? activeClass + " rounded-full"
+            : "text-text-50 hover:bg-white/5 hover:text-text-50 rounded-full",
+          "group relative",
+        )}
+        size={effectiveCollapsed ? "icon" : "md"}
       >
-        <IconComponent
+        <Link
+          href={item.href}
+          onClick={(e) => {
+            if (hasChildren) {
+              e.preventDefault();
+              onToggle?.(item.id);
+              return;
+            }
+            onNavigate?.(item.href);
+          }}
           className={cn(
-            "h-5 w-5 flex-shrink-0 transition-colors duration-200",
-            isActive && "text-text-50",
-            !isActive && "text-text-400 group-hover:text-text-50",
-          )}
-        />
-        <span
-          className={cn(
-            "truncate transition-opacity duration-200 ease-in-out",
-            effectiveCollapsed ? "opacity-0 w-0" : "opacity-100 w-auto",
+            "flex items-center w-full",
+            effectiveCollapsed ? "justify-center" : "justify-between",
           )}
         >
-          {item.label}
-        </span>
-
-
-      </Link>
-    </Button>
+          <div className={cn("flex items-center gap-3 min-w-0", effectiveCollapsed ? "justify-center" : "")}>
+            <IconComponent
+              className={cn(
+                "h-5 w-5 flex-shrink-0 transition-colors duration-200",
+                isActive && "text-text-50",
+                !isActive && "text-text-400 group-hover:text-text-50",
+              )}
+            />
+            <span
+              className={cn(
+                "truncate transition-opacity duration-200 ease-in-out",
+                effectiveCollapsed ? "opacity-0 w-0" : "opacity-100 w-auto",
+                depth > 0 ? "text-text-200" : "",
+              )}
+            >
+              {item.label}
+            </span>
+          </div>
+          {hasChildren && !effectiveCollapsed && (
+            <ChevronDown
+              className={cn(
+                "h-4 w-4 text-text-400 transition-transform duration-200",
+                open && "rotate-180"
+              )}
+            />
+          )}
+        </Link>
+      </Button>
+      {hasChildren && !effectiveCollapsed && open && (
+        <div className="mt-2 space-y-1">
+          {item.children!.map((child) => (
+            <NavigationItemComponent
+              key={child.id}
+              item={child}
+              collapsed={collapsed}
+              isActive={!!child.isActive}
+              onNavigate={onNavigate}
+              depth={depth + 1}
+              isOpen={child.children ? child.children.some((c) => c.isActive) : false}
+              onToggle={onToggle}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -262,6 +324,73 @@ export function SettingSidebar({
 }: SidebarProps) {
   const [isMounted, setIsMounted] = React.useState(false);
   const isMobileVariant = variant === "mobile";
+  // Initialize with currently active items to avoid flash
+  const [openParents, setOpenParents] = React.useState<Set<string>>(() => {
+    const initial = new Set<string>();
+    navigationItems.forEach((item) => {
+      const childActive = item.children?.some((c) => c.isActive) ?? false;
+      if (item.isActive || childActive) {
+        initial.add(item.id);
+      }
+    });
+    return initial;
+  });
+
+  // Load from localStorage on mount
+  React.useEffect(() => {
+    try {
+      const stored = localStorage.getItem("cms-sidebar-state");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          setOpenParents((prev) => {
+            const next = new Set(prev);
+            parsed.forEach((id) => next.add(id));
+            return next;
+          });
+        }
+      }
+    } catch (e) {
+      console.error("Failed to load sidebar state", e);
+    }
+  }, []);
+
+  // Save to localStorage whenever state changes
+  React.useEffect(() => {
+    try {
+      localStorage.setItem("cms-sidebar-state", JSON.stringify(Array.from(openParents)));
+    } catch (e) {
+      console.error("Failed to save sidebar state", e);
+    }
+  }, [openParents]);
+
+  // Ensure active items are open (deep linking support)
+  React.useEffect(() => {
+    setOpenParents((prev) => {
+      const next = new Set(prev);
+      let changed = false;
+      navigationItems.forEach((item) => {
+        const childActive = item.children?.some((c) => c.isActive) ?? false;
+        if ((item.isActive || childActive) && !next.has(item.id)) {
+          next.add(item.id);
+          changed = true;
+        }
+      });
+      return changed ? next : prev;
+    });
+  }, [navigationItems]);
+
+  const handleToggle = (id: string) => {
+    setOpenParents((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
 
   React.useEffect(() => {
     setIsMounted(true);
@@ -327,18 +456,34 @@ export function SettingSidebar({
       🔄 Menu otomatis muncul/hilang berdasarkan user role dari navigation.ts
       */}
       <nav className="flex-1 p-4 space-y-2 overflow-auto">
-        {navigationItems.map((item) => (
-          <NavigationItemComponent
-            key={item.id}
-            item={item}
-            collapsed={effectiveCollapsed}
-            isActive={item.isActive || false}
-            onNavigate={onNavigate}
-          />
-        ))}
+        {navigationItems
+          .filter((item) => item.section !== 'footer')
+          .map((item) => (
+            <NavigationItemComponent
+              key={item.id}
+              item={item}
+              collapsed={effectiveCollapsed}
+              isActive={item.isActive || false}
+              onNavigate={onNavigate}
+              isOpen={openParents.has(item.id)}
+              onToggle={handleToggle}
+            />
+          ))}
       </nav>
 
-
+      <div className="px-4 py-4 border-t border-white/10 space-y-2">
+        {navigationItems
+          .filter((item) => item.section === 'footer')
+          .map((item) => (
+            <NavigationItemComponent
+              key={item.id}
+              item={item}
+              collapsed={effectiveCollapsed}
+              isActive={item.isActive || false}
+              onNavigate={onNavigate}
+            />
+          ))}
+      </div>
 
 
     </div>
