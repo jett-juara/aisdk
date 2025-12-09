@@ -67,7 +67,8 @@ export default async function PreviewPage({ params, searchParams }: PreviewPageP
             imageGridItems,
         }
 
-        heroComponent = <AboutHero {...heroData} />
+        // TODO: AboutHero needs refactoring to accept props properly
+        heroComponent = <AboutHero />
     } else if (pageSlug === 'product') {
         const heroBlock = cmsContent?.blocks.find(
             (block) => block.section === 'hero' && block.key === 'main'
