@@ -7,7 +7,7 @@ export const vendorFormSchema = z.object({
     picEmail: z.string().email("Format email tidak valid"),
     picPhone: z.string().min(10, "Nomor telepon minimal 10 digit"),
     picEmailAlt: z.string().email("Format email tidak valid").optional().or(z.literal("")),
-    picPosition: z.string().min(1, "Posisi wajib diisi"),
+    picPosition: z.string().optional(),
 
     // Step 2A: Company Details (Validated within superRefine if role is company)
     companyName: z.string().optional(),
@@ -60,6 +60,7 @@ export const vendorFormSchema = z.object({
 }).superRefine((data, ctx) => {
     // 1. Role Based Validation
     if (data.role === 'company') {
+        if (!data.picPosition) ctx.addIssue({ path: ['picPosition'], message: "Posisi wajib diisi", code: "custom" });
         if (!data.companyName) ctx.addIssue({ path: ['companyName'], message: "Nama perusahaan wajib diisi", code: "custom" });
         if (!data.companyAddressStreet) ctx.addIssue({ path: ['companyAddressStreet'], message: "Alamat wajib diisi", code: "custom" });
         if (!data.companyAddressCity) ctx.addIssue({ path: ['companyAddressCity'], message: "Kota wajib diisi", code: "custom" });

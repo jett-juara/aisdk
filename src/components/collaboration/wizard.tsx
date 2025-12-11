@@ -58,7 +58,11 @@ export function CollaborationWizard({ user }: CollaborationWizardProps) {
         // Validate fields for current step
         switch (currentStep) {
             case 1:
-                isValid = await trigger(["role", "picName", "picEmail", "picPhone", "picPosition"]);
+                if (role === "company") {
+                    isValid = await trigger(["role", "picName", "picEmail", "picPhone", "picPosition"]);
+                } else {
+                    isValid = await trigger(["role", "picName", "picEmail", "picPhone"]);
+                }
                 break;
             case 2:
                 if (role === "company") {
