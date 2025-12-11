@@ -37,7 +37,12 @@ function VendorRejectedView() {
     );
 }
 
-export default async function DashboardPage() {
+export default async function DashboardPage(props: {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+    const searchParams = await props.searchParams;
+    const view = typeof searchParams.view === 'string' ? searchParams.view : undefined;
+
     const supabase = await createSupabaseRSCClient();
 
     // 1. Auth check
@@ -55,7 +60,12 @@ export default async function DashboardPage() {
             if (!user) return <div className="p-8 text-center text-destructive">User profile missing.</div>;
             return (
                 <CollaborationShell user={user}>
-                    <CollaborationAdminConsole user={user} vendors={allVendors} projects={allProjects} />
+                    <CollaborationAdminConsole
+                        user={user}
+                        vendors={allVendors}
+                        projects={allProjects}
+                        currentView={view}
+                    />
                 </CollaborationShell>
             );
 

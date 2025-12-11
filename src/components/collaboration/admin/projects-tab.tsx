@@ -24,11 +24,7 @@ export function ProjectsTab({ projects }: ProjectsTabProps) {
 
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-center">
-                <div>
-                    <h2 className="text-xl font-display font-semibold text-text-50">Projects</h2>
-                    <p className="text-text-400 text-sm">Manage open projects and view bids</p>
-                </div>
+            <div className="flex justify-end items-center">
                 <CreateProjectDialog />
             </div>
 

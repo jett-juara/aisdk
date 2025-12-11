@@ -57,10 +57,7 @@ export function VendorsTab({ vendors }: VendorsTabProps) {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <div>
-                    <h2 className="text-xl font-display font-semibold text-text-50">Vendors</h2>
-                    <p className="text-text-400 text-sm">Manage vendor applications and approvals</p>
-                </div>
+                {/* Header removed as it is now in main console view */}
             </div>
 
             <div className="rounded-xl border border-border-700 bg-background-900 overflow-hidden">
