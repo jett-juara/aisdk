@@ -115,10 +115,16 @@ jspm_packages/
 tmp/
 temp/
 
+# Supabase temporary files
+supabase/.temp/
+
 # development
 .references/
 .claude/
 .codex/
+.trae/
+.tmp-vitest-cache/
+.crush/
 .mcp.json
 AGENTS.md
 CLAUDE.md
