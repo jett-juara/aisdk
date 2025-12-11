@@ -57,6 +57,23 @@ function SettingBreadcrumb() {
   const segments = pathname.split("/").filter(Boolean);
   const [root, ...rest] = segments;
 
+  if (root === "collaboration") {
+    const section = rest[0] || "dashboard";
+    const sectionLabel = breadcrumbMap[section] || section || "dashboard";
+
+    return (
+      <nav className="flex items-center space-x-2 text-sm text-text-400">
+        <Link href="/collaboration" className="hover:text-text-50 transition-colors">
+          Collaboration
+        </Link>
+        <span className="text-text-600">/</span>
+        <span className="text-text-50 capitalize">
+          {sectionLabel === "overview" ? "Dashboard" : sectionLabel}
+        </span>
+      </nav>
+    );
+  }
+
   if (root === "cms") {
     const pageSlug = rest[0];
     const section = rest[1];
@@ -393,27 +410,35 @@ export function SettingHeader({
   onMobileSidebarToggle,
 }: SettingHeaderProps) {
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+  const pathname = usePathname();
+  const isCmsPage = pathname?.startsWith("/cms");
+  const isCollaborationPage = pathname?.startsWith("/collaboration");
 
   const renderVendorButton = (mobile: boolean) => {
-    if (user?.vendorStatus === "approved") {
+    const isAdminRole = user?.role === "admin" || user?.role === "superadmin";
+
+    if (isAdminRole || user?.vendor_status === "approved") {
       return (
         <Button
           asChild
           variant="default"
           className={cn(
-            "bg-brand-600 hover:bg-brand-700 text-white transition-all duration-200 h-11 px-6 rounded-full",
+            "group relative overflow-hidden h-11 px-6",
+            "bg-[var(--color-button-green)] hover:bg-[var(--color-button-green-hover)] text-white transition-all duration-300",
+            "rounded-full",
+            "hover:scale-[1.02]",
             mobile ? "w-auto min-w-[200px]" : "hidden md:flex"
           )}
         >
           <Link href="/collaboration/dashboard">
             <LayoutDashboard className="h-4 w-4 mr-2" />
-            Vendor Dashboard
+            Collab Dashboard
           </Link>
         </Button>
       );
     }
 
-    if (user?.vendorStatus === "pending") {
+    if (user?.vendor_status === "pending") {
       return (
         <Button
           variant="outline"
@@ -447,10 +472,6 @@ export function SettingHeader({
       </Button>
     );
   };
-
-  // Check if current page is CMS
-  const pathname = usePathname();
-  const isCmsPage = pathname?.startsWith("/cms");
 
   return (
     <header
@@ -497,7 +518,7 @@ export function SettingHeader({
           <NotificationBell />
 
           {/* Upgrade / Vendor Status Button (Desktop) - Hide in CMS */}
-          {!isCmsPage && renderVendorButton(false)}
+          {!isCmsPage && !isCollaborationPage && renderVendorButton(false)}
 
           {/* User Profile Dropdown */}
           <UserProfileDropdown
@@ -510,7 +531,7 @@ export function SettingHeader({
 
       {/* Mobile Upgrade Button Row */}
       <div className="flex md:hidden w-full justify-center items-center py-4 border-b border-white/10 px-6">
-        {!isCmsPage && renderVendorButton(true)}
+        {!isCmsPage && !isCollaborationPage && renderVendorButton(true)}
       </div>
 
       <BecomeVendorModal

@@ -55,14 +55,9 @@ const AnimatedInput = forwardRef<HTMLInputElement, AnimatedInputProps>(
         const isControlled = value !== undefined;
         const val = isControlled ? value : internalValue;
         const [isFocused, setIsFocused] = useState(false);
-        const [hasContent, setHasContent] = useState(
-            val !== undefined && val !== null && String(val).trim().length > 0
-        );
 
-        // Sync local content state with external value changes
-        useEffect(() => {
-            setHasContent(val !== undefined && val !== null && String(val).trim().length > 0);
-        }, [val]);
+        // Derive content state directly from value to avoid partial hydration/effect issues
+        const hasContent = val !== undefined && val !== null && String(val).trim().length > 0;
 
         const isFloating = isFocused || hasContent;
 
@@ -85,12 +80,10 @@ const AnimatedInput = forwardRef<HTMLInputElement, AnimatedInputProps>(
                     onBlur={(e) => {
                         setIsFocused(false);
                         // Double check content on blur
-                        setHasContent(e.target.value.trim().length > 0);
                         onBlur?.(e);
                     }}
                     onChange={(e) => {
                         const newValue = e.target.value;
-                        setHasContent(newValue.trim().length > 0);
                         if (!isControlled) {
                             setInternalValue(newValue);
                         }

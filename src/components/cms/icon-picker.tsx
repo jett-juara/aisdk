@@ -115,7 +115,7 @@ export function IconPicker({ open, onOpenChange, onSelect, currentIcon }: IconPi
                             </div>
                         ) : (
                             <div className="flex items-center justify-center h-full text-muted-foreground">
-                                Tidak ada icon yang cocok dengan "{search}"
+                                Tidak ada icon yang cocok dengan &quot;{search}&quot;
                             </div>
                         )}
                     </ScrollArea>

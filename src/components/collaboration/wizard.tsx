@@ -187,7 +187,7 @@ export function CollaborationWizard({ user }: CollaborationWizardProps) {
 
             router.push("/collaboration/success");
         } catch (error: any) {
-            console.error("Submission error:", error);
+            // Error logged by Supabase client or just caught here
 
             // Extract detailed error message
             let errorMessage = "Please try again later.";

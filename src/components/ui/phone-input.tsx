@@ -19,13 +19,9 @@ export interface PhoneInputProps {
 
 const PhoneInputInternal = forwardRef<HTMLInputElement, any>(({ className, label, onFocus, onBlur, onChange, value, ...props }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
-    const [hasContent, setHasContent] = useState(
-        value !== undefined && value !== null && String(value).trim().length > 0
-    );
 
-    useEffect(() => {
-        setHasContent(value !== undefined && value !== null && String(value).trim().length > 0);
-    }, [value]);
+    // Derive content state directly from value to avoid partial hydration/effect issues
+    const hasContent = value !== undefined && value !== null && String(value).trim().length > 0;
 
     const isFloating = isFocused || hasContent;
     const uniqueId = useId();
@@ -48,11 +44,9 @@ const PhoneInputInternal = forwardRef<HTMLInputElement, any>(({ className, label
                 }}
                 onBlur={(e) => {
                     setIsFocused(false);
-                    setHasContent(e.target.value.trim().length > 0);
                     onBlur?.(e);
                 }}
                 onChange={(e) => {
-                    setHasContent(e.target.value.trim().length > 0);
                     onChange?.(e);
                 }}
             />

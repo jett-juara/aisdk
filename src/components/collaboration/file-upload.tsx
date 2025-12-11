@@ -16,11 +16,13 @@ interface FileUploadProps {
     accept?: string;
     label?: string;
     maxSizeMB?: number;
+    onUploadSuccess?: (url: string, name: string) => void;
 }
 
 export function FileUpload({
     value,
     onChange,
+    onUploadSuccess,
     bucketName = "vendor_documents",
     folderPath = "uploads",
     accept = ".pdf,.jpg,.jpeg,.png,.docx,.pptx,.xlsx",
@@ -73,12 +75,14 @@ export function FileUpload({
 
             onChange(filePath);
             setFileName(file.name);
+            if (onUploadSuccess) {
+                onUploadSuccess(filePath, file.name);
+            }
             toast({
                 title: "Upload successful",
                 description: `${file.name} has been uploaded.`,
             });
         } catch (error: any) {
-            console.error("Upload error:", error);
             toast({
                 title: "Upload failed",
                 description: error.message || "Something went wrong",
